@@ -20,10 +20,10 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <section className="bg-[#1F2937] text-white py-20">
+      <section className="bg-[#064e3b] text-white py-20">
         <div className="container-max">
           <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">LMX Alliance</p>
-          <h1 className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)' }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>
             {t('title')}
           </h1>
         </div>
@@ -40,7 +40,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
               return (
                 <div key={msg.id} className="p-8 border border-[#E8E9ED]" style={{ borderRadius: '4px' }}>
                   <p className="text-xs uppercase tracking-widest text-[#6B7280] mb-3">{label}</p>
-                  <h3 className="text-xl font-semibold text-[#1F2937] mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
+                  <h3 className="text-xl font-semibold text-[#064e3b] mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
                   <div className="prose text-[#6B7280]" dangerouslySetInnerHTML={{ __html: content }} />
                 </div>
               );
@@ -59,7 +59,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
             const catLabel = (t as any)(`documents.${cat.toLowerCase().replace(/_/g, '')}`) || cat;
             return (
               <div key={cat} className="mb-10">
-                <h3 className="text-base font-semibold text-[#1F2937] mb-4 pb-2 border-b border-[#E8E9ED]" style={{ fontFamily: 'var(--font-display)' }}>
+                <h3 className="text-base font-semibold text-[#064e3b] mb-4 pb-2 border-b border-[#E8E9ED]" style={{ fontFamily: 'var(--font-display)' }}>
                   {cat === 'ANNUAL_REPORTS' ? t('documents.annualReports')
                     : cat === 'FINANCIAL_REPORTS' ? t('documents.financialReports')
                     : cat === 'DISCLOSURES' ? t('documents.disclosures')
@@ -74,14 +74,14 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
                         <div className="flex items-center gap-3">
                           <FileText size={16} className="text-[#6B7280] flex-shrink-0" />
                           <div>
-                            <p className="text-sm font-medium text-[#1F2937]">{name}</p>
+                            <p className="text-sm font-medium text-[#064e3b]">{name}</p>
                             <p className="text-xs text-[#6B7280]">{doc.year} · {doc.fileType.toUpperCase()} · {formatFileSize(doc.fileSize)}</p>
                           </div>
                         </div>
                         <a
                           href={doc.fileUrl}
                           download
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#1F2937] border border-[#E8E9ED] hover:bg-[#F5F6F8] transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#064e3b] border border-[#E8E9ED] hover:bg-[#F5F6F8] transition-colors"
                           style={{ borderRadius: 0 }}
                         >
                           <Download size={12} /> {t('documents.download')}

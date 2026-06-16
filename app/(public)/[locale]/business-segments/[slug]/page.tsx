@@ -27,12 +27,12 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
 
   return (
     <>
-      <section className="bg-[#1F2937] text-white py-20">
+      <section className="bg-[#064e3b] text-white py-20">
         <div className="container-max">
           <Link href={`/${locale}/business-segments`} className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6 transition-colors">
             <ArrowLeft size={14} /> {t('backToList')}
           </Link>
-          <h1 className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)' }}>{name}</h1>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>{name}</h1>
           <p className="text-gray-300 mt-4 max-w-xl">{summary}</p>
         </div>
       </section>
@@ -57,7 +57,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
             </div>
             <div className="lg:col-span-1">
               <div className="p-6 border border-[#E8E9ED] sticky top-20" style={{ borderRadius: '4px' }}>
-                <h4 className="font-semibold text-[#1F2937] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+                <h4 className="font-semibold text-[#064e3b] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                   {locale === 'vi' ? 'Liên hệ tư vấn' : locale === 'en' ? 'Contact Us' : '联系我们'}
                 </h4>
                 <p className="text-sm text-[#6B7280] mb-5">
@@ -65,7 +65,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
                 </p>
                 <Link
                   href={`/${locale}/contact`}
-                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-[#1F2937] text-white text-sm hover:bg-[#374151] transition-colors"
+                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-[#064e3b] text-white text-sm hover:bg-[#065f46] transition-colors"
                   style={{ borderRadius: 0 }}
                 >
                   {locale === 'vi' ? 'Liên hệ ngay' : locale === 'en' ? 'Contact Now' : '立即联系'} <ArrowRight size={14} />

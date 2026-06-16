@@ -22,7 +22,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <section className="bg-[#1F2937] text-white py-20">
+      <section className="bg-[#064e3b] text-white py-20">
         <div className="container-max">
           <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">{t('subtitle')}</p>
           <h1 className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)' }}>
@@ -43,7 +43,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
               return (
                 <div key={title} className="p-6 border border-[#E8E9ED]" style={{ borderRadius: '4px' }}>
                   <Icon size={24} className="text-[#6B7280] mb-3" strokeWidth={1.5} />
-                  <h4 className="font-semibold text-[#1F2937] mb-2" style={{ fontFamily: 'var(--font-display)' }}>{title}</h4>
+                  <h4 className="font-semibold text-[#064e3b] mb-2" style={{ fontFamily: 'var(--font-display)' }}>{title}</h4>
                   <p className="text-sm text-[#6B7280] leading-relaxed">{desc}</p>
                 </div>
               );
@@ -67,7 +67,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 return (
                   <div key={job.id} className="bg-white p-6 border border-[#E8E9ED] flex flex-col sm:flex-row sm:items-center gap-4" style={{ borderRadius: '4px' }}>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-[#1F2937] mb-1" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
+                      <h3 className="font-semibold text-[#064e3b] mb-1" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
                       <div className="flex flex-wrap gap-4 text-sm text-[#6B7280]">
                         <span className="flex items-center gap-1.5"><MapPin size={13} /> {job.location}</span>
                         <span className="flex items-center gap-1.5"><DollarSign size={13} /> {job.salaryRange}</span>
@@ -75,7 +75,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                     </div>
                     <Link
                       href={`/${locale}/careers/${job.id}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1F2937] text-white text-sm hover:bg-[#374151] transition-colors flex-shrink-0"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#064e3b] text-white text-sm hover:bg-[#065f46] transition-colors flex-shrink-0"
                       style={{ borderRadius: 0 }}
                     >
                       {t('apply')} <ArrowRight size={14} />

@@ -47,7 +47,7 @@ export default function JobDetailPage() {
 
   return (
     <>
-      <section className="bg-[#1F2937] text-white py-16">
+      <section className="bg-[#064e3b] text-white py-16">
         <div className="container-max">
           <Link href={`/${locale}/careers`} className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6">
             <ArrowLeft size={14} /> {locale === 'vi' ? 'Quay lại tuyển dụng' : locale === 'en' ? 'Back to Careers' : '返回招聘'}
@@ -86,7 +86,7 @@ export default function JobDetailPage() {
 
           <div className="lg:col-span-1">
             <div className="border border-[#E8E9ED] p-6 sticky top-20" style={{ borderRadius: '4px' }}>
-              <h3 className="font-semibold text-[#1F2937] mb-5" style={{ fontFamily: 'var(--font-display)' }}>
+              <h3 className="font-semibold text-[#064e3b] mb-5" style={{ fontFamily: 'var(--font-display)' }}>
                 {locale === 'vi' ? 'Nộp hồ sơ ứng tuyển' : locale === 'en' ? 'Submit Application' : '提交申请'}
               </h3>
               {success ? (
@@ -105,9 +105,9 @@ export default function JobDetailPage() {
                   <Input label="Email" type="email" {...register('email')} error={errors.email?.message} />
                   <Input label={locale === 'vi' ? 'Điện thoại' : locale === 'en' ? 'Phone' : '电话'} {...register('phone')} error={errors.phone?.message} />
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-[#1F2937]">CV</label>
+                    <label className="text-sm font-medium text-[#064e3b]">CV</label>
                     <input type="hidden" {...register('cvUrl')} />
-                    <label className="flex items-center gap-2 px-3 py-2 border border-dashed border-[#E8E9ED] cursor-pointer hover:border-[#1F2937] transition-colors text-sm text-[#6B7280]">
+                    <label className="flex items-center gap-2 px-3 py-2 border border-dashed border-[#E8E9ED] cursor-pointer hover:border-[#064e3b] transition-colors text-sm text-[#6B7280]">
                       <Upload size={14} />
                       {cvFile ? cvFile.name : (locale === 'vi' ? 'Chọn file CV' : locale === 'en' ? 'Choose CV file' : '选择简历文件')}
                       <input type="file" className="hidden" accept=".pdf,.doc,.docx" onChange={(e) => {

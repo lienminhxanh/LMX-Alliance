@@ -21,7 +21,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
 
   return (
     <>
-      <section className="bg-[#1F2937] text-white py-16">
+      <section className="bg-[#064e3b] text-white py-16">
         <div className="container-max">
           <Link href={`/${locale}/news`} className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6 transition-colors">
             <ArrowLeft size={14} /> {locale === 'vi' ? 'Quay lại tin tức' : locale === 'en' ? 'Back to News' : '返回新闻'}
@@ -53,7 +53,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                   <p className="text-xs uppercase tracking-wider text-[#6B7280] mb-2">
                     {locale === 'vi' ? 'Tác giả' : locale === 'en' ? 'Author' : '作者'}
                   </p>
-                  <p className="text-sm text-[#1F2937] font-medium">{article.author}</p>
+                  <p className="text-sm text-[#064e3b] font-medium">{article.author}</p>
                 </div>
               </div>
             </div>

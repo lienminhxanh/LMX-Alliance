@@ -40,7 +40,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="bg-[#1F2937] text-white py-20">
+      <section className="bg-[#064e3b] text-white py-20">
         <div className="container-max">
           <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">
             {locale === 'vi' ? 'Chúng tôi luôn sẵn sàng lắng nghe' : locale === 'en' ? 'We are always ready to listen' : '我们随时准备倾听'}
@@ -55,19 +55,19 @@ export default function ContactPage() {
         <div className="container-max grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Form */}
           <div className="lg:col-span-3">
-            <h2 className="text-xl font-semibold mb-6 text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-xl font-semibold mb-6 text-[#064e3b]" style={{ fontFamily: 'var(--font-display)' }}>
               {locale === 'vi' ? 'Gửi tin nhắn' : locale === 'en' ? 'Send a Message' : '发送消息'}
             </h2>
             {success ? (
               <div className="flex flex-col items-center justify-center py-16 border border-[#E8E9ED]" style={{ borderRadius: '4px' }}>
                 <CheckCircle size={40} className="text-[#059669] mb-4" />
-                <p className="font-semibold text-[#1F2937] mb-1">
+                <p className="font-semibold text-[#064e3b] mb-1">
                   {locale === 'vi' ? 'Tin nhắn đã được gửi!' : locale === 'en' ? 'Message sent!' : '消息已发送！'}
                 </p>
                 <p className="text-sm text-[#6B7280]">
                   {locale === 'vi' ? 'Chúng tôi sẽ phản hồi sớm nhất có thể.' : locale === 'en' ? 'We will respond as soon as possible.' : '我们将尽快回复。'}
                 </p>
-                <button onClick={() => setSuccess(false)} className="mt-5 text-sm text-[#1F2937] underline">
+                <button onClick={() => setSuccess(false)} className="mt-5 text-sm text-[#064e3b] underline">
                   {locale === 'vi' ? 'Gửi tin nhắn khác' : locale === 'en' ? 'Send another message' : '发送另一条消息'}
                 </button>
               </div>
@@ -114,18 +114,18 @@ export default function ContactPage() {
           {/* Info */}
           <div className="lg:col-span-2">
             <div className="bg-[#F5F6F8] p-8 h-full" style={{ borderRadius: '4px' }}>
-              <h3 className="font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+              <h3 className="font-semibold text-[#064e3b] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
                 {locale === 'vi' ? 'Thông tin liên hệ' : locale === 'en' ? 'Contact Information' : '联系方式'}
               </h3>
               <ul className="space-y-5">
                 {contactInfo.map(({ icon: Icon, label, value }) => (
                   <li key={value} className="flex gap-3">
-                    <div className="w-8 h-8 bg-[#1F2937] flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-[#064e3b] flex items-center justify-center flex-shrink-0">
                       <Icon size={14} className="text-white" />
                     </div>
                     <div>
                       <p className="text-xs text-[#6B7280] mb-0.5">{label[L]}</p>
-                      <p className="text-sm text-[#1F2937]">{value}</p>
+                      <p className="text-sm text-[#064e3b]">{value}</p>
                     </div>
                   </li>
                 ))}
