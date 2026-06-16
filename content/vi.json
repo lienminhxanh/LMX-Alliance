@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "business": "Lĩnh vực hoạt động",
+    "investor": "Quan hệ nhà đầu tư",
+    "news": "Tin tức",
+    "careers": "Tuyển dụng",
+    "contact": "Liên hệ"
+  },
+  "home": {
+    "hero": {
+      "cta": "Khám phá thêm"
+    },
+    "sectors": {
+      "title": "Lĩnh vực hoạt động",
+      "subtitle": "Ba trụ cột chiến lược của LMX Alliance",
+      "learnMore": "Tìm hiểu thêm"
+    },
+    "stats": {
+      "title": "Số liệu nổi bật"
+    },
+    "about": {
+      "title": "Về chúng tôi",
+      "readMore": "Xem thêm"
+    },
+    "news": {
+      "title": "Tin tức mới nhất",
+      "readMore": "Đọc tất cả tin tức"
+    },
+    "cta": {
+      "title": "Sẵn sàng hợp tác cùng LMX Alliance?",
+      "subtitle": "Liên hệ với chúng tôi để tìm hiểu thêm về cơ hội hợp tác.",
+      "button": "Liên hệ ngay"
+    }
+  },
+  "about": {
+    "title": "Về LMX Alliance",
+    "subtitle": "Công ty Cổ phần Liên Minh Xanh LMX",
+    "mission": {
+      "title": "Sứ mệnh",
+      "content": "Phát triển bền vững, tạo giá trị lâu dài cho cổ đông và cộng đồng."
+    },
+    "vision": {
+      "title": "Tầm nhìn",
+      "content": "Trở thành tập đoàn đa ngành hàng đầu Đông Nam Á vào năm 2030."
+    },
+    "values": {
+      "title": "Giá trị cốt lõi"
+    },
+    "leadership": {
+      "title": "Ban lãnh đạo"
+    }
+  },
+  "sectors": {
+    "title": "Lĩnh vực hoạt động",
+    "subtitle": "Hệ sinh thái kinh doanh đa ngành",
+    "backToList": "Quay lại danh sách"
+  },
+  "investor": {
+    "title": "Quan hệ nhà đầu tư",
+    "ceoMessage": "Thông điệp từ Tổng Giám đốc",
+    "chairmanMessage": "Thông điệp từ Chủ tịch HĐQT",
+    "documents": {
+      "title": "Tài liệu",
+      "download": "Tải xuống",
+      "annualReports": "Báo cáo thường niên",
+      "financialReports": "Báo cáo tài chính",
+      "disclosures": "Công bố thông tin",
+      "meetings": "Đại hội cổ đông",
+      "governance": "Quản trị doanh nghiệp"
+    }
+  },
+  "news": {
+    "title": "Tin tức",
+    "subtitle": "Cập nhật thông tin mới nhất từ LMX Alliance",
+    "categories": {
+      "COMPANY_NEWS": "Tin công ty",
+      "INVESTOR_RELATIONS": "Quan hệ nhà đầu tư",
+      "SUSTAINABILITY": "Phát triển bền vững",
+      "RECRUITMENT": "Tuyển dụng"
+    },
+    "readMore": "Đọc thêm",
+    "publishedAt": "Ngày đăng"
+  },
+  "careers": {
+    "title": "Tuyển dụng",
+    "subtitle": "Gia nhập đội ngũ LMX Alliance",
+    "whyJoin": "Vì sao chọn LMX?",
+    "openPositions": "Vị trí tuyển dụng",
+    "apply": "Ứng tuyển ngay",
+    "form": {
+      "title": "Nộp hồ sơ ứng tuyển",
+      "name": "Họ và tên",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "cv": "CV / Hồ sơ",
+      "uploadCV": "Tải lên CV",
+      "submit": "Nộp hồ sơ",
+      "success": "Hồ sơ đã được gửi thành công!"
+    }
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "subtitle": "Chúng tôi luôn sẵn sàng lắng nghe",
+    "form": {
+      "name": "Họ và tên",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "subject": "Tiêu đề",
+      "message": "Nội dung",
+      "submit": "Gửi tin nhắn",
+      "success": "Tin nhắn đã được gửi thành công!",
+      "error": "Có lỗi xảy ra. Vui lòng thử lại."
+    },
+    "info": {
+      "address": "Địa chỉ",
+      "phone": "Điện thoại",
+      "email": "Email",
+      "hours": "Giờ làm việc"
+    }
+  },
+  "footer": {
+    "rights": "© 2024 LMX Alliance. Bản quyền thuộc về Công ty Cổ phần Liên Minh Xanh LMX.",
+    "quickLinks": "Liên kết nhanh",
+    "contact": "Liên hệ"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Có lỗi xảy ra",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "create": "Tạo mới",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "all": "Tất cả",
+    "noData": "Không có dữ liệu"
+  }
+}

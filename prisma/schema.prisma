@@ -1,0 +1,347 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  name      String
+  role      UserRole
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  auditLogs AuditLog[]
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  CONTENT_MANAGER
+  IR_MANAGER
+  VIEWER
+}
+
+model CompanySettings {
+  id             String   @id @default(cuid())
+  name           String
+  tagline        String
+  description    String   @db.Text
+  address        String
+  phone          String
+  email          String
+  website        String
+  googleMapEmbed String   @db.Text
+  seoMetaTitle   String
+  seoMetaDesc    String
+  seoOgImage     String
+  seoKeywords    String
+  facebookUrl    String?
+  linkedinUrl    String?
+  youtubeUrl     String?
+  tiktokUrl      String?
+  updatedAt      DateTime @updatedAt
+}
+
+model HomePage {
+  id          String   @id @default(cuid())
+  heroTitleVI String
+  heroTitleEN String
+  heroTitleZH String
+  heroDescVI  String   @db.Text
+  heroDescEN  String   @db.Text
+  heroDescZH  String   @db.Text
+  heroCTA     String
+  heroImage   String
+  updatedAt   DateTime @updatedAt
+}
+
+model Statistic {
+  id         String   @id @default(cuid())
+  valueVI    String
+  valueEN    String
+  valueZH    String
+  labelVI    String
+  labelEN    String
+  labelZH    String
+  orderIndex Int
+  updatedAt  DateTime @updatedAt
+}
+
+model StrategyCard {
+  id         String   @id @default(cuid())
+  titleVI    String
+  titleEN    String
+  titleZH    String
+  descVI     String   @db.Text
+  descEN     String   @db.Text
+  descZH     String   @db.Text
+  orderIndex Int
+  updatedAt  DateTime @updatedAt
+}
+
+model BusinessSector {
+  id         String       @id @default(cuid())
+  slug       String       @unique
+  nameVI     String
+  nameEN     String
+  nameZH     String
+  summaryVI  String
+  summaryEN  String
+  summaryZH  String
+  contentVI  String       @db.Text
+  contentEN  String       @db.Text
+  contentZH  String       @db.Text
+  banner     String
+  thumbnail  String
+  gallery    Json
+  seoTitleVI String
+  seoDescVI  String
+  status     SectorStatus @default(PUBLISHED)
+  orderIndex Int
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+enum SectorStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model NewsArticle {
+  id          String        @id @default(cuid())
+  titleVI     String
+  titleEN     String
+  titleZH     String
+  slugVI      String        @unique
+  slugEN      String        @unique
+  slugZH      String        @unique
+  summaryVI   String
+  summaryEN   String
+  summaryZH   String
+  contentVI   String        @db.Text
+  contentEN   String        @db.Text
+  contentZH   String        @db.Text
+  thumbnail   String
+  category    NewsCategory
+  author      String
+  status      ArticleStatus @default(DRAFT)
+  publishedAt DateTime?
+  scheduledAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+enum NewsCategory {
+  COMPANY_NEWS
+  INVESTOR_RELATIONS
+  SUSTAINABILITY
+  RECRUITMENT
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+  ARCHIVED
+}
+
+model JobPosting {
+  id           String           @id @default(cuid())
+  titleVI      String
+  titleEN      String
+  titleZH      String
+  descVI       String           @db.Text
+  descEN       String           @db.Text
+  descZH       String           @db.Text
+  requirements String           @db.Text
+  benefits     String           @db.Text
+  location     String
+  salaryRange  String
+  status       JobStatus        @default(OPEN)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  applications JobApplication[]
+}
+
+enum JobStatus {
+  OPEN
+  CLOSED
+  ARCHIVED
+}
+
+model JobApplication {
+  id        String            @id @default(cuid())
+  jobId     String
+  job       JobPosting        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  name      String
+  email     String
+  phone     String
+  cvUrl     String
+  status    ApplicationStatus @default(NEW)
+  appliedAt DateTime          @default(now())
+}
+
+enum ApplicationStatus {
+  NEW
+  REVIEWING
+  APPROVED
+  REJECTED
+}
+
+model InvestorMessage {
+  id        String      @id @default(cuid())
+  type      MessageType @unique
+  titleVI   String
+  titleEN   String
+  titleZH   String
+  contentVI String      @db.Text
+  contentEN String      @db.Text
+  contentZH String      @db.Text
+  updatedAt DateTime    @updatedAt
+}
+
+enum MessageType {
+  CEO_MESSAGE
+  CHAIRMAN_MESSAGE
+}
+
+model InvestorDocument {
+  id         String           @id @default(cuid())
+  nameVI     String
+  nameEN     String
+  nameZH     String
+  category   DocumentCategory
+  fileUrl    String
+  fileName   String
+  fileType   String
+  fileSize   Int
+  year       Int
+  language   String
+  uploadedAt DateTime         @default(now())
+}
+
+enum DocumentCategory {
+  ANNUAL_REPORTS
+  FINANCIAL_REPORTS
+  DISCLOSURES
+  SHAREHOLDER_MEETINGS
+  GOVERNANCE
+}
+
+model Leader {
+  id         String   @id @default(cuid())
+  nameVI     String
+  nameEN     String
+  nameZH     String
+  positionVI String
+  positionEN String
+  positionZH String
+  bioVI      String   @db.Text
+  bioEN      String   @db.Text
+  bioZH      String   @db.Text
+  photo      String
+  orderIndex Int
+  updatedAt  DateTime @updatedAt
+}
+
+model Partner {
+  id         String   @id @default(cuid())
+  nameVI     String
+  nameEN     String
+  nameZH     String
+  logo       String
+  website    String
+  descVI     String
+  descEN     String
+  descZH     String
+  orderIndex Int
+  updatedAt  DateTime @updatedAt
+}
+
+model Project {
+  id        String        @id @default(cuid())
+  nameVI    String
+  nameEN    String
+  nameZH    String
+  descVI    String        @db.Text
+  descEN    String        @db.Text
+  descZH    String        @db.Text
+  images    Json
+  status    ProjectStatus
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+enum ProjectStatus {
+  ONGOING
+  COMPLETED
+  ARCHIVED
+}
+
+model ContactMessage {
+  id          String        @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  subject     String
+  message     String        @db.Text
+  status      ContactStatus @default(NEW)
+  notes       String?       @db.Text
+  receivedAt  DateTime      @default(now())
+  respondedAt DateTime?
+}
+
+enum ContactStatus {
+  NEW
+  PROCESSING
+  RESPONDED
+  CLOSED
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  entity    String
+  entityId  String
+  details   Json
+  ipAddress String
+  userAgent String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([entity])
+  @@index([createdAt])
+}
+
+model MediaFile {
+  id           String   @id @default(cuid())
+  originalName String
+  storageName  String
+  fileUrl      String
+  fileType     String
+  mimeType     String
+  fileSize     Int
+  uploadedBy   String
+  uploadedAt   DateTime @default(now())
+}
+
+model PageView {
+  id        String   @id @default(cuid())
+  page      String
+  userAgent String
+  ipAddress String
+  referrer  String?
+  viewedAt  DateTime @default(now())
+
+  @@index([page])
+  @@index([viewedAt])
+}

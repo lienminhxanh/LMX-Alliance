@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "business": "业务板块",
+    "investor": "投资者关系",
+    "news": "新闻",
+    "careers": "招聘",
+    "contact": "联系我们"
+  },
+  "home": {
+    "hero": {
+      "cta": "了解更多"
+    },
+    "sectors": {
+      "title": "业务板块",
+      "subtitle": "LMX联盟三大战略支柱",
+      "learnMore": "了解更多"
+    },
+    "stats": {
+      "title": "关键数据"
+    },
+    "about": {
+      "title": "关于我们",
+      "readMore": "阅读更多"
+    },
+    "news": {
+      "title": "最新新闻",
+      "readMore": "查看所有新闻"
+    },
+    "cta": {
+      "title": "准备好与LMX联盟合作了吗？",
+      "subtitle": "联系我们，了解更多合作机会。",
+      "button": "立即联系"
+    }
+  },
+  "about": {
+    "title": "关于LMX联盟",
+    "subtitle": "绿色联盟联合股份公司",
+    "mission": {
+      "title": "使命",
+      "content": "可持续发展，为股东和社区创造长期价值。"
+    },
+    "vision": {
+      "title": "愿景",
+      "content": "到2030年成为东南亚领先的多元化集团。"
+    },
+    "values": {
+      "title": "核心价值"
+    },
+    "leadership": {
+      "title": "领导团队"
+    }
+  },
+  "sectors": {
+    "title": "业务板块",
+    "subtitle": "多元化商业生态系统",
+    "backToList": "返回列表"
+  },
+  "investor": {
+    "title": "投资者关系",
+    "ceoMessage": "总裁致辞",
+    "chairmanMessage": "董事长致辞",
+    "documents": {
+      "title": "文件资料",
+      "download": "下载",
+      "annualReports": "年度报告",
+      "financialReports": "财务报告",
+      "disclosures": "信息披露",
+      "meetings": "股东大会",
+      "governance": "公司治理"
+    }
+  },
+  "news": {
+    "title": "新闻",
+    "subtitle": "LMX联盟最新动态",
+    "categories": {
+      "COMPANY_NEWS": "公司新闻",
+      "INVESTOR_RELATIONS": "投资者关系",
+      "SUSTAINABILITY": "可持续发展",
+      "RECRUITMENT": "招聘"
+    },
+    "readMore": "阅读更多",
+    "publishedAt": "发布于"
+  },
+  "careers": {
+    "title": "招聘",
+    "subtitle": "加入LMX联盟团队",
+    "whyJoin": "为什么选择LMX？",
+    "openPositions": "开放职位",
+    "apply": "立即申请",
+    "form": {
+      "title": "提交申请",
+      "name": "姓名",
+      "email": "邮箱",
+      "phone": "电话",
+      "cv": "简历",
+      "uploadCV": "上传简历",
+      "submit": "提交申请",
+      "success": "申请提交成功！"
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "我们随时准备倾听",
+    "form": {
+      "name": "姓名",
+      "email": "邮箱",
+      "phone": "电话",
+      "subject": "主题",
+      "message": "内容",
+      "submit": "发送消息",
+      "success": "消息发送成功！",
+      "error": "发生错误，请重试。"
+    },
+    "info": {
+      "address": "地址",
+      "phone": "电话",
+      "email": "邮箱",
+      "hours": "营业时间"
+    }
+  },
+  "footer": {
+    "rights": "© 2024 LMX联盟。版权所有。",
+    "quickLinks": "快速链接",
+    "contact": "联系我们"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "create": "创建",
+    "search": "搜索",
+    "filter": "筛选",
+    "all": "全部",
+    "noData": "暂无数据"
+  }
+}

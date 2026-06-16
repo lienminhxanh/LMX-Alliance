@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "business": "Business Segments",
+    "investor": "Investor Relations",
+    "news": "News",
+    "careers": "Careers",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "cta": "Explore More"
+    },
+    "sectors": {
+      "title": "Business Segments",
+      "subtitle": "Three Strategic Pillars of LMX Alliance",
+      "learnMore": "Learn More"
+    },
+    "stats": {
+      "title": "Key Figures"
+    },
+    "about": {
+      "title": "About Us",
+      "readMore": "Read More"
+    },
+    "news": {
+      "title": "Latest News",
+      "readMore": "View All News"
+    },
+    "cta": {
+      "title": "Ready to Partner with LMX Alliance?",
+      "subtitle": "Contact us to learn more about partnership opportunities.",
+      "button": "Contact Us"
+    }
+  },
+  "about": {
+    "title": "About LMX Alliance",
+    "subtitle": "LMX Alliance Joint Stock Company",
+    "mission": {
+      "title": "Mission",
+      "content": "Sustainable development, creating long-term value for shareholders and the community."
+    },
+    "vision": {
+      "title": "Vision",
+      "content": "To become a leading Southeast Asian conglomerate by 2030."
+    },
+    "values": {
+      "title": "Core Values"
+    },
+    "leadership": {
+      "title": "Leadership Team"
+    }
+  },
+  "sectors": {
+    "title": "Business Segments",
+    "subtitle": "Diversified Business Ecosystem",
+    "backToList": "Back to List"
+  },
+  "investor": {
+    "title": "Investor Relations",
+    "ceoMessage": "CEO Message",
+    "chairmanMessage": "Chairman's Message",
+    "documents": {
+      "title": "Documents",
+      "download": "Download",
+      "annualReports": "Annual Reports",
+      "financialReports": "Financial Reports",
+      "disclosures": "Disclosures",
+      "meetings": "Shareholder Meetings",
+      "governance": "Corporate Governance"
+    }
+  },
+  "news": {
+    "title": "News",
+    "subtitle": "Latest updates from LMX Alliance",
+    "categories": {
+      "COMPANY_NEWS": "Company News",
+      "INVESTOR_RELATIONS": "Investor Relations",
+      "SUSTAINABILITY": "Sustainability",
+      "RECRUITMENT": "Recruitment"
+    },
+    "readMore": "Read More",
+    "publishedAt": "Published"
+  },
+  "careers": {
+    "title": "Careers",
+    "subtitle": "Join the LMX Alliance Team",
+    "whyJoin": "Why Choose LMX?",
+    "openPositions": "Open Positions",
+    "apply": "Apply Now",
+    "form": {
+      "title": "Submit Your Application",
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "cv": "CV / Resume",
+      "uploadCV": "Upload CV",
+      "submit": "Submit Application",
+      "success": "Application submitted successfully!"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We are always ready to listen",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Message sent successfully!",
+      "error": "An error occurred. Please try again."
+    },
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "hours": "Business Hours"
+    }
+  },
+  "footer": {
+    "rights": "© 2024 LMX Alliance. All rights reserved by LMX Alliance Joint Stock Company.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "noData": "No data available"
+  }
+}
