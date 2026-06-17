@@ -34,7 +34,7 @@ export async function upsertIRMessage(data: unknown) {
     create: parsed,
   });
   await logAudit({ userId: user.id!, action: 'UPDATE', entity: 'InvestorMessage', entityId: msg.id, details: { type: parsed.type } });
-  revalidatePath('/admin/investor-relations/messages');
+  revalidatePath('/admin/shareholder-relations/messages');
   return msg;
 }
 
@@ -43,7 +43,7 @@ export async function createIRDocument(data: unknown) {
   const parsed = IRDocSchema.parse(data);
   const doc = await prisma.investorDocument.create({ data: parsed });
   await logAudit({ userId: user.id!, action: 'CREATE', entity: 'InvestorDocument', entityId: doc.id, details: parsed });
-  revalidatePath('/admin/investor-relations/documents');
+  revalidatePath('/admin/shareholder-relations/documents');
   return doc;
 }
 
@@ -51,5 +51,5 @@ export async function deleteIRDocument(id: string) {
   const user = await requireAuth();
   await prisma.investorDocument.delete({ where: { id } });
   await logAudit({ userId: user.id!, action: 'DELETE', entity: 'InvestorDocument', entityId: id, details: {} });
-  revalidatePath('/admin/investor-relations/documents');
+  revalidatePath('/admin/shareholder-relations/documents');
 }

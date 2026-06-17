@@ -25,7 +25,7 @@ export default async function DashboardPage() {
     { label: 'Business Sectors', value: sectorsCount, icon: Layers, href: '/admin/sectors', color: 'bg-blue-50 text-blue-600' },
     { label: 'Published News', value: newsCount, icon: Newspaper, href: '/admin/news', color: 'bg-green-50 text-[#059669]' },
     { label: 'Open Jobs', value: openJobs, icon: Briefcase, href: '/admin/jobs', color: 'bg-amber-50 text-amber-600' },
-    { label: 'IR Documents', value: irDocs, icon: TrendingUp, href: '/admin/investor-relations/documents', color: 'bg-purple-50 text-purple-600' },
+    { label: 'Shareholder Docs', value: irDocs, icon: TrendingUp, href: '/admin/shareholder-relations/documents', color: 'bg-purple-50 text-purple-600' },
     { label: 'New Contacts', value: pendingContacts, icon: MessageSquare, href: '/admin/contacts', color: 'bg-red-50 text-[#DC2626]' },
   ];
 

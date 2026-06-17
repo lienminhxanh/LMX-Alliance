@@ -20,7 +20,7 @@ export function Header() {
     { href: `/${locale}`, label: t('home') },
     { href: `/${locale}/about`, label: t('about') },
     { href: `/${locale}/business-segments`, label: t('business') },
-    { href: `/${locale}/investor-relations`, label: t('investor') },
+    { href: `/${locale}/shareholder-relations`, label: t('investor') },
     { href: `/${locale}/news`, label: t('news') },
     { href: `/${locale}/careers`, label: t('careers') },
     { href: `/${locale}/contact`, label: t('contact') },

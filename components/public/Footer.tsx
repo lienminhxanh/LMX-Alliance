@@ -11,7 +11,7 @@ export function Footer() {
     { href: `/${locale}`, label: nav('home') },
     { href: `/${locale}/about`, label: nav('about') },
     { href: `/${locale}/business-segments`, label: nav('business') },
-    { href: `/${locale}/investor-relations`, label: nav('investor') },
+    { href: `/${locale}/shareholder-relations`, label: nav('investor') },
     { href: `/${locale}/news`, label: nav('news') },
     { href: `/${locale}/careers`, label: nav('careers') },
     { href: `/${locale}/contact`, label: nav('contact') },

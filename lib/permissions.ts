@@ -6,7 +6,7 @@ type Module =
   | 'sectors'
   | 'news'
   | 'jobs'
-  | 'investor-relations'
+  | 'shareholder-relations'
   | 'leadership'
   | 'partners'
   | 'projects'
@@ -18,11 +18,11 @@ type Module =
 const PERMISSIONS: Record<UserRole, Module[]> = {
   SUPER_ADMIN: [
     'settings', 'homepage', 'sectors', 'news', 'jobs',
-    'investor-relations', 'leadership', 'partners', 'projects',
+    'shareholder-relations', 'leadership', 'partners', 'projects',
     'media', 'contacts', 'users', 'audit-logs',
   ],
   CONTENT_MANAGER: ['sectors', 'news', 'jobs', 'media'],
-  IR_MANAGER: ['investor-relations', 'media'],
+  IR_MANAGER: ['shareholder-relations', 'media'],
   VIEWER: [],
 };
 
