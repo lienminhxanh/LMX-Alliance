@@ -3,7 +3,7 @@
     "home": "Trang chủ",
     "about": "Giới thiệu",
     "business": "Lĩnh vực hoạt động",
-    "investor": "Quan hệ nhà đầu tư",
+    "investor": "Quan hệ cổ đông",
     "news": "Tin tức",
     "careers": "Tuyển dụng",
     "contact": "Liên hệ"
@@ -58,17 +58,18 @@
     "backToList": "Quay lại danh sách"
   },
   "investor": {
-    "title": "Quan hệ nhà đầu tư",
-    "ceoMessage": "Thông điệp từ Tổng Giám đốc",
-    "chairmanMessage": "Thông điệp từ Chủ tịch HĐQT",
+    "title": "Quan hệ cổ đông",
+    "subtitle": "Thông tin minh bạch và kịp thời dành cho cổ đông LMX Alliance",
+    "ceoMessage": "Thư gửi cổ đông từ Tổng Giám đốc",
+    "chairmanMessage": "Thư gửi cổ đông từ Chủ tịch HĐQT",
     "documents": {
-      "title": "Tài liệu",
+      "title": "Tài liệu cổ đông",
       "download": "Tải xuống",
       "annualReports": "Báo cáo thường niên",
       "financialReports": "Báo cáo tài chính",
       "disclosures": "Công bố thông tin",
-      "meetings": "Đại hội cổ đông",
-      "governance": "Quản trị doanh nghiệp"
+      "meetings": "Đại hội cổ đông thường niên",
+      "governance": "Quản trị công ty"
     }
   },
   "news": {
@@ -76,7 +77,7 @@
     "subtitle": "Cập nhật thông tin mới nhất từ LMX Alliance",
     "categories": {
       "COMPANY_NEWS": "Tin công ty",
-      "INVESTOR_RELATIONS": "Quan hệ nhà đầu tư",
+      "INVESTOR_RELATIONS": "Quan hệ cổ đông",
       "SUSTAINABILITY": "Phát triển bền vững",
       "RECRUITMENT": "Tuyển dụng"
     },

@@ -3,7 +3,7 @@
     "home": "Home",
     "about": "About",
     "business": "Business Segments",
-    "investor": "Investor Relations",
+    "investor": "Shareholder Relations",
     "news": "News",
     "careers": "Careers",
     "contact": "Contact"
@@ -58,16 +58,17 @@
     "backToList": "Back to List"
   },
   "investor": {
-    "title": "Investor Relations",
-    "ceoMessage": "CEO Message",
-    "chairmanMessage": "Chairman's Message",
+    "title": "Shareholder Relations",
+    "subtitle": "Transparent and timely information for LMX Alliance shareholders",
+    "ceoMessage": "Letter to Shareholders from CEO",
+    "chairmanMessage": "Letter to Shareholders from Chairman",
     "documents": {
-      "title": "Documents",
+      "title": "Shareholder Documents",
       "download": "Download",
       "annualReports": "Annual Reports",
       "financialReports": "Financial Reports",
-      "disclosures": "Disclosures",
-      "meetings": "Shareholder Meetings",
+      "disclosures": "Public Disclosures",
+      "meetings": "Annual General Meetings",
       "governance": "Corporate Governance"
     }
   },
@@ -76,7 +77,7 @@
     "subtitle": "Latest updates from LMX Alliance",
     "categories": {
       "COMPANY_NEWS": "Company News",
-      "INVESTOR_RELATIONS": "Investor Relations",
+      "INVESTOR_RELATIONS": "Shareholder Relations",
       "SUSTAINABILITY": "Sustainability",
       "RECRUITMENT": "Recruitment"
     },

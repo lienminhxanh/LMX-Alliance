@@ -15,7 +15,7 @@ const navItems = [
   { href: '/admin/sectors', label: 'Business Sectors', icon: Layers },
   { href: '/admin/news', label: 'News', icon: Newspaper },
   { href: '/admin/jobs', label: 'Jobs', icon: Briefcase },
-  { href: '/admin/investor-relations/messages', label: 'Investor Relations', icon: TrendingUp },
+  { href: '/admin/investor-relations/messages', label: 'Shareholder Relations', icon: TrendingUp },
   { href: '/admin/leadership', label: 'Leadership', icon: Users2 },
   { href: '/admin/partners', label: 'Partners', icon: Handshake },
   { href: '/admin/projects', label: 'Projects', icon: FolderOpen },

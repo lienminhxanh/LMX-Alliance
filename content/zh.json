@@ -3,7 +3,7 @@
     "home": "首页",
     "about": "关于我们",
     "business": "业务板块",
-    "investor": "投资者关系",
+    "investor": "股东关系",
     "news": "新闻",
     "careers": "招聘",
     "contact": "联系我们"
@@ -58,16 +58,17 @@
     "backToList": "返回列表"
   },
   "investor": {
-    "title": "投资者关系",
-    "ceoMessage": "总裁致辞",
-    "chairmanMessage": "董事长致辞",
+    "title": "股东关系",
+    "subtitle": "为LMX联盟股东提供透明及时的信息",
+    "ceoMessage": "总裁致股东函",
+    "chairmanMessage": "董事长致股东函",
     "documents": {
-      "title": "文件资料",
+      "title": "股东文件",
       "download": "下载",
       "annualReports": "年度报告",
       "financialReports": "财务报告",
       "disclosures": "信息披露",
-      "meetings": "股东大会",
+      "meetings": "股东年度大会",
       "governance": "公司治理"
     }
   },
@@ -76,7 +77,7 @@
     "subtitle": "LMX联盟最新动态",
     "categories": {
       "COMPANY_NEWS": "公司新闻",
-      "INVESTOR_RELATIONS": "投资者关系",
+      "INVESTOR_RELATIONS": "股东关系",
       "SUSTAINABILITY": "可持续发展",
       "RECRUITMENT": "招聘"
     },

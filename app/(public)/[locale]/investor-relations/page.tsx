@@ -26,6 +26,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>
             {t('title')}
           </h1>
+          <p className="mt-3 text-sm max-w-xl" style={{ color: '#a7f3d0' }}>{t('subtitle')}</p>
         </div>
       </section>
 
@@ -94,7 +95,9 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
             );
           })}
           {documents.length === 0 && (
-            <p className="text-[#6B7280] text-sm">{locale === 'vi' ? 'Chưa có tài liệu.' : locale === 'en' ? 'No documents available.' : '暂无文件。'}</p>
+            <p className="text-[#6B7280] text-sm">
+              {locale === 'vi' ? 'Chưa có tài liệu cổ đông.' : locale === 'en' ? 'No shareholder documents available.' : '暂无股东文件。'}
+            </p>
           )}
         </div>
       </section>

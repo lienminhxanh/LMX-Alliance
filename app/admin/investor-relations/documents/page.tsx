@@ -15,7 +15,7 @@ export default async function IRDocumentsPage() {
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>IR Documents</h1>
+        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Shareholder Documents</h1>
         <IRDocumentUpload />
       </div>
       <Card padding={false}>
