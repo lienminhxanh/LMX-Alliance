@@ -310,10 +310,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 : '公司法律文件'}
             </h2>
           </AnimateIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <AnimateIn>
-              <div className="p-6 bg-white border" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
-                <div className="flex items-start gap-4 mb-5">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+            {/* Info card */}
+            <AnimateIn className="lg:col-span-2">
+              <div className="p-6 bg-white border h-full" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
+                <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
                     <FileText size={22} style={{ color: '#047857' }} />
                   </div>
@@ -323,56 +324,79 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                         : locale === 'en' ? 'Business Registration Certificate'
                         : '营业执照'}
                     </h4>
-                    <p className="text-sm" style={{ color: '#6B7280' }}>
-                      {locale === 'vi' ? 'Cấp bởi Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh'
-                        : locale === 'en' ? 'Issued by the Department of Planning and Investment of Ho Chi Minh City'
-                        : '由胡志明市计划和投资局颁发'}
+                    <p className="text-xs" style={{ color: '#6B7280' }}>
+                      {locale === 'vi' ? 'Sở Tài Chính TP. HCM — Phòng Đăng Ký Kinh Doanh'
+                        : locale === 'en' ? 'Ho Chi Minh City Dept. of Finance — Business Registration Division'
+                        : '胡志明市财政局 — 工商登记处'}
                     </p>
                   </div>
                 </div>
                 <div className="space-y-3 text-sm">
                   {[
                     {
-                      label: locale === 'vi' ? 'Tên công ty' : locale === 'en' ? 'Company name' : '公司名称',
-                      value: locale === 'vi' ? 'Công ty Cổ phần Liên Minh Xanh LMX'
-                        : locale === 'en' ? 'LMX Green Alliance Joint Stock Company'
-                        : 'LMX绿色联盟股份公司',
+                      label: locale === 'vi' ? 'Tên tiếng Việt' : locale === 'en' ? 'Vietnamese name' : '越文名称',
+                      value: 'CÔNG TY CỔ PHẦN LIÊN MINH XANH LMX',
                     },
                     {
-                      label: locale === 'vi' ? 'Loại hình' : locale === 'en' ? 'Business type' : '企业类型',
-                      value: locale === 'vi' ? 'Công ty cổ phần' : locale === 'en' ? 'Joint Stock Company' : '股份公司',
+                      label: locale === 'vi' ? 'Tên tiếng Anh' : locale === 'en' ? 'English name' : '英文名称',
+                      value: 'LMX GREEN ALLIANCE JOINT STOCK COMPANY',
                     },
                     {
-                      label: locale === 'vi' ? 'Trụ sở' : locale === 'en' ? 'Headquarters' : '总部',
-                      value: settings?.address || 'TP. Hồ Chí Minh, Việt Nam',
+                      label: locale === 'vi' ? 'Tên viết tắt' : locale === 'en' ? 'Abbreviation' : '简称',
+                      value: 'LMX ALLIANCE JSC',
+                    },
+                    {
+                      label: locale === 'vi' ? 'Mã số DN' : locale === 'en' ? 'Business ID' : '统一社会信用代码',
+                      value: '0319271621',
+                    },
+                    {
+                      label: locale === 'vi' ? 'Đăng ký lần đầu' : locale === 'en' ? 'First registration' : '首次注册',
+                      value: locale === 'vi' ? 'Ngày 20 tháng 11 năm 2025'
+                        : locale === 'en' ? '20 November 2025'
+                        : '2025年11月20日',
+                    },
+                    {
+                      label: locale === 'vi' ? 'Thay đổi lần 1' : locale === 'en' ? '1st amendment' : '第1次变更',
+                      value: locale === 'vi' ? 'Ngày 17 tháng 04 năm 2026'
+                        : locale === 'en' ? '17 April 2026'
+                        : '2026年4月17日',
+                    },
+                    {
+                      label: locale === 'vi' ? 'Vốn điều lệ' : locale === 'en' ? 'Charter capital' : '注册资本',
+                      value: '5.000.000.000 VNĐ',
+                    },
+                    {
+                      label: locale === 'vi' ? 'Trụ sở' : locale === 'en' ? 'Headquarters' : '总部地址',
+                      value: 'Số 104 Đường Lò Lu, P. Long Phước, TP. HCM',
                     },
                   ].map(({ label, value }) => (
-                    <div key={label} className="flex gap-3">
-                      <span className="font-medium flex-shrink-0" style={{ color: '#6B7280', minWidth: '6rem' }}>{label}:</span>
-                      <span style={{ color: '#374151' }}>{value}</span>
+                    <div key={label} className="flex gap-3 py-2" style={{ borderBottom: '1px solid #F3F4F6' }}>
+                      <span className="font-medium flex-shrink-0 text-xs" style={{ color: '#6B7280', minWidth: '7.5rem' }}>{label}</span>
+                      <span className="font-medium text-xs" style={{ color: '#064e3b' }}>{value}</span>
                     </div>
                   ))}
                 </div>
+                <a
+                  href="/docs/giay-phep-dkdn.pdf"
+                  download
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-medium transition-colors"
+                  style={{ color: '#047857' }}
+                >
+                  <FileText size={14} />
+                  {locale === 'vi' ? 'Tải xuống PDF' : locale === 'en' ? 'Download PDF' : '下载PDF'}
+                </a>
               </div>
             </AnimateIn>
 
-            <AnimateIn delay={0.1}>
-              {/* Certificate placeholder — replace with actual image when available */}
-              <div
-                className="flex items-center justify-center border-2 border-dashed"
-                style={{ borderColor: '#d1fae5', borderRadius: '4px', minHeight: '220px', background: '#f0fdf4' }}
-              >
-                <div className="text-center p-8">
-                  <FileText size={40} strokeWidth={1} style={{ color: '#a7f3d0', margin: '0 auto 12px' }} />
-                  <p className="text-sm font-medium" style={{ color: '#047857' }}>
-                    {locale === 'vi' ? 'Giấy ĐKDN' : locale === 'en' ? 'Business Certificate' : '营业执照'}
-                  </p>
-                  <p className="text-xs mt-1" style={{ color: '#6B7280' }}>
-                    {locale === 'vi' ? '(Hình ảnh sẽ được cập nhật)'
-                      : locale === 'en' ? '(Image to be updated)'
-                      : '（图片待更新）'}
-                  </p>
-                </div>
+            {/* Embedded PDF viewer */}
+            <AnimateIn delay={0.1} className="lg:col-span-3">
+              <div style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid #E8E9ED', background: '#fff' }}>
+                <embed
+                  src="/docs/giay-phep-dkdn.pdf"
+                  type="application/pdf"
+                  className="w-full"
+                  style={{ height: '520px', display: 'block' }}
+                />
               </div>
             </AnimateIn>
           </div>
