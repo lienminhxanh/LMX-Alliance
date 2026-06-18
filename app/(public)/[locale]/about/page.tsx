@@ -388,16 +388,34 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </div>
             </AnimateIn>
 
-            {/* Embedded PDF viewer */}
+            {/* Certificate image — click to open full PDF */}
             <AnimateIn delay={0.1} className="lg:col-span-3">
-              <div style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid #E8E9ED', background: '#fff' }}>
-                <embed
-                  src="/docs/giay-phep-dkdn.pdf"
-                  type="application/pdf"
-                  className="w-full"
-                  style={{ height: '520px', display: 'block' }}
+              <a
+                href="/docs/giay-phep-dkdn.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                title={locale === 'vi' ? 'Nhấp để xem giấy phép đầy đủ' : locale === 'en' ? 'Click to view full certificate' : '点击查看完整证书'}
+                className="block group"
+                style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid #E8E9ED', display: 'block', position: 'relative' }}
+              >
+                <img
+                  src="/docs/giay-phep-dkdn.png"
+                  alt="Giấy chứng nhận đăng ký doanh nghiệp — LMX Alliance"
+                  className="w-full block transition-opacity duration-200 group-hover:opacity-90"
                 />
-              </div>
+                {/* Hover overlay */}
+                <div
+                  className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  style={{ background: 'rgba(6,78,59,0.55)' }}
+                >
+                  <div className="text-center text-white">
+                    <FileText size={32} className="mx-auto mb-2" strokeWidth={1.5} />
+                    <p className="text-sm font-medium">
+                      {locale === 'vi' ? 'Xem PDF đầy đủ' : locale === 'en' ? 'View full PDF' : '查看完整PDF'}
+                    </p>
+                  </div>
+                </div>
+              </a>
             </AnimateIn>
           </div>
         </div>

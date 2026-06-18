@@ -54,3 +54,8 @@ AGENTS.md
 *.png
 *.jpg
 *.jpeg
+
+# Allow static assets in public/
+!public/**/*.png
+!public/**/*.jpg
+!public/**/*.jpeg
