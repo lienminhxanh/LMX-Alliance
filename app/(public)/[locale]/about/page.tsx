@@ -1,28 +1,83 @@
 import { getTranslations } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
-import { Target, Eye, Shield, Users, TrendingUp, Leaf, Award, CheckCircle2 } from 'lucide-react';
+import { Target, Eye, Shield, Users, TrendingUp, Leaf, Award, CheckCircle2, FileText, Link2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 
 const coreValues = [
-  { icon: Shield, titleVI: 'Chính trực', titleEN: 'Integrity', titleZH: '诚信', descVI: 'Trung thực và minh bạch trong mọi hoạt động kinh doanh.', descEN: 'Honest and transparent in all business activities.', descZH: '在所有商业活动中诚实透明。' },
-  { icon: Users, titleVI: 'Hợp tác', titleEN: 'Collaboration', titleZH: '合作', descVI: 'Xây dựng quan hệ đối tác bền vững với khách hàng và đối tác.', descEN: 'Building sustainable partnerships with clients and partners.', descZH: '与客户和合作伙伴建立可持续的合作关系。' },
-  { icon: TrendingUp, titleVI: 'Đổi mới', titleEN: 'Innovation', titleZH: '创新', descVI: 'Không ngừng cải tiến và ứng dụng công nghệ mới.', descEN: 'Continuously improving and applying new technologies.', descZH: '不断改进和应用新技术。' },
-  { icon: Leaf, titleVI: 'Bền vững', titleEN: 'Sustainability', titleZH: '可持续', descVI: 'Phát triển kinh doanh gắn liền với bảo vệ môi trường.', descEN: 'Business development aligned with environmental protection.', descZH: '业务发展与环境保护相结合。' },
+  {
+    icon: Shield,
+    titleVI: 'Chính trực', titleEN: 'Integrity', titleZH: '诚信',
+    descVI: 'Trung thực và minh bạch trong mọi hoạt động kinh doanh, tuân thủ nghiêm ngặt quy định pháp luật.',
+    descEN: 'Honest and transparent in all business activities, strictly complying with legal regulations.',
+    descZH: '在所有商业活动中诚实透明，严格遵守法律规定。',
+  },
+  {
+    icon: Users,
+    titleVI: 'Hợp tác', titleEN: 'Collaboration', titleZH: '合作',
+    descVI: 'Xây dựng quan hệ đối tác bền vững với khách hàng, đối tác và cộng đồng.',
+    descEN: 'Building sustainable partnerships with clients, partners and the community.',
+    descZH: '与客户、合作伙伴和社区建立可持续的合作关系。',
+  },
+  {
+    icon: TrendingUp,
+    titleVI: 'Hiệu quả', titleEN: 'Efficiency', titleZH: '高效',
+    descVI: 'Cung cấp giải pháp toàn diện, hiệu quả, tối ưu chi phí cho khách hàng và đối tác.',
+    descEN: 'Providing comprehensive, efficient and cost-effective solutions for clients and partners.',
+    descZH: '为客户和合作伙伴提供全面、高效、具有成本效益的解决方案。',
+  },
+  {
+    icon: Leaf,
+    titleVI: 'Bền vững', titleEN: 'Sustainability', titleZH: '可持续',
+    descVI: 'Phát triển kinh doanh gắn liền với bảo vệ môi trường và phát triển kinh tế xanh.',
+    descEN: 'Business development aligned with environmental protection and green economy development.',
+    descZH: '业务发展与环境保护和绿色经济发展相结合。',
+  },
 ];
 
-const timeline = [
-  { year: '2012', titleVI: 'Thành lập công ty', titleEN: 'Company Founded', titleZH: '公司成立', descVI: 'Công ty Cổ phần Liên Minh Xanh LMX được thành lập tại TP. Hồ Chí Minh.', descEN: 'LMX Alliance Joint Stock Company founded in Ho Chi Minh City.', descZH: 'LMX绿色联盟股份公司在胡志明市成立。' },
-  { year: '2015', titleVI: 'Mở rộng Logistics', titleEN: 'Logistics Expansion', titleZH: '物流扩张', descVI: 'Ra mắt mảng logistics và xuất nhập khẩu, mở rộng mạng lưới đối tác.', descEN: 'Launched logistics and import-export division, expanding partner network.', descZH: '推出物流和进出口部门，扩展合作伙伴网络。' },
-  { year: '2018', titleVI: 'Xử lý chất thải', titleEN: 'Waste Management', titleZH: '废物管理', descVI: 'Thành lập bộ phận xử lý phế liệu và chất thải công nghiệp.', descEN: 'Established industrial waste and scrap management division.', descZH: '成立工业废物和废料管理部门。' },
-  { year: '2022', titleVI: 'Chứng nhận ISO', titleEN: 'ISO Certification', titleZH: 'ISO认证', descVI: 'Đạt chứng nhận ISO 9001:2015 và ISO 14001:2015 cho cả 3 mảng kinh doanh.', descEN: 'Achieved ISO 9001:2015 and ISO 14001:2015 across all 3 business sectors.', descZH: '三大业务部门均获得ISO 9001:2015和ISO 14001:2015认证。' },
-  { year: '2024', titleVI: 'Top 50 DN xanh', titleEN: 'Top 50 Green Biz', titleZH: 'Top 50绿色企业', descVI: 'Được vinh danh Top 50 Doanh nghiệp Xanh tiêu biểu tại Việt Nam.', descEN: 'Honored as Top 50 Outstanding Green Enterprises in Vietnam.', descZH: '荣获越南前50家优秀绿色企业称号。' },
+const sectors = [
+  {
+    no: '01',
+    titleVI: 'Xuất nhập khẩu & Logistics',
+    titleEN: 'Import-Export & Logistics',
+    titleZH: '进出口与物流',
+    descVI: 'Giao nhận và vận tải hàng hóa xuất nhập khẩu, tối ưu chuỗi cung ứng.',
+    descEN: 'Freight forwarding and transport for import-export goods, supply chain optimization.',
+    descZH: '进出口货物货运代理和运输，供应链优化。',
+  },
+  {
+    no: '02',
+    titleVI: 'Xây dựng công nghiệp',
+    titleEN: 'Industrial Construction',
+    titleZH: '工业建设',
+    descVI: 'Thi công xây lắp công trình dân dụng và công nghiệp theo tiêu chuẩn kỹ thuật cao.',
+    descEN: 'Construction of civil and industrial works to high technical standards.',
+    descZH: '按照高技术标准建造民用和工业建筑。',
+  },
+  {
+    no: '03',
+    titleVI: 'Thu mua phế liệu',
+    titleEN: 'Scrap Procurement',
+    titleZH: '废料采购',
+    descVI: 'Thu mua và kinh doanh phế liệu, tái chế vật liệu góp phần kinh tế tuần hoàn.',
+    descEN: 'Purchasing and trading scrap materials, recycling to contribute to the circular economy.',
+    descZH: '采购和销售废料，回收材料以促进循环经济。',
+  },
+  {
+    no: '04',
+    titleVI: 'Xử lý chất thải nguy hại',
+    titleEN: 'Hazardous Waste Management',
+    titleZH: '危险废物处理',
+    descVI: 'Liên kết với Huê Phương VN xử lý chất thải nguy hại đúng quy định pháp luật và tiêu chuẩn môi trường.',
+    descEN: 'Partnering with Huê Phương VN to manage hazardous waste in compliance with legal and environmental standards.',
+    descZH: '与Huê Phương VN合作，按照法律和环境标准处理危险废物。',
+  },
 ];
 
 const achievements = [
-  { icon: Award, valueVI: '10+', descVI: 'Năm kinh nghiệm', descEN: 'Years of experience', descZH: '年经验' },
-  { icon: CheckCircle2, valueVI: '100+', descVI: 'Dự án hoàn thành', descEN: 'Projects completed', descZH: '完成项目' },
-  { icon: Users, valueVI: '200+', descVI: 'Nhân sự chuyên nghiệp', descEN: 'Professional staff', descZH: '专业员工' },
-  { icon: Target, valueVI: '50+', descVI: 'Đối tác chiến lược', descEN: 'Strategic partners', descZH: '战略合作伙伴' },
+  { icon: Award,         value: '10+',  descVI: 'Năm kinh nghiệm',       descEN: 'Years of experience',    descZH: '年经验' },
+  { icon: CheckCircle2,  value: '100+', descVI: 'Dự án hoàn thành',       descEN: 'Projects completed',     descZH: '完成项目' },
+  { icon: Users,         value: '200+', descVI: 'Nhân sự chuyên nghiệp',  descEN: 'Professional staff',     descZH: '专业员工' },
+  { icon: Target,        value: '50+',  descVI: 'Đối tác chiến lược',     descEN: 'Strategic partners',     descZH: '战略合作伙伴' },
 ];
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -48,12 +103,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#6ee7b7' }}>{t('title')}</p>
             <h1 className="mb-4" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', fontWeight: 700, color: '#fff' }}>
-              {t('subtitle')}
+              {locale === 'vi' ? 'CÔNG TY CỔ PHẦN LIÊN MINH XANH LMX'
+                : locale === 'en' ? 'LMX Green Alliance Joint Stock Company'
+                : 'LMX绿色联盟股份公司'}
             </h1>
-            <p className="max-w-xl text-base leading-relaxed" style={{ color: '#a7f3d0' }}>
-              {locale === 'vi' && 'Hơn 10 năm xây dựng giá trị, phát triển bền vững và đóng góp vào cộng đồng.'}
-              {locale === 'en' && 'Over 10 years of building value, sustainable development, and community contribution.'}
-              {locale === 'zh' && '10多年来构建价值、可持续发展并为社区做出贡献。'}
+            <p className="max-w-2xl text-base leading-relaxed" style={{ color: '#a7f3d0' }}>
+              {locale === 'vi'
+                ? 'Trân trọng cảm ơn Quý Khách hàng và Quý Đối tác đã tin tưởng và đồng hành cùng Công ty. Sự hợp tác của Quý vị là nền tảng để LMX không ngừng nâng cao chất lượng dịch vụ và phát triển các giải pháp an toàn, hiệu quả và bền vững.'
+                : locale === 'en'
+                ? 'We sincerely thank our clients and partners for their trust and companionship. Your cooperation is the foundation for LMX to continuously improve service quality and develop safe, effective, and sustainable solutions.'
+                : '衷心感谢贵客户和合作伙伴的信任与陪伴。您的合作是LMX不断提升服务质量、发展安全、高效、可持续解决方案的基础。'}
             </p>
           </AnimateIn>
         </div>
@@ -68,7 +127,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               return (
                 <AnimateIn key={idx} delay={idx * 0.08}>
                   <div className="py-8 px-4 text-center border-r last:border-0" style={{ borderColor: '#065f46' }}>
-                    <p className="text-3xl font-bold text-white mb-1">{a.valueVI}</p>
+                    <p className="text-3xl font-bold text-white mb-1">{a.value}</p>
                     <p className="text-xs" style={{ color: '#a7f3d0' }}>{desc}</p>
                   </div>
                 </AnimateIn>
@@ -78,26 +137,87 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
-      {/* ── Mission & Vision ─────────────────────── */}
+      {/* ── Thư ngỏ ──────────────────────────────── */}
       <section className="section-padding">
+        <div className="container-max">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <AnimateIn>
+              <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#047857' }}>
+                {locale === 'vi' ? 'Thư ngỏ' : locale === 'en' ? 'Open Letter' : '致辞'}
+              </p>
+              <h2 className="mb-6" style={{ color: '#064e3b' }}>
+                {locale === 'vi' ? 'Kính gửi Quý Khách hàng & Đối tác'
+                  : locale === 'en' ? 'Dear Clients & Partners'
+                  : '尊敬的客户与合作伙伴'}
+              </h2>
+              <div className="space-y-4 text-base leading-relaxed" style={{ color: '#374151' }}>
+                <p>
+                  {locale === 'vi'
+                    ? 'Trong bối cảnh yêu cầu về quản lý môi trường, an toàn chất thải và phát triển kinh tế xanh ngày càng được chú trọng, Công ty Cổ phần Liên Minh Xanh (LMX) được thành lập với định hướng trở thành doanh nghiệp đa lĩnh vực, cung cấp giải pháp toàn diện – hiệu quả – minh bạch, tuân thủ nghiêm ngặt các quy định pháp luật, góp phần bảo vệ môi trường và tạo giá trị bền vững cho cộng đồng.'
+                    : locale === 'en'
+                    ? 'In the context of increasing demands for environmental management, waste safety, and green economic development, LMX Green Alliance Joint Stock Company was founded with the mission of becoming a multi-sector enterprise providing comprehensive, efficient, and transparent solutions — strictly complying with legal regulations, contributing to environmental protection and creating sustainable value for the community.'
+                    : '在环境管理、废物安全和绿色经济发展要求日益受到重视的背景下，LMX绿色联盟股份公司成立，旨在成为多元化企业，提供全面、高效、透明的解决方案，严格遵守法律法规，为环境保护和社区可持续发展做出贡献。'}
+                </p>
+                <p>
+                  {locale === 'vi'
+                    ? 'Với định hướng phát triển bền vững, LMX cam kết mang đến giải pháp dịch vụ đồng bộ, an toàn và hiệu quả, đáp ứng tối đa nhu cầu của khách hàng và đối tác, đồng thời đóng góp tích cực vào mục tiêu phát triển kinh tế xanh và bảo vệ môi trường.'
+                    : locale === 'en'
+                    ? 'With a sustainable development orientation, LMX is committed to delivering synchronous, safe and effective service solutions, maximally meeting the needs of clients and partners, while positively contributing to the green economic development and environmental protection goals.'
+                    : '秉持可持续发展方向，LMX致力于提供同步、安全、高效的服务解决方案，最大程度满足客户和合作伙伴的需求，同时积极为绿色经济发展和环境保护目标做出贡献。'}
+                </p>
+              </div>
+            </AnimateIn>
+
+            {/* Business sectors */}
+            <AnimateIn delay={0.1}>
+              <p className="text-xs uppercase tracking-widest mb-4 font-medium" style={{ color: '#6B7280' }}>
+                {locale === 'vi' ? 'Lĩnh vực hoạt động chính'
+                  : locale === 'en' ? 'Core Business Sectors'
+                  : '主要业务领域'}
+              </p>
+              <div className="space-y-3">
+                {sectors.map((s) => {
+                  const title = (s as any)[`title${L}`];
+                  const desc  = (s as any)[`desc${L}`];
+                  return (
+                    <div key={s.no} className="flex gap-4 p-4 border" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
+                      <span className="text-sm font-bold flex-shrink-0 mt-0.5" style={{ color: '#047857' }}>{s.no}</span>
+                      <div>
+                        <p className="font-semibold text-sm mb-0.5" style={{ color: '#064e3b' }}>{title}</p>
+                        <p className="text-xs leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </AnimateIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Mission & Vision ─────────────────────── */}
+      <section className="section-padding" style={{ background: '#F5F6F8' }}>
         <div className="container-max">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>
               {locale === 'vi' ? 'Định hướng phát triển' : locale === 'en' ? 'Our Direction' : '发展方向'}
             </p>
-            <h2 className="mb-10">
-              {locale === 'vi' ? 'Sứ mệnh & Tầm nhìn' : locale === 'en' ? 'Mission & Vision' : '使命与愿景'}
-            </h2>
+            <h2 className="mb-10">{t('mission.title')} &amp; {t('vision.title')}</h2>
           </AnimateIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Mission */}
             <AnimateIn delay={0.05}>
-              <div className="p-8 border h-full group card-lift" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
-                <div className="w-12 h-12 flex items-center justify-center mb-5 transition-all" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
+              <div className="p-8 border h-full group card-lift bg-white" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
+                <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
                   <Target size={22} style={{ color: '#047857' }} />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">{t('mission.title')}</h3>
-                <p className="leading-relaxed" style={{ color: '#6B7280' }}>{t('mission.content')}</p>
+                <p className="leading-relaxed" style={{ color: '#6B7280' }}>
+                  {locale === 'vi'
+                    ? 'Cung cấp giải pháp toàn diện – hiệu quả – minh bạch trong các lĩnh vực logistics, xây dựng, thu mua phế liệu và xử lý chất thải, tuân thủ nghiêm ngặt các quy định pháp luật, góp phần bảo vệ môi trường và tạo giá trị bền vững cho cộng đồng.'
+                    : locale === 'en'
+                    ? 'Providing comprehensive, efficient and transparent solutions in logistics, construction, scrap procurement, and waste management — strictly complying with regulations, protecting the environment and creating sustainable value for the community.'
+                    : '在物流、建设、废料采购和废物处理领域提供全面、高效、透明的解决方案，严格遵守法规，保护环境，为社区创造可持续价值。'}
+                </p>
                 <div className="mt-6 pt-5" style={{ borderTop: '1px solid #E8E9ED' }}>
                   <ul className="space-y-2">
                     {(locale === 'vi'
@@ -116,21 +236,26 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </div>
             </AnimateIn>
 
-            {/* Vision */}
             <AnimateIn delay={0.1}>
               <div className="p-8 h-full text-white" style={{ background: '#064e3b', borderRadius: '4px' }}>
                 <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: 'rgba(255,255,255,0.12)', borderRadius: '4px' }}>
                   <Eye size={22} className="text-white" />
                 </div>
                 <h3 className="text-lg font-semibold mb-3" style={{ color: '#fff' }}>{t('vision.title')}</h3>
-                <p className="leading-relaxed" style={{ color: '#a7f3d0' }}>{t('vision.content')}</p>
+                <p className="leading-relaxed" style={{ color: '#a7f3d0' }}>
+                  {locale === 'vi'
+                    ? 'Trở thành doanh nghiệp đa lĩnh vực hàng đầu, dẫn đầu về kinh tế xanh tại Việt Nam — đồng thời là đối tác tin cậy về giải pháp môi trường bền vững trong khu vực Đông Nam Á.'
+                    : locale === 'en'
+                    ? 'Becoming a leading multi-sector enterprise at the forefront of green economy in Vietnam — and a trusted partner for sustainable environmental solutions in the Southeast Asian region.'
+                    : '成为越南绿色经济领域领先的多元化企业，同时成为东南亚地区可持续环境解决方案的可信赖合作伙伴。'}
+                </p>
                 <div className="mt-6 pt-5" style={{ borderTop: '1px solid #065f46' }}>
                   <ul className="space-y-2">
                     {(locale === 'vi'
-                      ? ['Top 10 tập đoàn Đông Nam Á 2030', 'Mở rộng ra thị trường quốc tế', 'Dẫn đầu về kinh tế xanh']
+                      ? ['Dẫn đầu về kinh tế xanh tại Việt Nam', 'Mở rộng dịch vụ ra khu vực Đông Nam Á', 'Phát triển bền vững và bảo vệ môi trường']
                       : locale === 'en'
-                      ? ['Top 10 SEA conglomerate by 2030', 'Expand to international markets', 'Lead in green economy']
-                      : ['2030年东南亚前十集团', '拓展国际市场', '引领绿色经济']
+                      ? ['Lead green economy in Vietnam', 'Expand services across Southeast Asia', 'Sustainable development & environment']
+                      : ['引领越南绿色经济', '在东南亚拓展服务', '可持续发展与环境保护']
                     ).map((item) => (
                       <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#6ee7b7' }}>
                         <CheckCircle2 size={14} style={{ color: '#6ee7b7', flexShrink: 0 }} />
@@ -146,7 +271,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* ── Core Values ──────────────────────────── */}
-      <section className="section-padding" style={{ background: '#F5F6F8' }}>
+      <section className="section-padding">
         <div className="container-max">
           <AnimateIn>
             <h2 className="mb-10">{t('values.title')}</h2>
@@ -158,14 +283,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               const desc  = (v as any)[`desc${L}`];
               return (
                 <AnimateIn key={title} delay={idx * 0.07}>
-                  <div
-                    className="card-lift bg-white p-6 border h-full group"
-                    style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}
-                  >
-                    <div
-                      className="w-10 h-10 flex items-center justify-center mb-4 transition-all"
-                      style={{ background: '#f0fdf4', borderRadius: '4px' }}
-                    >
+                  <div className="card-lift bg-white p-6 border h-full" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
+                    <div className="w-10 h-10 flex items-center justify-center mb-4" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
                       <Icon size={20} strokeWidth={1.5} style={{ color: '#047857' }} />
                     </div>
                     <h4 className="font-semibold mb-2" style={{ fontSize: '1rem' }}>{title}</h4>
@@ -178,57 +297,167 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
-      {/* ── Timeline ─────────────────────────────── */}
+      {/* ── Pháp lý công ty ──────────────────────── */}
+      <section className="section-padding" style={{ background: '#F5F6F8' }}>
+        <div className="container-max">
+          <AnimateIn>
+            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#047857' }}>
+              {locale === 'vi' ? 'Pháp lý' : locale === 'en' ? 'Legal' : '法律'}
+            </p>
+            <h2 className="mb-10" style={{ color: '#064e3b' }}>
+              {locale === 'vi' ? 'Pháp lý công ty'
+                : locale === 'en' ? 'Company Legal Documents'
+                : '公司法律文件'}
+            </h2>
+          </AnimateIn>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <AnimateIn>
+              <div className="p-6 bg-white border" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
+                <div className="flex items-start gap-4 mb-5">
+                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
+                    <FileText size={22} style={{ color: '#047857' }} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1" style={{ color: '#064e3b' }}>
+                      {locale === 'vi' ? 'Giấy chứng nhận đăng ký doanh nghiệp'
+                        : locale === 'en' ? 'Business Registration Certificate'
+                        : '营业执照'}
+                    </h4>
+                    <p className="text-sm" style={{ color: '#6B7280' }}>
+                      {locale === 'vi' ? 'Cấp bởi Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh'
+                        : locale === 'en' ? 'Issued by the Department of Planning and Investment of Ho Chi Minh City'
+                        : '由胡志明市计划和投资局颁发'}
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-3 text-sm">
+                  {[
+                    {
+                      label: locale === 'vi' ? 'Tên công ty' : locale === 'en' ? 'Company name' : '公司名称',
+                      value: locale === 'vi' ? 'Công ty Cổ phần Liên Minh Xanh LMX'
+                        : locale === 'en' ? 'LMX Green Alliance Joint Stock Company'
+                        : 'LMX绿色联盟股份公司',
+                    },
+                    {
+                      label: locale === 'vi' ? 'Loại hình' : locale === 'en' ? 'Business type' : '企业类型',
+                      value: locale === 'vi' ? 'Công ty cổ phần' : locale === 'en' ? 'Joint Stock Company' : '股份公司',
+                    },
+                    {
+                      label: locale === 'vi' ? 'Trụ sở' : locale === 'en' ? 'Headquarters' : '总部',
+                      value: settings?.address || 'TP. Hồ Chí Minh, Việt Nam',
+                    },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="flex gap-3">
+                      <span className="font-medium flex-shrink-0" style={{ color: '#6B7280', minWidth: '6rem' }}>{label}:</span>
+                      <span style={{ color: '#374151' }}>{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </AnimateIn>
+
+            <AnimateIn delay={0.1}>
+              {/* Certificate placeholder — replace with actual image when available */}
+              <div
+                className="flex items-center justify-center border-2 border-dashed"
+                style={{ borderColor: '#d1fae5', borderRadius: '4px', minHeight: '220px', background: '#f0fdf4' }}
+              >
+                <div className="text-center p-8">
+                  <FileText size={40} strokeWidth={1} style={{ color: '#a7f3d0', margin: '0 auto 12px' }} />
+                  <p className="text-sm font-medium" style={{ color: '#047857' }}>
+                    {locale === 'vi' ? 'Giấy ĐKDN' : locale === 'en' ? 'Business Certificate' : '营业执照'}
+                  </p>
+                  <p className="text-xs mt-1" style={{ color: '#6B7280' }}>
+                    {locale === 'vi' ? '(Hình ảnh sẽ được cập nhật)'
+                      : locale === 'en' ? '(Image to be updated)'
+                      : '（图片待更新）'}
+                  </p>
+                </div>
+              </div>
+            </AnimateIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Liên kết Huê Phương VN ───────────────── */}
       <section className="section-padding">
         <div className="container-max">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>
-              {locale === 'vi' ? 'Hành trình phát triển' : locale === 'en' ? 'Our Journey' : '发展历程'}
+            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#047857' }}>
+              {locale === 'vi' ? 'Đối tác chiến lược' : locale === 'en' ? 'Strategic Partner' : '战略合作伙伴'}
             </p>
-            <h2 className="mb-12">
-              {locale === 'vi' ? 'Dấu mốc lịch sử' : locale === 'en' ? 'Key Milestones' : '重要里程碑'}
+            <h2 className="mb-10" style={{ color: '#064e3b' }}>
+              {locale === 'vi' ? 'Liên kết giữa LMX và Huê Phương VN'
+                : locale === 'en' ? 'LMX & Huê Phương VN Partnership'
+                : 'LMX与Huê Phương VN合作关系'}
             </h2>
           </AnimateIn>
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px" style={{ background: '#d1fae5' }} />
-            <div className="space-y-10">
-              {timeline.map((item, idx) => {
-                const title = (item as any)[`title${L}`];
-                const desc  = (item as any)[`desc${L}`];
-                const isRight = idx % 2 === 1;
-                return (
-                  <AnimateIn key={item.year} delay={idx * 0.08}>
-                    <div className={`relative flex items-start gap-6 md:gap-0 ${isRight ? 'md:flex-row-reverse' : ''}`}>
-                      {/* Year dot */}
-                      <div className="flex-shrink-0 relative z-10 ml-0 md:ml-0"
-                        style={{ width: '2rem', marginLeft: isRight ? 'auto' : undefined }}>
-                        <div
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold mx-auto"
-                          style={{ background: '#047857' }}
-                        >
-                          ✓
-                        </div>
-                      </div>
-                      {/* Content */}
-                      <div className={`flex-1 pb-2 md:w-5/12 md:${isRight ? 'pr-10' : 'pl-10'} pl-4`}>
-                        <div className="card-lift p-6 bg-white border" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
-                          <span
-                            className="inline-block text-xs font-bold px-2 py-1 mb-3"
-                            style={{ background: '#f0fdf4', color: '#047857', borderRadius: '2px' }}
-                          >
-                            {item.year}
-                          </span>
-                          <h4 className="font-semibold mb-1">{title}</h4>
-                          <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
-                        </div>
-                      </div>
-                      {isRight && <div className="hidden md:block md:w-5/12" />}
-                    </div>
-                  </AnimateIn>
-                );
-              })}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <AnimateIn>
+              <div className="space-y-4 text-base leading-relaxed" style={{ color: '#374151' }}>
+                <p>
+                  {locale === 'vi'
+                    ? 'Sự liên kết giữa LIÊN MINH XANH LMX và CÔNG TY TNHH MTV MÔI TRƯỜNG XANH HUÊ PHƯƠNG VN được xây dựng nhằm cung cấp giải pháp thu gom, vận chuyển và xử lý chất thải, đặc biệt là chất thải nguy hại, theo đúng quy định pháp luật và tiêu chuẩn môi trường.'
+                    : locale === 'en'
+                    ? 'The partnership between LMX GREEN ALLIANCE and HUÊ PHƯƠNG VN GREEN ENVIRONMENT CO., LTD. was established to provide waste collection, transportation, and treatment solutions — especially hazardous waste — in full compliance with legal regulations and environmental standards.'
+                    : 'LMX绿色联盟与Huê Phương VN绿色环境有限公司之间的合作关系旨在提供废物收集、运输和处理解决方案，特别是危险废物，完全符合法律法规和环境标准。'}
+                </p>
+                <p>
+                  {locale === 'vi'
+                    ? 'Thông qua sự phối hợp về nguồn lực và chuyên môn của hai đơn vị, quá trình quản lý và xử lý chất thải được thực hiện an toàn, hiệu quả và bền vững.'
+                    : locale === 'en'
+                    ? 'Through the coordination of resources and expertise between the two entities, waste management and treatment processes are carried out safely, efficiently, and sustainably.'
+                    : '通过两个单位资源和专业知识的协调配合，废物管理和处理过程安全、高效、可持续。'}
+                </p>
+              </div>
+            </AnimateIn>
+
+            <AnimateIn delay={0.1}>
+              <div className="p-6 border" style={{ borderColor: '#E8E9ED', borderRadius: '4px', background: '#FAFAFA' }}>
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
+                    <Link2 size={18} style={{ color: '#047857' }} />
+                  </div>
+                  <h4 className="font-semibold" style={{ color: '#064e3b' }}>
+                    {locale === 'vi' ? 'Công ty TNHH MTV Môi Trường Xanh Huê Phương VN'
+                      : locale === 'en' ? 'Huê Phương VN Green Environment Co., Ltd.'
+                      : 'Huê Phương VN绿色环境有限公司'}
+                  </h4>
+                </div>
+                <ul className="space-y-3 text-sm" style={{ color: '#374151' }}>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#047857' }} />
+                    <span>
+                      {locale === 'vi'
+                        ? 'Xử lý và tái chế chất thải công nghiệp theo giấy phép của Bộ Nông nghiệp và Môi trường'
+                        : locale === 'en'
+                        ? 'Processing and recycling industrial waste under permits from the Ministry of Agriculture and Environment'
+                        : '根据农业和环境部许可证处理和回收工业废物'}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#047857' }} />
+                    <span>
+                      {locale === 'vi'
+                        ? 'Tư vấn pháp lý và kỹ thuật về quản lý chất thải nguy hại'
+                        : locale === 'en'
+                        ? 'Legal and technical consulting on hazardous waste management'
+                        : '危险废物管理的法律和技术咨询'}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#047857' }} />
+                    <span>
+                      {locale === 'vi'
+                        ? 'Góp phần nâng cao hiệu quả quản lý chất thải an toàn và bền vững'
+                        : locale === 'en'
+                        ? 'Contributing to improving safe and sustainable waste management effectiveness'
+                        : '有助于提高安全和可持续废物管理的有效性'}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </section>
@@ -271,11 +500,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       {/* ── Company Info ─────────────────────────── */}
       {settings && (
-        <section className="section-padding" style={{ background: '#fff' }}>
+        <section className="section-padding">
           <div className="container-max">
             <AnimateIn>
               <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#047857' }}>
-                {locale === 'vi' ? 'Thông tin công ty' : locale === 'en' ? 'Company Info' : '公司信息'}
+                {locale === 'vi' ? 'Thông tin liên hệ' : locale === 'en' ? 'Contact Info' : '联系信息'}
               </p>
               <h2 className="mb-10" style={{ color: '#064e3b' }}>
                 {settings.name}
@@ -291,22 +520,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     {locale === 'vi' ? 'Đang hoạt động' : locale === 'en' ? 'Active' : '运营中'}
                   </div>
                 </div>
-                <div
-                  className="p-6 border"
-                  style={{ borderColor: '#E8E9ED', borderRadius: '4px', background: '#FAFAFA' }}
-                >
+                <div className="p-6 border" style={{ borderColor: '#E8E9ED', borderRadius: '4px', background: '#FAFAFA' }}>
                   <div className="space-y-5">
                     {[
                       { label: locale === 'vi' ? 'Địa chỉ' : locale === 'en' ? 'Address' : '地址', value: settings.address },
                       { label: locale === 'vi' ? 'Điện thoại' : locale === 'en' ? 'Phone' : '电话', value: settings.phone },
                       { label: 'Email', value: settings.email },
-                      { label: locale === 'vi' ? 'Website' : 'Website', value: settings.website },
+                      { label: 'Website', value: settings.website },
                     ].map(({ label, value }) => value ? (
                       <div key={label} className="flex gap-4">
-                        <span
-                          className="text-xs font-bold uppercase tracking-wider flex-shrink-0 pt-0.5"
-                          style={{ color: '#047857', width: '5rem' }}
-                        >
+                        <span className="text-xs font-bold uppercase tracking-wider flex-shrink-0 pt-0.5" style={{ color: '#047857', width: '5rem' }}>
                           {label}
                         </span>
                         <span className="text-sm" style={{ color: '#374151' }}>{value}</span>

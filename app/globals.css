@@ -108,6 +108,35 @@
 .prose strong { font-weight: 600; }
 .prose a { color: var(--color-accent); text-decoration: underline; }
 
+/* Article body — news images */
+.article-body { max-width: none; }
+.article-body img,
+.article-body .article-img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 1.75rem 0;
+  display: block;
+}
+.article-body figure {
+  margin: 2rem 0;
+}
+.article-body figure figcaption {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+.article-body blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding: 0.75rem 1rem;
+  margin: 1.5rem 0;
+  background: #f0fdf4;
+  border-radius: 0 4px 4px 0;
+}
+.article-body blockquote p { margin-bottom: 0; color: var(--color-text-body); }
+
 /* Layout utilities */
 .container-max {
   max-width: var(--container-max);

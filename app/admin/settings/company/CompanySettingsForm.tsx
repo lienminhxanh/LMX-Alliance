@@ -22,6 +22,7 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
       phone: '', email: '', website: '', googleMapEmbed: '',
       seoMetaTitle: '', seoMetaDesc: '', seoOgImage: '', seoKeywords: '',
       facebookUrl: '', linkedinUrl: '', youtubeUrl: '', tiktokUrl: '',
+      recruitmentEmail: '',
       ...initialData,
     },
   });
@@ -48,6 +49,7 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
             <Input label="Email" type="email" {...register('email')} error={errors.email?.message} />
           </div>
           <Input label="Website" {...register('website')} />
+          <Input label="Recruitment Email" type="email" placeholder="tuyendung@lmxalliance.com" {...register('recruitmentEmail')} />
           <Textarea label="Google Maps Embed (iframe src)" rows={2} {...register('googleMapEmbed')} />
         </div>
       </Card>

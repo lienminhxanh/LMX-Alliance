@@ -65,6 +65,7 @@ export const CompanySettingsSchema = z.object({
   linkedinUrl: z.string().optional().nullable(),
   youtubeUrl: z.string().optional().nullable(),
   tiktokUrl: z.string().optional().nullable(),
+  recruitmentEmail: z.string().email().or(z.literal('')).default(''),
 });
 
 export const ContactFormSchema = z.object({
