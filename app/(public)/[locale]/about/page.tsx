@@ -313,7 +313,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     <div className="w-10 h-10 flex items-center justify-center mb-4" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
                       <Icon size={20} strokeWidth={1.5} style={{ color: '#047857' }} />
                     </div>
-                    <h4 className="font-semibold mb-2" style={{ fontSize: '1rem' }}>{title}</h4>
+                    <h3 className="font-semibold mb-2" style={{ fontSize: '1rem' }}>{title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
                   </div>
                 </AnimateIn>
@@ -345,11 +345,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     <FileText size={22} style={{ color: '#047857' }} />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1" style={{ color: '#064e3b' }}>
+                    <h3 className="font-semibold mb-1" style={{ color: '#064e3b', fontSize: '1rem' }}>
                       {locale === 'vi' ? 'Giấy chứng nhận đăng ký doanh nghiệp'
                         : locale === 'en' ? 'Business Registration Certificate'
                         : '营业执照'}
-                    </h4>
+                    </h3>
                     <p className="text-xs" style={{ color: '#6B7280' }}>
                       {locale === 'vi' ? 'Sở Tài Chính TP. HCM — Phòng Đăng Ký Kinh Doanh'
                         : locale === 'en' ? 'Ho Chi Minh City Dept. of Finance — Business Registration Division'
@@ -488,11 +488,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
                     <Link2 size={18} style={{ color: '#047857' }} />
                   </div>
-                  <h4 className="font-semibold" style={{ color: '#064e3b' }}>
+                  <h3 className="font-semibold" style={{ color: '#064e3b', fontSize: '1rem' }}>
                     {locale === 'vi' ? 'Công ty TNHH MTV Môi Trường Xanh Huê Phương VN'
                       : locale === 'en' ? 'Huê Phương VN Green Environment Co., Ltd.'
                       : 'Huê Phương VN绿色环境有限公司'}
-                  </h4>
+                  </h3>
                 </div>
                 <ul className="space-y-3 text-sm" style={{ color: '#374151' }}>
                   <li className="flex items-start gap-2">

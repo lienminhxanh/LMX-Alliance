@@ -132,7 +132,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="section-padding" style={{ background: '#F5F6F8' }}>
         <div className="container-max">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>{t('sectors.subtitle')}</p>
+            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#4B5563' }}>{t('sectors.subtitle')}</p>
             <h2 className="mb-10">{t('sectors.title')}</h2>
           </AnimateIn>
           <div className="grid grid-cols-1 md:grid-cols-3 border" style={{ borderColor: '#E8E9ED' }}>
@@ -158,6 +158,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       href={`/${locale}/business-segments/${sector.slug}`}
                       className="inline-flex items-center gap-1.5 text-sm font-medium link-underline"
                       style={{ color: '#047857' }}
+                      aria-label={`${t('sectors.learnMore')}: ${name}`}
                     >
                       {t('sectors.learnMore')} <ArrowRight size={14} />
                     </Link>
@@ -286,7 +287,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         </p>
                         <h3 className="font-semibold mb-2 line-clamp-2" style={{ fontSize: '1.05rem' }}>{title}</h3>
                         <p className="text-sm mb-4 line-clamp-2" style={{ color: '#6B7280' }}>{summary}</p>
-                        <Link href={`/${locale}/news/${slug}`} className="text-sm font-medium inline-flex items-center gap-1 link-underline" style={{ color: '#047857' }}>
+                        <Link
+                          href={`/${locale}/news/${slug}`}
+                          className="text-sm font-medium inline-flex items-center gap-1 link-underline"
+                          style={{ color: '#047857' }}
+                          aria-label={`${locale === 'vi' ? 'Đọc thêm' : locale === 'en' ? 'Read more' : '阅读更多'}: ${title}`}
+                        >
                           {locale === 'vi' ? 'Đọc thêm' : locale === 'en' ? 'Read more' : '阅读更多'} <ArrowRight size={12} />
                         </Link>
                       </div>

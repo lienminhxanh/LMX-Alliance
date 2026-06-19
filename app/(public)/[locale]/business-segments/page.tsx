@@ -78,6 +78,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                       href={`/${locale}/business-segments/${sector.slug}`}
                       className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#064e3b] text-white text-sm hover:bg-[#065f46] transition-colors"
                       style={{ borderRadius: 0 }}
+                      aria-label={`${locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}: ${name}`}
                     >
                       {locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'} <ArrowRight size={14} />
                     </Link>

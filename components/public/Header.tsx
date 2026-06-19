@@ -116,6 +116,8 @@ export function Header() {
             className="lg:hidden p-2 transition-colors"
             style={{ color: '#6B7280' }}
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? 'Đóng menu' : 'Mở menu'}
+            aria-expanded={menuOpen}
           >
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

@@ -133,6 +133,7 @@ export default async function NewsPage({ params, searchParams }: {
                     href={`/${locale}/news/${(articles[0] as any)[`slug${L}`]}`}
                     className="inline-flex items-center gap-2 text-sm font-medium link-underline"
                     style={{ color: '#047857' }}
+                    aria-label={`${t('readMore')}: ${(articles[0] as any)[`title${L}`]}`}
                   >
                     {t('readMore')} <ArrowRight size={14} />
                   </Link>
@@ -165,6 +166,7 @@ export default async function NewsPage({ params, searchParams }: {
                       href={`/${locale}/news/${(article as any)[`slug${L}`]}`}
                       className="text-sm font-medium inline-flex items-center gap-1 link-underline"
                       style={{ color: '#047857' }}
+                      aria-label={`${t('readMore')}: ${(article as any)[`title${L}`]}`}
                     >
                       {t('readMore')} <ArrowRight size={12} />
                     </Link>
