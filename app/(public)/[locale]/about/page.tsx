@@ -123,21 +123,21 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   return (
     <>
       {/* ── Hero ─────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#0f1e0d' }}>
-        <LeafDecor count={8} color="#a8cc28" />
+      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+        <LeafDecor variant="branch" count={8} color="#78d750" />
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-8" style={{ background: '#7eba24' }} />
-          <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full opacity-5" style={{ background: '#a8cc28' }} />
+          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-8" style={{ background: '#78d750' }} />
+          <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full opacity-5" style={{ background: '#78d750' }} />
         </div>
         <div className="container-max relative z-10">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#a8cc28' }}>{t('title')}</p>
+            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>{t('title')}</p>
             <h1 className="mb-4" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', fontWeight: 700, color: '#fff' }}>
               {locale === 'vi' ? 'CÔNG TY CỔ PHẦN LIÊN MINH XANH LMX'
                 : locale === 'en' ? 'LMX Green Alliance Joint Stock Company'
                 : 'LMX绿色联盟股份公司'}
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed" style={{ color: '#c4e070' }}>
+            <p className="max-w-2xl text-base leading-relaxed" style={{ color: '#defbbc' }}>
               {locale === 'vi'
                 ? 'Trân trọng cảm ơn Quý Khách hàng và Quý Đối tác đã tin tưởng và đồng hành cùng Công ty. Sự hợp tác của Quý vị là nền tảng để LMX không ngừng nâng cao chất lượng dịch vụ và phát triển các giải pháp an toàn, hiệu quả và bền vững.'
                 : locale === 'en'
@@ -149,16 +149,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* ── Achievements strip ───────────────────── */}
-      <section style={{ background: '#5a9e1a' }}>
+      <section style={{ background: '#8ec63f' }}>
         <div className="container-max">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {achievements.map((a, idx) => {
               const desc = (a as any)[`desc${L}`];
               return (
                 <AnimateIn key={idx} delay={idx * 0.08}>
-                  <div className="py-8 px-4 text-center border-r last:border-0" style={{ borderColor: '#1d3212' }}>
+                  <div className="py-8 px-4 text-center border-r last:border-0" style={{ borderColor: '#013d27' }}>
                     <p className="text-3xl font-bold text-white mb-1">{a.value}</p>
-                    <p className="text-xs" style={{ color: '#c4e070' }}>{desc}</p>
+                    <p className="text-xs" style={{ color: '#defbbc' }}>{desc}</p>
                   </div>
                 </AnimateIn>
               );
@@ -172,10 +172,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <AnimateIn>
-              <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#5a9e1a' }}>
+              <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
                 {locale === 'vi' ? 'Thư ngỏ' : locale === 'en' ? 'Open Letter' : '致辞'}
               </p>
-              <h2 className="mb-6" style={{ color: '#0f1e0d' }}>
+              <h2 className="mb-6" style={{ color: '#015231' }}>
                 {locale === 'vi' ? 'Kính gửi Quý Khách hàng & Đối tác'
                   : locale === 'en' ? 'Dear Clients & Partners'
                   : '尊敬的客户与合作伙伴'}
@@ -210,10 +210,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   const title = (s as any)[`title${L}`];
                   const desc  = (s as any)[`desc${L}`];
                   return (
-                    <div key={s.no} className="flex gap-4 p-4 border" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
-                      <span className="text-sm font-bold flex-shrink-0 mt-0.5" style={{ color: '#5a9e1a' }}>{s.no}</span>
+                    <div key={s.no} className="flex gap-4 p-4 border" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
+                      <span className="text-sm font-bold flex-shrink-0 mt-0.5" style={{ color: '#8ec63f' }}>{s.no}</span>
                       <div>
-                        <p className="font-semibold text-sm mb-0.5" style={{ color: '#0f1e0d' }}>{title}</p>
+                        <p className="font-semibold text-sm mb-0.5" style={{ color: '#015231' }}>{title}</p>
                         <p className="text-xs leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
                       </div>
                     </div>
@@ -226,7 +226,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* ── Mission & Vision ─────────────────────── */}
-      <section className="section-padding" style={{ background: '#edf5e8' }}>
+      <section className="section-padding" style={{ background: '#f8fbf2' }}>
         <div className="container-max">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>
@@ -236,9 +236,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </AnimateIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <AnimateIn delay={0.05}>
-              <div className="p-8 border h-full group card-lift bg-white" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
-                <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: '#f0f9e4', borderRadius: '4px' }}>
-                  <Target size={22} style={{ color: '#5a9e1a' }} />
+              <div className="p-8 border h-full group card-lift bg-white" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
+                <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
+                  <Target size={22} style={{ color: '#8ec63f' }} />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">{t('mission.title')}</h3>
                 <p className="leading-relaxed" style={{ color: '#6B7280' }}>
@@ -248,7 +248,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     ? 'Providing comprehensive, efficient and transparent solutions in logistics, construction, scrap procurement, and waste management — strictly complying with regulations, protecting the environment and creating sustainable value for the community.'
                     : '在物流、建设、废料采购和废物处理领域提供全面、高效、透明的解决方案，严格遵守法规，保护环境，为社区创造可持续价值。'}
                 </p>
-                <div className="mt-6 pt-5" style={{ borderTop: '1px solid #d0e4c0' }}>
+                <div className="mt-6 pt-5" style={{ borderTop: '1px solid #defbbc' }}>
                   <ul className="space-y-2">
                     {(locale === 'vi'
                       ? ['Phát triển doanh nghiệp bền vững', 'Tạo việc làm chất lượng cao', 'Bảo vệ môi trường']
@@ -257,7 +257,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                       : ['可持续业务发展', '创造优质就业', '环境保护']
                     ).map((item) => (
                       <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#6B7280' }}>
-                        <CheckCircle2 size={14} style={{ color: '#5a9e1a', flexShrink: 0 }} />
+                        <CheckCircle2 size={14} style={{ color: '#8ec63f', flexShrink: 0 }} />
                         {item}
                       </li>
                     ))}
@@ -267,19 +267,19 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </AnimateIn>
 
             <AnimateIn delay={0.1}>
-              <div className="p-8 h-full text-white" style={{ background: '#0f1e0d', borderRadius: '4px' }}>
+              <div className="p-8 h-full text-white" style={{ background: '#015231', borderRadius: '4px' }}>
                 <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: 'rgba(255,255,255,0.12)', borderRadius: '4px' }}>
                   <Eye size={22} className="text-white" />
                 </div>
                 <h3 className="text-lg font-semibold mb-3" style={{ color: '#fff' }}>{t('vision.title')}</h3>
-                <p className="leading-relaxed" style={{ color: '#c4e070' }}>
+                <p className="leading-relaxed" style={{ color: '#defbbc' }}>
                   {locale === 'vi'
                     ? 'Trở thành doanh nghiệp đa lĩnh vực hàng đầu, dẫn đầu về kinh tế xanh tại Việt Nam — đồng thời là đối tác tin cậy về giải pháp môi trường bền vững trong khu vực Đông Nam Á.'
                     : locale === 'en'
                     ? 'Becoming a leading multi-sector enterprise at the forefront of green economy in Vietnam — and a trusted partner for sustainable environmental solutions in the Southeast Asian region.'
                     : '成为越南绿色经济领域领先的多元化企业，同时成为东南亚地区可持续环境解决方案的可信赖合作伙伴。'}
                 </p>
-                <div className="mt-6 pt-5" style={{ borderTop: '1px solid #1d3212' }}>
+                <div className="mt-6 pt-5" style={{ borderTop: '1px solid #013d27' }}>
                   <ul className="space-y-2">
                     {(locale === 'vi'
                       ? ['Dẫn đầu về kinh tế xanh tại Việt Nam', 'Mở rộng dịch vụ ra khu vực Đông Nam Á', 'Phát triển bền vững và bảo vệ môi trường']
@@ -287,8 +287,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                       ? ['Lead green economy in Vietnam', 'Expand services across Southeast Asia', 'Sustainable development & environment']
                       : ['引领越南绿色经济', '在东南亚拓展服务', '可持续发展与环境保护']
                     ).map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#a8cc28' }}>
-                        <CheckCircle2 size={14} style={{ color: '#a8cc28', flexShrink: 0 }} />
+                      <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#78d750' }}>
+                        <CheckCircle2 size={14} style={{ color: '#78d750', flexShrink: 0 }} />
                         {item}
                       </li>
                     ))}
@@ -313,9 +313,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               const desc  = (v as any)[`desc${L}`];
               return (
                 <AnimateIn key={title} delay={idx * 0.07}>
-                  <div className="card-lift bg-white p-6 border h-full" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
-                    <div className="w-10 h-10 flex items-center justify-center mb-4" style={{ background: '#f0f9e4', borderRadius: '4px' }}>
-                      <Icon size={20} strokeWidth={1.5} style={{ color: '#5a9e1a' }} />
+                  <div className="card-lift bg-white p-6 border h-full" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
+                    <div className="w-10 h-10 flex items-center justify-center mb-4" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
+                      <Icon size={20} strokeWidth={1.5} style={{ color: '#8ec63f' }} />
                     </div>
                     <h3 className="font-semibold mb-2" style={{ fontSize: '1rem' }}>{title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
@@ -328,13 +328,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* ── Pháp lý công ty ──────────────────────── */}
-      <section className="section-padding" style={{ background: '#edf5e8' }}>
+      <section className="section-padding" style={{ background: '#f8fbf2' }}>
         <div className="container-max">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#5a9e1a' }}>
+            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
               {locale === 'vi' ? 'Pháp lý' : locale === 'en' ? 'Legal' : '法律'}
             </p>
-            <h2 className="mb-10" style={{ color: '#0f1e0d' }}>
+            <h2 className="mb-10" style={{ color: '#015231' }}>
               {locale === 'vi' ? 'Pháp lý công ty'
                 : locale === 'en' ? 'Company Legal Documents'
                 : '公司法律文件'}
@@ -343,13 +343,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
             {/* Info card */}
             <AnimateIn className="lg:col-span-2">
-              <div className="p-6 bg-white border h-full" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
+              <div className="p-6 bg-white border h-full" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: '#f0f9e4', borderRadius: '4px' }}>
-                    <FileText size={22} style={{ color: '#5a9e1a' }} />
+                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
+                    <FileText size={22} style={{ color: '#8ec63f' }} />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1" style={{ color: '#0f1e0d', fontSize: '1rem' }}>
+                    <h3 className="font-semibold mb-1" style={{ color: '#015231', fontSize: '1rem' }}>
                       {locale === 'vi' ? 'Giấy chứng nhận đăng ký doanh nghiệp'
                         : locale === 'en' ? 'Business Registration Certificate'
                         : '营业执照'}
@@ -402,7 +402,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   ].map(({ label, value }) => (
                     <div key={label} className="flex gap-3 py-2" style={{ borderBottom: '1px solid #F3F4F6' }}>
                       <span className="font-medium flex-shrink-0 text-xs" style={{ color: '#6B7280', minWidth: '7.5rem' }}>{label}</span>
-                      <span className="font-medium text-xs" style={{ color: '#0f1e0d' }}>{value}</span>
+                      <span className="font-medium text-xs" style={{ color: '#015231' }}>{value}</span>
                     </div>
                   ))}
                 </div>
@@ -410,7 +410,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   href="/docs/giay-phep-dkdn.pdf"
                   download
                   className="mt-5 inline-flex items-center gap-2 text-sm font-medium transition-colors"
-                  style={{ color: '#5a9e1a' }}
+                  style={{ color: '#8ec63f' }}
                 >
                   <FileText size={14} />
                   {locale === 'vi' ? 'Tải xuống PDF' : locale === 'en' ? 'Download PDF' : '下载PDF'}
@@ -426,7 +426,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 rel="noopener noreferrer"
                 title={locale === 'vi' ? 'Nhấp để xem giấy phép đầy đủ' : locale === 'en' ? 'Click to view full certificate' : '点击查看完整证书'}
                 className="block group"
-                style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid #d0e4c0', display: 'block', position: 'relative' }}
+                style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid #defbbc', display: 'block', position: 'relative' }}
               >
                 <Image
                   src="/docs/giay-phep-dkdn.png"
@@ -457,10 +457,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="section-padding">
         <div className="container-max">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#5a9e1a' }}>
+            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
               {locale === 'vi' ? 'Đối tác chiến lược' : locale === 'en' ? 'Strategic Partner' : '战略合作伙伴'}
             </p>
-            <h2 className="mb-10" style={{ color: '#0f1e0d' }}>
+            <h2 className="mb-10" style={{ color: '#015231' }}>
               {locale === 'vi' ? 'Liên kết giữa LMX và Huê Phương VN'
                 : locale === 'en' ? 'LMX & Huê Phương VN Partnership'
                 : 'LMX与Huê Phương VN合作关系'}
@@ -487,12 +487,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </AnimateIn>
 
             <AnimateIn delay={0.1}>
-              <div className="p-6 border" style={{ borderColor: '#d0e4c0', borderRadius: '4px', background: '#FAFAFA' }}>
+              <div className="p-6 border" style={{ borderColor: '#defbbc', borderRadius: '4px', background: '#FAFAFA' }}>
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ background: '#f0f9e4', borderRadius: '4px' }}>
-                    <Link2 size={18} style={{ color: '#5a9e1a' }} />
+                  <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
+                    <Link2 size={18} style={{ color: '#8ec63f' }} />
                   </div>
-                  <h3 className="font-semibold" style={{ color: '#0f1e0d', fontSize: '1rem' }}>
+                  <h3 className="font-semibold" style={{ color: '#015231', fontSize: '1rem' }}>
                     {locale === 'vi' ? 'Công ty TNHH MTV Môi Trường Xanh Huê Phương VN'
                       : locale === 'en' ? 'Huê Phương VN Green Environment Co., Ltd.'
                       : 'Huê Phương VN绿色环境有限公司'}
@@ -500,7 +500,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 </div>
                 <ul className="space-y-3 text-sm" style={{ color: '#374151' }}>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#5a9e1a' }} />
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#8ec63f' }} />
                     <span>
                       {locale === 'vi'
                         ? 'Xử lý và tái chế chất thải công nghiệp theo giấy phép của Bộ Nông nghiệp và Môi trường'
@@ -510,7 +510,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#5a9e1a' }} />
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#8ec63f' }} />
                     <span>
                       {locale === 'vi'
                         ? 'Tư vấn pháp lý và kỹ thuật về quản lý chất thải nguy hại'
@@ -520,7 +520,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#5a9e1a' }} />
+                    <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#8ec63f' }} />
                     <span>
                       {locale === 'vi'
                         ? 'Góp phần nâng cao hiệu quả quản lý chất thải an toàn và bền vững'
@@ -538,7 +538,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       {/* ── Leadership ───────────────────────────── */}
       {leaders.length > 0 && (
-        <section className="section-padding" style={{ background: '#edf5e8' }}>
+        <section className="section-padding" style={{ background: '#f8fbf2' }}>
           <div className="container-max">
             <AnimateIn>
               <h2 className="mb-10">{t('leadership.title')}</h2>
@@ -549,8 +549,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 const position = (leader as any)[`position${L}`];
                 return (
                   <AnimateIn key={leader.id} delay={idx * 0.08}>
-                    <div className="card-lift border bg-white overflow-hidden group" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
-                      <div className="aspect-[3/4] overflow-hidden" style={{ background: '#f0f9e4', position: 'relative' }}>
+                    <div className="card-lift border bg-white overflow-hidden group" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
+                      <div className="aspect-[3/4] overflow-hidden" style={{ background: '#f8fbf2', position: 'relative' }}>
                         {leader.photo ? (
                           <Image
                             src={leader.photo}
@@ -561,11 +561,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Users size={48} strokeWidth={1} style={{ color: '#ddf0b0' }} />
+                            <Users size={48} strokeWidth={1} style={{ color: '#defbbc' }} />
                           </div>
                         )}
                       </div>
-                      <div className="p-4" style={{ borderTop: '3px solid #5a9e1a' }}>
+                      <div className="p-4" style={{ borderTop: '3px solid #8ec63f' }}>
                         <p className="font-semibold">{name}</p>
                         <p className="text-sm mt-0.5" style={{ color: '#6B7280' }}>{position}</p>
                       </div>
@@ -583,10 +583,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <section className="section-padding">
           <div className="container-max">
             <AnimateIn>
-              <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#5a9e1a' }}>
+              <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#8ec63f' }}>
                 {locale === 'vi' ? 'Thông tin liên hệ' : locale === 'en' ? 'Contact Info' : '联系信息'}
               </p>
-              <h2 className="mb-10" style={{ color: '#0f1e0d' }}>
+              <h2 className="mb-10" style={{ color: '#015231' }}>
                 {settings.name}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
@@ -594,13 +594,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   <p className="leading-relaxed mb-6" style={{ color: '#6B7280' }}>{settings.description}</p>
                   <div
                     className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium"
-                    style={{ background: '#f0f9e4', color: '#5a9e1a', border: '1px solid #ddf0b0', borderRadius: '2px' }}
+                    style={{ background: '#f8fbf2', color: '#8ec63f', border: '1px solid #defbbc', borderRadius: '2px' }}
                   >
-                    <span className="w-2 h-2 rounded-full inline-block" style={{ background: '#5a9e1a' }} />
+                    <span className="w-2 h-2 rounded-full inline-block" style={{ background: '#8ec63f' }} />
                     {locale === 'vi' ? 'Đang hoạt động' : locale === 'en' ? 'Active' : '运营中'}
                   </div>
                 </div>
-                <div className="p-6 border" style={{ borderColor: '#d0e4c0', borderRadius: '4px', background: '#FAFAFA' }}>
+                <div className="p-6 border" style={{ borderColor: '#defbbc', borderRadius: '4px', background: '#FAFAFA' }}>
                   <div className="space-y-5">
                     {[
                       { label: locale === 'vi' ? 'Địa chỉ' : locale === 'en' ? 'Address' : '地址', value: settings.address },
@@ -609,7 +609,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                       { label: 'Website', value: settings.website },
                     ].map(({ label, value }) => value ? (
                       <div key={label} className="flex gap-4">
-                        <span className="text-xs font-bold uppercase tracking-wider flex-shrink-0 pt-0.5" style={{ color: '#5a9e1a', width: '5rem' }}>
+                        <span className="text-xs font-bold uppercase tracking-wider flex-shrink-0 pt-0.5" style={{ color: '#8ec63f', width: '5rem' }}>
                           {label}
                         </span>
                         <span className="text-sm" style={{ color: '#374151' }}>{value}</span>

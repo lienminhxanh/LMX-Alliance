@@ -135,12 +135,12 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
       {/* Hero */}
-      <section className="bg-[#0f1e0d] text-white py-16">
+      <section className="bg-[#015231] text-white py-16">
         <div className="container-max">
           <Link
             href={`/${locale}/news`}
             className="inline-flex items-center gap-2 text-sm mb-6 transition-colors hover:text-white"
-            style={{ color: '#c4e070' }}
+            style={{ color: '#defbbc' }}
           >
             <ArrowLeft size={14} />
             {locale === 'vi' ? 'Quay lại tin tức' : locale === 'en' ? 'Back to News' : '返回新闻'}
@@ -149,7 +149,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
           {/* Category badge */}
           <span
             className="inline-block text-xs font-semibold px-2.5 py-1 mb-4 uppercase tracking-wider"
-            style={{ background: 'rgba(255,255,255,0.12)', color: '#a8cc28', borderRadius: '2px' }}
+            style={{ background: 'rgba(255,255,255,0.12)', color: '#78d750', borderRadius: '2px' }}
           >
             {catLabel}
           </span>
@@ -158,7 +158,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
             {title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-4 mt-5 text-sm" style={{ color: '#c4e070' }}>
+          <div className="flex flex-wrap items-center gap-4 mt-5 text-sm" style={{ color: '#defbbc' }}>
             {article.publishedAt && (
               <span className="flex items-center gap-1.5"><Calendar size={13} /> {formatDate(article.publishedAt)}</span>
             )}
@@ -175,7 +175,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
             {/* Main article */}
             <article className="lg:col-span-3">
               {/* Lead / summary */}
-              <p className="text-base leading-relaxed mb-8 font-medium" style={{ color: '#374151', borderLeft: '3px solid #5a9e1a', paddingLeft: '1rem' }}>
+              <p className="text-base leading-relaxed mb-8 font-medium" style={{ color: '#374151', borderLeft: '3px solid #8ec63f', paddingLeft: '1rem' }}>
                 {summary}
               </p>
 
@@ -199,7 +199,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
             <aside className="lg:col-span-1">
               <div className="sticky top-24 space-y-6">
                 {/* Meta card */}
-                <div className="p-5 border border-[#d0e4c0]" style={{ borderRadius: '4px' }}>
+                <div className="p-5 border border-[#defbbc]" style={{ borderRadius: '4px' }}>
                   <p className="text-xs uppercase tracking-wider text-[#6B7280] mb-3">
                     {locale === 'vi' ? 'Thông tin bài viết' : locale === 'en' ? 'Article Info' : '文章信息'}
                   </p>
@@ -208,7 +208,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                       <User size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#6B7280' }} />
                       <div>
                         <p className="text-xs text-[#6B7280]">{locale === 'vi' ? 'Tác giả' : locale === 'en' ? 'Author' : '作者'}</p>
-                        <p className="font-medium" style={{ color: '#0f1e0d' }}>{article.author}</p>
+                        <p className="font-medium" style={{ color: '#015231' }}>{article.author}</p>
                       </div>
                     </div>
                     {article.publishedAt && (
@@ -216,7 +216,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                         <Calendar size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#6B7280' }} />
                         <div>
                           <p className="text-xs text-[#6B7280]">{locale === 'vi' ? 'Ngày đăng' : locale === 'en' ? 'Published' : '发布日期'}</p>
-                          <p className="font-medium" style={{ color: '#0f1e0d' }}>{formatDate(article.publishedAt)}</p>
+                          <p className="font-medium" style={{ color: '#015231' }}>{formatDate(article.publishedAt)}</p>
                         </div>
                       </div>
                     )}
@@ -224,7 +224,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                       <Tag size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#6B7280' }} />
                       <div>
                         <p className="text-xs text-[#6B7280]">{locale === 'vi' ? 'Chuyên mục' : locale === 'en' ? 'Category' : '分类'}</p>
-                        <p className="font-medium" style={{ color: '#0f1e0d' }}>{catLabel}</p>
+                        <p className="font-medium" style={{ color: '#015231' }}>{catLabel}</p>
                       </div>
                     </div>
                   </div>
@@ -250,9 +250,9 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                               {a.thumbnail ? (
                                 <img src={a.thumbnail} alt="" className="w-14 h-14 object-cover flex-shrink-0" style={{ borderRadius: '2px' }} />
                               ) : (
-                                <div className="w-14 h-14 flex-shrink-0" style={{ background: '#f0f9e4', borderRadius: '2px' }} />
+                                <div className="w-14 h-14 flex-shrink-0" style={{ background: '#f8fbf2', borderRadius: '2px' }} />
                               )}
-                              <p className="text-sm font-medium leading-snug line-clamp-2 group-hover:text-[#5a9e1a] transition-colors" style={{ color: '#1F2937' }}>
+                              <p className="text-sm font-medium leading-snug line-clamp-2 group-hover:text-[#8ec63f] transition-colors" style={{ color: '#1F2937' }}>
                                 {aTitle}
                               </p>
                             </div>

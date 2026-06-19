@@ -51,13 +51,13 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <section className="bg-[#0f1e0d] text-white py-20">
+      <section className="bg-[#015231] text-white py-20">
         <div className="container-max">
           <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">LMX Alliance</p>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>
             {t('title')}
           </h1>
-          <p className="mt-3 text-sm max-w-xl" style={{ color: '#c4e070' }}>{t('subtitle')}</p>
+          <p className="mt-3 text-sm max-w-xl" style={{ color: '#defbbc' }}>{t('subtitle')}</p>
         </div>
       </section>
 
@@ -70,9 +70,9 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
               const title = (msg as any)[`title${L}`];
               const content = (msg as any)[`content${L}`];
               return (
-                <div key={msg.id} className="p-8 border border-[#d0e4c0]" style={{ borderRadius: '4px' }}>
+                <div key={msg.id} className="p-8 border border-[#defbbc]" style={{ borderRadius: '4px' }}>
                   <p className="text-xs uppercase tracking-widest text-[#6B7280] mb-3">{label}</p>
-                  <h3 className="text-xl font-semibold text-[#0f1e0d] mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
+                  <h3 className="text-xl font-semibold text-[#015231] mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
                   <div className="prose text-[#6B7280]" dangerouslySetInnerHTML={{ __html: content }} />
                 </div>
               );
@@ -82,7 +82,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
       </section>
 
       {/* Documents */}
-      <section className="section-padding bg-[#edf5e8]">
+      <section className="section-padding bg-[#f8fbf2]">
         <div className="container-max">
           <h2 className="mb-8" style={{ fontFamily: 'var(--font-display)' }}>{t('documents.title')}</h2>
           {CATEGORIES.map((cat) => {
@@ -91,7 +91,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
             const catLabel = (t as any)(`documents.${cat.toLowerCase().replace(/_/g, '')}`) || cat;
             return (
               <div key={cat} className="mb-10">
-                <h3 className="text-base font-semibold text-[#0f1e0d] mb-4 pb-2 border-b border-[#d0e4c0]" style={{ fontFamily: 'var(--font-display)' }}>
+                <h3 className="text-base font-semibold text-[#015231] mb-4 pb-2 border-b border-[#defbbc]" style={{ fontFamily: 'var(--font-display)' }}>
                   {cat === 'ANNUAL_REPORTS' ? t('documents.annualReports')
                     : cat === 'FINANCIAL_REPORTS' ? t('documents.financialReports')
                     : cat === 'DISCLOSURES' ? t('documents.disclosures')
@@ -102,18 +102,18 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
                   {catDocs.map((doc) => {
                     const name = (doc as any)[`name${L}`];
                     return (
-                      <div key={doc.id} className="flex items-center justify-between bg-white p-4 border border-[#d0e4c0]" style={{ borderRadius: '2px' }}>
+                      <div key={doc.id} className="flex items-center justify-between bg-white p-4 border border-[#defbbc]" style={{ borderRadius: '2px' }}>
                         <div className="flex items-center gap-3">
                           <FileText size={16} className="text-[#6B7280] flex-shrink-0" />
                           <div>
-                            <p className="text-sm font-medium text-[#0f1e0d]">{name}</p>
+                            <p className="text-sm font-medium text-[#015231]">{name}</p>
                             <p className="text-xs text-[#6B7280]">{doc.year} · {doc.fileType.toUpperCase()} · {formatFileSize(doc.fileSize)}</p>
                           </div>
                         </div>
                         <a
                           href={doc.fileUrl}
                           download
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#0f1e0d] border border-[#d0e4c0] hover:bg-[#edf5e8] transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#015231] border border-[#defbbc] hover:bg-[#f8fbf2] transition-colors"
                           style={{ borderRadius: 0 }}
                         >
                           <Download size={12} /> {t('documents.download')}

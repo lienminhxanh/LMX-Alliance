@@ -116,17 +116,17 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#0f1e0d' }}>
-        <LeafDecor count={8} color="#a8cc28" />
+      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+        <LeafDecor variant="eco" count={8} color="#78d750" />
         <div className="container-max relative z-10">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#a8cc28' }}>
+            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
               {locale === 'vi' ? 'LMX Alliance' : locale === 'en' ? 'LMX Alliance' : 'LMX Alliance'}
             </p>
             <h1 className="mb-4" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', fontWeight: 700, color: '#fff' }}>
               {title[locale as keyof typeof title] ?? title.vi}
             </h1>
-            <p className="max-w-xl text-base leading-relaxed" style={{ color: '#c4e070' }}>
+            <p className="max-w-xl text-base leading-relaxed" style={{ color: '#defbbc' }}>
               {subtitle[locale as keyof typeof subtitle] ?? subtitle.vi}
             </p>
           </AnimateIn>
@@ -147,12 +147,12 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                 <AnimateIn key={idx} delay={idx * 0.08}>
                   <div
                     className={`grid grid-cols-1 md:grid-cols-2 gap-0 border overflow-hidden ${isEven ? '' : 'md:flex-row-reverse'}`}
-                    style={{ borderColor: '#d0e4c0', borderRadius: '12px' }}
+                    style={{ borderColor: '#defbbc', borderRadius: '12px' }}
                   >
                     {/* Color panel */}
                     <div
                       className={`flex flex-col justify-center p-10 relative overflow-hidden ${isEven ? 'md:order-1' : 'md:order-2'}`}
-                      style={{ background: idx % 3 === 0 ? '#0f1e0d' : idx % 3 === 1 ? '#5a9e1a' : '#1d3212', minHeight: '280px' }}
+                      style={{ background: idx % 3 === 0 ? '#015231' : idx % 3 === 1 ? '#8ec63f' : '#013d27', minHeight: '280px' }}
                     >
                       <div className="absolute top-4 right-4 opacity-10">
                         <Icon size={80} color="#fff" strokeWidth={1} />
@@ -161,13 +161,13 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                         className="w-14 h-14 flex items-center justify-center mb-5 relative z-10"
                         style={{ background: 'rgba(168,204,40,0.25)', borderRadius: '12px' }}
                       >
-                        <Icon size={28} color="#a8cc28" strokeWidth={1.5} />
+                        <Icon size={28} color="#78d750" strokeWidth={1.5} />
                       </div>
                       <h2 className="text-xl font-semibold text-white mb-3 relative z-10">{title}</h2>
                       <ul className="space-y-2 relative z-10">
                         {achList.map((item) => (
-                          <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#c4e070' }}>
-                            <CheckCircle2 size={14} style={{ color: '#a8cc28', flexShrink: 0 }} />
+                          <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#defbbc' }}>
+                            <CheckCircle2 size={14} style={{ color: '#78d750', flexShrink: 0 }} />
                             {item}
                           </li>
                         ))}
@@ -180,7 +180,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                     >
                       <span
                         className="inline-block text-xs font-bold uppercase tracking-widest mb-4 px-3 py-1"
-                        style={{ background: '#edf5e8', color: '#5a9e1a', borderRadius: '9999px' }}
+                        style={{ background: '#f8fbf2', color: '#8ec63f', borderRadius: '9999px' }}
                       >
                         {String(idx + 1).padStart(2, '0')}
                       </span>
@@ -188,7 +188,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                       <Link
                         href={`/${locale}/business-segments`}
                         className="inline-flex items-center gap-2 text-sm font-medium link-underline"
-                        style={{ color: '#5a9e1a' }}
+                        style={{ color: '#8ec63f' }}
                       >
                         {locale === 'vi' ? 'Xem lĩnh vực hoạt động' : locale === 'en' ? 'View business segments' : '查看业务领域'}
                         <ArrowRight size={14} />
@@ -203,14 +203,14 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
       </section>
 
       {/* Timeline / milestones */}
-      <section className="section-padding relative overflow-hidden" style={{ background: '#edf5e8' }}>
-        <LeafDecor count={6} color="#5a9e1a" />
+      <section className="section-padding relative overflow-hidden" style={{ background: '#f8fbf2' }}>
+        <LeafDecor variant="leaf" count={6} color="#8ec63f" />
         <div className="container-max relative z-10">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#5a9e1a' }}>
+            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
               {locale === 'vi' ? 'Hành trình phát triển' : locale === 'en' ? 'Our journey' : '发展历程'}
             </p>
-            <h2 className="mb-12" style={{ color: '#0f1e0d' }}>
+            <h2 className="mb-12" style={{ color: '#015231' }}>
               {locale === 'vi' ? 'Các mốc nổi bật' : locale === 'en' ? 'Key milestones' : '重要里程碑'}
             </h2>
           </AnimateIn>
@@ -218,7 +218,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
             {/* Vertical line */}
             <div
               className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 -translate-x-px"
-              style={{ background: '#d0e4c0' }}
+              style={{ background: '#defbbc' }}
             />
             <div className="space-y-8">
               {milestones.map((m, idx) => {
@@ -233,7 +233,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                       {/* Dot */}
                       <div
                         className="relative flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center z-10 ml-0 md:ml-0"
-                        style={{ background: '#0f1e0d', border: '3px solid #a8cc28' }}
+                        style={{ background: '#015231', border: '3px solid #78d750' }}
                       >
                         <span className="text-sm font-bold text-white">{m.year.slice(2)}</span>
                       </div>
@@ -251,14 +251,15 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
       </section>
 
       {/* CTA */}
-      <section className="section-padding" style={{ background: '#0f1e0d' }}>
-        <div className="container-max text-center">
+      <section className="section-padding relative overflow-hidden" style={{ background: '#015231' }}>
+        <LeafDecor variant="eco" count={8} color="#78d750" />
+        <div className="container-max text-center relative z-10">
           <AnimateIn>
-            <Award size={40} style={{ color: '#a8cc28', margin: '0 auto 1.5rem' }} strokeWidth={1.5} />
+            <Award size={40} style={{ color: '#78d750', margin: '0 auto 1.5rem' }} strokeWidth={1.5} />
             <h2 className="mb-4" style={{ color: '#fff' }}>
               {locale === 'vi' ? 'Hợp tác cùng LMX Alliance' : locale === 'en' ? 'Partner with LMX Alliance' : '与LMX Alliance合作'}
             </h2>
-            <p className="mb-8 max-w-lg mx-auto" style={{ color: '#c4e070' }}>
+            <p className="mb-8 max-w-lg mx-auto" style={{ color: '#defbbc' }}>
               {locale === 'vi'
                 ? 'Chúng tôi sẵn sàng tư vấn và đồng hành cùng doanh nghiệp của bạn.'
                 : locale === 'en'

@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { useState } from 'react';
@@ -24,7 +25,6 @@ export function Header() {
     { href: `/${locale}/news`, label: t('news') },
     { href: `/${locale}/careers`, label: t('careers') },
     { href: `/${locale}/activities`, label: t('activities') },
-    { href: `/${locale}/contact`, label: t('contact') },
   ];
 
   const switchLocale = (newLocale: string) => {
@@ -35,17 +35,20 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white" style={{ height: '56px', borderBottom: '1px solid #d0e4c0' }}>
-      <div className="container-max h-full flex items-center justify-between">
+    <header className="sticky top-0 z-40 bg-white" style={{ borderBottom: '2px solid #defbbc', boxShadow: '0 2px 12px rgba(1,82,49,0.06)' }}>
+      <div className="container-max flex items-center justify-between" style={{ height: '64px' }}>
 
         {/* Logo */}
         <Link href={`/${locale}`} className="flex items-center gap-2 flex-shrink-0">
-          <div className="w-7 h-7 flex items-center justify-center" style={{ background: '#5a9e1a' }}>
-            <span className="text-white text-xs font-bold">LMX</span>
-          </div>
-          <span className="text-sm font-semibold hidden sm:block" style={{ color: '#0f1e0d', fontFamily: 'var(--font-display)' }}>
-            LMX Alliance
-          </span>
+          <Image
+            src="/logo.jpg"
+            alt="LMX Alliance"
+            width={120}
+            height={48}
+            className="object-contain"
+            style={{ height: '40px', width: 'auto', maxWidth: '120px' }}
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -60,10 +63,10 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'px-3 py-4 text-sm transition-colors border-b-2',
+                  'px-3 py-5 text-sm transition-colors border-b-2',
                   active
-                    ? 'border-[#5a9e1a] text-[#5a9e1a] font-medium'
-                    : 'border-transparent text-[#374151] hover:text-[#5a9e1a]'
+                    ? 'border-[#8ec63f] text-[#015231] font-semibold'
+                    : 'border-transparent text-[#374151] hover:text-[#8ec63f]'
                 )}
               >
                 {link.label}
@@ -73,12 +76,12 @@ export function Header() {
         </nav>
 
         {/* Right side */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {/* Language switcher */}
           <div className="relative">
             <button
-              onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-1.5 px-2 py-1.5 text-sm transition-colors"
+              onClick={() => { setLangOpen(!langOpen); if (menuOpen) setMenuOpen(false); }}
+              className="flex items-center gap-1.5 px-2 py-1.5 text-sm transition-colors rounded"
               style={{ color: '#6B7280' }}
             >
               <Globe size={14} />
@@ -87,14 +90,18 @@ export function Header() {
             {langOpen && (
               <div
                 className="absolute right-0 top-full mt-1 bg-white w-20 z-50"
-                style={{ border: '1px solid #d0e4c0', borderRadius: '2px', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+                style={{ border: '1px solid #defbbc', borderRadius: '8px', boxShadow: '0 4px 16px rgba(1,82,49,0.1)' }}
               >
                 {locales.map((l) => (
                   <button
                     key={l}
                     onClick={() => switchLocale(l)}
-                    className="w-full text-left px-3 py-2 text-sm transition-colors hover:bg-[#f0f9e4]"
-                    style={{ color: l === locale ? '#5a9e1a' : '#6B7280', fontWeight: l === locale ? 600 : 400 }}
+                    className="w-full text-left px-3 py-2 text-sm transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    style={{
+                      color: l === locale ? '#8ec63f' : '#6B7280',
+                      fontWeight: l === locale ? 600 : 400,
+                      background: l === locale ? '#f8fbf2' : 'transparent'
+                    }}
                   >
                     {localeLabels[l]}
                   </button>
@@ -105,30 +112,33 @@ export function Header() {
 
           <Link
             href={`/${locale}/contact`}
-            className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors"
-            style={{ background: '#5a9e1a', borderRadius: 0 }}
-            onMouseEnter={e => (e.currentTarget.style.background = '#1d3212')}
-            onMouseLeave={e => (e.currentTarget.style.background = '#5a9e1a')}
+            className="hidden sm:inline-flex items-center px-5 py-2 text-sm font-medium text-white transition-all"
+            style={{ background: '#8ec63f', borderRadius: '9999px' }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#015231')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#8ec63f')}
           >
             {t('contact')}
           </Link>
 
           <button
             className="lg:hidden p-2 transition-colors"
-            style={{ color: '#6B7280' }}
-            onClick={() => setMenuOpen(!menuOpen)}
+            style={{ color: '#015231' }}
+            onClick={() => { setMenuOpen(!menuOpen); if (langOpen) setLangOpen(false); }}
             aria-label={menuOpen ? 'Đóng menu' : 'Mở menu'}
             aria-expanded={menuOpen}
           >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="lg:hidden absolute top-14 left-0 right-0 bg-white z-50" style={{ borderBottom: '1px solid #d0e4c0' }}>
-          {navLinks.map((link) => {
+        <div
+          className="lg:hidden absolute left-0 right-0 bg-white z-50"
+          style={{ top: '64px', borderBottom: '1px solid #defbbc', boxShadow: '0 8px 24px rgba(1,82,49,0.1)' }}
+        >
+          {[...navLinks, { href: `/${locale}/contact`, label: t('contact') }].map((link) => {
             const isHome = link.href === `/${locale}`;
             const active = isHome
               ? pathname === link.href
@@ -138,12 +148,13 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="block px-6 py-3 text-sm transition-colors"
+                className="flex items-center px-6 py-3.5 text-sm transition-colors"
                 style={{
-                  color: active ? '#5a9e1a' : '#374151',
+                  color: active ? '#8ec63f' : '#374151',
                   fontWeight: active ? 600 : 400,
-                  borderBottom: '1px solid #edf5e8',
-                  borderLeft: active ? '3px solid #5a9e1a' : '3px solid transparent',
+                  borderBottom: '1px solid #f8fbf2',
+                  borderLeft: active ? '3px solid #8ec63f' : '3px solid transparent',
+                  background: active ? '#f8fbf2' : 'transparent',
                 }}
               >
                 {link.label}

@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  /* === LMX Alliance Brand Palette — Forest Green & Lime === */
-  --color-primary: #5a9e1a;       /* lime-green — buttons, active, links */
-  --color-primary-dark: #0f1e0d;  /* very dark forest — hero / footer */
-  --color-primary-mid: #1d3212;   /* dark forest mid — secondary sections */
-  --color-accent: #7eba24;        /* bright lime — icon accent, highlights */
-  --color-lime: #a8cc28;          /* yellow-lime — decorative glow */
-  --color-lime-pale: #c4e070;     /* pale lime — subtle text on dark bg */
-  --color-neutral-light: #edf5e8; /* light green-tint — section backgrounds */
-  --color-neutral-bg: #f3f8ef;    /* near-white green — card hover bg */
+  /* === LMX Alliance Brand Palette — Xanh Tái Chế === */
+  --color-primary: #8ec63f;        /* primary green — buttons, active, links */
+  --color-primary-dark: #015231;   /* deep forest green — hero / footer bg */
+  --color-primary-mid: #013d27;    /* mid dark green — secondary dark sections */
+  --color-accent: #78d750;         /* vivid accent green — icons, highlights */
+  --color-lime: #78d750;           /* vivid green — decorative elements */
+  --color-lime-pale: #defbbc;      /* light mint — subtle text on dark bg */
+  --color-neutral-light: #f8fbf2;  /* very light green-white — section backgrounds */
+  --color-neutral-bg: #f0f7e6;     /* near-white green — card hover bg */
   --color-neutral-dark: #6B7280;
-  --color-border: #d0e4c0;        /* soft green border */
-  --color-text-heading: #0f1e0d;
+  --color-border: #defbbc;         /* soft mint border */
+  --color-text-heading: #015231;
   --color-text-body: #374151;
   --color-text-secondary: #6B7280;
   --color-error: #DC2626;
@@ -52,11 +52,11 @@
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(90, 158, 26, 0.15);
-  --shadow-lg: 0 8px 24px rgba(90, 158, 26, 0.20);
+  --shadow-md: 0 4px 12px rgba(1, 82, 49, 0.12);
+  --shadow-lg: 0 8px 24px rgba(1, 82, 49, 0.18);
 
   /* Layout */
-  --header-height: 56px;
+  --header-height: 64px;
   --sidebar-width: 240px;
   --container-max: 1200px;
 
@@ -134,7 +134,7 @@
   border-left: 3px solid var(--color-primary);
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
-  background: #f0f9e4;
+  background: #f8fbf2;
   border-radius: 0 8px 8px 0;
 }
 .article-body blockquote p { margin-bottom: 0; color: var(--color-text-body); }
@@ -200,7 +200,7 @@
   100% { background-position: 400px 0; }
 }
 .skeleton {
-  background: linear-gradient(90deg, #edf5e8 25%, #d0e4c0 50%, #edf5e8 75%);
+  background: linear-gradient(90deg, #f8fbf2 25%, #defbbc 50%, #f8fbf2 75%);
   background-size: 800px 100%;
   animation: shimmer 1.4s infinite linear;
   border-radius: var(--radius-md);
@@ -214,11 +214,11 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: #fff;
-  border: 1px solid var(--color-lime);
+  border: 1px solid rgba(255,255,255,0.6);
   border-radius: var(--radius-pill);
   transition: border-color 0.2s ease, background 0.2s ease;
 }
-.btn-hero-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+.btn-hero-outline:hover { border-color: #fff; background: rgba(255,255,255,0.15); }
 
 /* ── Partner logos marquee ─────────────────────── */
 @keyframes marquee {
@@ -272,21 +272,32 @@
 }
 
 @keyframes leaf-sway {
-  0%, 100% { transform: rotate(-8deg) scale(1); }
-  50%  { transform: rotate(8deg) scale(1.08); }
+  0%, 100% { transform: rotate(-10deg) scale(1); }
+  50%  { transform: rotate(10deg) scale(1.1); }
 }
 
 @keyframes leaf-drift {
   0%   { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
-  25%  { transform: translate(12px, -18px) rotate(10deg); opacity: 0.8; }
-  50%  { transform: translate(-6px, -30px) rotate(-6deg); opacity: 0.65; }
-  75%  { transform: translate(8px, -14px) rotate(4deg); opacity: 0.9; }
+  25%  { transform: translate(14px, -20px) rotate(12deg); opacity: 0.85; }
+  50%  { transform: translate(-8px, -32px) rotate(-8deg); opacity: 0.7; }
+  75%  { transform: translate(10px, -16px) rotate(5deg); opacity: 0.9; }
   100% { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
 }
 
 @keyframes leaf-spin-slow {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
+}
+
+@keyframes eco-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50%  { transform: scale(1.12); opacity: 0.25; }
+}
+
+@keyframes vine-grow {
+  0%   { stroke-dashoffset: 200; opacity: 0; }
+  30%  { opacity: 0.5; }
+  100% { stroke-dashoffset: 0; opacity: 0.18; }
 }
 
 /* Scrollbar */
