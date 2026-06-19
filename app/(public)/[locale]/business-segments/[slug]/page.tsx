@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
@@ -83,7 +84,15 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {gallery.map((img, i) => (
-                      <img key={i} src={img} alt={`${name} ${i + 1}`} className="w-full aspect-video object-cover border border-[#E8E9ED]" />
+                      <div key={i} className="relative aspect-video overflow-hidden border border-[#E8E9ED]" style={{ borderRadius: '4px' }}>
+                        <Image
+                          src={img}
+                          alt={`${name} — hình ảnh ${i + 1}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
                     ))}
                   </div>
                 </div>

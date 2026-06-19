@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { Target, Eye, Shield, Users, TrendingUp, Leaf, Award, CheckCircle2, FileText, Link2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
@@ -423,9 +424,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 className="block group"
                 style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid #E8E9ED', display: 'block', position: 'relative' }}
               >
-                <img
+                <Image
                   src="/docs/giay-phep-dkdn.png"
                   alt="Giấy chứng nhận đăng ký doanh nghiệp — LMX Alliance"
+                  width={784}
+                  height={1123}
                   className="w-full block transition-opacity duration-200 group-hover:opacity-90"
                 />
                 {/* Hover overlay */}
@@ -543,9 +546,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 return (
                   <AnimateIn key={leader.id} delay={idx * 0.08}>
                     <div className="card-lift border bg-white overflow-hidden group" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
-                      <div className="aspect-[3/4] overflow-hidden" style={{ background: '#f0fdf4' }}>
+                      <div className="aspect-[3/4] overflow-hidden" style={{ background: '#f0fdf4', position: 'relative' }}>
                         {leader.photo ? (
-                          <img src={leader.photo} alt={name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                          <Image
+                            src={leader.photo}
+                            alt={name}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 300px"
+                          />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
                             <Users size={48} strokeWidth={1} style={{ color: '#d1fae5' }} />
