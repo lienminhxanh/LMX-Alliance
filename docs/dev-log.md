@@ -168,4 +168,41 @@
 
 ---
 
+## 19/06/2026 (Thứ Sáu)
+
+**Người thực hiện:** Hoang Son
+
+### Hoàn thành
+
+- **[test] Responsive mobile — kiểm tra tất cả breakpoints (Task 1.5)**
+  - Công cụ: Playwright MCP, viewport 375px (iPhone) và 768px (iPad)
+  - Trang đã kiểm tra: Homepage, About, News list, News detail, Careers, Contact
+  - **375px — kết quả:**
+    - Header: hamburger menu hiển thị đúng (desktop nav ẩn với `hidden lg:flex`)
+    - Hamburger click: drawer mở với 7 links, active state highlight, nút X đóng
+    - Hero sections: text wrap tốt, không tràn
+    - Grids: stack sang single column (`grid-cols-1`) đúng ở tất cả sections
+    - About achievements: 2×2 grid (`grid-cols-2 md:grid-cols-4`) ✅
+    - Core values: 2 cột (`sm:grid-cols-2`) ✅
+    - Pháp lý + certificate: stack dọc (info card → ảnh) ✅
+    - News detail sidebar: collapse bên dưới content ✅
+    - Contact form: full width, usable ✅
+    - Footer: 3 columns stack sang 1 cột ✅
+  - **768px — kết quả:**
+    - Business segments: 3 cột (`md:grid-cols-3`) ✅
+    - Stats strip: 4 cột (`md:grid-cols-4`) ✅
+    - News cards: 2 cột ✅
+    - Footer: multi-column ✅
+
+### Vấn đề phát sinh
+
+- `AnimateIn` (`whileInView`) làm blank khi Playwright chụp full-page (không scroll) → force `opacity: 1` bằng JS để xem layout thực
+- `browser_resize` trong Playwright MCP không persist qua page navigation → cần resize lại sau mỗi lần navigate
+- Stats homepage = "0" vì production DB chưa seed (không phải layout bug)
+
+### Ghi chú
+
+- Task 1.5 CONFIRMED PASS — layout responsive hoạt động đúng trên mobile và tablet
+- Không có bug layout nào cần fix
+
 <!-- ENTRIES MỚI ĐƯỢC THÊM VÀO ĐÂY BỞI /log-work -->
