@@ -3,6 +3,46 @@ import { notFound, redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
+import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string; slug: string }> }
+): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
+  const slugField = `slug${L}` as 'slugVI' | 'slugEN' | 'slugZH';
+
+  const article = await prisma.newsArticle.findFirst({
+    where: { [slugField]: slug, status: 'PUBLISHED' },
+    select: {
+      titleVI: true, titleEN: true, titleZH: true,
+      summaryVI: true, summaryEN: true, summaryZH: true,
+      slugVI: true, slugEN: true, slugZH: true,
+      thumbnail: true,
+    },
+  });
+
+  if (!article) return {};
+
+  const title = (article as any)[`title${L}`] as string;
+  const description = ((article as any)[`summary${L}`] as string | null)
+    ?? title;
+
+  return buildMeta({
+    locale,
+    title,
+    description,
+    path: `/${locale}/news/${slug}`,
+    alternates: {
+      vi: article.slugVI ? `/vi/news/${article.slugVI}` : `/vi/news`,
+      en: article.slugEN ? `/en/news/${article.slugEN}` : `/en/news`,
+      zh: article.slugZH ? `/zh/news/${article.slugZH}` : `/zh/news`,
+    },
+    image: article.thumbnail ?? undefined,
+    type: 'article',
+  });
+}
 
 const categoryLabel: Record<string, Record<string, string>> = {
   COMPANY_NEWS:       { vi: 'Tin công ty',       en: 'Company News',        zh: '公司新闻' },

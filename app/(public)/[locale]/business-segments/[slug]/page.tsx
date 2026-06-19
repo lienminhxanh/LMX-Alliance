@@ -4,12 +4,46 @@ import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const sector = await prisma.businessSector.findUnique({ where: { slug } });
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string; slug: string }> }
+): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
+
+  const sector = await prisma.businessSector.findUnique({
+    where: { slug },
+    select: {
+      seoTitleVI: true,
+      seoDescVI: true,
+      nameVI: true, nameEN: true, nameZH: true,
+      summaryVI: true, summaryEN: true, summaryZH: true,
+      thumbnail: true,
+    },
+  });
   if (!sector) return {};
-  return { title: sector.seoTitleVI, description: sector.seoDescVI };
+
+  // SEO fields only exist in VI; fall back to localised name/summary for EN & ZH
+  const title = L === 'VI'
+    ? sector.seoTitleVI
+    : ((sector as any)[`name${L}`] as string | null) ?? sector.seoTitleVI ?? '';
+  const description = L === 'VI'
+    ? sector.seoDescVI
+    : ((sector as any)[`summary${L}`] as string | null) ?? sector.seoDescVI ?? '';
+
+  return buildMeta({
+    locale,
+    title,
+    description,
+    path: `/${locale}/business-segments/${slug}`,
+    alternates: {
+      vi: `/vi/business-segments/${slug}`,
+      en: `/en/business-segments/${slug}`,
+      zh: `/zh/business-segments/${slug}`,
+    },
+    image: sector.thumbnail ?? undefined,
+  });
 }
 
 export default async function SectorDetailPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
