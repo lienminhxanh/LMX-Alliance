@@ -7,7 +7,7 @@ import { AnimateIn } from '@/components/ui/AnimateIn';
 import { CountUp } from '@/components/ui/CountUp';
 import type { Metadata } from 'next';
 
-import { buildMeta } from '@/lib/seo';
+import { buildMeta, SITE_URL } from '@/lib/seo';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -51,8 +51,35 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const heroTitle = (homePage as any)?.[`heroTitle${L}`] ?? 'Xây dựng tương lai bền vững';
   const heroDesc  = (homePage as any)?.[`heroDesc${L}`]  ?? '';
 
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Công ty Cổ phần Liên Minh Xanh LMX',
+    alternateName: 'LMX Alliance',
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo.png`,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+84-931-824-025',
+      contactType: 'customer service',
+      areaServed: 'VN',
+      availableLanguage: ['Vietnamese', 'English'],
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Số 104 Đường Lò Lu',
+      addressLocality: 'Long Phước',
+      addressRegion: 'TP. Hồ Chí Minh',
+      addressCountry: 'VN',
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ background: '#064e3b' }}>
         {/* decorative circles */}

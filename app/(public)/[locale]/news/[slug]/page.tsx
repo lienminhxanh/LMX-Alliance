@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { buildMeta } from '@/lib/seo';
+import { buildMeta, SITE_URL } from '@/lib/seo';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
@@ -20,6 +20,8 @@ export async function generateMetadata(
       summaryVI: true, summaryEN: true, summaryZH: true,
       slugVI: true, slugEN: true, slugZH: true,
       thumbnail: true,
+      publishedAt: true,
+      updatedAt: true,
     },
   });
 
@@ -60,6 +62,19 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
   // Primary lookup by current locale's slug field
   let article = await prisma.newsArticle.findFirst({
     where: { [slugField]: slug, status: 'PUBLISHED' },
+    select: {
+      id: true,
+      titleVI: true, titleEN: true, titleZH: true,
+      contentVI: true, contentEN: true, contentZH: true,
+      summaryVI: true, summaryEN: true, summaryZH: true,
+      thumbnail: true,
+      author: true,
+      category: true,
+      publishedAt: true,
+      updatedAt: true,
+      slugVI: true, slugEN: true, slugZH: true,
+      status: true,
+    },
   });
 
   // Cross-locale fallback: user switched language via header, slug belongs to another locale
@@ -69,6 +84,9 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
     for (const field of otherFields) {
       const found = await prisma.newsArticle.findFirst({
         where: { [field]: slug, status: 'PUBLISHED' },
+        select: {
+          slugVI: true, slugEN: true, slugZH: true,
+        },
       });
       if (found) {
         const correctSlug = (found as any)[slugField] as string | null;
@@ -91,8 +109,31 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
     take: 4,
   });
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: title,
+    description: summary ?? '',
+    datePublished: article.publishedAt?.toISOString() ?? new Date().toISOString(),
+    dateModified: article.updatedAt.toISOString(),
+    publisher: {
+      '@type': 'Organization',
+      name: 'LMX Alliance',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo.png`,
+      },
+    },
+    image: article.thumbnail ? [article.thumbnail] : [],
+    url: `${SITE_URL}/${locale}/news/${slug}`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Hero */}
       <section className="bg-[#064e3b] text-white py-16">
         <div className="container-max">
