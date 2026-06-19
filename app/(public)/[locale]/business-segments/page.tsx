@@ -2,6 +2,35 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { ArrowRight, Building2 } from 'lucide-react';
+import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const titles: Record<string, string> = {
+    vi: 'Lĩnh vực hoạt động',
+    en: 'Business Segments',
+    zh: '业务领域',
+  };
+  const descs: Record<string, string> = {
+    vi: 'LMX Alliance hoạt động trong 3 lĩnh vực chiến lược: Logistics & Xuất nhập khẩu, Xây lắp công trình, Thu mua phế liệu & Xử lý chất thải.',
+    en: 'LMX Alliance operates in 3 strategic segments: Logistics & Import-Export, Construction, Scrap Procurement & Waste Management.',
+    zh: 'LMX Alliance在3个战略领域运营：物流与进出口、建筑、废料采购与废物处理。',
+  };
+  return buildMeta({
+    locale,
+    title: titles[locale] ?? titles.vi,
+    description: descs[locale] ?? descs.vi,
+    path: `/${locale}/business-segments`,
+    alternates: {
+      vi: '/vi/business-segments',
+      en: '/en/business-segments',
+      zh: '/zh/business-segments',
+    },
+  });
+}
 
 export default async function SectorsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

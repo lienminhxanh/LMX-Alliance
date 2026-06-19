@@ -2,6 +2,31 @@ import { getTranslations } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { Target, Eye, Shield, Users, TrendingUp, Leaf, Award, CheckCircle2, FileText, Link2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
+import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const titles: Record<string, string> = {
+    vi: 'Giới thiệu',
+    en: 'About Us',
+    zh: '关于我们',
+  };
+  const descs: Record<string, string> = {
+    vi: 'Tìm hiểu về Công ty Cổ phần Liên Minh Xanh LMX — lịch sử thành lập, sứ mệnh, tầm nhìn, giá trị cốt lõi và đội ngũ lãnh đạo.',
+    en: 'Learn about LMX Green Alliance JSC — our founding story, mission, vision, core values and leadership team.',
+    zh: '了解LMX绿色联盟股份公司 — 成立历史、使命、愿景、核心价值观和领导团队。',
+  };
+  return buildMeta({
+    locale,
+    title: titles[locale] ?? titles.vi,
+    description: descs[locale] ?? descs.vi,
+    path: `/${locale}/about`,
+    alternates: { vi: '/vi/about', en: '/en/about', zh: '/zh/about' },
+  });
+}
 
 const coreValues = [
   {

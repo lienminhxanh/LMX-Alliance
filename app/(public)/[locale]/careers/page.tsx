@@ -1,6 +1,27 @@
 import { prisma } from '@/lib/prisma';
 import { Mail, Shield, TrendingUp, Users, Briefcase, CheckCircle2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
+import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const titles: Record<string, string> = { vi: 'Tuyển dụng', en: 'Careers', zh: '招聘' };
+  const descs: Record<string, string> = {
+    vi: 'Cơ hội nghề nghiệp tại LMX Alliance — môi trường chuyên nghiệp, phát triển bền vững và phúc lợi cạnh tranh.',
+    en: 'Career opportunities at LMX Alliance — professional environment, sustainable growth and competitive benefits.',
+    zh: 'LMX Alliance的职业机会 — 专业环境、可持续发展和有竞争力的福利。',
+  };
+  return buildMeta({
+    locale,
+    title: titles[locale] ?? titles.vi,
+    description: descs[locale] ?? descs.vi,
+    path: `/${locale}/careers`,
+    alternates: { vi: '/vi/careers', en: '/en/careers', zh: '/zh/careers' },
+  });
+}
 
 const benefits = [
   {

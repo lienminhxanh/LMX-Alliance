@@ -2,6 +2,35 @@ import { getTranslations } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { Download, FileText } from 'lucide-react';
 import { formatFileSize, formatDate } from '@/lib/utils';
+import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const titles: Record<string, string> = {
+    vi: 'Quan hệ cổ đông',
+    en: 'Shareholder Relations',
+    zh: '股东关系',
+  };
+  const descs: Record<string, string> = {
+    vi: 'Thông tin quan hệ cổ đông LMX Alliance — tài liệu, báo cáo và cập nhật dành cho nhà đầu tư.',
+    en: 'LMX Alliance shareholder relations — documents, reports and investor updates.',
+    zh: 'LMX Alliance股东关系 — 文件、报告和投资者更新。',
+  };
+  return buildMeta({
+    locale,
+    title: titles[locale] ?? titles.vi,
+    description: descs[locale] ?? descs.vi,
+    path: `/${locale}/shareholder-relations`,
+    alternates: {
+      vi: '/vi/shareholder-relations',
+      en: '/en/shareholder-relations',
+      zh: '/zh/shareholder-relations',
+    },
+  });
+}
 
 const CATEGORIES = ['ANNUAL_REPORTS', 'FINANCIAL_REPORTS', 'DISCLOSURES', 'SHAREHOLDER_MEETINGS', 'GOVERNANCE'] as const;
 

@@ -4,6 +4,27 @@ import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
+import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const titles: Record<string, string> = { vi: 'Tin tức', en: 'News', zh: '新闻' };
+  const descs: Record<string, string> = {
+    vi: 'Cập nhật tin tức mới nhất từ LMX Alliance — hoạt động kinh doanh, dự án, tuyển dụng và phát triển bền vững.',
+    en: 'Latest news from LMX Alliance — business activities, projects, recruitment and sustainability.',
+    zh: '来自LMX Alliance的最新消息 — 商业活动、项目、招聘和可持续发展。',
+  };
+  return buildMeta({
+    locale,
+    title: titles[locale] ?? titles.vi,
+    description: descs[locale] ?? descs.vi,
+    path: `/${locale}/news`,
+    alternates: { vi: '/vi/news', en: '/en/news', zh: '/zh/news' },
+  });
+}
 
 const CATEGORIES = ['COMPANY_NEWS', 'INVESTOR_RELATIONS', 'SUSTAINABILITY', 'RECRUITMENT'] as const;
 

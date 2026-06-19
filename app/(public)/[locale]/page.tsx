@@ -7,11 +7,29 @@ import { AnimateIn } from '@/components/ui/AnimateIn';
 import { CountUp } from '@/components/ui/CountUp';
 import type { Metadata } from 'next';
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'LMX Alliance - Công ty Cổ phần Liên Minh Xanh',
-    description: 'Tập đoàn đa ngành hàng đầu trong xây lắp, logistics và xử lý chất thải.',
+import { buildMeta } from '@/lib/seo';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const titles: Record<string, string> = {
+    vi: 'Trang chủ',
+    en: 'Home',
+    zh: '首页',
   };
+  const descs: Record<string, string> = {
+    vi: 'LMX Alliance — Giải pháp toàn diện trong logistics, xây lắp công trình, thu mua phế liệu và xử lý chất thải nguy hại. An toàn – Hiệu quả – Minh bạch.',
+    en: 'LMX Alliance — Comprehensive solutions in logistics, construction, scrap procurement and hazardous waste management. Safe – Efficient – Transparent.',
+    zh: 'LMX Alliance — 物流、建筑、废料采购和危险废物处理综合解决方案。安全 – 高效 – 透明。',
+  };
+  return buildMeta({
+    locale,
+    title: titles[locale] ?? titles.vi,
+    description: descs[locale] ?? descs.vi,
+    path: `/${locale}`,
+    alternates: { vi: '/vi', en: '/en', zh: '/zh' },
+  });
 }
 
 const sectorIcons = [Building2, Truck, Recycle];
