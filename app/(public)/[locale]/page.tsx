@@ -5,6 +5,7 @@ import { ArrowRight, Building2, Truck, Recycle } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { CountUp } from '@/components/ui/CountUp';
+import { LeafDecor } from '@/components/ui/LeafDecor';
 import type { Metadata } from 'next';
 
 import { buildMeta, SITE_URL } from '@/lib/seo';
@@ -81,17 +82,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
       {/* ── Hero ──────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ background: '#064e3b' }}>
+      <section className="relative overflow-hidden" style={{ background: '#0f1e0d' }}>
+        <LeafDecor count={8} color="#a8cc28" />
         {/* decorative circles */}
         <div className="absolute inset-0 pointer-events-none select-none" aria-hidden>
-          {[...Array(6)].map((_, i) => (
+          {[...Array(4)].map((_, i) => (
             <span
               key={i}
-              className="absolute rounded-full opacity-10"
+              className="absolute rounded-full opacity-8"
               style={{
                 width: `${80 + i * 40}px`, height: `${80 + i * 40}px`,
-                background: '#10b981',
-                top: `${10 + i * 12}%`, right: `${5 + i * 8}%`,
+                background: '#7eba24',
+                top: `${10 + i * 15}%`, right: `${5 + i * 8}%`,
                 animation: `float-up ${3 + i * 0.5}s ${i * 0.4}s ease-in-out infinite alternate`,
               }}
             />
@@ -100,20 +102,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
         <div className="container-max py-24 md:py-32 relative">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-4 font-medium" style={{ color: '#6ee7b7' }}>
+            <p className="text-xs uppercase tracking-widest mb-4 font-medium" style={{ color: '#a8cc28' }}>
               LMX Alliance
             </p>
             <h1 className="mb-6 leading-tight whitespace-pre-line" style={{ fontSize: 'clamp(2rem,4vw,3.25rem)', fontWeight: 700, color: '#fff' }}>
               {heroTitle}
             </h1>
-            <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: '#a7f3d0' }}>
+            <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: '#c4e070' }}>
               {heroDesc}
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
                 href={`/${locale}/business-segments`}
                 className="inline-flex items-center gap-2 px-7 py-3 text-sm font-medium transition-all hover:gap-3"
-                style={{ background: '#047857', color: '#fff', borderRadius: 0 }}
+                style={{ background: '#5a9e1a', color: '#fff', borderRadius: '9999px' }}
               >
                 {t('hero.cta')} <ArrowRight size={16} />
               </Link>
@@ -129,13 +131,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* ── Business Sectors ──────────────────────────── */}
-      <section className="section-padding" style={{ background: '#F5F6F8' }}>
+      <section className="section-padding" style={{ background: '#edf5e8' }}>
         <div className="container-max">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#4B5563' }}>{t('sectors.subtitle')}</p>
             <h2 className="mb-10">{t('sectors.title')}</h2>
           </AnimateIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 border" style={{ borderColor: '#E8E9ED' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 border" style={{ borderColor: '#d0e4c0' }}>
             {sectors.map((sector, idx) => {
               const Icon = sectorIcons[idx] ?? Building2;
               const name    = (sector as any)[`name${L}`];
@@ -144,20 +146,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <AnimateIn key={sector.id} delay={idx * 0.1}>
                   <div
                     className={`card-lift p-8 bg-white h-full group cursor-pointer ${idx < sectors.length - 1 ? 'border-b md:border-b-0 md:border-r' : ''}`}
-                    style={{ borderColor: '#E8E9ED' }}
+                    style={{ borderColor: '#d0e4c0' }}
                   >
                     <div
                       className="w-11 h-11 flex items-center justify-center mb-5 transition-all"
-                      style={{ background: '#f0fdf4', borderRadius: '4px' }}
+                      style={{ background: '#f0f9e4', borderRadius: '4px' }}
                     >
-                      <Icon size={22} style={{ color: '#047857' }} strokeWidth={1.5} />
+                      <Icon size={22} style={{ color: '#5a9e1a' }} strokeWidth={1.5} />
                     </div>
                     <h3 className="text-base font-semibold mb-3">{name}</h3>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: '#6B7280' }}>{summary}</p>
                     <Link
                       href={`/${locale}/business-segments/${sector.slug}`}
                       className="inline-flex items-center gap-1.5 text-sm font-medium link-underline"
-                      style={{ color: '#047857' }}
+                      style={{ color: '#5a9e1a' }}
                       aria-label={`${t('sectors.learnMore')}: ${name}`}
                     >
                       {t('sectors.learnMore')} <ArrowRight size={14} />
@@ -172,10 +174,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── Statistics ────────────────────────────────── */}
       {stats.length > 0 && (
-        <section className="section-padding" style={{ background: '#064e3b' }}>
+        <section className="section-padding" style={{ background: '#0f1e0d' }}>
           <div className="container-max">
             <AnimateIn>
-              <p className="text-xs uppercase tracking-widest mb-10 font-medium" style={{ color: '#6ee7b7' }}>
+              <p className="text-xs uppercase tracking-widest mb-10 font-medium" style={{ color: '#a8cc28' }}>
                 {t('stats.title')}
               </p>
             </AnimateIn>
@@ -222,33 +224,33 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               {/* Animated illustration */}
               <div
                 className="relative aspect-[4/3] flex items-center justify-center overflow-hidden"
-                style={{ background: '#f0fdf4', border: '1px solid #d1fae5', borderRadius: '4px' }}
+                style={{ background: '#f0f9e4', border: '1px solid #ddf0b0', borderRadius: '4px' }}
               >
                 <svg viewBox="0 0 400 300" className="w-full h-full p-8" fill="none">
                   {/* Building */}
-                  <rect x="60" y="100" width="80" height="160" rx="2" fill="#047857" opacity="0.15" />
-                  <rect x="70" y="80" width="60" height="180" rx="2" fill="#047857" opacity="0.25" />
-                  <rect x="80" y="120" width="15" height="20" rx="1" fill="#047857" opacity="0.5" />
-                  <rect x="105" y="120" width="15" height="20" rx="1" fill="#047857" opacity="0.5" />
-                  <rect x="80" y="155" width="15" height="20" rx="1" fill="#047857" opacity="0.5" />
-                  <rect x="105" y="155" width="15" height="20" rx="1" fill="#047857" opacity="0.5" />
-                  <rect x="88" y="220" width="24" height="40" rx="1" fill="#064e3b" opacity="0.4" />
+                  <rect x="60" y="100" width="80" height="160" rx="2" fill="#5a9e1a" opacity="0.15" />
+                  <rect x="70" y="80" width="60" height="180" rx="2" fill="#5a9e1a" opacity="0.25" />
+                  <rect x="80" y="120" width="15" height="20" rx="1" fill="#5a9e1a" opacity="0.5" />
+                  <rect x="105" y="120" width="15" height="20" rx="1" fill="#5a9e1a" opacity="0.5" />
+                  <rect x="80" y="155" width="15" height="20" rx="1" fill="#5a9e1a" opacity="0.5" />
+                  <rect x="105" y="155" width="15" height="20" rx="1" fill="#5a9e1a" opacity="0.5" />
+                  <rect x="88" y="220" width="24" height="40" rx="1" fill="#0f1e0d" opacity="0.4" />
                   {/* Truck */}
-                  <rect x="200" y="200" width="90" height="40" rx="3" fill="#047857" opacity="0.3" />
-                  <rect x="255" y="185" width="35" height="55" rx="3" fill="#047857" opacity="0.5" />
-                  <circle cx="220" cy="243" r="10" fill="#064e3b" opacity="0.5" />
-                  <circle cx="270" cy="243" r="10" fill="#064e3b" opacity="0.5" />
+                  <rect x="200" y="200" width="90" height="40" rx="3" fill="#5a9e1a" opacity="0.3" />
+                  <rect x="255" y="185" width="35" height="55" rx="3" fill="#5a9e1a" opacity="0.5" />
+                  <circle cx="220" cy="243" r="10" fill="#0f1e0d" opacity="0.5" />
+                  <circle cx="270" cy="243" r="10" fill="#0f1e0d" opacity="0.5" />
                   {/* Leaves */}
-                  <ellipse cx="330" cy="130" rx="30" ry="50" fill="#10b981" opacity="0.2" transform="rotate(-20 330 130)" />
-                  <ellipse cx="355" cy="110" rx="20" ry="40" fill="#10b981" opacity="0.3" transform="rotate(15 355 110)" />
-                  <line x1="340" y1="180" x2="340" y2="260" stroke="#064e3b" strokeWidth="3" opacity="0.3" />
+                  <ellipse cx="330" cy="130" rx="30" ry="50" fill="#7eba24" opacity="0.2" transform="rotate(-20 330 130)" />
+                  <ellipse cx="355" cy="110" rx="20" ry="40" fill="#7eba24" opacity="0.3" transform="rotate(15 355 110)" />
+                  <line x1="340" y1="180" x2="340" y2="260" stroke="#0f1e0d" strokeWidth="3" opacity="0.3" />
                   {/* Ground line */}
-                  <line x1="20" y1="260" x2="380" y2="260" stroke="#10b981" strokeWidth="2" opacity="0.3" />
+                  <line x1="20" y1="260" x2="380" y2="260" stroke="#7eba24" strokeWidth="2" opacity="0.3" />
                   {/* Sun */}
-                  <circle cx="330" cy="60" r="18" fill="#6ee7b7" opacity="0.5" />
-                  <line x1="330" y1="35" x2="330" y2="25" stroke="#6ee7b7" strokeWidth="2" opacity="0.4" />
-                  <line x1="350" y1="43" x2="357" y2="36" stroke="#6ee7b7" strokeWidth="2" opacity="0.4" />
-                  <line x1="355" y1="60" x2="365" y2="60" stroke="#6ee7b7" strokeWidth="2" opacity="0.4" />
+                  <circle cx="330" cy="60" r="18" fill="#a8cc28" opacity="0.5" />
+                  <line x1="330" y1="35" x2="330" y2="25" stroke="#a8cc28" strokeWidth="2" opacity="0.4" />
+                  <line x1="350" y1="43" x2="357" y2="36" stroke="#a8cc28" strokeWidth="2" opacity="0.4" />
+                  <line x1="355" y1="60" x2="365" y2="60" stroke="#a8cc28" strokeWidth="2" opacity="0.4" />
                 </svg>
               </div>
             </AnimateIn>
@@ -258,7 +260,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── Latest News ───────────────────────────────── */}
       {latestNews.length > 0 && (
-        <section className="section-padding" style={{ background: '#F5F6F8' }}>
+        <section className="section-padding" style={{ background: '#edf5e8' }}>
           <div className="container-max">
             <AnimateIn>
               <div className="flex items-baseline justify-between mb-8">
@@ -275,9 +277,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 const slug    = (article as any)[`slug${L}`];
                 return (
                   <AnimateIn key={article.id} delay={idx * 0.1}>
-                    <article className="card-lift bg-white border h-full" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
+                    <article className="card-lift bg-white border h-full" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
                       {article.thumbnail && (
-                        <div className="overflow-hidden" style={{ borderBottom: '1px solid #E8E9ED' }}>
+                        <div className="overflow-hidden" style={{ borderBottom: '1px solid #d0e4c0' }}>
                           <img src={article.thumbnail} alt={title} className="w-full aspect-video object-cover transition-transform duration-500 hover:scale-105" />
                         </div>
                       )}
@@ -290,7 +292,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         <Link
                           href={`/${locale}/news/${slug}`}
                           className="text-sm font-medium inline-flex items-center gap-1 link-underline"
-                          style={{ color: '#047857' }}
+                          style={{ color: '#5a9e1a' }}
                           aria-label={`${locale === 'vi' ? 'Đọc thêm' : locale === 'en' ? 'Read more' : '阅读更多'}: ${title}`}
                         >
                           {locale === 'vi' ? 'Đọc thêm' : locale === 'en' ? 'Read more' : '阅读更多'} <ArrowRight size={12} />
@@ -307,7 +309,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── Partners Marquee ──────────────────────────── */}
       {partners.length > 0 && (
-        <section className="py-14 border-t border-b" style={{ borderColor: '#E8E9ED' }}>
+        <section className="py-14 border-t border-b" style={{ borderColor: '#d0e4c0' }}>
           <div className="container-max mb-8 text-center">
             <AnimateIn>
               <p className="text-xs uppercase tracking-widest mb-1" style={{ color: '#6B7280' }}>
@@ -331,11 +333,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   ) : (
                     <div
                       className="flex items-center gap-2 px-4 py-2 border"
-                      style={{ borderColor: '#E8E9ED', borderRadius: '2px', minWidth: '120px' }}
+                      style={{ borderColor: '#d0e4c0', borderRadius: '2px', minWidth: '120px' }}
                     >
                       <div
                         className="w-7 h-7 flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                        style={{ background: '#047857', borderRadius: '2px' }}
+                        style={{ background: '#5a9e1a', borderRadius: '2px' }}
                       >
                         {((p as any)[`name${L}`] || p.nameVI).charAt(0)}
                       </div>
@@ -352,15 +354,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       )}
 
       {/* ── CTA ───────────────────────────────────────── */}
-      <section className="py-20 text-white" style={{ background: '#065f46' }}>
+      <section className="py-20 text-white" style={{ background: '#1d3212' }}>
         <div className="container-max text-center">
           <AnimateIn>
             <h2 className="mb-4" style={{ color: '#fff' }}>{t('cta.title')}</h2>
-            <p className="mb-8 max-w-xl mx-auto" style={{ color: '#a7f3d0' }}>{t('cta.subtitle')}</p>
+            <p className="mb-8 max-w-xl mx-auto" style={{ color: '#c4e070' }}>{t('cta.subtitle')}</p>
             <Link
               href={`/${locale}/contact`}
               className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-medium transition-all hover:gap-3"
-              style={{ background: '#fff', color: '#064e3b', borderRadius: 0 }}
+              style={{ background: '#fff', color: '#0f1e0d', borderRadius: 0 }}
             >
               {t('cta.button')} <ArrowRight size={16} />
             </Link>

@@ -7,6 +7,8 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
+export const revalidate = 3600;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
 ): Promise<Metadata> {
@@ -62,7 +64,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
 
   return (
     <>
-      <section className="bg-[#064e3b] text-white py-20">
+      <section className="bg-[#0f1e0d] text-white py-20">
         <div className="container-max">
           <Link href={`/${locale}/business-segments`} className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6 transition-colors">
             <ArrowLeft size={14} /> {t('backToList')}
@@ -84,7 +86,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {gallery.map((img, i) => (
-                      <div key={i} className="relative aspect-video overflow-hidden border border-[#E8E9ED]" style={{ borderRadius: '4px' }}>
+                      <div key={i} className="relative aspect-video overflow-hidden border border-[#d0e4c0]" style={{ borderRadius: '4px' }}>
                         <Image
                           src={img}
                           alt={`${name} — hình ảnh ${i + 1}`}
@@ -99,8 +101,8 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
               )}
             </div>
             <div className="lg:col-span-1">
-              <div className="p-6 border border-[#E8E9ED] sticky top-20" style={{ borderRadius: '4px' }}>
-                <h4 className="font-semibold text-[#064e3b] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+              <div className="p-6 border border-[#d0e4c0] sticky top-20" style={{ borderRadius: '4px' }}>
+                <h4 className="font-semibold text-[#0f1e0d] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                   {locale === 'vi' ? 'Liên hệ tư vấn' : locale === 'en' ? 'Contact Us' : '联系我们'}
                 </h4>
                 <p className="text-sm text-[#6B7280] mb-5">
@@ -108,7 +110,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
                 </p>
                 <Link
                   href={`/${locale}/contact`}
-                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-[#064e3b] text-white text-sm hover:bg-[#065f46] transition-colors"
+                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-[#0f1e0d] text-white text-sm hover:bg-[#1d3212] transition-colors"
                   style={{ borderRadius: 0 }}
                 >
                   {locale === 'vi' ? 'Liên hệ ngay' : locale === 'en' ? 'Contact Now' : '立即联系'} <ArrowRight size={14} />

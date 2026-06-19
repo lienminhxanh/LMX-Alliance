@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Emerald brand palette */
-  --color-primary: #047857;       /* emerald-700 — buttons, active, accents */
-  --color-primary-dark: #064e3b;  /* emerald-900 — hero / footer dark backgrounds */
-  --color-primary-mid: #065f46;   /* emerald-800 — secondary dark sections */
-  --color-accent: #10b981;        /* emerald-500 — highlights, icon accent */
-  --color-neutral-light: #F5F6F8;
+  /* === LMX Alliance Brand Palette — Forest Green & Lime === */
+  --color-primary: #5a9e1a;       /* lime-green — buttons, active, links */
+  --color-primary-dark: #0f1e0d;  /* very dark forest — hero / footer */
+  --color-primary-mid: #1d3212;   /* dark forest mid — secondary sections */
+  --color-accent: #7eba24;        /* bright lime — icon accent, highlights */
+  --color-lime: #a8cc28;          /* yellow-lime — decorative glow */
+  --color-lime-pale: #c4e070;     /* pale lime — subtle text on dark bg */
+  --color-neutral-light: #edf5e8; /* light green-tint — section backgrounds */
+  --color-neutral-bg: #f3f8ef;    /* near-white green — card hover bg */
   --color-neutral-dark: #6B7280;
-  --color-border: #E8E9ED;
-  --color-text-heading: #064e3b;  /* dark green headings on white */
-  --color-text-body: #374151;     /* dark gray body — high readability */
+  --color-border: #d0e4c0;        /* soft green border */
+  --color-text-heading: #0f1e0d;
+  --color-text-body: #374151;
   --color-text-secondary: #6B7280;
   --color-error: #DC2626;
   --color-success: #059669;
@@ -40,15 +43,17 @@
   --space-2xl: 4rem;
   --space-3xl: 6rem;
 
-  /* Border radius - SHARP */
+  /* Border radius */
   --radius-none: 0px;
-  --radius-sm: 2px;
-  --radius-md: 4px;
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(4, 120, 87, 0.12);
-  --shadow-lg: 0 8px 24px rgba(4, 120, 87, 0.16);
+  --shadow-md: 0 4px 12px rgba(90, 158, 26, 0.15);
+  --shadow-lg: 0 8px 24px rgba(90, 158, 26, 0.20);
 
   /* Layout */
   --header-height: 56px;
@@ -113,13 +118,11 @@
 .article-body .article-img {
   width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 8px;
   margin: 1.75rem 0;
   display: block;
 }
-.article-body figure {
-  margin: 2rem 0;
-}
+.article-body figure { margin: 2rem 0; }
 .article-body figure figcaption {
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
@@ -131,8 +134,8 @@
   border-left: 3px solid var(--color-primary);
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
-  background: #f0fdf4;
-  border-radius: 0 4px 4px 0;
+  background: #f0f9e4;
+  border-radius: 0 8px 8px 0;
 }
 .article-body blockquote p { margin-bottom: 0; color: var(--color-text-body); }
 
@@ -151,16 +154,17 @@
   .section-padding { padding-block: var(--space-2xl); }
 }
 
-/* ── Interactive card hover ───────────────────────── */
+/* ── Card hover ─────────────────────────────────── */
 .card-lift {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: var(--radius-md);
 }
 .card-lift:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
 }
 
-/* ── Button press feedback ────────────────────────── */
+/* ── Button primary (pill) ──────────────────────── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -171,7 +175,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   border: none;
-  border-radius: 0;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   transition: background 0.2s ease, transform 0.1s ease;
 }
@@ -179,9 +183,7 @@
 .btn-primary:active { transform: scale(0.98); }
 
 /* ── Link underline slide ─────────────────────────── */
-.link-underline {
-  position: relative;
-}
+.link-underline { position: relative; }
 .link-underline::after {
   content: '';
   position: absolute;
@@ -192,15 +194,16 @@
 }
 .link-underline:hover::after { width: 100%; }
 
-/* ── Shimmer placeholder ──────────────────────────── */
+/* ── Shimmer placeholder ─────────────────────────── */
 @keyframes shimmer {
   0%   { background-position: -400px 0; }
   100% { background-position: 400px 0; }
 }
 .skeleton {
-  background: linear-gradient(90deg, #f0fdf4 25%, #d1fae5 50%, #f0fdf4 75%);
+  background: linear-gradient(90deg, #edf5e8 25%, #d0e4c0 50%, #edf5e8 75%);
   background-size: 800px 100%;
   animation: shimmer 1.4s infinite linear;
+  border-radius: var(--radius-md);
 }
 
 /* ── Hero outline button ─────────────────────────── */
@@ -211,21 +214,18 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: #fff;
-  border: 1px solid #6ee7b7;
-  border-radius: 0;
-  transition: border-color 0.2s ease;
+  border: 1px solid var(--color-lime);
+  border-radius: var(--radius-pill);
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
-.btn-hero-outline:hover { border-color: #ffffff; }
+.btn-hero-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
-/* ── Partner logos marquee ───────────────────────── */
+/* ── Partner logos marquee ─────────────────────── */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.marquee-wrapper {
-  overflow: hidden;
-  position: relative;
-}
+.marquee-wrapper { overflow: hidden; position: relative; }
 .marquee-wrapper::before,
 .marquee-wrapper::after {
   content: '';
@@ -258,14 +258,39 @@
 }
 .partner-logo:hover { filter: grayscale(0) opacity(1); }
 
-/* ── Floating dots decoration ────────────────────── */
+/* ── Floating dots decoration ────────────────── */
 @keyframes float-up {
   0%   { transform: translateY(0) scale(1); opacity: 0.6; }
   100% { transform: translateY(-80px) scale(0.6); opacity: 0; }
 }
 
+/* ── Leaf / nature animations ────────────────── */
+@keyframes leaf-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30%  { transform: translateY(-22px) rotate(6deg); }
+  60%  { transform: translateY(-12px) rotate(-4deg); }
+}
+
+@keyframes leaf-sway {
+  0%, 100% { transform: rotate(-8deg) scale(1); }
+  50%  { transform: rotate(8deg) scale(1.08); }
+}
+
+@keyframes leaf-drift {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
+  25%  { transform: translate(12px, -18px) rotate(10deg); opacity: 0.8; }
+  50%  { transform: translate(-6px, -30px) rotate(-6deg); opacity: 0.65; }
+  75%  { transform: translate(8px, -14px) rotate(4deg); opacity: 0.9; }
+  100% { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
+}
+
+@keyframes leaf-spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-neutral-light); }
-::-webkit-scrollbar-thumb { background: #a7f3d0; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--color-lime-pale); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }

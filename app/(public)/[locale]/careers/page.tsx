@@ -4,6 +4,8 @@ import { AnimateIn } from '@/components/ui/AnimateIn';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
+export const revalidate = 3600;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
@@ -124,18 +126,18 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
   return (
     <>
       {/* ── Hero ────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#064e3b' }}>
+      <section className="relative overflow-hidden py-24" style={{ background: '#0f1e0d' }}>
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: '#10b981' }} />
-          <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full opacity-5" style={{ background: '#6ee7b7' }} />
+          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: '#7eba24' }} />
+          <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full opacity-5" style={{ background: '#a8cc28' }} />
         </div>
         <div className="container-max relative">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest font-medium mb-3" style={{ color: '#6ee7b7' }}>LMX Alliance</p>
+            <p className="text-xs uppercase tracking-widest font-medium mb-3" style={{ color: '#a8cc28' }}>LMX Alliance</p>
             <h1 className="mb-4 text-white" style={{ fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 700 }}>
               {heroTitle}
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed" style={{ color: '#a7f3d0' }}>
+            <p className="max-w-2xl text-base leading-relaxed" style={{ color: '#c4e070' }}>
               {heroSub}
             </p>
           </AnimateIn>
@@ -149,7 +151,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
             <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>
               {locale === 'vi' ? 'Phúc lợi & Đãi ngộ' : locale === 'en' ? 'Benefits & Perks' : '福利与待遇'}
             </p>
-            <h2 className="mb-10" style={{ color: '#064e3b' }}>
+            <h2 className="mb-10" style={{ color: '#0f1e0d' }}>
               {locale === 'vi' ? 'Tại sao chọn LMX Alliance?' : locale === 'en' ? 'Why Choose LMX Alliance?' : '为何选择LMX联盟？'}
             </h2>
           </AnimateIn>
@@ -160,11 +162,11 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
               const desc = (b as any)[`desc${L}`];
               return (
                 <AnimateIn key={title} delay={idx * 0.07}>
-                  <div className="card-lift p-6 border h-full" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
-                    <div className="w-10 h-10 flex items-center justify-center mb-4" style={{ background: '#f0fdf4', borderRadius: '4px' }}>
-                      <Icon size={20} strokeWidth={1.5} style={{ color: '#047857' }} />
+                  <div className="card-lift p-6 border h-full" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
+                    <div className="w-10 h-10 flex items-center justify-center mb-4" style={{ background: '#f0f9e4', borderRadius: '4px' }}>
+                      <Icon size={20} strokeWidth={1.5} style={{ color: '#5a9e1a' }} />
                     </div>
-                    <h4 className="font-semibold mb-2 text-base" style={{ color: '#064e3b' }}>{title}</h4>
+                    <h4 className="font-semibold mb-2 text-base" style={{ color: '#0f1e0d' }}>{title}</h4>
                     <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
                   </div>
                 </AnimateIn>
@@ -175,14 +177,14 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* ── Company Culture ──────────────────────── */}
-      <section className="section-padding" style={{ background: '#F5F6F8' }}>
+      <section className="section-padding" style={{ background: '#edf5e8' }}>
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimateIn>
-              <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#047857' }}>
+              <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#5a9e1a' }}>
                 {locale === 'vi' ? 'Văn hóa doanh nghiệp' : locale === 'en' ? 'Company Culture' : '企业文化'}
               </p>
-              <h2 className="mb-4" style={{ color: '#064e3b' }}>
+              <h2 className="mb-4" style={{ color: '#0f1e0d' }}>
                 {locale === 'vi' ? 'Nơi bạn phát triển cùng chúng tôi'
                   : locale === 'en' ? 'Where You Grow With Us'
                   : '与我们共同成长'}
@@ -197,7 +199,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
               <ul className="space-y-3">
                 {culturePoints.map((p, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm" style={{ color: '#374151' }}>
-                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: '#047857' }} />
+                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: '#5a9e1a' }} />
                     <span>{locale === 'vi' ? p.vi : locale === 'en' ? p.en : p.zh}</span>
                   </li>
                 ))}
@@ -214,8 +216,8 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 ].map((s) => {
                   const label = locale === 'vi' ? s.labelVI : locale === 'en' ? s.labelEN : s.labelZH;
                   return (
-                    <div key={s.value} className="p-6 text-center" style={{ background: '#fff', borderRadius: '4px', border: '1px solid #E8E9ED' }}>
-                      <p className="text-3xl font-bold mb-1" style={{ color: '#047857' }}>{s.value}</p>
+                    <div key={s.value} className="p-6 text-center" style={{ background: '#fff', borderRadius: '4px', border: '1px solid #d0e4c0' }}>
+                      <p className="text-3xl font-bold mb-1" style={{ color: '#5a9e1a' }}>{s.value}</p>
                       <p className="text-xs" style={{ color: '#6B7280' }}>{label}</p>
                     </div>
                   );
@@ -233,7 +235,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
             <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>
               {locale === 'vi' ? 'Minh bạch & Chuyên nghiệp' : locale === 'en' ? 'Transparent & Professional' : '透明与专业'}
             </p>
-            <h2 className="mb-12" style={{ color: '#064e3b' }}>
+            <h2 className="mb-12" style={{ color: '#0f1e0d' }}>
               {locale === 'vi' ? 'Quy trình tuyển dụng' : locale === 'en' ? 'Recruitment Process' : '招聘流程'}
             </h2>
           </AnimateIn>
@@ -244,15 +246,15 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
               const desc = (s as any)[`desc${L}`];
               return (
                 <AnimateIn key={s.step} delay={idx * 0.07}>
-                  <div className="p-6 border h-full" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
+                  <div className="p-6 border h-full" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
                     <div className="flex items-center gap-3 mb-4">
                       <span
                         className="w-9 h-9 flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-                        style={{ background: '#047857', borderRadius: '4px' }}
+                        style={{ background: '#5a9e1a', borderRadius: '4px' }}
                       >
                         {s.step}
                       </span>
-                      <h4 className="font-semibold" style={{ color: '#064e3b' }}>{title}</h4>
+                      <h4 className="font-semibold" style={{ color: '#0f1e0d' }}>{title}</h4>
                     </div>
                     <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
                   </div>
@@ -264,10 +266,10 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* ── CTA ─────────────────────────────────── */}
-      <section className="section-padding" style={{ background: '#064e3b' }}>
+      <section className="section-padding" style={{ background: '#0f1e0d' }}>
         <div className="container-max text-center">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#6ee7b7' }}>
+            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#a8cc28' }}>
               {locale === 'vi' ? 'Bắt đầu hành trình của bạn' : locale === 'en' ? 'Start Your Journey' : '开始您的旅程'}
             </p>
             <h2 className="mb-4 text-white" style={{ fontSize: 'clamp(1.5rem,3vw,2.25rem)' }}>
@@ -275,7 +277,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 : locale === 'en' ? 'Join LMX Alliance Today'
                 : '今天加入LMX联盟'}
             </h2>
-            <p className="mb-8 max-w-xl mx-auto text-sm leading-relaxed" style={{ color: '#a7f3d0' }}>
+            <p className="mb-8 max-w-xl mx-auto text-sm leading-relaxed" style={{ color: '#c4e070' }}>
               {locale === 'vi'
                 ? 'Gửi CV và thư xin việc trực tiếp đến bộ phận Nhân sự của chúng tôi. Chúng tôi sẽ phản hồi trong vòng 5–7 ngày làm việc.'
                 : locale === 'en'
@@ -292,7 +294,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
               </a>
             ) : null}
             {recruitmentEmail && (
-              <p className="mt-4 text-xs" style={{ color: '#6ee7b7' }}>
+              <p className="mt-4 text-xs" style={{ color: '#a8cc28' }}>
                 {recruitmentEmail}
               </p>
             )}

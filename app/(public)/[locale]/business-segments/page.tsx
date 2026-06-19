@@ -5,6 +5,8 @@ import { ArrowRight, Building2 } from 'lucide-react';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
+export const revalidate = 3600;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
@@ -45,7 +47,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <section className="bg-[#064e3b] text-white py-20">
+      <section className="bg-[#0f1e0d] text-white py-20">
         <div className="container-max">
           <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">{t('subtitle')}</p>
           <h1 className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)' }}>
@@ -61,22 +63,22 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
               const name = (sector as any)[`name${L}`];
               const summary = (sector as any)[`summary${L}`];
               return (
-                <div key={sector.id} className="border border-[#E8E9ED] p-8 grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-white" style={{ borderRadius: '4px' }}>
+                <div key={sector.id} className="border border-[#d0e4c0] p-8 grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-white" style={{ borderRadius: '4px' }}>
                   <div className="md:col-span-1 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-[#F5F6F8] flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-[#edf5e8] flex items-center justify-center flex-shrink-0">
                       <span className="text-xl font-medium text-[#6B7280]" style={{ fontFamily: 'var(--font-mono)' }}>
                         {String(idx + 1).padStart(2, '0')}
                       </span>
                     </div>
                   </div>
                   <div className="md:col-span-3">
-                    <h2 className="text-lg font-semibold text-[#064e3b] mb-2" style={{ fontFamily: 'var(--font-display)' }}>{name}</h2>
+                    <h2 className="text-lg font-semibold text-[#0f1e0d] mb-2" style={{ fontFamily: 'var(--font-display)' }}>{name}</h2>
                     <p className="text-[#6B7280] leading-relaxed">{summary}</p>
                   </div>
                   <div className="md:col-span-1 flex md:justify-end">
                     <Link
                       href={`/${locale}/business-segments/${sector.slug}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#064e3b] text-white text-sm hover:bg-[#065f46] transition-colors"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0f1e0d] text-white text-sm hover:bg-[#1d3212] transition-colors"
                       style={{ borderRadius: 0 }}
                       aria-label={`${locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}: ${name}`}
                     >

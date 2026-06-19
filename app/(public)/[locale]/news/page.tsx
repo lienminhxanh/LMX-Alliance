@@ -53,13 +53,13 @@ export default async function NewsPage({ params, searchParams }: {
 
   return (
     <>
-      <section className="py-20 relative overflow-hidden" style={{ background: '#064e3b' }}>
+      <section className="py-20 relative overflow-hidden" style={{ background: '#0f1e0d' }}>
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute -top-10 -right-10 w-60 h-60 rounded-full opacity-10" style={{ background: '#10b981' }} />
+          <div className="absolute -top-10 -right-10 w-60 h-60 rounded-full opacity-10" style={{ background: '#7eba24' }} />
         </div>
         <div className="container-max relative">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#6ee7b7' }}>{t('subtitle')}</p>
+            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#a8cc28' }}>{t('subtitle')}</p>
             <h1 className="text-white" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', fontWeight: 700 }}>{t('title')}</h1>
           </AnimateIn>
         </div>
@@ -75,9 +75,9 @@ export default async function NewsPage({ params, searchParams }: {
                 className="px-4 py-1.5 text-sm border transition-colors"
                 style={{
                   borderRadius: 0,
-                  background: !category ? '#047857' : 'transparent',
+                  background: !category ? '#5a9e1a' : 'transparent',
                   color: !category ? '#fff' : '#6B7280',
-                  borderColor: !category ? '#047857' : '#E8E9ED',
+                  borderColor: !category ? '#5a9e1a' : '#d0e4c0',
                 }}
               >
                 {tCommon('all')}
@@ -89,9 +89,9 @@ export default async function NewsPage({ params, searchParams }: {
                   className="px-4 py-1.5 text-sm border transition-colors"
                   style={{
                     borderRadius: 0,
-                    background: category === cat ? '#047857' : 'transparent',
+                    background: category === cat ? '#5a9e1a' : 'transparent',
                     color: category === cat ? '#fff' : '#6B7280',
-                    borderColor: category === cat ? '#047857' : '#E8E9ED',
+                    borderColor: category === cat ? '#5a9e1a' : '#d0e4c0',
                   }}
                 >
                   {(t as any)(`categories.${cat}`)}
@@ -103,20 +103,20 @@ export default async function NewsPage({ params, searchParams }: {
           {/* Featured article */}
           {articles.length > 0 && !category && parseInt(page) === 1 && (
             <AnimateIn>
-              <div className="mb-10 grid grid-cols-1 md:grid-cols-5 border" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
-                <div className="md:col-span-3 overflow-hidden" style={{ background: '#F5F6F8' }}>
+              <div className="mb-10 grid grid-cols-1 md:grid-cols-5 border" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
+                <div className="md:col-span-3 overflow-hidden" style={{ background: '#edf5e8' }}>
                   {articles[0].thumbnail ? (
                     <img src={articles[0].thumbnail} alt="" className="w-full h-full object-cover" style={{ minHeight: '240px' }} />
                   ) : (
                     <div className="w-full h-full min-h-60 flex items-center justify-center">
-                      <span style={{ color: '#d1fae5', fontSize: '4rem', fontFamily: 'var(--font-mono)' }}>01</span>
+                      <span style={{ color: '#ddf0b0', fontSize: '4rem', fontFamily: 'var(--font-mono)' }}>01</span>
                     </div>
                   )}
                 </div>
                 <div className="md:col-span-2 p-8 flex flex-col justify-center">
                   <span
                     className="inline-block text-xs font-medium px-2 py-1 mb-4 w-fit"
-                    style={{ background: '#f0fdf4', color: '#047857', borderRadius: '2px' }}
+                    style={{ background: '#f0f9e4', color: '#5a9e1a', borderRadius: '2px' }}
                   >
                     {locale === 'vi' ? 'Nổi bật' : locale === 'en' ? 'Featured' : '精选'}
                   </span>
@@ -132,7 +132,7 @@ export default async function NewsPage({ params, searchParams }: {
                   <Link
                     href={`/${locale}/news/${(articles[0] as any)[`slug${L}`]}`}
                     className="inline-flex items-center gap-2 text-sm font-medium link-underline"
-                    style={{ color: '#047857' }}
+                    style={{ color: '#5a9e1a' }}
                     aria-label={`${t('readMore')}: ${(articles[0] as any)[`title${L}`]}`}
                   >
                     {t('readMore')} <ArrowRight size={14} />
@@ -146,9 +146,9 @@ export default async function NewsPage({ params, searchParams }: {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {((!category && parseInt(page) === 1) ? articles.slice(1) : articles).map((article, idx) => (
               <AnimateIn key={article.id} delay={idx * 0.07}>
-                <article className="card-lift border bg-white h-full group" style={{ borderColor: '#E8E9ED', borderRadius: '4px' }}>
+                <article className="card-lift border bg-white h-full group" style={{ borderColor: '#d0e4c0', borderRadius: '4px' }}>
                   {article.thumbnail && (
-                    <div className="overflow-hidden" style={{ borderBottom: '1px solid #E8E9ED' }}>
+                    <div className="overflow-hidden" style={{ borderBottom: '1px solid #d0e4c0' }}>
                       <img src={article.thumbnail} alt="" className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105" />
                     </div>
                   )}
@@ -165,7 +165,7 @@ export default async function NewsPage({ params, searchParams }: {
                     <Link
                       href={`/${locale}/news/${(article as any)[`slug${L}`]}`}
                       className="text-sm font-medium inline-flex items-center gap-1 link-underline"
-                      style={{ color: '#047857' }}
+                      style={{ color: '#5a9e1a' }}
                       aria-label={`${t('readMore')}: ${(article as any)[`title${L}`]}`}
                     >
                       {t('readMore')} <ArrowRight size={12} />
@@ -186,9 +186,9 @@ export default async function NewsPage({ params, searchParams }: {
                   className="w-9 h-9 flex items-center justify-center text-sm border transition-colors"
                   style={{
                     borderRadius: 0,
-                    background: parseInt(page) === p ? '#047857' : 'transparent',
+                    background: parseInt(page) === p ? '#5a9e1a' : 'transparent',
                     color: parseInt(page) === p ? '#fff' : '#6B7280',
-                    borderColor: parseInt(page) === p ? '#047857' : '#E8E9ED',
+                    borderColor: parseInt(page) === p ? '#5a9e1a' : '#d0e4c0',
                   }}
                 >
                   {p}
