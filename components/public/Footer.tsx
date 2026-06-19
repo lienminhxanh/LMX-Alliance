@@ -37,14 +37,16 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link href={`/${locale}`} className="inline-block mb-4">
-              <Image
-                src="/logo.jpg"
-                alt="LMX Alliance"
-                width={130}
-                height={52}
-                className="object-contain brightness-0 invert"
-                style={{ height: '44px', width: 'auto', maxWidth: '130px' }}
-              />
+              <div className="bg-white rounded-lg px-3 py-1.5 inline-flex items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+                <Image
+                  src="/logo.jpg"
+                  alt="LMX Alliance"
+                  width={160}
+                  height={56}
+                  className="object-contain"
+                  style={{ height: '46px', width: 'auto', maxWidth: '160px' }}
+                />
+              </div>
             </Link>
             <p className="text-sm leading-relaxed max-w-xs mb-5" style={{ color: '#defbbc' }}>
               Công ty Cổ phần Liên Minh Xanh LMX — Tập đoàn đa ngành phát triển bền vững.

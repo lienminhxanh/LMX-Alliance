@@ -251,15 +251,17 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
       </section>
 
       {/* CTA */}
-      <section className="section-padding relative overflow-hidden" style={{ background: '#015231' }}>
-        <LeafDecor variant="eco" count={8} color="#78d750" />
+      <section className="section-padding relative overflow-hidden" style={{ background: '#f8fbf2', borderTop: '3px solid #8ec63f' }}>
+        <LeafDecor variant="mixed" count={8} color="#8ec63f" />
         <div className="container-max text-center relative z-10">
           <AnimateIn>
-            <Award size={40} style={{ color: '#78d750', margin: '0 auto 1.5rem' }} strokeWidth={1.5} />
-            <h2 className="mb-4" style={{ color: '#fff' }}>
+            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: '#015231' }}>
+              <Award size={32} style={{ color: '#78d750' }} strokeWidth={1.5} />
+            </div>
+            <h2 className="mb-4" style={{ color: '#015231' }}>
               {locale === 'vi' ? 'Hợp tác cùng LMX Alliance' : locale === 'en' ? 'Partner with LMX Alliance' : '与LMX Alliance合作'}
             </h2>
-            <p className="mb-8 max-w-lg mx-auto" style={{ color: '#defbbc' }}>
+            <p className="mb-8 max-w-lg mx-auto" style={{ color: '#374151' }}>
               {locale === 'vi'
                 ? 'Chúng tôi sẵn sàng tư vấn và đồng hành cùng doanh nghiệp của bạn.'
                 : locale === 'en'

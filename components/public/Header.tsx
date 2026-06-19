@@ -39,14 +39,14 @@ export function Header() {
       <div className="container-max flex items-center justify-between" style={{ height: '64px' }}>
 
         {/* Logo */}
-        <Link href={`/${locale}`} className="flex items-center gap-2 flex-shrink-0">
+        <Link href={`/${locale}`} className="flex items-center flex-shrink-0">
           <Image
             src="/logo.jpg"
             alt="LMX Alliance"
-            width={120}
-            height={48}
+            width={180}
+            height={64}
             className="object-contain"
-            style={{ height: '40px', width: 'auto', maxWidth: '120px' }}
+            style={{ height: '54px', width: 'auto', maxWidth: '180px' }}
             priority
           />
         </Link>

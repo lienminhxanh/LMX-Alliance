@@ -267,19 +267,19 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* ── CTA ─────────────────────────────────── */}
-      <section className="section-padding relative overflow-hidden" style={{ background: '#015231' }}>
-        <LeafDecor variant="branch" count={8} color="#78d750" />
+      <section className="section-padding relative overflow-hidden" style={{ background: '#f8fbf2', borderTop: '3px solid #8ec63f' }}>
+        <LeafDecor variant="branch" count={8} color="#8ec63f" />
         <div className="container-max text-center relative z-10">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
+            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#8ec63f' }}>
               {locale === 'vi' ? 'Bắt đầu hành trình của bạn' : locale === 'en' ? 'Start Your Journey' : '开始您的旅程'}
             </p>
-            <h2 className="mb-4 text-white" style={{ fontSize: 'clamp(1.5rem,3vw,2.25rem)' }}>
+            <h2 className="mb-4" style={{ fontSize: 'clamp(1.5rem,3vw,2.25rem)', color: '#015231' }}>
               {locale === 'vi' ? 'Gia nhập LMX Alliance hôm nay'
                 : locale === 'en' ? 'Join LMX Alliance Today'
                 : '今天加入LMX联盟'}
             </h2>
-            <p className="mb-8 max-w-xl mx-auto text-sm leading-relaxed" style={{ color: '#defbbc' }}>
+            <p className="mb-8 max-w-xl mx-auto text-sm leading-relaxed" style={{ color: '#374151' }}>
               {locale === 'vi'
                 ? 'Gửi CV và thư xin việc trực tiếp đến bộ phận Nhân sự của chúng tôi. Chúng tôi sẽ phản hồi trong vòng 5–7 ngày làm việc.'
                 : locale === 'en'
@@ -296,7 +296,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
               </a>
             ) : null}
             {recruitmentEmail && (
-              <p className="mt-4 text-xs" style={{ color: '#78d750' }}>
+              <p className="mt-4 text-xs" style={{ color: '#8ec63f' }}>
                 {recruitmentEmail}
               </p>
             )}

@@ -1,9 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
-import { ArrowRight, Building2 } from 'lucide-react';
+import { ArrowRight, Building2, Truck, Recycle, Leaf, CheckCircle2 } from 'lucide-react';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
+import { AnimateIn } from '@/components/ui/AnimateIn';
+import { LeafDecor } from '@/components/ui/LeafDecor';
 
 export const revalidate = 3600;
 
@@ -34,6 +36,30 @@ export async function generateMetadata(
   });
 }
 
+const SECTOR_ICONS = [Truck, Building2, Recycle, Leaf];
+const SECTOR_COLORS = ['#015231', '#8ec63f', '#013d27', '#015231'];
+const SECTOR_BG = ['#f8fbf2', '#015231', '#f8fbf2', '#013d27'];
+const SECTOR_HIGHLIGHTS: Record<string, string[][]> = {
+  vi: [
+    ['Xuất nhập khẩu đa quốc gia', 'Xe tải 2–35 tấn', 'Thông quan 24/7', 'Phủ sóng 63 tỉnh'],
+    ['Dân dụng & Công nghiệp', 'Nhà kho – Văn phòng', 'Chuẩn TCVN & ISO', '100+ công trình'],
+    ['Kim loại – Nhựa – Giấy', 'Giá cạnh tranh', 'Thanh toán ngay', 'Đội xe thu gom'],
+    ['Giấy phép Bộ NN&MT', 'Đúng chuẩn ISO 14001', 'Tái chế bền vững', 'Hợp tác Huê Phương VN'],
+  ],
+  en: [
+    ['Multinational import-export', '2–35 ton trucks', '24/7 customs', '63 province coverage'],
+    ['Civil & Industrial', 'Warehouses – Offices', 'TCVN & ISO standard', '100+ projects'],
+    ['Metal – Plastic – Paper', 'Competitive pricing', 'Instant payment', 'Collection fleet'],
+    ['MONRE licensed', 'ISO 14001 compliant', 'Sustainable recycling', 'Huê Phương VN partner'],
+  ],
+  zh: [
+    ['跨国进出口', '2-35吨卡车', '24/7清关', '63省覆盖'],
+    ['民用与工业', '仓库-办公室', 'TCVN和ISO标准', '100+项目'],
+    ['金属-塑料-纸张', '竞争定价', '即时付款', '收集车队'],
+    ['获MONRE许可', '符合ISO 14001', '可持续回收', 'Huê Phương VN合作'],
+  ],
+};
+
 export default async function SectorsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'sectors' });
@@ -44,51 +70,179 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
   });
 
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
+  const highlights = SECTOR_HIGHLIGHTS[locale] ?? SECTOR_HIGHLIGHTS.vi;
 
   return (
     <>
-      <section className="bg-[#015231] text-white py-20">
-        <div className="container-max">
-          <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">{t('subtitle')}</p>
-          <h1 className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)' }}>
-            {t('title')}
-          </h1>
+      {/* ── Hero ─────────────────────────────────── */}
+      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+        <LeafDecor variant="branch" count={8} color="#78d750" />
+        <div className="container-max relative z-10">
+          <AnimateIn>
+            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
+              LMX Alliance
+            </p>
+            <h1 className="mb-4 text-white" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', fontWeight: 700 }}>
+              {t('title')}
+            </h1>
+            <p className="max-w-xl text-base leading-relaxed" style={{ color: '#defbbc' }}>
+              {t('subtitle')}
+            </p>
+          </AnimateIn>
         </div>
       </section>
 
+      {/* ── Intro strip ─────────────────────────── */}
+      <section className="py-10 border-b" style={{ borderColor: '#defbbc', background: '#f8fbf2' }}>
+        <div className="container-max flex flex-wrap gap-8 justify-center">
+          {(['Xanh – Sạch – Bền vững', '3 lĩnh vực chiến lược', 'Hoạt động toàn quốc'].map((tag, i) => (
+            <div key={i} className="flex items-center gap-2.5">
+              <div className="w-2 h-2 rounded-full" style={{ background: '#8ec63f' }} />
+              <span className="text-sm font-medium" style={{ color: '#015231' }}>{tag}</span>
+            </div>
+          )))}
+        </div>
+      </section>
+
+      {/* ── Sector cards ─────────────────────────── */}
       <section className="section-padding">
         <div className="container-max">
-          <div className="grid grid-cols-1 gap-6">
+          <div className="flex flex-col gap-12">
             {sectors.map((sector, idx) => {
-              const name = (sector as any)[`name${L}`];
+              const name    = (sector as any)[`name${L}`];
               const summary = (sector as any)[`summary${L}`];
+              const Icon = SECTOR_ICONS[idx % SECTOR_ICONS.length];
+              const accentBg = SECTOR_COLORS[idx % SECTOR_COLORS.length];
+              const lightBg  = SECTOR_BG[idx % SECTOR_BG.length];
+              const tags = highlights[idx] ?? [];
+              const isEven = idx % 2 === 0;
+
               return (
-                <div key={sector.id} className="border border-[#defbbc] p-8 grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-white" style={{ borderRadius: '4px' }}>
-                  <div className="md:col-span-1 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-[#f8fbf2] flex items-center justify-center flex-shrink-0">
-                      <span className="text-xl font-medium text-[#6B7280]" style={{ fontFamily: 'var(--font-mono)' }}>
+                <AnimateIn key={sector.id} delay={idx * 0.08}>
+                  <div
+                    className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden relative"
+                    style={{ borderRadius: '14px', boxShadow: '0 4px 24px rgba(1,82,49,0.10)' }}
+                  >
+                    {/* ── Accent panel (alternates side) ── */}
+                    <div
+                      className={`relative flex flex-col justify-between p-8 lg:p-10 overflow-hidden ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
+                      style={{ background: accentBg, minHeight: '280px' }}
+                    >
+                      {/* Big watermark number */}
+                      <span
+                        className="absolute right-4 bottom-2 font-bold select-none pointer-events-none"
+                        style={{ fontSize: '8rem', lineHeight: 1, color: 'rgba(255,255,255,0.06)' }}
+                      >
                         {String(idx + 1).padStart(2, '0')}
                       </span>
+
+                      {/* Eco icon box */}
+                      <div>
+                        <div
+                          className="w-14 h-14 rounded-xl flex items-center justify-center mb-5"
+                          style={{ background: 'rgba(120,215,80,0.2)' }}
+                        >
+                          <Icon size={28} color="#78d750" strokeWidth={1.5} />
+                        </div>
+                        <h2 className="text-xl lg:text-2xl font-semibold text-white leading-tight mb-3">
+                          {name}
+                        </h2>
+                      </div>
+
+                      {/* Highlight tags */}
+                      <div className="flex flex-wrap gap-2 mt-2 relative z-10">
+                        {tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full font-medium"
+                            style={{ background: 'rgba(255,255,255,0.12)', color: '#defbbc' }}
+                          >
+                            <CheckCircle2 size={10} style={{ color: '#78d750', flexShrink: 0 }} />
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* ── Content panel ────────────────── */}
+                    <div
+                      className={`flex flex-col justify-between p-8 lg:p-10 bg-white ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
+                    >
+                      {/* Step badge */}
+                      <div>
+                        <div className="flex items-center gap-3 mb-5">
+                          <span
+                            className="text-xs font-bold px-3 py-1 rounded-full"
+                            style={{ background: '#f8fbf2', color: '#8ec63f', border: '1px solid #defbbc' }}
+                          >
+                            Lĩnh vực {String(idx + 1).padStart(2, '0')}
+                          </span>
+                          {/* Small leaf decor */}
+                          <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 2 C10 5, 4 11, 5 18 C6 24, 10 28, 16 30 C22 28, 26 24, 27 18 C28 11, 22 5, 16 2Z" fill="#defbbc"/>
+                          </svg>
+                        </div>
+
+                        <p className="text-base leading-relaxed mb-6" style={{ color: '#374151' }}>
+                          {summary}
+                        </p>
+                      </div>
+
+                      {/* CTA row */}
+                      <div className="flex items-center gap-4 pt-4" style={{ borderTop: '1px solid #f8fbf2' }}>
+                        <Link
+                          href={`/${locale}/business-segments/${sector.slug}`}
+                          className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-white transition-all"
+                          style={{ background: '#8ec63f', borderRadius: '9999px' }}
+                          onMouseEnter={e => (e.currentTarget.style.background = '#015231')}
+                          onMouseLeave={e => (e.currentTarget.style.background = '#8ec63f')}
+                          aria-label={`${locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}: ${name}`}
+                        >
+                          {locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}
+                          <ArrowRight size={14} />
+                        </Link>
+                        <Link
+                          href={`/${locale}/contact`}
+                          className="text-sm font-medium link-underline"
+                          style={{ color: '#8ec63f' }}
+                        >
+                          {locale === 'vi' ? 'Liên hệ tư vấn' : locale === 'en' ? 'Get a quote' : '获取报价'}
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                  <div className="md:col-span-3">
-                    <h2 className="text-lg font-semibold text-[#015231] mb-2" style={{ fontFamily: 'var(--font-display)' }}>{name}</h2>
-                    <p className="text-[#6B7280] leading-relaxed">{summary}</p>
-                  </div>
-                  <div className="md:col-span-1 flex md:justify-end">
-                    <Link
-                      href={`/${locale}/business-segments/${sector.slug}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#015231] text-white text-sm hover:bg-[#013d27] transition-colors"
-                      style={{ borderRadius: 0 }}
-                      aria-label={`${locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}: ${name}`}
-                    >
-                      {locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'} <ArrowRight size={14} />
-                    </Link>
-                  </div>
-                </div>
+                </AnimateIn>
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ── Bottom CTA ──────────────────────────── */}
+      <section className="section-padding relative overflow-hidden" style={{ background: '#f8fbf2', borderTop: '3px solid #8ec63f' }}>
+        <LeafDecor variant="eco" count={8} color="#8ec63f" />
+        <div className="container-max text-center relative z-10">
+          <AnimateIn>
+            <Leaf size={36} style={{ color: '#8ec63f', margin: '0 auto 1rem' }} strokeWidth={1.5} />
+            <h2 className="mb-3" style={{ color: '#015231' }}>
+              {locale === 'vi' ? 'Cần tư vấn thêm?' : locale === 'en' ? 'Need more information?' : '需要更多信息？'}
+            </h2>
+            <p className="mb-7 max-w-md mx-auto text-sm" style={{ color: '#374151' }}>
+              {locale === 'vi'
+                ? 'Đội ngũ chuyên gia LMX Alliance sẵn sàng lắng nghe và đưa ra giải pháp phù hợp nhất.'
+                : locale === 'en'
+                ? 'Our LMX Alliance experts are ready to listen and offer the best solution.'
+                : '我们的LMX Alliance专家随时准备倾听并提供最佳解决方案。'}
+            </p>
+            <Link
+              href={`/${locale}/contact`}
+              className="btn-primary"
+              style={{ display: 'inline-flex' }}
+            >
+              {locale === 'vi' ? 'Liên hệ ngay' : locale === 'en' ? 'Contact us' : '立即联系'}
+              <ArrowRight size={16} />
+            </Link>
+          </AnimateIn>
         </div>
       </section>
     </>
