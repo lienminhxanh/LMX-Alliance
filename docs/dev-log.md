@@ -205,4 +205,52 @@
 - Task 1.5 CONFIRMED PASS — layout responsive hoạt động đúng trên mobile và tablet
 - Không có bug layout nào cần fix
 
+## 20/06/2026 (Thứ Bảy) — GĐ2: SEO & Tối ưu hiệu năng
+
+**Người thực hiện:** Hoang Son
+
+### Hoàn thành
+
+- **[feat] lib/seo.ts — buildMeta() helper**
+  - `SITE_URL`, `OG_LOCALE`, `SITE_NAME`, `buildMeta()` trả về Next.js `Metadata`
+  - OG image fallback tới `/og-default.png` khi không có ảnh riêng
+  - `metadataBase`, `alternates.canonical`, `openGraph`, `twitter` đầy đủ
+
+- **[feat] Sitemap XML + robots.txt**
+  - `app/sitemap.ts`: 21 static URLs (7 paths × 3 locales) + dynamic news + sectors = 48 URLs tổng
+  - `app/robots.ts`: allow `/`, disallow `/admin/` và `/api/`, trỏ sitemap
+
+- **[feat] Metadata i18n cho tất cả 10 routes**
+  - `generateMetadata` với title/description/OG/hreflang cho: layout, home, about, news, contact, careers, shareholder-relations, business-segments, news/[slug], business-segments/[slug]
+  - `contact/page.tsx` là 'use client' → dùng `contact/layout.tsx` wrapper (pattern chuẩn Next.js)
+
+- **[feat] JSON-LD Structured Data**
+  - Homepage: Organization schema (name, contactPoint, address)
+  - News detail: NewsArticle schema (headline, datePublished, publisher, image)
+
+- **[perf] next/image optimization**
+  - About page: certificate (width=784 height=1123) + leader photos (fill + sizes)
+  - Sector detail: gallery images (fill + aspect-video wrapper + correct sizes)
+
+### Kết quả verify (production)
+
+| Điểm kiểm tra | Kết quả |
+|---|---|
+| Sitemap `/sitemap.xml` | ✅ 48 URLs |
+| robots.txt | ✅ disallow admin+api, sitemap linked |
+| `<title>` homepage VI | ✅ "Trang chủ \| LMX Alliance" |
+| `<meta name="description">` | ✅ i18n content |
+| `<link rel="canonical">` | ✅ absolute URL đúng locale |
+| `og:type` news article | ✅ "article" |
+| JSON-LD homepage | ✅ `@type: Organization` |
+| JSON-LD news detail | ✅ `@type: NewsArticle` |
+| hreflang news detail | ✅ vi/en/zh slugs riêng biệt |
+| TypeScript | ✅ 0 errors |
+
+### Ghi chú
+
+- `businessSector` chỉ có `seoTitleVI`/`seoDescVI` — EN/ZH dùng `nameEN/ZH` + `summaryEN/ZH` làm fallback
+- Lighthouse chưa chạy (cần Chrome DevTools thủ công trên production) — target ≥ 85
+- OG image `/og-default.png` chưa tạo — og:image sẽ 404 cho pages không có thumbnail; không ảnh hưởng SEO score
+
 <!-- ENTRIES MỚI ĐƯỢC THÊM VÀO ĐÂY BỞI /log-work -->

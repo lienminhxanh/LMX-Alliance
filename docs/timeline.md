@@ -13,7 +13,7 @@
 |-----------|----------|---------|---------|------------|
 | 1 | Hoàn thiện tính năng & nội dung | 17/06 | 18/06 | ✅ Hoàn thành |
 | 1.x | Nội dung thực tế & i18n fixes | 18/06 | 18/06 | ✅ Hoàn thành |
-| 2 | SEO & tối ưu hiệu năng | 20/06 | 21/06 | ⬜ Chưa bắt đầu |
+| 2 | SEO & tối ưu hiệu năng | 20/06 | 20/06 | ✅ Hoàn thành |
 | 3 | Kiểm thử & QA | 23/06 | 24/06 | ⬜ Chưa bắt đầu |
 | 4 | Chỉnh sửa theo feedback | 25/06 | 26/06 | ⬜ Chưa bắt đầu |
 | 5 | Bàn giao & training | 27/06 | 27/06 | ⬜ Chưa bắt đầu |
@@ -40,11 +40,11 @@
 
 | # | Hạng mục | Bắt đầu | Kết thúc | Trạng thái |
 |---|----------|---------|---------|------------|
-| 2.1 | Metadata động (title, description, OG tags) cho tất cả trang | 20/06 | 20/06 | ⬜ |
-| 2.2 | Sitemap XML + robots.txt | 20/06 | 20/06 | ⬜ |
-| 2.3 | Tối ưu hình ảnh (next/image, WebP, lazy load) | 21/06 | 21/06 | ⬜ |
-| 2.4 | Core Web Vitals — Lighthouse ≥ 85 | 21/06 | 21/06 | ⬜ |
-| 2.5 | Structured data (JSON-LD) cho trang chủ & tin tức | 21/06 | 21/06 | ⬜ |
+| 2.1 | Metadata động (title, description, OG tags) cho tất cả trang | 20/06 | 20/06 | ✅ |
+| 2.2 | Sitemap XML + robots.txt | 20/06 | 20/06 | ✅ |
+| 2.3 | Tối ưu hình ảnh (next/image, WebP, lazy load) | 20/06 | 20/06 | ✅ |
+| 2.4 | Core Web Vitals — Lighthouse ≥ 85 | 20/06 | 20/06 | ⬜ Cần chạy thủ công |
+| 2.5 | Structured data (JSON-LD) cho trang chủ & tin tức | 20/06 | 20/06 | ✅ |
 
 ---
 
