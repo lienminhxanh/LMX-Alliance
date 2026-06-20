@@ -192,10 +192,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                       <div className="flex items-center gap-4 pt-4" style={{ borderTop: '1px solid #f8fbf2' }}>
                         <Link
                           href={`/${locale}/business-segments/${sector.slug}`}
-                          className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-white transition-all"
-                          style={{ background: '#8ec63f', borderRadius: '9999px' }}
-                          onMouseEnter={e => (e.currentTarget.style.background = '#015231')}
-                          onMouseLeave={e => (e.currentTarget.style.background = '#8ec63f')}
+                          className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-white transition-all bg-[#8ec63f] hover:bg-[#015231] rounded-full"
                           aria-label={`${locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}: ${name}`}
                         >
                           {locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}

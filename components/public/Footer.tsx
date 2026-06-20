@@ -24,10 +24,10 @@ export function Footer() {
       {/* subtle leaf bg decoration */}
       <div className="absolute inset-0 pointer-events-none select-none" aria-hidden>
         <svg width="220" height="220" viewBox="0 0 32 32" fill="none" style={{ position: 'absolute', right: '-60px', bottom: '-60px', opacity: 0.06 }}>
-          <path d="M16 2 C10 5, 4 11, 5 18 C6 24, 10 28, 16 30 C22 28, 26 24, 27 18 C28 11, 22 5, 16 2Z" fill="#78d750"/>
+          <path d="M16 2 C10 5, 4 11, 5 18 C6 24, 10 28, 16 30 C22 28, 26 24, 27 18 C28 11, 22 5, 16 2Z" fill="#78d750" />
         </svg>
         <svg width="140" height="140" viewBox="0 0 32 32" fill="none" style={{ position: 'absolute', left: '-30px', top: '-30px', opacity: 0.05 }}>
-          <path d="M16 2 C10 5, 4 11, 5 18 C6 24, 10 28, 16 30 C22 28, 26 24, 27 18 C28 11, 22 5, 16 2Z" fill="#78d750"/>
+          <path d="M16 2 C10 5, 4 11, 5 18 C6 24, 10 28, 16 30 C22 28, 26 24, 27 18 C28 11, 22 5, 16 2Z" fill="#78d750" />
         </svg>
       </div>
 
@@ -36,15 +36,15 @@ export function Footer() {
 
           {/* Brand */}
           <div>
-            <Link href={`/${locale}`} className="inline-block mb-4">
-              <div className="bg-white rounded-lg px-3 py-1.5 inline-flex items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+            <Link href={`/${locale}`} className="inline-block mb-2">
+              <div className="inline-flex items-center">
                 <Image
-                  src="/logo.jpg"
+                  src="/logo-white.png"
                   alt="LMX Alliance"
-                  width={160}
-                  height={56}
+                  width={320}
+                  height={220}
                   className="object-contain"
-                  style={{ height: '46px', width: 'auto', maxWidth: '160px' }}
+                  style={{ height: '220px', width: 'auto', maxWidth: '320px', marginTop: '-55px', marginBottom: '-55px' }}
                 />
               </div>
             </Link>

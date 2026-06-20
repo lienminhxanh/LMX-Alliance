@@ -41,12 +41,12 @@ export function Header() {
         {/* Logo */}
         <Link href={`/${locale}`} className="flex items-center flex-shrink-0">
           <Image
-            src="/logo.jpg"
+            src="/logo.png"
             alt="LMX Alliance"
-            width={180}
-            height={64}
+            width={320}
+            height={120}
             className="object-contain"
-            style={{ height: '54px', width: 'auto', maxWidth: '180px' }}
+            style={{ height: '120px', width: 'auto', maxWidth: '320px', paddingTop: '12px' }}
             priority
           />
         </Link>
