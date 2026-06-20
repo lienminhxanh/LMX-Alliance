@@ -33,7 +33,7 @@ export function buildMeta({
   type = 'website',
 }: BuildMetaOpts): Metadata {
   const url = `${SITE_URL}${path}`;
-  const ogImage = image ?? `${SITE_URL}/og-default.png`;
+  const ogImage = image ?? `${SITE_URL}/logo-web.jpg`;
 
   const langAlternates: Record<string, string> = {};
   if (alternates) {
