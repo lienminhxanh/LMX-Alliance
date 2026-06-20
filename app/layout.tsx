@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`h-full ${roboto.variable}`}>
+    <html lang="vi" className={`h-full ${roboto.variable}`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col antialiased">
         <NextTopLoader color="#5a9e1a" height={3} showSpinner={false} shadow="0 0 8px #a8cc28" />
         {children}
