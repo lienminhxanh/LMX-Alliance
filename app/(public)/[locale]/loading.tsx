@@ -1,15 +1,90 @@
+import { useTranslations } from 'next-intl';
+
 export default function Loading() {
+  const t = useTranslations('common');
   return (
     <div className="min-h-[60vh] flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        {/* Leaf spinner */}
-        <svg
-          width="48" height="48" viewBox="0 0 24 24" fill="#5a9e1a"
-          style={{ animation: 'leaf-spin-slow 1.8s linear infinite' }}
-        >
-          <path d="M17 8C8 10 5.9 16.17 3.82 19.15L5.71 21l1-.91C7.39 19.41 8.1 19 9 19c2 0 2 2 4 2s2-2 4-2 2 2 4 2v-2c-1 0-1.5-.5-2-1-1-1-1.5-2.5-3-2.5-1 0-1.33.33-2 1-.67.67-1 1.5-2 1.5-1 0-1.5-.5-2-1A12.5 12.5 0 0 1 17 8z" />
-        </svg>
-        <p className="text-sm" style={{ color: '#6B7280' }}>Đang tải...</p>
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes loader-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          @keyframes loader-pulse {
+            0%, 100% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+          }
+          .animate-loader-spin {
+            animation: loader-spin 1.2s linear infinite;
+          }
+          .animate-loader-pulse {
+            animation: loader-pulse 2s ease-in-out infinite;
+          }
+        `}} />
+        <div className="relative w-16 h-16 flex items-center justify-center">
+          {/* Circular progress track */}
+          <svg className="absolute inset-0 w-full h-full animate-loader-spin" viewBox="0 0 50 50">
+            <circle
+              cx="25"
+              cy="25"
+              r="22"
+              fill="none"
+              stroke="#defbbc" // light mint green
+              strokeWidth="2.5"
+              className="opacity-40"
+            />
+            <circle
+              cx="25"
+              cy="25"
+              r="22"
+              fill="none"
+              stroke="#8ec63f" // brand green
+              strokeWidth="2.5"
+              strokeDasharray="35 150"
+              strokeLinecap="round"
+            />
+          </svg>
+          {/* Beautiful realistic leaf in center */}
+          <div className="animate-loader-pulse">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 32 32"
+              fill="none"
+            >
+              <defs>
+                <linearGradient id="loader-leaf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#8ec63f" />
+                  <stop offset="100%" stopColor="#015231" />
+                </linearGradient>
+              </defs>
+              {/* Main leaf blade */}
+              <path
+                d="M16 2 C10 5, 4 11, 5 18 C6 24, 10 28, 16 30 C22 28, 26 24, 27 18 C28 11, 22 5, 16 2Z"
+                fill="url(#loader-leaf-grad)"
+              />
+              {/* Midrib */}
+              <path
+                d="M16 3 C15.5 12, 15.8 22, 16 29"
+                stroke="rgba(255,255,255,0.4)"
+                strokeWidth="0.8"
+                fill="none"
+                strokeLinecap="round"
+              />
+              {/* Side veins */}
+              <path
+                d="M16 12 C12 10, 8 11, 7 14 M16 17 C12 15, 9 16, 8 19 M16 12 C20 10, 24 11, 25 14 M16 17 C20 15, 23 16, 24 19"
+                stroke="rgba(255,255,255,0.3)"
+                strokeWidth="0.5"
+                fill="none"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <p className="text-sm font-medium tracking-wide" style={{ color: '#015231' }}>
+          {t('loading')}
+        </p>
       </div>
     </div>
   );
