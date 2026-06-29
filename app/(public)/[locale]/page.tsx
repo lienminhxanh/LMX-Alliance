@@ -85,22 +85,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       />
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ background: '#015231' }}>
-        <LeafDecor variant="mixed" count={10} color="#78d750" />
-        {/* decorative circles */}
-        <div className="absolute inset-0 pointer-events-none select-none" aria-hidden>
-          {[...Array(4)].map((_, i) => (
-            <span
-              key={i}
-              className="absolute rounded-full opacity-8"
-              style={{
-                width: `${80 + i * 40}px`, height: `${80 + i * 40}px`,
-                background: '#78d750',
-                top: `${10 + i * 15}%`, right: `${5 + i * 8}%`,
-                animation: `float-up ${3 + i * 0.5}s ${i * 0.4}s ease-in-out infinite alternate`,
-              }}
-            />
-          ))}
-        </div>
+        <LeafDecor variant="mixed" count={14} color="#78d750" />
 
         <div className="container-max py-24 md:py-32 relative">
           <AnimateIn>

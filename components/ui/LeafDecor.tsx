@@ -57,6 +57,25 @@ function BranchSvg({ size, rotate, color }: { size: number; rotate: number; colo
   );
 }
 
+/* ── Flower: 5-petal outline flower ──────────── */
+function FlowerSvg({ size, rotate, color }: { size: number; rotate: number; color: string }) {
+  const angles = [0, 72, 144, 216, 288];
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none"
+      style={{ transform: `rotate(${rotate}deg)`, display: 'block' }}>
+      {angles.map((angle, i) => (
+        <ellipse
+          key={i}
+          cx="16" cy="9" rx="3.5" ry="6.5"
+          stroke={color} strokeWidth="0.9" fill="none"
+          transform={`rotate(${angle} 16 16)`}
+        />
+      ))}
+      <circle cx="16" cy="16" r="2.5" stroke={color} strokeWidth="0.8" fill="none"/>
+    </svg>
+  );
+}
+
 /* ── Sprout: small seedling/sprout ───────────── */
 function SproutSvg({ size, rotate, color }: { size: number; rotate: number; color: string }) {
   return (
@@ -104,16 +123,22 @@ const BRANCH_ELEMENTS: ElemConfig[] = [
 ];
 
 const MIXED_ELEMENTS: ElemConfig[] = [
-  { x: '5%',  y: '10%', size: 30, delay: '0s',   duration: '7s',  opacity: 0.20, rotate: -20, anim: 'leaf-float', type: 'leaf' },
-  { x: '85%', y: '18%', size: 22, delay: '1.3s', duration: '8.5s',opacity: 0.14, rotate: 35,  anim: 'leaf-sway',  type: 'eco' },
-  { x: '14%', y: '55%', size: 26, delay: '2.5s', duration: '7s',  opacity: 0.16, rotate: 10,  anim: 'leaf-drift', type: 'branch' },
-  { x: '80%', y: '50%', size: 32, delay: '1.0s', duration: '9s',  opacity: 0.15, rotate: -45, anim: 'leaf-float', type: 'leaf' },
-  { x: '45%', y: '8%',  size: 18, delay: '3.0s', duration: '8s',  opacity: 0.12, rotate: 60,  anim: 'leaf-sway',  type: 'eco' },
-  { x: '92%', y: '65%', size: 20, delay: '1.8s', duration: '7.5s',opacity: 0.13, rotate: -18, anim: 'leaf-drift', type: 'branch' },
-  { x: '28%', y: '82%', size: 24, delay: '0.4s', duration: '9.5s',opacity: 0.14, rotate: 28,  anim: 'leaf-float', type: 'leaf' },
-  { x: '65%', y: '85%', size: 16, delay: '2.2s', duration: '6.5s',opacity: 0.10, rotate: -55, anim: 'leaf-sway',  type: 'eco' },
-  { x: '55%', y: '50%', size: 20, delay: '4.0s', duration: '8s',  opacity: 0.09, rotate: 12,  anim: 'leaf-drift', type: 'branch' },
-  { x: '38%', y: '30%', size: 14, delay: '1.6s', duration: '7s',  opacity: 0.08, rotate: -30, anim: 'leaf-float', type: 'leaf' },
+  /* Left / center */
+  { x: '5%',  y: '10%', size: 30, delay: '0s',   duration: '7s',   opacity: 0.20, rotate: -20, anim: 'leaf-float', type: 'leaf' },
+  { x: '14%', y: '55%', size: 26, delay: '2.5s', duration: '7s',   opacity: 0.16, rotate: 10,  anim: 'leaf-drift', type: 'branch' },
+  { x: '28%', y: '82%', size: 24, delay: '0.4s', duration: '9.5s', opacity: 0.14, rotate: 28,  anim: 'leaf-float', type: 'leaf' },
+  { x: '38%', y: '30%', size: 18, delay: '1.6s', duration: '7s',   opacity: 0.10, rotate: -30, anim: 'leaf-float', type: 'leaf' },
+  { x: '45%', y: '8%',  size: 24, delay: '3.0s', duration: '8s',   opacity: 0.13, rotate: 60,  anim: 'leaf-sway',  type: 'flower' },
+  { x: '55%', y: '50%', size: 22, delay: '4.0s', duration: '8s',   opacity: 0.10, rotate: 12,  anim: 'leaf-drift', type: 'branch' },
+  /* Right side – bigger & denser to replace circles */
+  { x: '86%', y: '4%',  size: 64, delay: '0.2s', duration: '7.5s', opacity: 0.20, rotate: 20,  anim: 'leaf-float', type: 'flower' },
+  { x: '71%', y: '16%', size: 48, delay: '1.3s', duration: '8.5s', opacity: 0.18, rotate: 35,  anim: 'leaf-sway',  type: 'leaf' },
+  { x: '83%', y: '33%', size: 56, delay: '2.8s', duration: '9s',   opacity: 0.16, rotate: -15, anim: 'leaf-drift', type: 'flower' },
+  { x: '67%', y: '50%', size: 68, delay: '1.0s', duration: '9s',   opacity: 0.15, rotate: -45, anim: 'leaf-float', type: 'leaf' },
+  { x: '89%', y: '46%', size: 40, delay: '1.8s', duration: '7.5s', opacity: 0.15, rotate: -18, anim: 'leaf-drift', type: 'branch' },
+  { x: '74%', y: '68%', size: 52, delay: '2.2s', duration: '6.5s', opacity: 0.13, rotate: -55, anim: 'leaf-sway',  type: 'flower' },
+  { x: '91%', y: '70%', size: 32, delay: '3.5s', duration: '8s',   opacity: 0.12, rotate: 30,  anim: 'leaf-float', type: 'leaf' },
+  { x: '62%', y: '80%', size: 36, delay: '0.8s', duration: '7s',   opacity: 0.11, rotate: 15,  anim: 'leaf-sway',  type: 'branch' },
 ];
 
 const VARIANT_MAP: Record<LeafVariant, ElemConfig[]> = {
@@ -126,6 +151,7 @@ const VARIANT_MAP: Record<LeafVariant, ElemConfig[]> = {
 function ElemSvg({ config, color }: { config: ElemConfig; color: string }) {
   if (config.type === 'eco') return <EcoSvg size={config.size} rotate={config.rotate} color={color} />;
   if (config.type === 'branch') return <BranchSvg size={config.size} rotate={config.rotate} color={color} />;
+  if (config.type === 'flower') return <FlowerSvg size={config.size} rotate={config.rotate} color={color} />;
   return <LeafSvg size={config.size} rotate={config.rotate} color={color} />;
 }
 
