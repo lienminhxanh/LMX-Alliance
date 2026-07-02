@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
-import { uploadToR2 } from '@/lib/r2';
+import { uploadToCloudinary } from '@/lib/cloudinary';
 import { prisma } from '@/lib/prisma';
-import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: NextRequest) {
   const session = await auth();
@@ -13,15 +12,14 @@ export async function POST(request: NextRequest) {
   if (!file) return NextResponse.json({ error: 'No file' }, { status: 400 });
 
   const ext = file.name.split('.').pop() ?? 'bin';
-  const key = `uploads/${uuidv4()}.${ext}`;
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  const url = await uploadToR2(buffer, key, file.type);
+  const { url, publicId } = await uploadToCloudinary(buffer, 'lmx-uploads', 'image');
 
   await prisma.mediaFile.create({
     data: {
       originalName: file.name,
-      storageName: key,
+      storageName: publicId,
       fileUrl: url,
       fileType: ext,
       mimeType: file.type,
@@ -30,5 +28,5 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  return NextResponse.json({ url, key });
+  return NextResponse.json({ url, key: publicId });
 }

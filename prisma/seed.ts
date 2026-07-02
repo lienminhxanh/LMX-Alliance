@@ -27,6 +27,7 @@ async function main() {
     seoOgImage: '',
     seoKeywords: 'LMX Alliance, Liên Minh Xanh, xây lắp, logistics, phế liệu, chất thải, xuất nhập khẩu',
     facebookUrl: null, linkedinUrl: null, youtubeUrl: null, tiktokUrl: null,
+    zaloUrl: 'https://zalo.me/0931824025', messengerUrl: null,
     recruitmentEmail: 'tuyendung@lmxalliance.com',
   };
   await prisma.companySettings.upsert({
@@ -76,7 +77,7 @@ async function main() {
       contentVI: `<h2>Tổng quan dịch vụ</h2><p>LMX Alliance có đội ngũ kỹ sư và công nhân lành nghề, trang thiết bị hiện đại, cam kết đảm bảo tiến độ và chất lượng công trình theo đúng yêu cầu của khách hàng.</p><h2>Năng lực thi công</h2><ul><li>Công trình dân dụng: nhà ở, chung cư, văn phòng</li><li>Công trình công nghiệp: nhà xưởng, kho bãi, nhà máy</li><li>Hạ tầng kỹ thuật: đường nội bộ, hệ thống điện nước</li></ul><h2>Tiêu chuẩn chất lượng</h2><p>Tất cả công trình đều được kiểm soát chất lượng theo tiêu chuẩn ISO 9001:2015 và tuân thủ đầy đủ quy định pháp luật về xây dựng.</p>`,
       contentEN: `<h2>Service Overview</h2><p>LMX Alliance has skilled engineers and workers, modern equipment, ensuring project schedule and quality as required by clients.</p><h2>Construction Capabilities</h2><ul><li>Civil works: residential, apartment, office buildings</li><li>Industrial works: factories, warehouses, plants</li><li>Technical infrastructure: internal roads, electrical and water systems</li></ul><h2>Quality Standards</h2><p>All projects are quality-controlled according to ISO 9001:2015 standards.</p>`,
       contentZH: `<h2>服务概述</h2><p>LMX联盟拥有熟练的工程师和工人团队、现代化设备，确保工程进度和质量。</p>`,
-      banner: '', thumbnail: '', gallery: [],
+      banner: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg', thumbnail: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg', gallery: ['https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg'],
       seoTitleVI: 'Xây lắp công trình - LMX Alliance',
       seoDescVI: 'Dịch vụ xây lắp công trình dân dụng và công nghiệp chất lượng cao từ LMX Alliance.',
       status: 'PUBLISHED' as const, orderIndex: 0,
@@ -92,7 +93,13 @@ async function main() {
       contentVI: `<h2>Dịch vụ Logistics</h2><p>Với mạng lưới đối tác rộng lớn trong và ngoài nước, LMX Alliance cung cấp dịch vụ logistics và xuất nhập khẩu hiệu quả, tối ưu chi phí cho doanh nghiệp.</p><h2>Dịch vụ cụ thể</h2><ul><li>Vận chuyển hàng hóa nội địa và quốc tế</li><li>Thủ tục hải quan xuất nhập khẩu</li><li>Kho bãi và phân phối</li><li>Tư vấn giải pháp chuỗi cung ứng</li></ul>`,
       contentEN: `<h2>Logistics Services</h2><p>With an extensive partner network, LMX Alliance provides efficient logistics and import-export services, optimizing costs for businesses.</p><h2>Specific Services</h2><ul><li>Domestic and international freight</li><li>Import-export customs procedures</li><li>Warehousing and distribution</li><li>Supply chain consulting</li></ul>`,
       contentZH: `<h2>物流服务</h2><p>凭借广泛的合作伙伴网络，LMX联盟为企业提供高效的物流和进出口服务，优化成本。</p>`,
-      banner: '', thumbnail: '/migration-tmp/xe-dau-keo.jpg', gallery: ['/migration-tmp/xe-dau-keo.jpg', '/migration-tmp/may-nang.jpg', '/migration-tmp/construction-logistics.jpg', '/migration-tmp/team-onsite.jpg'],
+      banner: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009400/lmx-migration/o6pyjagnadnhuirlswas.jpg', thumbnail: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009400/lmx-migration/o6pyjagnadnhuirlswas.jpg', gallery: [
+        'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009400/lmx-migration/o6pyjagnadnhuirlswas.jpg',
+        'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009402/lmx-migration/klu2vw32c7voieozu4mf.jpg',
+        'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009403/lmx-migration/ywjmf8mw4f97k8g4muj6.jpg',
+        'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009404/lmx-migration/anjoz6o8vogqzb2zungy.jpg',
+        'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg',
+      ],
       seoTitleVI: 'Logistics & Xuất nhập khẩu - LMX Alliance',
       seoDescVI: 'Dịch vụ logistics và xuất nhập khẩu chuyên nghiệp từ LMX Alliance.',
       status: 'PUBLISHED' as const, orderIndex: 1,
@@ -108,7 +115,7 @@ async function main() {
       contentVI: `<h2>Tổng quan</h2><p>LMX Alliance cam kết xử lý chất thải và phế liệu theo quy trình chuyên nghiệp, đảm bảo an toàn môi trường và tuân thủ quy định pháp luật.</p><h2>Dịch vụ</h2><ul><li>Thu mua phế liệu kim loại (sắt, đồng, nhôm, inox)</li><li>Xử lý chất thải công nghiệp nguy hại và không nguy hại</li><li>Tái chế và tái sử dụng vật liệu</li><li>Tư vấn quản lý chất thải cho doanh nghiệp</li></ul><h2>Cam kết môi trường</h2><p>Chúng tôi tuân thủ nghiêm ngặt ISO 14001:2015 và các quy định về bảo vệ môi trường của Nhà nước.</p>`,
       contentEN: `<h2>Overview</h2><p>LMX Alliance is committed to processing waste and scrap materials professionally, ensuring environmental safety and legal compliance.</p><h2>Services</h2><ul><li>Metal scrap purchasing (iron, copper, aluminum, stainless steel)</li><li>Hazardous and non-hazardous industrial waste treatment</li><li>Material recycling and reuse</li><li>Waste management consulting</li></ul>`,
       contentZH: `<h2>概述</h2><p>LMX联盟致力于专业处理废物和废料，确保环境安全和法律合规。</p>`,
-      banner: '', thumbnail: '', gallery: [],
+      banner: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009401/lmx-migration/szhxen4de8gi2sl0tuky.jpg', thumbnail: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009401/lmx-migration/szhxen4de8gi2sl0tuky.jpg', gallery: ['https://res.cloudinary.com/azsqg4uv/image/upload/v1783009401/lmx-migration/szhxen4de8gi2sl0tuky.jpg'],
       seoTitleVI: 'Phế liệu & Xử lý chất thải - LMX Alliance',
       seoDescVI: 'Dịch vụ thu mua phế liệu và xử lý chất thải công nghiệp từ LMX Alliance.',
       status: 'PUBLISHED' as const, orderIndex: 2,
@@ -205,7 +212,7 @@ async function main() {
 <p>随着资源日益稀缺，废料的回收和再利用不仅带来经济效益，还有助于环境保护。LMX提供全面的废料收购服务。</p>
 <h2>收购废料类型</h2>
 <ul><li>钢铁、金属</li><li>工业塑料</li><li>纸张、纸板</li><li>其他可回收材料</li></ul>`,
-      thumbnail: '',
+      thumbnail: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009401/lmx-migration/szhxen4de8gi2sl0tuky.jpg',
       category: 'COMPANY_NEWS' as const,
       author: 'LMX Alliance',
       status: 'PUBLISHED' as const,
@@ -255,7 +262,7 @@ async function main() {
 <p>LMX绿色联盟为企业提供全面、灵活、高效的物流解决方案。</p>
 <h2>主要服务</h2>
 <ul><li>国内外货物运输</li><li>货运代理</li><li>专业仓储</li><li>进出口清关</li></ul>`,
-      thumbnail: '/migration-tmp/duong-thuy.jpg',
+      thumbnail: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009406/lmx-migration/pb8j5ajv9nexb5emgn9g.jpg',
       category: 'COMPANY_NEWS' as const,
       author: 'LMX Alliance',
       status: 'PUBLISHED' as const,
@@ -355,7 +362,7 @@ async function main() {
 <p>为确保服务质量，LMX投资建立了同步现代化的车辆系统，主动控制整个服务链。</p>
 <h2>车队</h2>
 <ul><li>货运卡车</li><li>集装箱牵引车</li><li>专用罐车</li><li>半挂车</li><li>叉车</li><li>垃圾压缩车</li><li>挖掘机</li></ul>`,
-      thumbnail: '/migration-tmp/xe-dau-keo.jpg',
+      thumbnail: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009402/lmx-migration/klu2vw32c7voieozu4mf.jpg',
       category: 'COMPANY_NEWS' as const,
       author: 'LMX Alliance',
       status: 'PUBLISHED' as const,
@@ -538,18 +545,9 @@ async function main() {
   });
 
   // ── Partners ─────────────────────────────────────────
+  // Không seed dữ liệu đối tác — site cũ (lmxalliance.com) không liệt kê
+  // danh sách đối tác cụ thể nào. Thêm đối tác thật qua Admin > Partners.
   await prisma.partner.deleteMany();
-  const partnerData = [
-    { nameVI: 'Tập đoàn Vingroup', nameEN: 'Vingroup Corporation', nameZH: 'Vingroup集团', logo: '', website: 'https://vingroup.net', descVI: 'Tập đoàn đa ngành lớn nhất Việt Nam', descEN: 'Vietnam largest diversified corporation', descZH: '越南最大多元化集团', orderIndex: 1 },
-    { nameVI: 'CTCP Xây dựng Hòa Bình', nameEN: 'Hoa Binh Construction', nameZH: '和平建设股份公司', logo: '', website: 'https://hbc.vn', descVI: 'Công ty xây dựng hàng đầu Việt Nam', descEN: 'Leading construction company in Vietnam', descZH: '越南领先建筑公司', orderIndex: 2 },
-    { nameVI: 'Tổng Công ty Tân Cảng Sài Gòn', nameEN: 'Saigon Newport Corporation', nameZH: '西贡新港总公司', logo: '', website: 'https://snp.com.vn', descVI: 'Cảng container lớn nhất Việt Nam', descEN: 'Largest container port in Vietnam', descZH: '越南最大集装箱港口', orderIndex: 3 },
-    { nameVI: 'Gemadept Corporation', nameEN: 'Gemadept Corporation', nameZH: 'Gemadept公司', logo: '', website: 'https://gemadept.com.vn', descVI: 'Tập đoàn logistics và cảng biển', descEN: 'Logistics and seaport group', descZH: '物流和港口集团', orderIndex: 4 },
-    { nameVI: 'CTCP Môi trường Đô thị Hà Nội', nameEN: 'Hanoi Urban Environment JSC', nameZH: '河内城市环境股份公司', logo: '', website: 'https://urenco.com.vn', descVI: 'Đối tác xử lý chất thải đô thị', descEN: 'Urban waste management partner', descZH: '城市废物管理合作伙伴', orderIndex: 5 },
-    { nameVI: 'Công ty TNHH Samsung Vina', nameEN: 'Samsung Vina Electronics', nameZH: '三星越南电子有限公司', logo: '', website: 'https://samsung.com', descVI: 'Đối tác logistics chuỗi cung ứng', descEN: 'Supply chain logistics partner', descZH: '供应链物流合作伙伴', orderIndex: 6 },
-    { nameVI: 'CTCP Đầu tư Hạ tầng Kỹ thuật TP.HCM', nameEN: 'HCMC Technical Infrastructure Investment', nameZH: '胡志明市技术基础设施投资股份公司', logo: '', website: 'https://cia.com.vn', descVI: 'Đối tác hạ tầng và xây lắp', descEN: 'Infrastructure and construction partner', descZH: '基础设施和建设合作伙伴', orderIndex: 7 },
-    { nameVI: 'Schenker Vietnam', nameEN: 'Schenker Vietnam', nameZH: '申克越南', logo: '', website: 'https://dbschenker.com', descVI: 'Đối tác vận tải quốc tế', descEN: 'International freight partner', descZH: '国际货运合作伙伴', orderIndex: 8 },
-  ];
-  for (const p of partnerData) await prisma.partner.create({ data: p });
 
   // ── Projects ─────────────────────────────────────────
   await prisma.project.deleteMany();

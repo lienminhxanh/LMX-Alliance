@@ -45,6 +45,8 @@ model CompanySettings {
   linkedinUrl      String?
   youtubeUrl       String?
   tiktokUrl        String?
+  zaloUrl          String?
+  messengerUrl     String?
   recruitmentEmail String   @default("")
   updatedAt        DateTime @updatedAt
 }

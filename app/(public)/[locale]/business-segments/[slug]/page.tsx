@@ -64,8 +64,18 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
 
   return (
     <>
-      <section className="bg-[#015231] text-white py-20">
-        <div className="container-max">
+      <section className="relative overflow-hidden text-white py-20" style={{ background: '#015231' }}>
+        {sector.banner && (
+          <>
+            <Image src={sector.banner} alt="" fill priority className="object-cover" aria-hidden />
+            <div
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(180deg, rgba(1,82,49,0.75) 0%, rgba(1,82,49,0.92) 100%)' }}
+              aria-hidden
+            />
+          </>
+        )}
+        <div className="container-max relative z-10">
           <Link href={`/${locale}/business-segments`} className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6 transition-colors">
             <ArrowLeft size={14} /> {t('backToList')}
           </Link>

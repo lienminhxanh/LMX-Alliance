@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { uploadToR2 } from '@/lib/r2';
-import { v4 as uuidv4 } from 'uuid';
+import { uploadToCloudinary } from '@/lib/cloudinary';
 
 const ALLOWED_MIME = [
   'application/pdf',
@@ -20,10 +19,8 @@ export async function POST(request: NextRequest) {
     if (file.size > MAX_BYTES)
       return NextResponse.json({ error: 'File too large (max 5 MB)' }, { status: 400 });
 
-    const ext = file.name.split('.').pop()?.toLowerCase() ?? 'pdf';
-    const key = `cv-uploads/${uuidv4()}.${ext}`;
     const buffer = Buffer.from(await file.arrayBuffer());
-    const url = await uploadToR2(buffer, key, file.type);
+    const { url } = await uploadToCloudinary(buffer, 'lmx-cv-uploads', 'raw');
 
     return NextResponse.json({ url });
   } catch {

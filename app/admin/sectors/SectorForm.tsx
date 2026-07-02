@@ -9,6 +9,7 @@ import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs';
 import { RichTextEditor } from '@/components/admin/RichTextEditor';
+import { ImageField, ImageGalleryField } from '@/components/admin/ImageField';
 import { createSector, updateSector } from '@/actions/sectors';
 import { slugify } from '@/lib/utils';
 import type { z } from 'zod';
@@ -116,6 +117,16 @@ export function SectorForm({ initialData }: SectorFormProps) {
             );
           })}
         </Tabs>
+
+        {/* Images */}
+        <div className="space-y-4 p-4 border border-gray-200" style={{ borderRadius: 4 }}>
+          <h3 className="text-sm font-semibold text-[#1F2937]">Images</h3>
+          <div className="flex flex-wrap gap-8">
+            <ImageField label="Banner" value={watch('banner') ?? ''} onChange={(url) => setValue('banner', url)} />
+            <ImageField label="Thumbnail" value={watch('thumbnail') ?? ''} onChange={(url) => setValue('thumbnail', url)} />
+          </div>
+          <ImageGalleryField label="Gallery" value={watch('gallery') ?? []} onChange={(urls) => setValue('gallery', urls)} />
+        </div>
 
         {/* Settings */}
         <div className="grid grid-cols-2 gap-4">

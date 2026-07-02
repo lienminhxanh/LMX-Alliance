@@ -22,6 +22,7 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
       phone: '', email: '', website: '', googleMapEmbed: '',
       seoMetaTitle: '', seoMetaDesc: '', seoOgImage: '', seoKeywords: '',
       facebookUrl: '', linkedinUrl: '', youtubeUrl: '', tiktokUrl: '',
+      zaloUrl: '', messengerUrl: '',
       recruitmentEmail: '',
       ...initialData,
     },
@@ -71,6 +72,15 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
           <Input label="LinkedIn URL" {...register('linkedinUrl')} />
           <Input label="YouTube URL" {...register('youtubeUrl')} />
           <Input label="TikTok URL" {...register('tiktokUrl')} />
+        </div>
+      </Card>
+
+      <Card>
+        <h3 className="font-semibold text-[#1F2937] mb-4">Quick Contact (floating buttons)</h3>
+        <div className="space-y-4">
+          <Input label="Zalo URL" placeholder="https://zalo.me/0931824025" {...register('zaloUrl')} />
+          <Input label="Messenger URL" placeholder="https://m.me/lienminhxanh" {...register('messengerUrl')} />
+          <p className="text-xs text-[#6B7280]">Số điện thoại lấy từ trường Phone ở trên. Để trống nếu không muốn hiển thị nút tương ứng.</p>
         </div>
       </Card>
 
