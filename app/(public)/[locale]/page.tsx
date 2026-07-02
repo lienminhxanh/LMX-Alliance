@@ -87,7 +87,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ background: '#015231' }}>
         <Image
-          src="/migration-tmp/hero-home.jpg"
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/v1783009407/lmx-migration/lof4ggnkwhpgyv15jv57.jpg"
           alt=""
           fill
           priority
@@ -150,25 +150,38 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               return (
                 <AnimateIn key={sector.id} delay={idx * 0.1}>
                   <div
-                    className={`card-lift p-8 bg-white h-full group cursor-pointer ${idx < sectors.length - 1 ? 'border-b md:border-b-0 md:border-r' : ''}`}
+                    className={`card-lift bg-white h-full group cursor-pointer ${idx < sectors.length - 1 ? 'border-b md:border-b-0 md:border-r' : ''}`}
                     style={{ borderColor: '#defbbc' }}
                   >
-                    <div
-                      className="w-11 h-11 flex items-center justify-center mb-5 transition-all"
-                      style={{ background: '#f8fbf2', borderRadius: '4px' }}
-                    >
-                      <Icon size={22} style={{ color: '#8ec63f' }} strokeWidth={1.5} />
+                    {sector.thumbnail && (
+                      <div className="relative w-full aspect-[16/10] overflow-hidden">
+                        <Image
+                          src={sector.thumbnail}
+                          alt={name}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+                    )}
+                    <div className="p-8">
+                      <div
+                        className="w-11 h-11 flex items-center justify-center mb-5 transition-all"
+                        style={{ background: '#f8fbf2', borderRadius: '4px' }}
+                      >
+                        <Icon size={22} style={{ color: '#8ec63f' }} strokeWidth={1.5} />
+                      </div>
+                      <h3 className="text-base font-semibold mb-3">{name}</h3>
+                      <p className="text-sm leading-relaxed mb-5" style={{ color: '#6B7280' }}>{summary}</p>
+                      <Link
+                        href={`/${locale}/business-segments/${sector.slug}`}
+                        className="inline-flex items-center gap-1.5 text-sm font-medium link-underline"
+                        style={{ color: '#8ec63f' }}
+                        aria-label={`${t('sectors.learnMore')}: ${name}`}
+                      >
+                        {t('sectors.learnMore')} <ArrowRight size={14} />
+                      </Link>
                     </div>
-                    <h3 className="text-base font-semibold mb-3">{name}</h3>
-                    <p className="text-sm leading-relaxed mb-5" style={{ color: '#6B7280' }}>{summary}</p>
-                    <Link
-                      href={`/${locale}/business-segments/${sector.slug}`}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium link-underline"
-                      style={{ color: '#8ec63f' }}
-                      aria-label={`${t('sectors.learnMore')}: ${name}`}
-                    >
-                      {t('sectors.learnMore')} <ArrowRight size={14} />
-                    </Link>
                   </div>
                 </AnimateIn>
               );

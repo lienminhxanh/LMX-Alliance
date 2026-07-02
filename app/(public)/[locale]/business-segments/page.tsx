@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { ArrowRight, Building2, Truck, Recycle, Leaf, CheckCircle2 } from 'lucide-react';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
+import Image from 'next/image';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
 
@@ -128,6 +129,23 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                       className={`relative flex flex-col justify-between p-8 lg:p-10 overflow-hidden ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
                       style={{ background: accentBg, minHeight: '280px' }}
                     >
+                      {sector.banner && (
+                        <>
+                          <Image
+                            src={sector.banner}
+                            alt={name}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                          />
+                          <div
+                            className="absolute inset-0"
+                            style={{ background: `linear-gradient(180deg, ${accentBg}cc 0%, ${accentBg}e6 100%)` }}
+                            aria-hidden
+                          />
+                        </>
+                      )}
+
                       {/* Big watermark number */}
                       <span
                         className="absolute right-4 bottom-2 font-bold select-none pointer-events-none"
@@ -137,7 +155,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                       </span>
 
                       {/* Eco icon box */}
-                      <div>
+                      <div className="relative z-10">
                         <div
                           className="w-14 h-14 rounded-xl flex items-center justify-center mb-5"
                           style={{ background: 'rgba(120,215,80,0.2)' }}

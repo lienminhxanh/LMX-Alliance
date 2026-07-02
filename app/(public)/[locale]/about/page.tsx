@@ -125,7 +125,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* ── Hero ─────────────────────────────────── */}
       <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
         <Image
-          src="/migration-tmp/team-onsite.jpg"
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg"
           alt=""
           fill
           priority
