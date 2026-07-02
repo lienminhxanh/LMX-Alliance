@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
 import { ArrowRight, Building2, Truck, Recycle } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
@@ -85,33 +86,50 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       />
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ background: '#015231' }}>
+        <Image
+          src="/migration-tmp/hero-home.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(180deg, rgba(1,82,49,0.15) 0%, rgba(1,82,49,0.1) 35%, rgba(1,82,49,0.55) 65%, rgba(1,82,49,0.9) 100%)' }}
+          aria-hidden
+        />
         <LeafDecor variant="mixed" count={14} color="#78d750" />
 
         <div className="container-max py-24 md:py-32 relative">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-4 font-medium" style={{ color: '#78d750' }}>
-              LMX Alliance
-            </p>
-            <h1 className="mb-6 leading-tight whitespace-pre-line" style={{ fontSize: 'clamp(2rem,4vw,3.25rem)', fontWeight: 700, color: '#fff' }}>
-              {heroTitle}
-            </h1>
-            <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: '#defbbc' }}>
-              {heroDesc}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href={`/${locale}/business-segments`}
-                className="inline-flex items-center gap-2 px-7 py-3 text-sm font-medium transition-all hover:gap-3"
-                style={{ background: '#8ec63f', color: '#fff', borderRadius: '9999px' }}
-              >
-                {t('hero.cta')} <ArrowRight size={16} />
-              </Link>
-              <Link
-                href={`/${locale}/contact`}
-                className="btn-hero-outline"
-              >
-                {navT('contact')}
-              </Link>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+              <div className="max-w-xl">
+                <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
+                  LMX Alliance
+                </p>
+                <h1 className="mb-4 leading-tight whitespace-pre-line" style={{ fontSize: 'clamp(2rem,4vw,3.25rem)', fontWeight: 700, color: '#fff' }}>
+                  {heroTitle}
+                </h1>
+                <p className="text-base leading-relaxed" style={{ color: '#defbbc' }}>
+                  {heroDesc}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 shrink-0">
+                <Link
+                  href={`/${locale}/business-segments`}
+                  className="inline-flex items-center gap-2 px-7 py-3 text-sm font-medium transition-all hover:gap-3"
+                  style={{ background: '#8ec63f', color: '#fff', borderRadius: '9999px' }}
+                >
+                  {t('hero.cta')} <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href={`/${locale}/contact`}
+                  className="btn-hero-outline"
+                >
+                  {navT('contact')}
+                </Link>
+              </div>
             </div>
           </AnimateIn>
         </div>

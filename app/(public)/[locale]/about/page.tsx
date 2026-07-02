@@ -124,6 +124,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     <>
       {/* ── Hero ─────────────────────────────────── */}
       <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+        <Image
+          src="/migration-tmp/team-onsite.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          aria-hidden
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.75) 60%, rgba(1,82,49,0.55) 100%)' }} aria-hidden />
         <LeafDecor variant="branch" count={8} color="#78d750" />
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-8" style={{ background: '#78d750' }} />

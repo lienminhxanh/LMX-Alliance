@@ -92,7 +92,7 @@ async function main() {
       contentVI: `<h2>Dịch vụ Logistics</h2><p>Với mạng lưới đối tác rộng lớn trong và ngoài nước, LMX Alliance cung cấp dịch vụ logistics và xuất nhập khẩu hiệu quả, tối ưu chi phí cho doanh nghiệp.</p><h2>Dịch vụ cụ thể</h2><ul><li>Vận chuyển hàng hóa nội địa và quốc tế</li><li>Thủ tục hải quan xuất nhập khẩu</li><li>Kho bãi và phân phối</li><li>Tư vấn giải pháp chuỗi cung ứng</li></ul>`,
       contentEN: `<h2>Logistics Services</h2><p>With an extensive partner network, LMX Alliance provides efficient logistics and import-export services, optimizing costs for businesses.</p><h2>Specific Services</h2><ul><li>Domestic and international freight</li><li>Import-export customs procedures</li><li>Warehousing and distribution</li><li>Supply chain consulting</li></ul>`,
       contentZH: `<h2>物流服务</h2><p>凭借广泛的合作伙伴网络，LMX联盟为企业提供高效的物流和进出口服务，优化成本。</p>`,
-      banner: '', thumbnail: '', gallery: [],
+      banner: '', thumbnail: '/migration-tmp/xe-dau-keo.jpg', gallery: ['/migration-tmp/xe-dau-keo.jpg', '/migration-tmp/may-nang.jpg', '/migration-tmp/construction-logistics.jpg', '/migration-tmp/team-onsite.jpg'],
       seoTitleVI: 'Logistics & Xuất nhập khẩu - LMX Alliance',
       seoDescVI: 'Dịch vụ logistics và xuất nhập khẩu chuyên nghiệp từ LMX Alliance.',
       status: 'PUBLISHED' as const, orderIndex: 1,
@@ -255,7 +255,7 @@ async function main() {
 <p>LMX绿色联盟为企业提供全面、灵活、高效的物流解决方案。</p>
 <h2>主要服务</h2>
 <ul><li>国内外货物运输</li><li>货运代理</li><li>专业仓储</li><li>进出口清关</li></ul>`,
-      thumbnail: '',
+      thumbnail: '/migration-tmp/duong-thuy.jpg',
       category: 'COMPANY_NEWS' as const,
       author: 'LMX Alliance',
       status: 'PUBLISHED' as const,
@@ -355,7 +355,7 @@ async function main() {
 <p>为确保服务质量，LMX投资建立了同步现代化的车辆系统，主动控制整个服务链。</p>
 <h2>车队</h2>
 <ul><li>货运卡车</li><li>集装箱牵引车</li><li>专用罐车</li><li>半挂车</li><li>叉车</li><li>垃圾压缩车</li><li>挖掘机</li></ul>`,
-      thumbnail: '',
+      thumbnail: '/migration-tmp/xe-dau-keo.jpg',
       category: 'COMPANY_NEWS' as const,
       author: 'LMX Alliance',
       status: 'PUBLISHED' as const,
