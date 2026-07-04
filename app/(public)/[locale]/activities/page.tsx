@@ -5,6 +5,7 @@ import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
 import { Truck, Building2, Recycle, Leaf, Award, CheckCircle2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const revalidate = 3600;
 
@@ -119,6 +120,19 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
     <>
       {/* Hero */}
       <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
         <LeafDecor variant="eco" count={8} color="#78d750" />
         <div className="container-max relative z-10">
           <AnimateIn>

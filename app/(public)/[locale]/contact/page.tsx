@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactFormSchema } from '@/lib/validations';
 import { Input, Textarea } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import Image from 'next/image';
 import { MapPin, Phone, Mail, Clock, CheckCircle } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import type { z } from 'zod';
@@ -41,8 +42,21 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="bg-[#015231] text-white py-20">
-        <div className="container-max">
+      <section className="relative overflow-hidden bg-[#015231] text-white py-20">
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157485/lmx-migration/fyyjevsnrbnxdqbbzton.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
+        <div className="container-max relative">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">
               {locale === 'vi' ? 'Chúng tôi luôn sẵn sàng lắng nghe' : locale === 'en' ? 'We are always ready to listen' : '我们随时准备倾听'}

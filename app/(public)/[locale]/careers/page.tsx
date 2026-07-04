@@ -1,5 +1,6 @@
 import { getCachedCompanySettings } from '@/lib/cached';
 import { setRequestLocale } from 'next-intl/server';
+import Image from 'next/image';
 import { Mail, Shield, TrendingUp, Users, Briefcase, CheckCircle2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
@@ -130,10 +131,19 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
     <>
       {/* ── Hero ────────────────────────────────── */}
       <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: '#78d750' }} />
-          <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full opacity-5" style={{ background: '#78d750' }} />
-        </div>
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
         <div className="container-max relative">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest font-medium mb-3" style={{ color: '#78d750' }}>LMX Alliance</p>

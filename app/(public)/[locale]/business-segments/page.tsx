@@ -78,6 +78,19 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
     <>
       {/* ── Hero ─────────────────────────────────── */}
       <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157484/lmx-migration/cowrcqhaqvj6jkruhpfj.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
         <LeafDecor variant="branch" count={8} color="#78d750" />
         <div className="container-max relative z-10">
           <AnimateIn>

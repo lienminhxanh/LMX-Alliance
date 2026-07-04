@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
+import Image from 'next/image';
 import { Download, FileText } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { formatFileSize, formatDate } from '@/lib/utils';
@@ -53,8 +54,21 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <section className="bg-[#015231] text-white py-20">
-        <div className="container-max">
+      <section className="relative overflow-hidden bg-[#015231] text-white py-20">
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157486/lmx-migration/cnkjjmumtwmtzfi9vkwv.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
+        <div className="container-max relative">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">LMX Alliance</p>
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>

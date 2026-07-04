@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getCachedNewsList } from '@/lib/cached';
 import { formatDate } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
@@ -45,9 +46,19 @@ export default async function NewsPage({ params, searchParams }: {
   return (
     <>
       <section className="py-20 relative overflow-hidden" style={{ background: '#015231' }}>
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute -top-10 -right-10 w-60 h-60 rounded-full opacity-10" style={{ background: '#78d750' }} />
-        </div>
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157487/lmx-migration/vf1nerboxp4phtvsp0yu.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
         <div className="container-max relative">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>{t('subtitle')}</p>
