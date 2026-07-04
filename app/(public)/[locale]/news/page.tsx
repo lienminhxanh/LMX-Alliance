@@ -45,7 +45,7 @@ export default async function NewsPage({ params, searchParams }: {
 
   return (
     <>
-      <section className="py-20 relative overflow-hidden" style={{ background: '#015231' }}>
+      <section className="py-24 relative overflow-hidden" style={{ background: '#015231' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157487/lmx-migration/vf1nerboxp4phtvsp0yu.jpg"
           alt=""

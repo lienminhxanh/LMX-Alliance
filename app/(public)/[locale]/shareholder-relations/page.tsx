@@ -54,7 +54,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#015231] text-white py-20">
+      <section className="relative overflow-hidden bg-[#015231] text-white py-24">
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157486/lmx-migration/cnkjjmumtwmtzfi9vkwv.jpg"
           alt=""
