@@ -56,7 +56,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
     <>
       <section className="relative overflow-hidden bg-[#015231] text-white py-24 flex items-center" style={{ minHeight: '380px' }}>
         <Image
-          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157486/lmx-migration/cnkjjmumtwmtzfi9vkwv.jpg"
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783160253/lmx-migration/h2sptyzylqoc3ezjjgdf.jpg"
           alt=""
           fill
           priority
