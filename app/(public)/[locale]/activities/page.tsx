@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { buildMeta } from '@/lib/seo';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
 import { Truck, Building2, Recycle, Leaf, Award, CheckCircle2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const revalidate = 3600;
 
@@ -44,9 +46,9 @@ const activities = [
     descEN: 'Freight forwarding, transportation, and customs clearance for import-export goods. Diverse fleet of 2–35 ton trucks covering the whole country.',
     descZH: '提供进出口货物的货运代理、运输和清关服务。多样化的2-35吨卡车车队，覆盖全国。',
     achievements: {
-      vi: ['Đội xe 50+ phương tiện', 'Phủ sóng 63 tỉnh thành', 'Thông quan 24/7'],
-      en: ['50+ vehicle fleet', 'Coverage in 63 provinces', '24/7 customs clearance'],
-      zh: ['50+辆车队', '覆盖63个省份', '24/7清关服务'],
+      vi: ['Đội xe đa dạng', 'Phủ sóng toàn quốc', 'Thông quan 24/7'],
+      en: ['Diverse vehicle fleet', 'Nationwide coverage', '24/7 customs clearance'],
+      zh: ['多样化车队', '覆盖全国', '24/7清关服务'],
     },
   },
   {
@@ -58,9 +60,9 @@ const activities = [
     descEN: 'Civil and industrial construction — warehouses, factories, office buildings to the highest technical standards.',
     descZH: '民用和工业建筑施工 — 仓库、厂房、办公楼，达到最高技术标准。',
     achievements: {
-      vi: ['100+ công trình hoàn thành', 'Đội ngũ kỹ sư chuyên nghiệp', 'Tuân thủ TCVN & ISO'],
-      en: ['100+ completed projects', 'Professional engineering team', 'TCVN & ISO compliant'],
-      zh: ['100+完工项目', '专业工程师团队', '符合TCVN和ISO标准'],
+      vi: ['Nhiều công trình đã bàn giao', 'Đội ngũ kỹ sư chuyên nghiệp', 'Tuân thủ tiêu chuẩn kỹ thuật TCVN'],
+      en: ['Multiple projects delivered', 'Professional engineering team', 'TCVN technical standards'],
+      zh: ['多个项目已交付', '专业工程师团队', '符合TCVN技术标准'],
     },
   },
   {
@@ -86,9 +88,9 @@ const activities = [
     descEN: 'Partnering with Huê Phương VN to process and recycle industrial hazardous waste under permits from the Ministry of Agriculture and Environment.',
     descZH: '与Huê Phương VN合作，根据农业和环境部许可证处理和回收工业危险废物。',
     achievements: {
-      vi: ['Giấy phép xử lý chất thải nguy hại', 'Phối hợp Huê Phương VN', 'Đúng chuẩn ISO 14001'],
-      en: ['Licensed hazardous waste handler', 'Partnership with Huê Phương VN', 'ISO 14001 compliant'],
-      zh: ['持危险废物处理许可证', '与Huê Phương VN合作', '符合ISO 14001标准'],
+      vi: ['Giấy phép xử lý chất thải nguy hại', 'Phối hợp Huê Phương VN', 'Tuân thủ quy định môi trường'],
+      en: ['Licensed hazardous waste handler', 'Partnership with Huê Phương VN', 'Environmental compliance'],
+      zh: ['持危险废物处理许可证', '与Huê Phương VN合作', '符合环保法规'],
     },
   },
 ];
@@ -98,12 +100,13 @@ const milestones = [
   { year: '2017', vi: 'Mở rộng sang logistics xuất nhập khẩu', en: 'Expand into import-export logistics', zh: '扩展到进出口物流' },
   { year: '2019', vi: 'Ra mắt mảng xây dựng công nghiệp', en: 'Launch industrial construction division', zh: '推出工业建筑部门' },
   { year: '2021', vi: 'Hợp tác chiến lược với Huê Phương VN', en: 'Strategic partnership with Huê Phương VN', zh: '与Huê Phương VN战略合作' },
-  { year: '2023', vi: 'Vượt mốc 100 dự án hoàn thành', en: 'Surpass 100 completed projects', zh: '完成项目突破100个' },
+  { year: '2023', vi: 'Mở rộng quy mô dự án và đối tác', en: 'Scale up projects and partnerships', zh: '扩大项目与合作规模' },
   { year: '2025', vi: 'Thành lập CTCP Liên Minh Xanh LMX', en: 'Establish LMX Green Alliance JSC', zh: '成立LMX绿色联盟股份公司' },
 ];
 
 export default async function ActivitiesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
 
   const title = { vi: 'Hoạt động doanh nghiệp', en: 'Business Activities', zh: '企业活动' };
@@ -116,9 +119,22 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
         <LeafDecor variant="eco" count={8} color="#78d750" />
-        <div className="container-max relative z-10">
+        <div className="container-max relative z-10 w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
               {locale === 'vi' ? 'LMX Alliance' : locale === 'en' ? 'LMX Alliance' : 'LMX Alliance'}
@@ -144,7 +160,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
               const achList: string[] = (act.achievements as any)[locale] ?? act.achievements.vi;
               const isEven = idx % 2 === 0;
               return (
-                <AnimateIn key={idx} delay={idx * 0.08}>
+                <AnimateIn key={idx} delay={idx * 0.08} from={isEven ? 'left' : 'right'}>
                   <div
                     className={`grid grid-cols-1 md:grid-cols-2 gap-0 border overflow-hidden ${isEven ? '' : 'md:flex-row-reverse'}`}
                     style={{ borderColor: '#defbbc', borderRadius: '12px' }}
@@ -225,7 +241,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                 const label = (m as any)[locale] ?? m.vi;
                 const isLeft = idx % 2 === 0;
                 return (
-                  <AnimateIn key={m.year} delay={idx * 0.1}>
+                  <AnimateIn key={m.year} delay={idx * 0.1} from={isLeft ? 'left' : 'right'}>
                     <div className={`flex items-center gap-6 md:gap-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                       <div className={`hidden md:block w-1/2 ${isLeft ? 'text-right pr-12' : 'pl-12'}`}>
                         <p className="font-semibold text-sm" style={{ color: '#374151' }}>{label}</p>

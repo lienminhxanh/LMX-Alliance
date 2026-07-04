@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
+import { FileField } from '@/components/admin/ImageField';
 import { createIRDocument } from '@/actions/ir-documents';
 import { useRouter } from 'next/navigation';
 import { Upload } from 'lucide-react';
@@ -47,15 +48,17 @@ export function IRDocumentUpload() {
             <Select label="Category" options={categoryOptions} value={form.category} onChange={(e) => set('category', e.target.value)} />
             <Input label="Year" type="number" value={form.year} onChange={(e) => set('year', e.target.value)} />
           </div>
-          <Input label="File URL" value={form.fileUrl} onChange={(e) => set('fileUrl', e.target.value)} placeholder="https://..." />
-          <div className="grid grid-cols-3 gap-3">
-            <Input label="File Name" value={form.fileName} onChange={(e) => set('fileName', e.target.value)} />
-            <Input label="File Type" value={form.fileType} onChange={(e) => set('fileType', e.target.value)} placeholder="pdf" />
-            <Input label="File Size (bytes)" type="number" value={form.fileSize} onChange={(e) => set('fileSize', e.target.value)} />
-          </div>
+          <FileField
+            label="Tệp tài liệu (PDF)"
+            value={form.fileUrl}
+            fileName={form.fileName}
+            fileSize={form.fileSize}
+            accept="application/pdf"
+            onChange={(file) => setForm((f) => ({ ...f, fileUrl: file.url, fileName: file.name, fileType: file.type, fileSize: file.size }))}
+          />
           <div className="flex gap-2 justify-end">
             <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button loading={saving} onClick={save}>Save</Button>
+            <Button loading={saving} disabled={!form.fileUrl} onClick={save}>Save</Button>
           </div>
         </div>
       </Modal>

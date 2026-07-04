@@ -1,4 +1,6 @@
-import { prisma } from '@/lib/prisma';
+import { getCachedCompanySettings } from '@/lib/cached';
+import { setRequestLocale } from 'next-intl/server';
+import Image from 'next/image';
 import { Mail, Shield, TrendingUp, Users, Briefcase, CheckCircle2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
@@ -111,9 +113,10 @@ const culturePoints = [
 
 export default async function CareersPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
 
-  const settings = await prisma.companySettings.findFirst();
+  const settings = await getCachedCompanySettings();
   // Fallback to general company email if recruitment email not yet configured
   const recruitmentEmail = settings?.recruitmentEmail || settings?.email || '';
 
@@ -127,12 +130,21 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
   return (
     <>
       {/* ── Hero ────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: '#78d750' }} />
-          <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full opacity-5" style={{ background: '#78d750' }} />
-        </div>
-        <div className="container-max relative">
+      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
+        <div className="container-max relative w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest font-medium mb-3" style={{ color: '#78d750' }}>LMX Alliance</p>
             <h1 className="mb-4 text-white" style={{ fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 700 }}>
@@ -212,7 +224,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 {[
                   { value: '10+', labelVI: 'Năm kinh nghiệm', labelEN: 'Years of experience', labelZH: '年经验' },
                   { value: '200+', labelVI: 'Nhân sự chuyên nghiệp', labelEN: 'Professional staff', labelZH: '专业员工' },
-                  { value: '100+', labelVI: 'Dự án hoàn thành', labelEN: 'Projects completed', labelZH: '完成项目' },
+                  { value: 'Đa dạng', labelVI: 'Dự án đã triển khai', labelEN: 'Projects delivered', labelZH: '多样项目' },
                   { value: '50+', labelVI: 'Đối tác chiến lược', labelEN: 'Strategic partners', labelZH: '战略合作伙伴' },
                 ].map((s) => {
                   const label = locale === 'vi' ? s.labelVI : locale === 'en' ? s.labelEN : s.labelZH;

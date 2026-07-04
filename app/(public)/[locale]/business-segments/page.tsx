@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { ArrowRight, Building2, Truck, Recycle, Leaf, CheckCircle2 } from 'lucide-react';
@@ -37,32 +37,42 @@ export async function generateMetadata(
   });
 }
 
-const SECTOR_ICONS = [Truck, Building2, Recycle, Leaf];
-const SECTOR_COLORS = ['#015231', '#8ec63f', '#013d27', '#015231'];
-const SECTOR_BG = ['#f8fbf2', '#015231', '#f8fbf2', '#013d27'];
-const SECTOR_HIGHLIGHTS: Record<string, string[][]> = {
-  vi: [
-    ['Xuất nhập khẩu đa quốc gia', 'Xe tải 2–35 tấn', 'Thông quan 24/7', 'Phủ sóng 63 tỉnh'],
-    ['Dân dụng & Công nghiệp', 'Nhà kho – Văn phòng', 'Chuẩn TCVN & ISO', '100+ công trình'],
-    ['Kim loại – Nhựa – Giấy', 'Giá cạnh tranh', 'Thanh toán ngay', 'Đội xe thu gom'],
-    ['Giấy phép Bộ NN&MT', 'Đúng chuẩn ISO 14001', 'Tái chế bền vững', 'Hợp tác Huê Phương VN'],
-  ],
-  en: [
-    ['Multinational import-export', '2–35 ton trucks', '24/7 customs', '63 province coverage'],
-    ['Civil & Industrial', 'Warehouses – Offices', 'TCVN & ISO standard', '100+ projects'],
-    ['Metal – Plastic – Paper', 'Competitive pricing', 'Instant payment', 'Collection fleet'],
-    ['MONRE licensed', 'ISO 14001 compliant', 'Sustainable recycling', 'Huê Phương VN partner'],
-  ],
-  zh: [
-    ['跨国进出口', '2-35吨卡车', '24/7清关', '63省覆盖'],
-    ['民用与工业', '仓库-办公室', 'TCVN和ISO标准', '100+项目'],
-    ['金属-塑料-纸张', '竞争定价', '即时付款', '收集车队'],
-    ['获MONRE许可', '符合ISO 14001', '可持续回收', 'Huê Phương VN合作'],
-  ],
+const SECTOR_ICONS: Record<string, typeof Truck> = {
+  'logistics-xuat-nhap-khau': Truck,
+  'xay-lap-cong-trinh': Building2,
+  'phe-lieu-xu-ly-chat-thai': Recycle,
+};
+const SECTOR_COLORS: Record<string, string> = {
+  'logistics-xuat-nhap-khau': '#015231',
+  'xay-lap-cong-trinh': '#8ec63f',
+  'phe-lieu-xu-ly-chat-thai': '#013d27',
+};
+const SECTOR_BG: Record<string, string> = {
+  'logistics-xuat-nhap-khau': '#f8fbf2',
+  'xay-lap-cong-trinh': '#015231',
+  'phe-lieu-xu-ly-chat-thai': '#f8fbf2',
+};
+const SECTOR_HIGHLIGHTS: Record<string, Record<string, string[]>> = {
+  vi: {
+    'logistics-xuat-nhap-khau': ['Xuất nhập khẩu đa quốc gia', 'Xe tải 2–35 tấn', 'Thông quan 24/7', 'Phủ sóng toàn quốc'],
+    'xay-lap-cong-trinh': ['Dân dụng & Công nghiệp', 'Nhà kho – Văn phòng', 'Tiêu chuẩn kỹ thuật TCVN', 'Nhiều công trình đã bàn giao'],
+    'phe-lieu-xu-ly-chat-thai': ['Kim loại – Nhựa – Giấy', 'Giấy phép Bộ NN&MT', 'Tuân thủ quy định môi trường', 'Hợp tác Huê Phương VN'],
+  },
+  en: {
+    'logistics-xuat-nhap-khau': ['Multinational import-export', '2–35 ton trucks', '24/7 customs', 'Nationwide coverage'],
+    'xay-lap-cong-trinh': ['Civil & Industrial', 'Warehouses – Offices', 'TCVN technical standards', 'Multiple projects delivered'],
+    'phe-lieu-xu-ly-chat-thai': ['Metal – Plastic – Paper', 'MONRE licensed', 'Environmental compliance', 'Huê Phương VN partner'],
+  },
+  zh: {
+    'logistics-xuat-nhap-khau': ['跨国进出口', '2-35吨卡车', '24/7清关', '覆盖全国'],
+    'xay-lap-cong-trinh': ['民用与工业', '仓库-办公室', '符合TCVN技术标准', '多个项目已交付'],
+    'phe-lieu-xu-ly-chat-thai': ['金属-塑料-纸张', '获MONRE许可', '符合环保法规', 'Huê Phương VN合作'],
+  },
 };
 
 export default async function SectorsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'sectors' });
 
   const sectors = await prisma.businessSector.findMany({
@@ -76,9 +86,22 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
   return (
     <>
       {/* ── Hero ─────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157484/lmx-migration/cowrcqhaqvj6jkruhpfj.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
         <LeafDecor variant="branch" count={8} color="#78d750" />
-        <div className="container-max relative z-10">
+        <div className="container-max relative z-10 w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
               LMX Alliance
@@ -112,14 +135,14 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
             {sectors.map((sector, idx) => {
               const name    = (sector as any)[`name${L}`];
               const summary = (sector as any)[`summary${L}`];
-              const Icon = SECTOR_ICONS[idx % SECTOR_ICONS.length];
-              const accentBg = SECTOR_COLORS[idx % SECTOR_COLORS.length];
-              const lightBg  = SECTOR_BG[idx % SECTOR_BG.length];
-              const tags = highlights[idx] ?? [];
+              const Icon = SECTOR_ICONS[sector.slug] ?? Leaf;
+              const accentBg = SECTOR_COLORS[sector.slug] ?? '#015231';
+              const lightBg  = SECTOR_BG[sector.slug] ?? '#f8fbf2';
+              const tags = highlights[sector.slug] ?? [];
               const isEven = idx % 2 === 0;
 
               return (
-                <AnimateIn key={sector.id} delay={idx * 0.08}>
+                <AnimateIn key={sector.id} delay={idx * 0.08} from={isEven ? 'left' : 'right'}>
                   <div
                     className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden relative"
                     style={{ borderRadius: '14px', boxShadow: '0 4px 24px rgba(1,82,49,0.10)' }}

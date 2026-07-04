@@ -10,11 +10,12 @@ export async function POST(request: NextRequest) {
   const formData = await request.formData();
   const file = formData.get('file') as File | null;
   if (!file) return NextResponse.json({ error: 'No file' }, { status: 400 });
+  const resourceType = formData.get('resourceType') === 'raw' ? 'raw' : 'image';
 
   const ext = file.name.split('.').pop() ?? 'bin';
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  const { url, publicId } = await uploadToCloudinary(buffer, 'lmx-uploads', 'image');
+  const { url, publicId } = await uploadToCloudinary(buffer, 'lmx-uploads', resourceType);
 
   await prisma.mediaFile.create({
     data: {
@@ -28,5 +29,5 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  return NextResponse.json({ url, key: publicId });
+  return NextResponse.json({ url, key: publicId, name: file.name, size: file.size, type: ext });
 }

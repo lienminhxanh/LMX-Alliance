@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { Target, Eye, Shield, Users, TrendingUp, Leaf, Award, CheckCircle2, FileText, Link2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
@@ -104,18 +104,20 @@ const sectors = [
 
 const achievements = [
   { icon: Award,         value: '10+',  descVI: 'Năm kinh nghiệm',       descEN: 'Years of experience',    descZH: '年经验' },
-  { icon: CheckCircle2,  value: '100+', descVI: 'Dự án hoàn thành',       descEN: 'Projects completed',     descZH: '完成项目' },
+  { icon: CheckCircle2,  value: 'Đa dạng', descVI: 'Dự án đã triển khai', descEN: 'Projects delivered',      descZH: '多样项目' },
   { icon: Users,         value: '200+', descVI: 'Nhân sự chuyên nghiệp',  descEN: 'Professional staff',     descZH: '专业员工' },
   { icon: Target,        value: '50+',  descVI: 'Đối tác chiến lược',     descEN: 'Strategic partners',     descZH: '战略合作伙伴' },
 ];
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'about' });
 
-  const [leaders, settings] = await Promise.all([
+  const [leaders, settings, huePhuongPartner] = await Promise.all([
     prisma.leader.findMany({ orderBy: { orderIndex: 'asc' }, take: 4 }),
     prisma.companySettings.findFirst(),
+    prisma.partner.findUnique({ where: { id: 'hue-phuong-vn' } }),
   ]);
 
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
@@ -129,7 +131,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           alt=""
           fill
           priority
-          className="object-cover"
+          className="object-cover hero-zoom"
           aria-hidden
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.75) 60%, rgba(1,82,49,0.55) 100%)' }} aria-hidden />
@@ -180,7 +182,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="section-padding">
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <AnimateIn>
+            <AnimateIn from="left">
               <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
                 {locale === 'vi' ? 'Thư ngỏ' : locale === 'en' ? 'Open Letter' : '致辞'}
               </p>
@@ -208,7 +210,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </AnimateIn>
 
             {/* Business sectors */}
-            <AnimateIn delay={0.1}>
+            <AnimateIn delay={0.1} from="right">
               <p className="text-xs uppercase tracking-widest mb-4 font-medium" style={{ color: '#6B7280' }}>
                 {locale === 'vi' ? 'Lĩnh vực hoạt động chính'
                   : locale === 'en' ? 'Core Business Sectors'
@@ -244,7 +246,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <h2 className="mb-10">{t('mission.title')} &amp; {t('vision.title')}</h2>
           </AnimateIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <AnimateIn delay={0.05}>
+            <AnimateIn delay={0.05} scale>
               <div className="p-8 border h-full group card-lift bg-white" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
                 <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
                   <Target size={22} style={{ color: '#8ec63f' }} />
@@ -275,7 +277,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </div>
             </AnimateIn>
 
-            <AnimateIn delay={0.1}>
+            <AnimateIn delay={0.1} scale>
               <div className="p-8 h-full text-white" style={{ background: '#015231', borderRadius: '4px' }}>
                 <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: 'rgba(255,255,255,0.12)', borderRadius: '4px' }}>
                   <Eye size={22} className="text-white" />
@@ -351,7 +353,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </AnimateIn>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
             {/* Info card */}
-            <AnimateIn className="lg:col-span-2">
+            <AnimateIn from="left" className="lg:col-span-2">
               <div className="p-6 bg-white border h-full" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
@@ -428,7 +430,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </AnimateIn>
 
             {/* Certificate image — click to open full PDF */}
-            <AnimateIn delay={0.1} className="lg:col-span-3">
+            <AnimateIn delay={0.1} from="right" className="lg:col-span-3">
               <a
                 href="/docs/giay-phep-dkdn.pdf"
                 target="_blank"
@@ -463,6 +465,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* ── Liên kết Huê Phương VN ───────────────── */}
+      {huePhuongPartner && (
       <section className="section-padding">
         <div className="container-max">
           <AnimateIn>
@@ -476,35 +479,20 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </h2>
           </AnimateIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <AnimateIn>
+            <AnimateIn from="left">
               <div className="space-y-4 text-base leading-relaxed" style={{ color: '#374151' }}>
-                <p>
-                  {locale === 'vi'
-                    ? 'Sự liên kết giữa LIÊN MINH XANH LMX và CÔNG TY TNHH MTV MÔI TRƯỜNG XANH HUÊ PHƯƠNG VN được xây dựng nhằm cung cấp giải pháp thu gom, vận chuyển và xử lý chất thải, đặc biệt là chất thải nguy hại, theo đúng quy định pháp luật và tiêu chuẩn môi trường.'
-                    : locale === 'en'
-                    ? 'The partnership between LMX GREEN ALLIANCE and HUÊ PHƯƠNG VN GREEN ENVIRONMENT CO., LTD. was established to provide waste collection, transportation, and treatment solutions — especially hazardous waste — in full compliance with legal regulations and environmental standards.'
-                    : 'LMX绿色联盟与Huê Phương VN绿色环境有限公司之间的合作关系旨在提供废物收集、运输和处理解决方案，特别是危险废物，完全符合法律法规和环境标准。'}
-                </p>
-                <p>
-                  {locale === 'vi'
-                    ? 'Thông qua sự phối hợp về nguồn lực và chuyên môn của hai đơn vị, quá trình quản lý và xử lý chất thải được thực hiện an toàn, hiệu quả và bền vững.'
-                    : locale === 'en'
-                    ? 'Through the coordination of resources and expertise between the two entities, waste management and treatment processes are carried out safely, efficiently, and sustainably.'
-                    : '通过两个单位资源和专业知识的协调配合，废物管理和处理过程安全、高效、可持续。'}
-                </p>
+                <p>{(huePhuongPartner as any)[`desc${L}`]}</p>
               </div>
             </AnimateIn>
 
-            <AnimateIn delay={0.1}>
+            <AnimateIn delay={0.1} from="right">
               <div className="p-6 border" style={{ borderColor: '#defbbc', borderRadius: '4px', background: '#FAFAFA' }}>
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
                     <Link2 size={18} style={{ color: '#8ec63f' }} />
                   </div>
                   <h3 className="font-semibold" style={{ color: '#015231', fontSize: '1rem' }}>
-                    {locale === 'vi' ? 'Công ty TNHH MTV Môi Trường Xanh Huê Phương VN'
-                      : locale === 'en' ? 'Huê Phương VN Green Environment Co., Ltd.'
-                      : 'Huê Phương VN绿色环境有限公司'}
+                    {(huePhuongPartner as any)[`name${L}`]}
                   </h3>
                 </div>
                 <ul className="space-y-3 text-sm" style={{ color: '#374151' }}>
@@ -544,6 +532,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </div>
         </div>
       </section>
+      )}
 
       {/* ── Leadership ───────────────────────────── */}
       {leaders.length > 0 && (

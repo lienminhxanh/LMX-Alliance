@@ -1,9 +1,6 @@
-import { useTranslations } from 'next-intl';
-
 export default function Loading() {
-  const t = useTranslations('common');
   return (
-    <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="min-h-[60vh] flex items-center justify-center" aria-busy="true">
       <div className="flex flex-col items-center gap-4">
         <style dangerouslySetInnerHTML={{ __html: `
           @keyframes loader-spin {
@@ -82,9 +79,6 @@ export default function Loading() {
             </svg>
           </div>
         </div>
-        <p className="text-sm font-medium tracking-wide" style={{ color: '#015231' }}>
-          {t('loading')}
-        </p>
       </div>
     </div>
   );

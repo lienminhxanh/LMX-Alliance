@@ -1,11 +1,11 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getLocale } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/lib/i18n';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/public/Header';
 import { Footer } from '@/components/public/Footer';
 import { FloatingContact } from '@/components/public/FloatingContact';
-import { prisma } from '@/lib/prisma';
+import { getCachedCompanySettings } from '@/lib/cached';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -20,8 +20,9 @@ export default async function PublicLayout({
 }) {
   const { locale } = await params;
   if (!routing.locales.includes(locale as any)) notFound();
+  setRequestLocale(locale);
   const messages = await getMessages();
-  const settings = await prisma.companySettings.findFirst();
+  const settings = await getCachedCompanySettings();
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>

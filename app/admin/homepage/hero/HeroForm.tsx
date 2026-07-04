@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Input, Textarea } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { ImageField } from '@/components/admin/ImageField';
 import { upsertHomePage } from '@/actions/settings';
 
 export function HeroForm({ initialData }: { initialData?: any }) {
@@ -35,7 +36,7 @@ export function HeroForm({ initialData }: { initialData?: any }) {
         <Textarea label="Hero Description (ZH)" rows={3} value={form.heroDescZH} onChange={(e) => set('heroDescZH', e.target.value)} />
       </div>
       <Input label="CTA Button Text" value={form.heroCTA} onChange={(e) => set('heroCTA', e.target.value)} />
-      <Input label="Hero Image URL" value={form.heroImage} onChange={(e) => set('heroImage', e.target.value)} />
+      <ImageField label="Hero Image" value={form.heroImage} onChange={(url) => set('heroImage', url)} />
       <Button onClick={save} loading={saving}>{saved ? '✓ Saved' : 'Save Hero'}</Button>
     </div>
   );

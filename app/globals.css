@@ -258,6 +258,31 @@
 }
 .partner-logo:hover { filter: grayscale(0) opacity(1); }
 
+/* ── Hero Ken Burns zoom ─────────────────────── */
+@keyframes hero-zoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.07); }
+}
+.hero-zoom {
+  animation: hero-zoom 18s ease-out forwards;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-zoom { animation: none; }
+}
+
+/* ── Offset photo frame accent ───────────────── */
+.photo-frame { position: relative; }
+.photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: 14px -14px -14px 14px;
+  border: 2px solid #defbbc;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* ── Floating dots decoration ────────────────── */
 @keyframes float-up {
   0%   { transform: translateY(0) scale(1); opacity: 0.6; }

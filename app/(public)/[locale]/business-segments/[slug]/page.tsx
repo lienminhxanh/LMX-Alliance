@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
@@ -8,6 +8,16 @@ import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
 export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const sectors = await prisma.businessSector.findMany({
+    where: { status: 'PUBLISHED' },
+    select: { slug: true },
+  });
+  return ['vi', 'en', 'zh'].flatMap((locale) =>
+    sectors.map((s) => ({ locale, slug: s.slug }))
+  );
+}
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
@@ -51,6 +61,7 @@ export async function generateMetadata(
 
 export default async function SectorDetailPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'sectors' });
 
   const sector = await prisma.businessSector.findUnique({ where: { slug, status: 'PUBLISHED' } });

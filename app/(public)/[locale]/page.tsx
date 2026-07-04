@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
@@ -40,6 +40,7 @@ const sectorIcons = [Building2, Truck, Recycle];
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'home' });
   const navT = await getTranslations({ locale, namespace: 'nav' });
 
@@ -87,35 +88,41 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ background: '#015231' }}>
         <Image
-          src="https://res.cloudinary.com/azsqg4uv/image/upload/v1783009407/lmx-migration/lof4ggnkwhpgyv15jv57.jpg"
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783155165/lmx-migration/kib7bbktkmcv2p2k2cbd.jpg"
           alt=""
           fill
           priority
-          className="object-cover"
+          className="object-cover hero-zoom"
           aria-hidden
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(1,82,49,0.15) 0%, rgba(1,82,49,0.1) 35%, rgba(1,82,49,0.55) 65%, rgba(1,82,49,0.9) 100%)' }}
+          style={{ background: 'linear-gradient(180deg, rgba(1,61,39,0.45) 0%, rgba(1,82,49,0.25) 35%, rgba(1,82,49,0.6) 65%, rgba(1,82,49,0.92) 100%)' }}
           aria-hidden
         />
         <LeafDecor variant="mixed" count={14} color="#78d750" />
 
         <div className="container-max py-24 md:py-32 relative">
-          <AnimateIn>
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-              <div className="max-w-xl">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <div className="max-w-xl">
+              <AnimateIn>
                 <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
                   LMX Alliance
                 </p>
+              </AnimateIn>
+              <AnimateIn delay={0.1}>
                 <h1 className="mb-4 leading-tight whitespace-pre-line" style={{ fontSize: 'clamp(2rem,4vw,3.25rem)', fontWeight: 700, color: '#fff' }}>
                   {heroTitle}
                 </h1>
+              </AnimateIn>
+              <AnimateIn delay={0.22}>
                 <p className="text-base leading-relaxed" style={{ color: '#defbbc' }}>
                   {heroDesc}
                 </p>
-              </div>
-              <div className="flex flex-wrap gap-3 shrink-0">
+              </AnimateIn>
+            </div>
+            <AnimateIn delay={0.35} className="shrink-0">
+              <div className="flex flex-wrap gap-3">
                 <Link
                   href={`/${locale}/business-segments`}
                   className="inline-flex items-center gap-2 px-7 py-3 text-sm font-medium transition-all hover:gap-3"
@@ -130,8 +137,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   {navT('contact')}
                 </Link>
               </div>
-            </div>
-          </AnimateIn>
+            </AnimateIn>
+          </div>
         </div>
       </section>
 
@@ -218,7 +225,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="section-padding">
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-14 items-center">
-            <AnimateIn className="lg:col-span-3">
+            <AnimateIn from="left" className="lg:col-span-3">
               <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#6B7280' }}>{t('about.title')}</p>
               <h2 className="mb-5">
                 {locale === 'vi' && 'Công ty Cổ phần Liên Minh Xanh LMX'}
@@ -238,38 +245,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 {t('about.readMore')} <ArrowRight size={14} />
               </Link>
             </AnimateIn>
-            <AnimateIn delay={0.15} className="lg:col-span-2">
-              {/* Animated illustration */}
-              <div
-                className="relative aspect-[4/3] flex items-center justify-center overflow-hidden"
-                style={{ background: '#f8fbf2', border: '1px solid #defbbc', borderRadius: '4px' }}
-              >
-                <svg viewBox="0 0 400 300" className="w-full h-full p-8" fill="none">
-                  {/* Building */}
-                  <rect x="60" y="100" width="80" height="160" rx="2" fill="#8ec63f" opacity="0.15" />
-                  <rect x="70" y="80" width="60" height="180" rx="2" fill="#8ec63f" opacity="0.25" />
-                  <rect x="80" y="120" width="15" height="20" rx="1" fill="#8ec63f" opacity="0.5" />
-                  <rect x="105" y="120" width="15" height="20" rx="1" fill="#8ec63f" opacity="0.5" />
-                  <rect x="80" y="155" width="15" height="20" rx="1" fill="#8ec63f" opacity="0.5" />
-                  <rect x="105" y="155" width="15" height="20" rx="1" fill="#8ec63f" opacity="0.5" />
-                  <rect x="88" y="220" width="24" height="40" rx="1" fill="#015231" opacity="0.4" />
-                  {/* Truck */}
-                  <rect x="200" y="200" width="90" height="40" rx="3" fill="#8ec63f" opacity="0.3" />
-                  <rect x="255" y="185" width="35" height="55" rx="3" fill="#8ec63f" opacity="0.5" />
-                  <circle cx="220" cy="243" r="10" fill="#015231" opacity="0.5" />
-                  <circle cx="270" cy="243" r="10" fill="#015231" opacity="0.5" />
-                  {/* Leaves */}
-                  <ellipse cx="330" cy="130" rx="30" ry="50" fill="#78d750" opacity="0.2" transform="rotate(-20 330 130)" />
-                  <ellipse cx="355" cy="110" rx="20" ry="40" fill="#78d750" opacity="0.3" transform="rotate(15 355 110)" />
-                  <line x1="340" y1="180" x2="340" y2="260" stroke="#015231" strokeWidth="3" opacity="0.3" />
-                  {/* Ground line */}
-                  <line x1="20" y1="260" x2="380" y2="260" stroke="#78d750" strokeWidth="2" opacity="0.3" />
-                  {/* Sun */}
-                  <circle cx="330" cy="60" r="18" fill="#78d750" opacity="0.5" />
-                  <line x1="330" y1="35" x2="330" y2="25" stroke="#78d750" strokeWidth="2" opacity="0.4" />
-                  <line x1="350" y1="43" x2="357" y2="36" stroke="#78d750" strokeWidth="2" opacity="0.4" />
-                  <line x1="355" y1="60" x2="365" y2="60" stroke="#78d750" strokeWidth="2" opacity="0.4" />
-                </svg>
+            <AnimateIn delay={0.15} from="right" className="lg:col-span-2">
+              <div className="photo-frame">
+                <div
+                  className="relative aspect-[4/3] overflow-hidden group"
+                  style={{ border: '1px solid #defbbc', borderRadius: '4px', zIndex: 1 }}
+                >
+                  <Image
+                    src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783155162/lmx-migration/isxcswevz1slkjapuagk.jpg"
+                    alt={locale === 'vi' ? 'Đội ngũ LMX Alliance' : locale === 'en' ? 'LMX Alliance team' : 'LMX Alliance团队'}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                  />
+                </div>
               </div>
             </AnimateIn>
           </div>

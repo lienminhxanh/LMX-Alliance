@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
+import { ImageField } from '@/components/admin/ImageField';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs';
 import { createPartner, updatePartner, deletePartner } from '@/actions/partners';
 import { useRouter } from 'next/navigation';
@@ -39,10 +40,8 @@ export function PartnerActions({ mode, partner }: { mode: 'create' | 'edit'; par
       )}
       <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Partner' : 'Edit Partner'} size="lg">
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
-            <Input label="Logo URL" value={form.logo} onChange={(e) => set('logo', e.target.value)} />
-            <Input label="Website" value={form.website} onChange={(e) => set('website', e.target.value)} />
-          </div>
+          <ImageField label="Logo" value={form.logo} onChange={(url) => set('logo', url)} />
+          <Input label="Website" value={form.website} onChange={(e) => set('website', e.target.value)} />
           <Tabs defaultValue="vi">
             <TabsList><TabsTrigger value="vi">VI</TabsTrigger><TabsTrigger value="en">EN</TabsTrigger><TabsTrigger value="zh">ZH</TabsTrigger></TabsList>
             {(['vi', 'en', 'zh'] as const).map((lang) => {

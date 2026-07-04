@@ -6,7 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactFormSchema } from '@/lib/validations';
 import { Input, Textarea } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import Image from 'next/image';
 import { MapPin, Phone, Mail, Clock, CheckCircle } from 'lucide-react';
+import { AnimateIn } from '@/components/ui/AnimateIn';
 import type { z } from 'zod';
 
 type FormData = z.infer<typeof ContactFormSchema>;
@@ -40,21 +42,36 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="bg-[#015231] text-white py-20">
-        <div className="container-max">
-          <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">
-            {locale === 'vi' ? 'Chúng tôi luôn sẵn sàng lắng nghe' : locale === 'en' ? 'We are always ready to listen' : '我们随时准备倾听'}
-          </p>
-          <h1 className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)' }}>
-            {locale === 'vi' ? 'Liên hệ' : locale === 'en' ? 'Contact' : '联系我们'}
-          </h1>
+      <section className="relative overflow-hidden bg-[#015231] text-white py-24 flex items-center" style={{ minHeight: '380px' }}>
+        <Image
+          src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157485/lmx-migration/fyyjevsnrbnxdqbbzton.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover hero-zoom"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          aria-hidden
+        />
+        <div className="container-max relative w-full">
+          <AnimateIn>
+            <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">
+              {locale === 'vi' ? 'Chúng tôi luôn sẵn sàng lắng nghe' : locale === 'en' ? 'We are always ready to listen' : '我们随时准备倾听'}
+            </p>
+            <h1 className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)' }}>
+              {locale === 'vi' ? 'Liên hệ' : locale === 'en' ? 'Contact' : '联系我们'}
+            </h1>
+          </AnimateIn>
         </div>
       </section>
 
       <section className="section-padding">
         <div className="container-max grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Form */}
-          <div className="lg:col-span-3">
+          <AnimateIn from="left" className="lg:col-span-3">
             <h2 className="text-xl font-semibold mb-6 text-[#015231]" style={{ fontFamily: 'var(--font-display)' }}>
               {locale === 'vi' ? 'Gửi tin nhắn' : locale === 'en' ? 'Send a Message' : '发送消息'}
             </h2>
@@ -109,10 +126,10 @@ export default function ContactPage() {
                 </Button>
               </form>
             )}
-          </div>
+          </AnimateIn>
 
           {/* Info */}
-          <div className="lg:col-span-2">
+          <AnimateIn from="right" delay={0.1} className="lg:col-span-2">
             <div className="bg-[#f8fbf2] p-8 h-full" style={{ borderRadius: '4px' }}>
               <h3 className="font-semibold text-[#015231] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
                 {locale === 'vi' ? 'Thông tin liên hệ' : locale === 'en' ? 'Contact Information' : '联系方式'}
@@ -131,7 +148,7 @@ export default function ContactPage() {
                 ))}
               </ul>
             </div>
-          </div>
+          </AnimateIn>
         </div>
       </section>
     </>
