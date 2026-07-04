@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { Input, Textarea } from '@/components/ui/Input';
+import { ImageField } from '@/components/admin/ImageField';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs';
 import { createLeader, updateLeader, deleteLeader } from '@/actions/leadership';
 import { useRouter } from 'next/navigation';
@@ -44,7 +45,7 @@ export function LeadershipActions({ mode, leader }: { mode: 'create' | 'edit'; l
       )}
       <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Leader' : 'Edit Leader'} size="lg">
         <div className="space-y-4">
-          <Input label="Photo URL" value={form.photo} onChange={(e) => set('photo', e.target.value)} />
+          <ImageField label="Photo" value={form.photo} onChange={(url) => set('photo', url)} />
           <Input label="Order Index" type="number" value={form.orderIndex} onChange={(e) => set('orderIndex', parseInt(e.target.value))} />
           <Tabs defaultValue="vi">
             <TabsList><TabsTrigger value="vi">VI</TabsTrigger><TabsTrigger value="en">EN</TabsTrigger><TabsTrigger value="zh">ZH</TabsTrigger></TabsList>

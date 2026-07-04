@@ -104,7 +104,7 @@ const sectors = [
 
 const achievements = [
   { icon: Award,         value: '10+',  descVI: 'Năm kinh nghiệm',       descEN: 'Years of experience',    descZH: '年经验' },
-  { icon: CheckCircle2,  value: '100+', descVI: 'Dự án hoàn thành',       descEN: 'Projects completed',     descZH: '完成项目' },
+  { icon: CheckCircle2,  value: 'Đa dạng', descVI: 'Dự án đã triển khai', descEN: 'Projects delivered',      descZH: '多样项目' },
   { icon: Users,         value: '200+', descVI: 'Nhân sự chuyên nghiệp',  descEN: 'Professional staff',     descZH: '专业员工' },
   { icon: Target,        value: '50+',  descVI: 'Đối tác chiến lược',     descEN: 'Strategic partners',     descZH: '战略合作伙伴' },
 ];
@@ -114,9 +114,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'about' });
 
-  const [leaders, settings] = await Promise.all([
+  const [leaders, settings, huePhuongPartner] = await Promise.all([
     prisma.leader.findMany({ orderBy: { orderIndex: 'asc' }, take: 4 }),
     prisma.companySettings.findFirst(),
+    prisma.partner.findUnique({ where: { id: 'hue-phuong-vn' } }),
   ]);
 
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
@@ -464,6 +465,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* ── Liên kết Huê Phương VN ───────────────── */}
+      {huePhuongPartner && (
       <section className="section-padding">
         <div className="container-max">
           <AnimateIn>
@@ -479,20 +481,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <AnimateIn from="left">
               <div className="space-y-4 text-base leading-relaxed" style={{ color: '#374151' }}>
-                <p>
-                  {locale === 'vi'
-                    ? 'Sự liên kết giữa LIÊN MINH XANH LMX và CÔNG TY TNHH MTV MÔI TRƯỜNG XANH HUÊ PHƯƠNG VN được xây dựng nhằm cung cấp giải pháp thu gom, vận chuyển và xử lý chất thải, đặc biệt là chất thải nguy hại, theo đúng quy định pháp luật và tiêu chuẩn môi trường.'
-                    : locale === 'en'
-                    ? 'The partnership between LMX GREEN ALLIANCE and HUÊ PHƯƠNG VN GREEN ENVIRONMENT CO., LTD. was established to provide waste collection, transportation, and treatment solutions — especially hazardous waste — in full compliance with legal regulations and environmental standards.'
-                    : 'LMX绿色联盟与Huê Phương VN绿色环境有限公司之间的合作关系旨在提供废物收集、运输和处理解决方案，特别是危险废物，完全符合法律法规和环境标准。'}
-                </p>
-                <p>
-                  {locale === 'vi'
-                    ? 'Thông qua sự phối hợp về nguồn lực và chuyên môn của hai đơn vị, quá trình quản lý và xử lý chất thải được thực hiện an toàn, hiệu quả và bền vững.'
-                    : locale === 'en'
-                    ? 'Through the coordination of resources and expertise between the two entities, waste management and treatment processes are carried out safely, efficiently, and sustainably.'
-                    : '通过两个单位资源和专业知识的协调配合，废物管理和处理过程安全、高效、可持续。'}
-                </p>
+                <p>{(huePhuongPartner as any)[`desc${L}`]}</p>
               </div>
             </AnimateIn>
 
@@ -503,9 +492,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     <Link2 size={18} style={{ color: '#8ec63f' }} />
                   </div>
                   <h3 className="font-semibold" style={{ color: '#015231', fontSize: '1rem' }}>
-                    {locale === 'vi' ? 'Công ty TNHH MTV Môi Trường Xanh Huê Phương VN'
-                      : locale === 'en' ? 'Huê Phương VN Green Environment Co., Ltd.'
-                      : 'Huê Phương VN绿色环境有限公司'}
+                    {(huePhuongPartner as any)[`name${L}`]}
                   </h3>
                 </div>
                 <ul className="space-y-3 text-sm" style={{ color: '#374151' }}>
@@ -545,6 +532,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </div>
         </div>
       </section>
+      )}
 
       {/* ── Leadership ───────────────────────────── */}
       {leaders.length > 0 && (

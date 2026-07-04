@@ -224,7 +224,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 {[
                   { value: '10+', labelVI: 'Năm kinh nghiệm', labelEN: 'Years of experience', labelZH: '年经验' },
                   { value: '200+', labelVI: 'Nhân sự chuyên nghiệp', labelEN: 'Professional staff', labelZH: '专业员工' },
-                  { value: '100+', labelVI: 'Dự án hoàn thành', labelEN: 'Projects completed', labelZH: '完成项目' },
+                  { value: 'Đa dạng', labelVI: 'Dự án đã triển khai', labelEN: 'Projects delivered', labelZH: '多样项目' },
                   { value: '50+', labelVI: 'Đối tác chiến lược', labelEN: 'Strategic partners', labelZH: '战略合作伙伴' },
                 ].map((s) => {
                   const label = locale === 'vi' ? s.labelVI : locale === 'en' ? s.labelEN : s.labelZH;

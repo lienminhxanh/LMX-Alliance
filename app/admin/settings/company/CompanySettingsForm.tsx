@@ -6,6 +6,7 @@ import { CompanySettingsSchema } from '@/lib/validations';
 import { Input, Textarea } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { ImageField } from '@/components/admin/ImageField';
 import { upsertCompanySettings } from '@/actions/settings';
 import type { z } from 'zod';
 
@@ -15,7 +16,7 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(CompanySettingsSchema) as any,
     defaultValues: {
       name: '', tagline: '', description: '', address: '',
@@ -60,7 +61,7 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
         <div className="space-y-4">
           <Input label="Meta Title" {...register('seoMetaTitle')} />
           <Textarea label="Meta Description" rows={3} {...register('seoMetaDesc')} />
-          <Input label="OG Image URL" {...register('seoOgImage')} />
+          <ImageField label="OG Image" value={watch('seoOgImage') ?? ''} onChange={(url) => setValue('seoOgImage', url)} />
           <Input label="Keywords" {...register('seoKeywords')} />
         </div>
       </Card>

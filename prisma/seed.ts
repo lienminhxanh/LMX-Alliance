@@ -545,9 +545,24 @@ async function main() {
   });
 
   // ── Partners ─────────────────────────────────────────
-  // Không seed dữ liệu đối tác — site cũ (lmxalliance.com) không liệt kê
-  // danh sách đối tác cụ thể nào. Thêm đối tác thật qua Admin > Partners.
-  await prisma.partner.deleteMany();
+  // Đối tác chiến lược duy nhất được nêu tên trên site cũ (lmxalliance.com).
+  // Quản lý qua Admin > Partners; các đối tác khác thêm trực tiếp trong CMS.
+  await prisma.partner.upsert({
+    where: { id: 'hue-phuong-vn' },
+    update: {},
+    create: {
+      id: 'hue-phuong-vn',
+      nameVI: 'Công ty TNHH MTV Môi Trường Xanh Huê Phương VN',
+      nameEN: 'Huê Phương VN Green Environment Co., Ltd.',
+      nameZH: 'Huê Phương VN绿色环境有限公司',
+      logo: '',
+      website: '',
+      descVI: 'Sự liên kết giữa LIÊN MINH XANH LMX và CÔNG TY TNHH MTV MÔI TRƯỜNG XANH HUÊ PHƯƠNG VN được xây dựng nhằm cung cấp giải pháp thu gom, vận chuyển và xử lý chất thải, đặc biệt là chất thải nguy hại, theo đúng quy định pháp luật và tiêu chuẩn môi trường. Thông qua sự phối hợp về nguồn lực và chuyên môn của hai đơn vị, quá trình quản lý và xử lý chất thải được thực hiện an toàn, hiệu quả và bền vững.',
+      descEN: 'The partnership between LMX GREEN ALLIANCE and HUÊ PHƯƠNG VN GREEN ENVIRONMENT CO., LTD. was established to provide waste collection, transportation, and treatment solutions — especially hazardous waste — in full compliance with legal regulations and environmental standards. Through the coordination of resources and expertise between the two entities, waste management and treatment processes are carried out safely, efficiently, and sustainably.',
+      descZH: 'LMX绿色联盟与Huê Phương VN绿色环境有限公司之间的合作关系旨在提供废物收集、运输和处理解决方案，特别是危险废物，完全符合法律法规和环境标准。通过两个单位资源和专业知识的协调配合，废物管理和处理过程安全、高效、可持续。',
+      orderIndex: 0,
+    },
+  });
 
   // ── Projects ─────────────────────────────────────────
   await prisma.project.deleteMany();

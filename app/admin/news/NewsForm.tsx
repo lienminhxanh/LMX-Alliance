@@ -7,6 +7,7 @@ import { NewsSchema } from '@/lib/validations';
 import { Input, Textarea } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
+import { ImageField } from '@/components/admin/ImageField';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs';
 import { RichTextEditor } from '@/components/admin/RichTextEditor';
 import { createArticle, updateArticle } from '@/actions/news';
@@ -78,7 +79,7 @@ export function NewsForm({ initialData }: { initialData?: Partial<FormData> & { 
           <Select label="Status" options={statusOptions} {...register('status')} />
           <Input label="Published At" type="datetime-local" {...register('publishedAt')} />
         </div>
-        <Input label="Thumbnail URL" {...register('thumbnail')} />
+        <ImageField label="Thumbnail" value={watch('thumbnail') ?? ''} onChange={(url) => setValue('thumbnail', url)} />
 
         {/* Language tabs */}
         <Tabs defaultValue="vi">

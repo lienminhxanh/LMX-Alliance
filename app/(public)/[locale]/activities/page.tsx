@@ -46,9 +46,9 @@ const activities = [
     descEN: 'Freight forwarding, transportation, and customs clearance for import-export goods. Diverse fleet of 2–35 ton trucks covering the whole country.',
     descZH: '提供进出口货物的货运代理、运输和清关服务。多样化的2-35吨卡车车队，覆盖全国。',
     achievements: {
-      vi: ['Đội xe 50+ phương tiện', 'Phủ sóng 63 tỉnh thành', 'Thông quan 24/7'],
-      en: ['50+ vehicle fleet', 'Coverage in 63 provinces', '24/7 customs clearance'],
-      zh: ['50+辆车队', '覆盖63个省份', '24/7清关服务'],
+      vi: ['Đội xe đa dạng', 'Phủ sóng toàn quốc', 'Thông quan 24/7'],
+      en: ['Diverse vehicle fleet', 'Nationwide coverage', '24/7 customs clearance'],
+      zh: ['多样化车队', '覆盖全国', '24/7清关服务'],
     },
   },
   {
@@ -60,9 +60,9 @@ const activities = [
     descEN: 'Civil and industrial construction — warehouses, factories, office buildings to the highest technical standards.',
     descZH: '民用和工业建筑施工 — 仓库、厂房、办公楼，达到最高技术标准。',
     achievements: {
-      vi: ['100+ công trình hoàn thành', 'Đội ngũ kỹ sư chuyên nghiệp', 'Tuân thủ TCVN & ISO'],
-      en: ['100+ completed projects', 'Professional engineering team', 'TCVN & ISO compliant'],
-      zh: ['100+完工项目', '专业工程师团队', '符合TCVN和ISO标准'],
+      vi: ['Nhiều công trình đã bàn giao', 'Đội ngũ kỹ sư chuyên nghiệp', 'Tuân thủ tiêu chuẩn kỹ thuật TCVN'],
+      en: ['Multiple projects delivered', 'Professional engineering team', 'TCVN technical standards'],
+      zh: ['多个项目已交付', '专业工程师团队', '符合TCVN技术标准'],
     },
   },
   {
@@ -88,9 +88,9 @@ const activities = [
     descEN: 'Partnering with Huê Phương VN to process and recycle industrial hazardous waste under permits from the Ministry of Agriculture and Environment.',
     descZH: '与Huê Phương VN合作，根据农业和环境部许可证处理和回收工业危险废物。',
     achievements: {
-      vi: ['Giấy phép xử lý chất thải nguy hại', 'Phối hợp Huê Phương VN', 'Đúng chuẩn ISO 14001'],
-      en: ['Licensed hazardous waste handler', 'Partnership with Huê Phương VN', 'ISO 14001 compliant'],
-      zh: ['持危险废物处理许可证', '与Huê Phương VN合作', '符合ISO 14001标准'],
+      vi: ['Giấy phép xử lý chất thải nguy hại', 'Phối hợp Huê Phương VN', 'Tuân thủ quy định môi trường'],
+      en: ['Licensed hazardous waste handler', 'Partnership with Huê Phương VN', 'Environmental compliance'],
+      zh: ['持危险废物处理许可证', '与Huê Phương VN合作', '符合环保法规'],
     },
   },
 ];
@@ -100,7 +100,7 @@ const milestones = [
   { year: '2017', vi: 'Mở rộng sang logistics xuất nhập khẩu', en: 'Expand into import-export logistics', zh: '扩展到进出口物流' },
   { year: '2019', vi: 'Ra mắt mảng xây dựng công nghiệp', en: 'Launch industrial construction division', zh: '推出工业建筑部门' },
   { year: '2021', vi: 'Hợp tác chiến lược với Huê Phương VN', en: 'Strategic partnership with Huê Phương VN', zh: '与Huê Phương VN战略合作' },
-  { year: '2023', vi: 'Vượt mốc 100 dự án hoàn thành', en: 'Surpass 100 completed projects', zh: '完成项目突破100个' },
+  { year: '2023', vi: 'Mở rộng quy mô dự án và đối tác', en: 'Scale up projects and partnerships', zh: '扩大项目与合作规模' },
   { year: '2025', vi: 'Thành lập CTCP Liên Minh Xanh LMX', en: 'Establish LMX Green Alliance JSC', zh: '成立LMX绿色联盟股份公司' },
 ];
 
