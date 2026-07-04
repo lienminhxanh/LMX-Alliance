@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { ArrowRight, Building2, Truck, Recycle, Leaf, CheckCircle2 } from 'lucide-react';
@@ -63,6 +63,7 @@ const SECTOR_HIGHLIGHTS: Record<string, string[][]> = {
 
 export default async function SectorsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'sectors' });
 
   const sectors = await prisma.businessSector.findMany({
@@ -119,7 +120,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
               const isEven = idx % 2 === 0;
 
               return (
-                <AnimateIn key={sector.id} delay={idx * 0.08}>
+                <AnimateIn key={sector.id} delay={idx * 0.08} from={isEven ? 'left' : 'right'}>
                   <div
                     className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden relative"
                     style={{ borderRadius: '14px', boxShadow: '0 4px 24px rgba(1,82,49,0.10)' }}

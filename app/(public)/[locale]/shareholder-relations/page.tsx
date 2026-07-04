@@ -1,6 +1,7 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { Download, FileText } from 'lucide-react';
+import { AnimateIn } from '@/components/ui/AnimateIn';
 import { formatFileSize, formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
@@ -38,6 +39,7 @@ const CATEGORIES = ['ANNUAL_REPORTS', 'FINANCIAL_REPORTS', 'DISCLOSURES', 'SHARE
 
 export default async function InvestorPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'investor' });
 
   const [messages, documents] = await Promise.all([
@@ -53,11 +55,13 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
     <>
       <section className="bg-[#015231] text-white py-20">
         <div className="container-max">
-          <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">LMX Alliance</p>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>
-            {t('title')}
-          </h1>
-          <p className="mt-3 text-sm max-w-xl" style={{ color: '#defbbc' }}>{t('subtitle')}</p>
+          <AnimateIn>
+            <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">LMX Alliance</p>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>
+              {t('title')}
+            </h1>
+            <p className="mt-3 text-sm max-w-xl" style={{ color: '#defbbc' }}>{t('subtitle')}</p>
+          </AnimateIn>
         </div>
       </section>
 
@@ -65,16 +69,18 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
       <section className="section-padding">
         <div className="container-max">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[{ msg: ceoMsg, label: t('ceoMessage') }, { msg: chairMsg, label: t('chairmanMessage') }].map(({ msg, label }) => {
+            {[{ msg: ceoMsg, label: t('ceoMessage') }, { msg: chairMsg, label: t('chairmanMessage') }].map(({ msg, label }, idx) => {
               if (!msg) return null;
               const title = (msg as any)[`title${L}`];
               const content = (msg as any)[`content${L}`];
               return (
-                <div key={msg.id} className="p-8 border border-[#defbbc]" style={{ borderRadius: '4px' }}>
-                  <p className="text-xs uppercase tracking-widest text-[#6B7280] mb-3">{label}</p>
-                  <h3 className="text-xl font-semibold text-[#015231] mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
-                  <div className="prose text-[#6B7280]" dangerouslySetInnerHTML={{ __html: content }} />
-                </div>
+                <AnimateIn key={msg.id} delay={idx * 0.1} from={idx === 0 ? 'left' : 'right'}>
+                  <div className="p-8 border border-[#defbbc] card-lift bg-white h-full" style={{ borderRadius: '4px' }}>
+                    <p className="text-xs uppercase tracking-widest text-[#6B7280] mb-3">{label}</p>
+                    <h3 className="text-xl font-semibold text-[#015231] mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
+                    <div className="prose text-[#6B7280]" dangerouslySetInnerHTML={{ __html: content }} />
+                  </div>
+                </AnimateIn>
               );
             })}
           </div>
@@ -84,7 +90,9 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
       {/* Documents */}
       <section className="section-padding bg-[#f8fbf2]">
         <div className="container-max">
-          <h2 className="mb-8" style={{ fontFamily: 'var(--font-display)' }}>{t('documents.title')}</h2>
+          <AnimateIn>
+            <h2 className="mb-8" style={{ fontFamily: 'var(--font-display)' }}>{t('documents.title')}</h2>
+          </AnimateIn>
           {CATEGORIES.map((cat) => {
             const catDocs = documents.filter((d) => d.category === cat);
             if (catDocs.length === 0) return null;

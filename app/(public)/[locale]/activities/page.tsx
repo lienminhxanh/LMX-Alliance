@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { buildMeta } from '@/lib/seo';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
@@ -104,6 +105,7 @@ const milestones = [
 
 export default async function ActivitiesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
 
   const title = { vi: 'Hoạt động doanh nghiệp', en: 'Business Activities', zh: '企业活动' };
@@ -144,7 +146,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
               const achList: string[] = (act.achievements as any)[locale] ?? act.achievements.vi;
               const isEven = idx % 2 === 0;
               return (
-                <AnimateIn key={idx} delay={idx * 0.08}>
+                <AnimateIn key={idx} delay={idx * 0.08} from={isEven ? 'left' : 'right'}>
                   <div
                     className={`grid grid-cols-1 md:grid-cols-2 gap-0 border overflow-hidden ${isEven ? '' : 'md:flex-row-reverse'}`}
                     style={{ borderColor: '#defbbc', borderRadius: '12px' }}
@@ -225,7 +227,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                 const label = (m as any)[locale] ?? m.vi;
                 const isLeft = idx % 2 === 0;
                 return (
-                  <AnimateIn key={m.year} delay={idx * 0.1}>
+                  <AnimateIn key={m.year} delay={idx * 0.1} from={isLeft ? 'left' : 'right'}>
                     <div className={`flex items-center gap-6 md:gap-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                       <div className={`hidden md:block w-1/2 ${isLeft ? 'text-right pr-12' : 'pl-12'}`}>
                         <p className="font-semibold text-sm" style={{ color: '#374151' }}>{label}</p>
