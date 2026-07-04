@@ -119,7 +119,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg"
           alt=""
@@ -134,7 +134,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
           aria-hidden
         />
         <LeafDecor variant="eco" count={8} color="#78d750" />
-        <div className="container-max relative z-10">
+        <div className="container-max relative z-10 w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
               {locale === 'vi' ? 'LMX Alliance' : locale === 'en' ? 'LMX Alliance' : 'LMX Alliance'}

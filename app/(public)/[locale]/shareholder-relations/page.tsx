@@ -54,13 +54,14 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#015231] text-white py-24">
+      <section className="relative overflow-hidden bg-[#015231] text-white py-24 flex items-center" style={{ minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157486/lmx-migration/cnkjjmumtwmtzfi9vkwv.jpg"
           alt=""
           fill
           priority
           className="object-cover hero-zoom"
+          style={{ objectPosition: '50% 22%' }}
           aria-hidden
         />
         <div
@@ -68,7 +69,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
           style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
           aria-hidden
         />
-        <div className="container-max relative">
+        <div className="container-max relative w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">LMX Alliance</p>
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>

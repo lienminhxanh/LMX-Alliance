@@ -130,7 +130,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
   return (
     <>
       {/* ── Hero ────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg"
           alt=""
@@ -144,7 +144,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
           style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
           aria-hidden
         />
-        <div className="container-max relative">
+        <div className="container-max relative w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest font-medium mb-3" style={{ color: '#78d750' }}>LMX Alliance</p>
             <h1 className="mb-4 text-white" style={{ fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 700 }}>

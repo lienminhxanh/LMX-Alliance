@@ -45,7 +45,7 @@ export default async function NewsPage({ params, searchParams }: {
 
   return (
     <>
-      <section className="py-24 relative overflow-hidden" style={{ background: '#015231' }}>
+      <section className="py-24 relative overflow-hidden flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157487/lmx-migration/vf1nerboxp4phtvsp0yu.jpg"
           alt=""
@@ -59,7 +59,7 @@ export default async function NewsPage({ params, searchParams }: {
           style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
           aria-hidden
         />
-        <div className="container-max relative">
+        <div className="container-max relative w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>{t('subtitle')}</p>
             <h1 className="text-white" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', fontWeight: 700 }}>{t('title')}</h1>

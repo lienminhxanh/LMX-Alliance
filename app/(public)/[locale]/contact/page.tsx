@@ -42,7 +42,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#015231] text-white py-20">
+      <section className="relative overflow-hidden bg-[#015231] text-white py-24 flex items-center" style={{ minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157485/lmx-migration/fyyjevsnrbnxdqbbzton.jpg"
           alt=""
@@ -56,7 +56,7 @@ export default function ContactPage() {
           style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
           aria-hidden
         />
-        <div className="container-max relative">
+        <div className="container-max relative w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">
               {locale === 'vi' ? 'Chúng tôi luôn sẵn sàng lắng nghe' : locale === 'en' ? 'We are always ready to listen' : '我们随时准备倾听'}
