@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import { prisma } from '@/lib/prisma';
+import { getCachedNewsList } from '@/lib/cached';
 import { formatDate } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
@@ -39,16 +39,7 @@ export default async function NewsPage({ params, searchParams }: {
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
 
   const take = 9;
-  const skip = (parseInt(page) - 1) * take;
-  const where = {
-    status: 'PUBLISHED' as const,
-    ...(category ? { category: category as any } : {}),
-  };
-
-  const [articles, total] = await Promise.all([
-    prisma.newsArticle.findMany({ where, orderBy: { publishedAt: 'desc' }, take, skip }),
-    prisma.newsArticle.count({ where }),
-  ]);
+  const { articles, total } = await getCachedNewsList(category, parseInt(page), take);
   const pages = Math.ceil(total / take);
 
   return (

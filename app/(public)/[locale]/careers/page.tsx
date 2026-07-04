@@ -1,4 +1,5 @@
-import { prisma } from '@/lib/prisma';
+import { getCachedCompanySettings } from '@/lib/cached';
+import { setRequestLocale } from 'next-intl/server';
 import { Mail, Shield, TrendingUp, Users, Briefcase, CheckCircle2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
@@ -111,9 +112,10 @@ const culturePoints = [
 
 export default async function CareersPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
 
-  const settings = await prisma.companySettings.findFirst();
+  const settings = await getCachedCompanySettings();
   // Fallback to general company email if recruitment email not yet configured
   const recruitmentEmail = settings?.recruitmentEmail || settings?.email || '';
 

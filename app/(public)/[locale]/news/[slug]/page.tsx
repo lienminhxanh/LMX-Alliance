@@ -1,10 +1,27 @@
 import Link from 'next/link';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound, redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { buildMeta, SITE_URL } from '@/lib/seo';
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const articles = await prisma.newsArticle.findMany({
+    where: { status: 'PUBLISHED' },
+    orderBy: { publishedAt: 'desc' },
+    take: 20,
+    select: { slugVI: true, slugEN: true, slugZH: true },
+  });
+  return articles.flatMap((a) =>
+    ([['vi', a.slugVI], ['en', a.slugEN], ['zh', a.slugZH]] as const)
+      .filter(([, slug]) => !!slug)
+      .map(([locale, slug]) => ({ locale, slug: slug as string }))
+  );
+}
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
@@ -55,6 +72,7 @@ const categoryLabel: Record<string, Record<string, string>> = {
 
 export default async function NewsDetailPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
 
   const slugField = `slug${L}` as 'slugVI' | 'slugEN' | 'slugZH';
