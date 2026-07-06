@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
-import { Roboto } from 'next/font/google';
+import { Be_Vietnam_Pro } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 import './globals.css';
 
-const roboto = Roboto({
+const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin', 'vietnamese'],
   weight: ['300', '400', '500', '700'],
   style: ['normal', 'italic'],
   display: 'swap',
-  variable: '--font-roboto',
+  variable: '--font-be-vietnam-pro',
 });
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`h-full ${roboto.variable}`} suppressHydrationWarning>
+    <html lang="vi" className={`h-full ${beVietnamPro.variable}`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col antialiased">
         <NextTopLoader color="#5a9e1a" height={3} showSpinner={false} shadow="0 0 8px #a8cc28" />
         {children}
