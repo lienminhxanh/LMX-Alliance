@@ -120,10 +120,14 @@ New components, all in the flattened-radius/Be-Vietnam-Pro/live-green system:
   SaigonTel's business-domain-card pattern) + title + `card-lift` hover. This
   supersedes the ad hoc sector-card markup currently inline in `page.tsx`.
 - **`ProjectCard`** — image + category tag (badge pairing above, sourced from
-  `Project.status`) + name + a truncated description excerpt (existing
-  `truncate()` helper in `lib/utils.ts` on `desc{VI,EN,ZH}`). `Project` has no
-  scale/location field and none is added for v1 — SaigonTel's metadata line is
-  approximated with the description excerpt instead of a new schema field.
+  `Project.status`) + name + a real metadata line: **`scale` + `location`
+  string fields added to `Project`** (e.g. "50ha" / "Long An"). LMX's business
+  (xây lắp, logistics, xử lý chất thải) means physical projects plausibly do
+  have a natural scale/location — this is the stronger SaigonTel card element
+  the client's "too text-heavy" complaint is about, so it's worth the small
+  added scope rather than falling back to a description excerpt. Both fields
+  optional (`String?`) so the sample/admin-entered project isn't blocked if
+  left blank; card omits the metadata line gracefully when absent.
 - **`PartnerStrip`** — **no new component needed.** `components/public/
   PartnerMarquee.tsx` (already on this branch, untracked) already implements
   the exact single-vs-marquee behavior requested: 1 partner renders centered,
@@ -134,8 +138,9 @@ New components, all in the flattened-radius/Be-Vietnam-Pro/live-green system:
 
 ## Phase 3 — Featured Projects section + homepage assembly
 
-**Schema migration:** add `published Boolean @default(false)` to `Project`.
-Add a checkbox to `ProjectActions.tsx`'s existing form (create + edit modes).
+**Schema migration:** add `published Boolean @default(false)`, `scale String?`,
+and `location String?` to `Project`. Add a checkbox + two text inputs to
+`ProjectActions.tsx`'s existing form (create + edit modes).
 
 **Seed:** exactly one `Project` row with `published: false`, so the user has
 something to preview/edit in `/admin/projects` immediately. Nothing
@@ -154,13 +159,18 @@ const publishedProjects = await prisma.project.findMany({
 If `publishedProjects.length < 3`, the entire section (including its
 `SectionHeading`) renders nothing — not an empty-state placeholder, just
 absent, exactly as the user specified ("ẩn cả section... Khi tôi nhập dự án
-thật, section tự hiện").
+thật, section tự hiện"). Threshold kept at 3 (not lowered) — a showcase grid
+row of 3 is the minimum that doesn't look sparse, and the section being absent
+until then is the explicitly wanted behavior, not a problem to work around.
 
-**Contrast audit** (runs across all Phase 3 touched files, plus the two pages
-already reworked pre-session — `business-segments/page.tsx` and the homepage):
-deliverable is a literal list of `file:line — before → after` entries, checked
-against WCAG AA ≥4.5:1, not a summary sentence. This audit happens at the end
-of Phase 3 since it needs the final homepage markup to check against.
+**Contrast audit — full public site, not just Phase 3 files.** The client's
+contrast complaint wasn't scoped to one page ("mấy trang kia cũng vậy"), so
+this audit checks every page under `app/(public)/[locale]/` plus shared public
+components (`Header`, `Footer`, `FloatingContact`, `PartnerMarquee`), not only
+files this redesign directly touches. Deliverable is a literal list of
+`file:line — before → after` entries, checked against WCAG AA ≥4.5:1, not a
+summary sentence. Runs at the end of Phase 3, once the new tokens/components
+are in place, since fixes should target the final classes/colors.
 
 ## Non-goals
 
