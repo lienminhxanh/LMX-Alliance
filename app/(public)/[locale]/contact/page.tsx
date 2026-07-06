@@ -1,17 +1,31 @@
-'use client';
-import { useParams } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ContactFormSchema } from '@/lib/validations';
-import { Input, Textarea } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
+import { setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
-import { MapPin, Phone, Mail, Clock, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
-import type { z } from 'zod';
+import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
+import { ContactForm } from './ContactForm';
 
-type FormData = z.infer<typeof ContactFormSchema>;
+export const revalidate = 3600;
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const titles: Record<string, string> = { vi: 'Liên hệ', en: 'Contact', zh: '联系我们' };
+  const descs: Record<string, string> = {
+    vi: 'Liên hệ với LMX Alliance — Số 104 Đường Lò Lu, Long Phước, TP.HCM. Hotline: 0931.824.025 / 0937.798.377.',
+    en: 'Contact LMX Alliance — 104 Lo Lu Street, Long Phuoc, Ho Chi Minh City. Hotline: 0931.824.025 / 0937.798.377.',
+    zh: '联系LMX Alliance — 胡志明市Long Phước区罗炉路104号。热线：0931.824.025 / 0937.798.377。',
+  };
+  return buildMeta({
+    locale,
+    title: titles[locale] ?? titles.vi,
+    description: descs[locale] ?? descs.vi,
+    path: `/${locale}/contact`,
+    alternates: { vi: '/vi/contact', en: '/en/contact', zh: '/zh/contact' },
+  });
+}
 
 const contactInfo = [
   { icon: MapPin, label: { vi: 'Địa chỉ', en: 'Address', zh: '地址' }, value: 'Số 104 Đường Lò Lu, Phường Long Phước, TP. HCM' },
@@ -20,23 +34,9 @@ const contactInfo = [
   { icon: Clock, label: { vi: 'Giờ làm việc', en: 'Hours', zh: '营业时间' }, value: 'T2–T7: 7:00 – 17:00' },
 ];
 
-export default function ContactPage() {
-  const params = useParams<{ locale: string }>();
-  const locale = params.locale ?? 'vi';
-  const [success, setSuccess] = useState(false);
-
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormData>({
-    resolver: zodResolver(ContactFormSchema),
-  });
-
-  const onSubmit = async (data: FormData) => {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    if (res.ok) { setSuccess(true); reset(); }
-  };
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
 
   const L = locale as 'vi' | 'en' | 'zh';
 
@@ -72,60 +72,7 @@ export default function ContactPage() {
         <div className="container-max grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Form */}
           <AnimateIn from="left" className="lg:col-span-3">
-            <h2 className="text-xl font-semibold mb-6 text-[#015231]" style={{ fontFamily: 'var(--font-display)' }}>
-              {locale === 'vi' ? 'Gửi tin nhắn' : locale === 'en' ? 'Send a Message' : '发送消息'}
-            </h2>
-            {success ? (
-              <div className="flex flex-col items-center justify-center py-16 border border-[#defbbc]" style={{ borderRadius: '4px' }}>
-                <CheckCircle size={40} className="text-[#059669] mb-4" />
-                <p className="font-semibold text-[#015231] mb-1">
-                  {locale === 'vi' ? 'Tin nhắn đã được gửi!' : locale === 'en' ? 'Message sent!' : '消息已发送！'}
-                </p>
-                <p className="text-sm text-[#6B7280]">
-                  {locale === 'vi' ? 'Chúng tôi sẽ phản hồi sớm nhất có thể.' : locale === 'en' ? 'We will respond as soon as possible.' : '我们将尽快回复。'}
-                </p>
-                <button onClick={() => setSuccess(false)} className="mt-5 text-sm text-[#015231] underline">
-                  {locale === 'vi' ? 'Gửi tin nhắn khác' : locale === 'en' ? 'Send another message' : '发送另一条消息'}
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Input
-                    label={locale === 'vi' ? 'Họ và tên' : locale === 'en' ? 'Full Name' : '姓名'}
-                    {...register('name')}
-                    error={errors.name?.message}
-                  />
-                  <Input
-                    label="Email"
-                    type="email"
-                    {...register('email')}
-                    error={errors.email?.message}
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Input
-                    label={locale === 'vi' ? 'Số điện thoại' : locale === 'en' ? 'Phone' : '电话'}
-                    {...register('phone')}
-                    error={errors.phone?.message}
-                  />
-                  <Input
-                    label={locale === 'vi' ? 'Tiêu đề' : locale === 'en' ? 'Subject' : '主题'}
-                    {...register('subject')}
-                    error={errors.subject?.message}
-                  />
-                </div>
-                <Textarea
-                  label={locale === 'vi' ? 'Nội dung' : locale === 'en' ? 'Message' : '内容'}
-                  rows={6}
-                  {...register('message')}
-                  error={errors.message?.message}
-                />
-                <Button type="submit" loading={isSubmitting} size="lg" className="w-full sm:w-auto">
-                  {locale === 'vi' ? 'Gửi tin nhắn' : locale === 'en' ? 'Send Message' : '发送消息'}
-                </Button>
-              </form>
-            )}
+            <ContactForm locale={locale} />
           </AnimateIn>
 
           {/* Info */}

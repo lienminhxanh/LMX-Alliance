@@ -286,8 +286,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <AnimateIn key={article.id} delay={idx * 0.1}>
                     <article className="card-lift bg-white border h-full" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
                       {article.thumbnail && (
-                        <div className="overflow-hidden" style={{ borderBottom: '1px solid #defbbc' }}>
-                          <img src={article.thumbnail} alt={title} className="w-full aspect-video object-cover transition-transform duration-500 hover:scale-105" />
+                        <div className="overflow-hidden relative aspect-video" style={{ borderBottom: '1px solid #defbbc' }}>
+                          <Image
+                            src={article.thumbnail}
+                            alt={title}
+                            fill
+                            className="object-cover transition-transform duration-500 hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
                         </div>
                       )}
                       <div className="p-6">

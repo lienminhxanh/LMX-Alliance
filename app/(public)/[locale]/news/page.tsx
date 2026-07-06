@@ -108,7 +108,9 @@ export default async function NewsPage({ params, searchParams }: {
               <div className="mb-10 grid grid-cols-1 md:grid-cols-5 border" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
                 <div className="md:col-span-3 overflow-hidden" style={{ background: '#f8fbf2' }}>
                   {articles[0].thumbnail ? (
-                    <img src={articles[0].thumbnail} alt="" className="w-full h-full object-cover" style={{ minHeight: '240px' }} />
+                    <div className="w-full h-full relative" style={{ minHeight: '240px' }}>
+                      <Image src={articles[0].thumbnail} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 60vw" />
+                    </div>
                   ) : (
                     <div className="w-full h-full min-h-60 flex items-center justify-center">
                       <span style={{ color: '#defbbc', fontSize: '4rem', fontFamily: 'var(--font-mono)' }}>01</span>
@@ -150,8 +152,14 @@ export default async function NewsPage({ params, searchParams }: {
               <AnimateIn key={article.id} delay={idx * 0.07}>
                 <article className="card-lift border bg-white h-full group" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
                   {article.thumbnail && (
-                    <div className="overflow-hidden" style={{ borderBottom: '1px solid #defbbc' }}>
-                      <img src={article.thumbnail} alt="" className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="overflow-hidden relative aspect-video" style={{ borderBottom: '1px solid #defbbc' }}>
+                      <Image
+                        src={article.thumbnail}
+                        alt=""
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
                     </div>
                   )}
                   <div className="p-5">

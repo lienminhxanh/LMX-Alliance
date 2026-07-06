@@ -6,6 +6,30 @@ import { Header } from '@/components/public/Header';
 import { Footer } from '@/components/public/Footer';
 import { FloatingContact } from '@/components/public/FloatingContact';
 import { getCachedCompanySettings } from '@/lib/cached';
+import type { Metadata } from 'next';
+import { buildMeta } from '@/lib/seo';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const titles: Record<string, string> = {
+    vi: 'Công ty Cổ phần Liên Minh Xanh LMX',
+    en: 'LMX Green Alliance Joint Stock Company',
+    zh: 'LMX绿色联盟股份公司',
+  };
+  const descs: Record<string, string> = {
+    vi: 'Doanh nghiệp đa ngành cung cấp dịch vụ logistics, xây lắp công trình, thu mua phế liệu và xử lý chất thải nguy hại tại Việt Nam.',
+    en: 'Multi-sector enterprise providing logistics, construction, scrap procurement and hazardous waste management services in Vietnam.',
+    zh: '越南多元化企业，提供物流、建筑、废料采购和危险废物处理服务。',
+  };
+  return buildMeta({
+    locale,
+    title: titles[locale] ?? titles.vi,
+    description: descs[locale] ?? descs.vi,
+    path: `/${locale}`,
+  });
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

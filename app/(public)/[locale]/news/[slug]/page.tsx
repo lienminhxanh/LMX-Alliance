@@ -6,6 +6,7 @@ import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { buildMeta, SITE_URL } from '@/lib/seo';
+import Image from 'next/image';
 
 export const revalidate = 3600;
 
@@ -199,12 +200,15 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
 
               {/* Cover image */}
               {article.thumbnail && (
-                <figure className="mb-8">
-                  <img
+                <figure className="mb-8 relative w-full" style={{ height: '480px', maxHeight: '50vh' }}>
+                  <Image
                     src={article.thumbnail}
                     alt={title}
-                    className="w-full"
-                    style={{ borderRadius: '4px', maxHeight: '480px', objectFit: 'cover' }}
+                    fill
+                    priority
+                    className="object-cover"
+                    style={{ borderRadius: '4px' }}
+                    sizes="(max-width: 1024px) 100vw, 800px"
                   />
                 </figure>
               )}
@@ -266,7 +270,15 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                           >
                             <div className="flex gap-3">
                               {a.thumbnail ? (
-                                <img src={a.thumbnail} alt="" className="w-14 h-14 object-cover flex-shrink-0" style={{ borderRadius: '2px' }} />
+                                <div className="w-14 h-14 relative flex-shrink-0" style={{ borderRadius: '2px', overflow: 'hidden' }}>
+                                  <Image
+                                    src={a.thumbnail}
+                                    alt=""
+                                    fill
+                                    className="object-cover"
+                                    sizes="56px"
+                                  />
+                                </div>
                               ) : (
                                 <div className="w-14 h-14 flex-shrink-0" style={{ background: '#f8fbf2', borderRadius: '2px' }} />
                               )}
