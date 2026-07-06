@@ -16,12 +16,12 @@ const statusOptions = [
   { value: 'ARCHIVED', label: 'Archived' },
 ];
 
-interface Project { id: string; nameVI: string; nameEN: string; nameZH: string; descVI: string; descEN: string; descZH: string; images: any; status: ProjectStatus }
+interface Project { id: string; nameVI: string; nameEN: string; nameZH: string; descVI: string; descEN: string; descZH: string; images: any; status: ProjectStatus; published: boolean; scale: string | null; location: string | null }
 
 export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; project?: Project }) {
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ nameVI: project?.nameVI ?? '', nameEN: project?.nameEN ?? '', nameZH: project?.nameZH ?? '', descVI: project?.descVI ?? '', descEN: project?.descEN ?? '', descZH: project?.descZH ?? '', images: (project?.images as string[]) ?? [], status: project?.status ?? 'ONGOING' as ProjectStatus });
+  const [form, setForm] = useState({ nameVI: project?.nameVI ?? '', nameEN: project?.nameEN ?? '', nameZH: project?.nameZH ?? '', descVI: project?.descVI ?? '', descEN: project?.descEN ?? '', descZH: project?.descZH ?? '', images: (project?.images as string[]) ?? [], status: project?.status ?? 'ONGOING' as ProjectStatus, published: project?.published ?? false, scale: project?.scale ?? '', location: project?.location ?? '' });
   const router = useRouter();
 
   const set = (k: string, v: any) => setForm((f) => ({ ...f, [k]: v }));
@@ -48,6 +48,20 @@ export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; pro
       <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Project' : 'Edit Project'} size="lg">
         <div className="space-y-4">
           <Select label="Status" options={statusOptions} value={form.status} onChange={(e) => set('status', e.target.value)} />
+          <label className="flex items-center gap-2 text-sm text-[#1F2937]">
+            <input
+              type="checkbox"
+              checked={form.published}
+              onChange={(e) => set('published', e.target.checked)}
+              className="h-4 w-4 border-[#D1D5DB] text-[#1F2937] focus:ring-[#1F2937]"
+              style={{ borderRadius: 0 }}
+            />
+            Published (visible on public homepage)
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            <Input label="Scale" placeholder="e.g. 50 ha" value={form.scale} onChange={(e) => set('scale', e.target.value)} />
+            <Input label="Location" placeholder="e.g. Long An" value={form.location} onChange={(e) => set('location', e.target.value)} />
+          </div>
           <Tabs defaultValue="vi">
             <TabsList><TabsTrigger value="vi">VI</TabsTrigger><TabsTrigger value="en">EN</TabsTrigger><TabsTrigger value="zh">ZH</TabsTrigger></TabsList>
             {(['vi', 'en', 'zh'] as const).map((lang) => {
