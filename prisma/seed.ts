@@ -565,6 +565,10 @@ async function main() {
   });
 
   // ── Projects ─────────────────────────────────────────
+  // NOTE: all 4 seeded here are published: false, on purpose — no real project
+  // is auto-published to the live homepage from a seed run. An admin must
+  // explicitly check "Published" in /admin/projects for the Featured Projects
+  // section to appear (requires >= 3 published).
   await prisma.project.deleteMany();
   const projects = [
     {
@@ -576,6 +580,9 @@ async function main() {
       descZH: '平阳省50公顷工业园区技术基础设施建设，包括内部道路、照明系统、供排水及辅助设施。合同金额5000亿越南盾，预计2026年第四季度竣工。',
       images: [],
       status: 'ONGOING' as const,
+      published: false,
+      scale: '50 ha',
+      location: 'Bình Dương',
     },
     {
       nameVI: 'Trung tâm Logistics Cát Lái, TP. HCM',
@@ -586,6 +593,9 @@ async function main() {
       descZH: '在猫莱地区建设和运营现代化物流中心，仓储面积15,000平方米，处理能力500个集装箱/月。该项目自2024年第一季度投入运营，服务30余家进出口企业。',
       images: [],
       status: 'COMPLETED' as const,
+      published: false,
+      scale: '15.000 m²',
+      location: 'Cát Lái, TP. HCM',
     },
     {
       nameVI: 'Nhà máy xử lý chất thải công nghiệp Long Phước',
@@ -596,6 +606,22 @@ async function main() {
       descZH: '投资并运营胡志明市龙福工业废物处理厂，处理能力200吨/天。采用现代处理技术，通过ISO 14001:2015认证及越南环保标准。',
       images: [],
       status: 'ONGOING' as const,
+      published: false,
+      scale: '200 tấn/ngày',
+      location: 'Long Phước, TP. HCM',
+    },
+    {
+      nameVI: 'Trạm thu mua và tái chế phế liệu công nghiệp Nhơn Trạch',
+      nameEN: 'Nhon Trach Industrial Scrap Collection & Recycling Station',
+      nameZH: '仁泽工业废料回收再利用站',
+      descVI: 'Trạm thu mua, phân loại và sơ chế phế liệu kim loại, nhựa công nghiệp phục vụ tái chế, đặt tại khu công nghiệp Nhơn Trạch, tỉnh Đồng Nai. Diện tích 2 hecta, công suất tiếp nhận 50 tấn/ngày, là mẫu dữ liệu để quản trị viên xem trước giao diện Dự án nổi bật trước khi công khai dự án thật.',
+      descEN: 'A collection, sorting, and pre-processing station for metal and industrial plastic scrap destined for recycling, located in Nhon Trach Industrial Park, Dong Nai province. 2-hectare site, 50 tons/day intake capacity — a sample record for admin preview of the Featured Projects UI before any real project is published.',
+      descZH: '位于同奈省仁泽工业园区的金属及工业塑料废料回收、分拣与预处理站，用于再生利用。占地2公顷，日处理能力50吨——作为管理员在正式发布真实项目前预览"重点项目"界面的示例数据。',
+      images: [],
+      status: 'ONGOING' as const,
+      published: false,
+      scale: '2 ha',
+      location: 'Nhơn Trạch, Đồng Nai',
     },
   ];
   for (const p of projects) await prisma.project.create({ data: p });
