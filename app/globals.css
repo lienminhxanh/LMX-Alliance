@@ -3,11 +3,12 @@
 :root {
   /* === LMX Alliance Brand Palette — Xanh Tái Chế === */
   --color-primary: #8ec63f;        /* primary green — buttons, active, links */
-  --color-primary-dark: #015231;   /* deep forest green — hero / footer bg */
+  --color-primary-dark: #015231;   /* deep forest green — hero / footer bg; also canonical badge/tag TEXT color for Phase 2 components */
   --color-primary-mid: #013d27;    /* mid dark green — secondary dark sections */
   --color-accent: #78d750;         /* vivid accent green — icons, highlights */
   --color-lime: #78d750;           /* vivid green — decorative elements */
-  --color-lime-pale: #defbbc;      /* light mint — subtle text on dark bg */
+  --color-lime-pale: #defbbc;      /* light mint — subtle text on dark bg; also canonical badge/tag BACKGROUND for Phase 2 components */
+  --color-primary-hover: #7ab332;  /* darker shade of primary, for new Phase 2 component hover states only */
   --color-neutral-light: #f8fbf2;  /* very light green-white — section backgrounds */
   --color-neutral-bg: #f0f7e6;     /* near-white green — card hover bg */
   --color-neutral-dark: #6B7280;
