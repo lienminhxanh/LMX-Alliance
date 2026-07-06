@@ -113,7 +113,7 @@ export function Header() {
           <Link
             href={`/${locale}/contact`}
             className="hidden sm:inline-flex items-center px-5 py-2 text-sm font-medium text-white transition-all"
-            style={{ background: '#8ec63f', borderRadius: '9999px' }}
+            style={{ background: '#8ec63f', borderRadius: '4px' }}
             onMouseEnter={e => (e.currentTarget.style.background = '#015231')}
             onMouseLeave={e => (e.currentTarget.style.background = '#8ec63f')}
           >

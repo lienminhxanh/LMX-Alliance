@@ -126,7 +126,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <Link
                   href={`/${locale}/business-segments`}
                   className="inline-flex items-center gap-2 px-7 py-3 text-sm font-medium transition-all hover:gap-3"
-                  style={{ background: '#8ec63f', color: '#fff', borderRadius: '9999px' }}
+                  style={{ background: '#8ec63f', color: '#fff', borderRadius: '4px' }}
                 >
                   {t('hero.cta')} <ArrowRight size={16} />
                 </Link>

@@ -196,7 +196,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                     >
                       <span
                         className="inline-block text-xs font-bold uppercase tracking-widest mb-4 px-3 py-1"
-                        style={{ background: '#f8fbf2', color: '#8ec63f', borderRadius: '9999px' }}
+                        style={{ background: '#f8fbf2', color: '#8ec63f', borderRadius: '4px' }}
                       >
                         {String(idx + 1).padStart(2, '0')}
                       </span>
