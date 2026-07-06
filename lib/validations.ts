@@ -52,6 +52,9 @@ export const ProjectSchema = z.object({
   descVI: z.string().default(''), descEN: z.string().default(''), descZH: z.string().default(''),
   images: z.array(z.string()).default([]),
   status: z.enum(['ONGOING', 'COMPLETED', 'ARCHIVED']),
+  published: z.boolean().default(false),
+  scale: z.string().optional(),
+  location: z.string().optional(),
 });
 
 export const CompanySettingsSchema = z.object({

@@ -278,6 +278,9 @@ model Project {
   descZH    String        @db.Text
   images    Json
   status    ProjectStatus
+  published Boolean       @default(false)
+  scale     String?
+  location  String?
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 }
