@@ -363,7 +363,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <p className="text-xs uppercase tracking-widest mb-1" style={{ color: '#6B7280' }}>
                 {locale === 'vi' ? 'Đối tác của chúng tôi' : locale === 'en' ? 'Our Partners' : '我们的合作伙伴'}
               </p>
-              <p className="text-sm" style={{ color: '#9CA3AF' }}>
+              <p className="text-sm" style={{ color: '#6B7280' }}>
                 {locale === 'vi' ? 'Hệ thống đối tác tin cậy trên toàn quốc' : locale === 'en' ? 'Trusted partner network nationwide' : '全国可信合作伙伴网络'}
               </p>
             </AnimateIn>
@@ -384,8 +384,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       style={{ borderColor: '#defbbc', borderRadius: '2px', minWidth: '120px' }}
                     >
                       <div
-                        className="w-7 h-7 flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                        style={{ background: '#8ec63f', borderRadius: '2px' }}
+                        className="w-7 h-7 flex items-center justify-center text-xs font-bold flex-shrink-0"
+                        style={{ background: '#8ec63f', borderRadius: '2px', color: '#013d27' }}
                       >
                         {((p as any)[`name${L}`] || p.nameVI).charAt(0)}
                       </div>

@@ -3,14 +3,23 @@
 Method: WCAG 2.1 AA (4.5:1 normal text, 3:1 large text/UI). Computed via
 relative-luminance contrast ratio on every text/background color pairing
 found across app/(public)/[locale]/**/page.tsx, layout.tsx, Header.tsx,
-Footer.tsx, FloatingContact.tsx, PartnerMarquee.tsx.
+Footer.tsx, FloatingContact.tsx.
+
+Note: `components/public/PartnerMarquee.tsx` is **not** part of this audit.
+It exists only as an untracked, uncommitted file in the working tree (an
+unrelated in-progress redesign of the partners section that has never been
+wired up — the committed homepage does not import or reference it) and was
+mistakenly treated as live, audited code in an earlier draft of this report.
+The homepage's actual partners-marquee UI is the inline block still present
+in `page.tsx` (see the two fixes below); that is what was audited.
 
 ## Failures found and fixed
 
 - `app/(public)/[locale]/page.tsx:103,112` — `#78d750` eyebrow text sitting in the hero's gradient-overlay region (min alpha 0.25 there) against a light-photo worst case (ratio 1.10:1, needs 4.5:1) → raised gradient floor to rgba(1,82,49,0.78)+ and changed text color to `#defbbc` (ratio 5.12:1 worst-case)
 - `app/(public)/[locale]/page.tsx:132` — `#fff` on `#8ec63f` (ratio 2.04:1, needs 4.5:1) → changed text color to `#013d27` (ratio 6.07:1)
 - `app/(public)/[locale]/page.tsx:343` — `#8ec63f` read-more link on `#ffffff` (ratio 2.04:1, needs 4.5:1) → changed text color to `#015231` (ratio 9.32:1)
-- `app/(public)/[locale]/page.tsx` (old inline partners-marquee block, since removed) — `#9CA3AF` on `#ffffff` (ratio 2.54:1, needs 4.5:1) → resolved by extracting the marquee to `components/public/PartnerMarquee.tsx`, which uses `#6B7280`/theme-appropriate colors from the start (ratio 4.83:1+); tracked as a component-extraction change, not a line-level color swap
+- `app/(public)/[locale]/page.tsx:366` — partners-marquee subtitle, `#9CA3AF` on `#ffffff` (ratio 2.54:1, needs 4.5:1) → changed text color to `#6B7280` (ratio 4.83:1)
+- `app/(public)/[locale]/page.tsx` (partners-marquee fallback avatar, logo-less partners) — `#fff` initial-letter text on `#8ec63f` avatar background (ratio 2.04:1, needs 4.5:1) → changed text color to `#013d27` (ratio 6.07:1)
 - `app/(public)/[locale]/activities/page.tsx:180` — `#78d750` badge icon on `#8ec63f` panel bg for idx%3===1 (ratio 1.13:1, needs 3:1 non-text) → changed to conditional `#013d27` (ratio 6.07:1)
 - `app/(public)/[locale]/activities/page.tsx:182` — `#fff` panel heading on `#8ec63f` panel bg for idx%3===1 (ratio 2.04:1, needs 4.5:1) → changed to conditional `#013d27` (ratio 6.07:1)
 - `app/(public)/[locale]/activities/page.tsx:185` — `#defbbc` list text on `#8ec63f` panel bg for idx%3===1 (ratio 1.81:1, needs 4.5:1) → changed to conditional `#013d27` (ratio 6.07:1)
@@ -27,6 +36,10 @@ Footer.tsx, FloatingContact.tsx, PartnerMarquee.tsx.
 - `app/(public)/[locale]/about/page.tsx:472` — `#8ec63f` on `#ffffff` (ratio 2.04:1, needs 4.5:1) → changed text color to `#015231` (ratio 9.32:1)
 - `app/(public)/[locale]/about/page.tsx:595` — `#8ec63f` badge text on `#f8fbf2` (ratio 1.95:1, needs 4.5:1) → changed text color to `#015231` (ratio 8.91:1)
 - `app/(public)/[locale]/about/page.tsx:610` — `#8ec63f` on `#FAFAFA` (ratio ~2.0:1, needs 4.5:1) → changed text color to `#015231` (ratio ~9.2:1)
+- `app/(public)/[locale]/business-segments/page.tsx:237` — "View Details" pill link, `text-white` on `bg-[#8ec63f]` (ratio 2.04:1, needs 4.5:1) → changed to `text-[#013d27]` with `hover:text-white` (hover bg `#015231`, ratio 6.07:1 default / 9.32:1 hover)
+- `app/(public)/[locale]/business-segments/page.tsx:189,200,202` — sector accent-panel heading, badge text, and checkmark icon go against a data-driven `accentBg`; for the `xay-lap-cong-trinh` sector this resolves to the light `#8ec63f`, making the previously-hardcoded `#fff`/`#defbbc`/`#78d750` text/icon colors fail badly (ratios 1.03:1–2.04:1, need 4.5:1 text / 3:1 icon) → added an `accentIsLight` conditional that swaps all three to `#013d27` whenever `accentBg === '#8ec63f'` (heading 6.07:1, badge-on-rgba(255,255,255,0.12)-composite 6.63:1, icon 6.07:1); the two darker sectors (`#015231`, `#013d27`) are unaffected and keep the original light-on-dark colors (9.34:1 / 12.37:1 heading, 6.04:1 / 7.73:1 badge)
+- `app/(public)/[locale]/business-segments/page.tsx:218` — content-panel "Lĩnh vực NN" step badge, `#8ec63f` on `#f8fbf2` (ratio 1.95:1, needs 4.5:1) → changed text color to `#015231` (ratio 8.91:1)
+- `app/(public)/[locale]/business-segments/page.tsx:246` — "Get a quote" link, `#8ec63f` on `#ffffff` (ratio 2.04:1, needs 4.5:1) → changed text color to `#015231` (ratio 9.32:1)
 - `app/(public)/[locale]/business-segments/[slug]/page.tsx:84,94` — `text-gray-300` subtitle sitting near the banner gradient's weaker stop (alpha 0.75) against a light-photo worst case (ratio 3.63:1, needs 4.5:1) → raised gradient to rgba(1,82,49,0.85)+ and changed text color to `#defbbc` (ratio 5.99:1 worst-case)
 - `app/(public)/[locale]/business-segments/[slug]/page.tsx:90` — `text-gray-400` (`#9CA3AF`) on `#015231` hero (ratio 3.67:1, needs 4.5:1) → changed to `text-[#defbbc]` (ratio 8.27:1)
 - `app/(public)/[locale]/careers/page.tsx:197` — `#8ec63f` on `#ffffff` (ratio 2.04:1, needs 4.5:1) → changed text color to `#015231` (ratio 9.32:1)
@@ -52,31 +65,33 @@ Footer.tsx, FloatingContact.tsx, PartnerMarquee.tsx.
 
 ## Passing (spot-checked, no change needed)
 
-- `app/(public)/[locale]/page.tsx:71` — `#defbbc` border (decorative, non-text) on `#ffffff` — OK, not a text pairing
-- `app/(public)/[locale]/page.tsx:49-53` (PartnerLogoFallback) — `#15803d`/`#f0fdf4` (4.79:1), `#0369a1`/`#f0f9ff` (5.19:1), `#6b21a8`/`#faf5ff` (8.13:1), `#be185d`/`#fdf2f8` (5.51:1), `#b91c1c`/`#fef2f2` (5.05:1) — OK
-- `app/(public)/[locale]/page.tsx:213` — `#6B7280` on `#f8fbf2` (ratio 4.62:1) — OK
-- `app/(public)/[locale]/page.tsx:315,318` — `#78d750` eyebrow on solid `#015231` (ratio 5.17:1) — OK, no photo-dilution risk (solid color section)
-- `app/(public)/[locale]/page.tsx:463` — `#defbbc` on solid `#013d27` (ratio 8.27:1+) — OK
+- `app/(public)/[locale]/page.tsx:322,324` — `#defbbc` card border/divider (decorative, non-text) on `#ffffff` — OK, not a text pairing
+- `app/(public)/[locale]/page.tsx:185` — `#6B7280` on `#ffffff` (bg-white sector card, ratio 4.83:1) — OK
+- `app/(public)/[locale]/page.tsx:240` — `#78d750` eyebrow on solid `#015231` (Statistics section, ratio 5.18:1) — OK, no photo-dilution risk (solid color section)
+- `app/(public)/[locale]/page.tsx:409` — `#defbbc` on solid `#013d27` (CTA section, ratio 8.27:1+) — OK
 - `app/(public)/[locale]/activities/page.tsx:171` — panel background cycling (`#015231`, `#8ec63f`, `#013d27`) — OK, decorative background only
 - `app/(public)/[locale]/activities/page.tsx:203,247,257,280` — `#374151` on white/`#f8fbf2` (ratio 10.31:1) — OK
-- `app/(public)/[locale]/about/page.tsx:172` — `text-gray-300` desc on solid `#013d27` achievements bg (ratio 8.39:1) — OK, no photo-dilution risk (solid color section)
-- `app/(public)/[locale]/about/page.tsx:420` (legal data list) — `#6B7280` on white (ratio 4.83:1) — OK
+- `app/(public)/[locale]/about/page.tsx:172` — `#defbbc` desc on solid `#013d27` achievements bg (ratio 10.97:1) — OK, no photo-dilution risk (solid color section)
+- `app/(public)/[locale]/about/page.tsx:415` (legal data list) — `#6B7280` on white (ratio 4.83:1) — OK
 - `app/(public)/[locale]/careers/page.tsx:233` — `#8ec63f` large stat value (`text-3xl`) on `#013d27` (ratio 6.07:1, large-text 3:1 threshold) — OK
-- `app/(public)/[locale]/careers/page.tsx:234` — `text-gray-300` stat label on solid `#013d27` (ratio 8.39:1) — OK, no photo-dilution risk (solid color section)
+- `app/(public)/[locale]/careers/page.tsx:234` — `#D1D5DB` stat label on solid `#013d27` (ratio 8.39:1) — OK, no photo-dilution risk (solid color section)
 - `app/(public)/[locale]/business-segments/[slug]/page.tsx:126` — `#015231` on `#FAFAFA` sidebar (ratio ~9.2:1) — OK
 - `app/(public)/[locale]/business-segments/[slug]/page.tsx:129` — `#6B7280` on `#FAFAFA` (ratio ~4.7:1) — OK
 - `app/(public)/[locale]/business-segments/[slug]/page.tsx:134` — `#fff` on `#015231` button (ratio 9.32:1) — OK
-- `app/(public)/[locale]/business-segments/page.tsx:173` — `#4B5563` on white (ratio 7.56:1) — OK
-- `app/(public)/[locale]/business-segments/page.tsx:189,208` — `#015231`/`#fff` on white/`#015231` button — OK
+- `app/(public)/[locale]/business-segments/page.tsx:106` — `#78d750` eyebrow on solid `#015231` (hero, ratio 5.17:1) — OK, no photo-dilution risk (solid color section)
+- `app/(public)/[locale]/business-segments/page.tsx:112` — `#defbbc` subtitle on solid `#015231` (hero, ratio 8.27:1) — OK
+- `app/(public)/[locale]/business-segments/page.tsx:125` — `#015231` tag text on `#f8fbf2` pill — OK
+- `app/(public)/[locale]/business-segments/page.tsx:228,269` — `#374151` body text on white/`#f8fbf2` content panel (ratio 10.31:1) — OK
+- `app/(public)/[locale]/business-segments/page.tsx:265` — `#8ec63f` decorative `<Leaf>` icon on `#f8fbf2` (Bottom CTA section, ratio 1.95:1) — OK, decorative accent icon adjacent to a heading conveying the same meaning, not a "graphical object required to understand content" under WCAG 1.4.11 non-text contrast
+- `app/(public)/[locale]/business-segments/page.tsx:266` — `#015231` heading on `#f8fbf2` (Bottom CTA section, ratio ~8.9:1) — OK
 - `app/(public)/[locale]/contact/page.tsx:91` — `#6B7280` label on `#f8fbf2` (ratio 4.62:1) — OK
 - `app/(public)/[locale]/contact/page.tsx:92` — `#015231` value on `#f8fbf2` (ratio 8.91:1) — OK
 - `app/(public)/[locale]/shareholder-relations/page.tsx:94,96,133` — `#6B7280` on white (ratio 4.83:1) — OK
 - `app/(public)/[locale]/shareholder-relations/page.tsx:95,117,132,139` — `#015231` on white/`#f8fbf2` (ratio 8.91-9.32:1) — OK
 - `components/public/Footer.tsx:51,69,83,87,91,95,104` — `#defbbc` on `#015231` (ratio 8.27:1) — OK
 - `components/public/Footer.tsx:54,71,84,88,92,96,105` — `#8ec63f` on `#015231` (ratio 4.57:1) — OK
-- `components/public/PartnerMarquee.tsx:8,29,32` — `#327b36`→`#015231` gradient fallback, `#015231` heading on white, `#8ec63f` decorative bar — OK (new component, no prior failure state)
 - `app/(public)/[locale]/layout.tsx` — no color pairings of its own (composition only) — N/A
 
 ## Summary
 
-149 pairings checked across 14 files. 41 failures found and fixed via direct color/opacity changes, plus 1 additional failure (homepage inline partners marquee) resolved by component extraction. 0 remaining known failures.
+155 pairings checked across 14 files (`components/public/PartnerMarquee.tsx` excluded — see note above). 47 failures found and fixed via direct color/opacity changes: the original 41, plus 6 found during a proactive re-audit prompted by a second reviewer flagging unverified Passing-section citations (business-segments/page.tsx "View Details" link; the business-segments/page.tsx accentIsLight conditional covering 3 sub-elements for the `xay-lap-cong-trinh` sector; the business-segments/page.tsx step-badge and "Get a quote" link; the homepage marquee subtitle; the homepage marquee fallback-avatar text). 0 remaining known failures.

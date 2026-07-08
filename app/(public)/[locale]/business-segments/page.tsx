@@ -137,6 +137,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
               const summary = (sector as any)[`summary${L}`];
               const Icon = SECTOR_ICONS[sector.slug] ?? Leaf;
               const accentBg = SECTOR_COLORS[sector.slug] ?? '#015231';
+              const accentIsLight = accentBg === '#8ec63f';
               const lightBg  = SECTOR_BG[sector.slug] ?? '#f8fbf2';
               const tags = highlights[sector.slug] ?? [];
               const isEven = idx % 2 === 0;
@@ -183,9 +184,9 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                           className="w-14 h-14 rounded-xl flex items-center justify-center mb-5"
                           style={{ background: 'rgba(120,215,80,0.2)' }}
                         >
-                          <Icon size={28} color="#78d750" strokeWidth={1.5} />
+                          <Icon size={28} color={accentIsLight ? '#013d27' : '#78d750'} strokeWidth={1.5} />
                         </div>
-                        <h2 className="text-xl lg:text-2xl font-semibold text-white leading-tight mb-3">
+                        <h2 className="text-xl lg:text-2xl font-semibold leading-tight mb-3" style={{ color: accentIsLight ? '#013d27' : '#fff' }}>
                           {name}
                         </h2>
                       </div>
@@ -196,9 +197,9 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                           <span
                             key={tag}
                             className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full font-medium"
-                            style={{ background: 'rgba(255,255,255,0.12)', color: '#defbbc' }}
+                            style={{ background: 'rgba(255,255,255,0.12)', color: accentIsLight ? '#013d27' : '#defbbc' }}
                           >
-                            <CheckCircle2 size={10} style={{ color: '#78d750', flexShrink: 0 }} />
+                            <CheckCircle2 size={10} style={{ color: accentIsLight ? '#013d27' : '#78d750', flexShrink: 0 }} />
                             {tag}
                           </span>
                         ))}
@@ -214,7 +215,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                         <div className="flex items-center gap-3 mb-5">
                           <span
                             className="text-xs font-bold px-3 py-1 rounded-full"
-                            style={{ background: '#f8fbf2', color: '#8ec63f', border: '1px solid #defbbc' }}
+                            style={{ background: '#f8fbf2', color: '#015231', border: '1px solid #defbbc' }}
                           >
                             Lĩnh vực {String(idx + 1).padStart(2, '0')}
                           </span>
@@ -233,7 +234,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                       <div className="flex items-center gap-4 pt-4" style={{ borderTop: '1px solid #f8fbf2' }}>
                         <Link
                           href={`/${locale}/business-segments/${sector.slug}`}
-                          className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-white transition-all bg-[#8ec63f] hover:bg-[#015231] rounded-full"
+                          className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-[#013d27] hover:text-white transition-all bg-[#8ec63f] hover:bg-[#015231] rounded-full"
                           aria-label={`${locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}: ${name}`}
                         >
                           {locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}
@@ -242,7 +243,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
                         <Link
                           href={`/${locale}/contact`}
                           className="text-sm font-medium link-underline"
-                          style={{ color: '#8ec63f' }}
+                          style={{ color: '#015231' }}
                         >
                           {locale === 'vi' ? 'Liên hệ tư vấn' : locale === 'en' ? 'Get a quote' : '获取报价'}
                         </Link>
