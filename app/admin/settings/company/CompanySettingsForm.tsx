@@ -25,6 +25,10 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
       facebookUrl: '', linkedinUrl: '', youtubeUrl: '', tiktokUrl: '',
       zaloUrl: '', messengerUrl: '',
       recruitmentEmail: '',
+      aboutIntroVI: '', aboutIntroEN: '', aboutIntroZH: '',
+      aboutLetterTitleVI: '', aboutLetterTitleEN: '', aboutLetterTitleZH: '',
+      aboutLetterVI: '', aboutLetterEN: '', aboutLetterZH: '',
+      aboutLetterSignerVI: '', aboutLetterSignerEN: '', aboutLetterSignerZH: '',
       ...initialData,
     },
   });
@@ -82,6 +86,34 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
           <Input label="Zalo URL" placeholder="https://zalo.me/0931824025" {...register('zaloUrl')} />
           <Input label="Messenger URL" placeholder="https://m.me/lienminhxanh" {...register('messengerUrl')} />
           <p className="text-xs text-[#6B7280]">Số điện thoại lấy từ trường Phone ở trên. Để trống nếu không muốn hiển thị nút tương ứng.</p>
+        </div>
+      </Card>
+
+      <Card>
+        <h3 className="font-semibold text-[#1F2937] mb-4">About Page Content</h3>
+        <div className="space-y-6">
+          <div>
+            <p className="text-sm font-medium text-[#1F2937] mb-2">Section 1 — Giới thiệu công ty (Intro)</p>
+            <div className="space-y-3">
+              <Textarea label="Intro (VI)" rows={5} {...register('aboutIntroVI')} />
+              <Textarea label="Intro (EN)" rows={5} {...register('aboutIntroEN')} />
+              <Textarea label="Intro (ZH)" rows={5} {...register('aboutIntroZH')} />
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-[#1F2937] mb-2">Section 2 — Thư ngỏ (Open Letter)</p>
+            <div className="space-y-3">
+              <Input label="Letter Title (VI)" {...register('aboutLetterTitleVI')} />
+              <Input label="Letter Title (EN)" {...register('aboutLetterTitleEN')} />
+              <Input label="Letter Title (ZH)" {...register('aboutLetterTitleZH')} />
+              <Textarea label="Letter Content (VI)" rows={4} {...register('aboutLetterVI')} />
+              <Textarea label="Letter Content (EN)" rows={4} {...register('aboutLetterEN')} />
+              <Textarea label="Letter Content (ZH)" rows={4} {...register('aboutLetterZH')} />
+              <Input label="Signer (VI)" {...register('aboutLetterSignerVI')} />
+              <Input label="Signer (EN)" {...register('aboutLetterSignerEN')} />
+              <Input label="Signer (ZH)" {...register('aboutLetterSignerZH')} />
+            </div>
+          </div>
         </div>
       </Card>
 
