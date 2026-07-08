@@ -10,6 +10,8 @@ import { LeafDecor } from '@/components/ui/LeafDecor';
 import type { Metadata } from 'next';
 
 import { buildMeta, SITE_URL } from '@/lib/seo';
+import { SectionHeading } from '@/components/ui/SectionHeading';
+import { ProjectCard } from '@/components/public/ProjectCard';
 
 export const revalidate = 900;
 
@@ -44,12 +46,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'home' });
   const navT = await getTranslations({ locale, namespace: 'nav' });
 
-  const [homePage, sectors, stats, latestNews, partners] = await Promise.all([
+  const [homePage, sectors, stats, latestNews, partners, publishedProjects] = await Promise.all([
     prisma.homePage.findFirst(),
     prisma.businessSector.findMany({ where: { status: 'PUBLISHED' }, orderBy: { orderIndex: 'asc' } }),
     prisma.statistic.findMany({ orderBy: { orderIndex: 'asc' } }),
     prisma.newsArticle.findMany({ where: { status: 'PUBLISHED' }, orderBy: { publishedAt: 'desc' }, take: 3 }),
     prisma.partner.findMany({ orderBy: { orderIndex: 'asc' } }),
+    prisma.project.findMany({ where: { published: true }, orderBy: { createdAt: 'desc' }, take: 6 }),
   ]);
 
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
@@ -196,6 +199,38 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </div>
         </div>
       </section>
+
+      {/* ── Featured Projects ─────────────────────────── */}
+      {publishedProjects.length >= 3 && (
+        <section className="section-padding">
+          <div className="container-max">
+            <SectionHeading
+              eyebrow={t('projects.eyebrow')}
+              title={t('projects.title')}
+              align="center"
+              className="mb-14 max-w-2xl mx-auto"
+            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              {publishedProjects.map((project, idx) => {
+                const name = (project as any)[`name${L}`];
+                const images = Array.isArray(project.images) ? (project.images as string[]) : [];
+                return (
+                  <ProjectCard
+                    key={project.id}
+                    image={images.length > 0 ? images[0] : null}
+                    status={project.status}
+                    name={name}
+                    scale={project.scale ?? undefined}
+                    location={project.location ?? undefined}
+                    href={`/${locale}/activities`}
+                    delay={idx * 0.1}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Statistics ────────────────────────────────── */}
       {stats.length > 0 && (
