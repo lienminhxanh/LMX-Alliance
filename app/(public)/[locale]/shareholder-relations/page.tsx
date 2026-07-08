@@ -71,7 +71,7 @@ export default async function InvestorPage({ params }: { params: Promise<{ local
         />
         <div className="container-max relative w-full">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">LMX Alliance</p>
+            <p className="text-xs uppercase tracking-widest text-[#defbbc] mb-3">LMX Alliance</p>
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>
               {t('title')}
             </h1>

@@ -81,17 +81,17 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
             <Image src={sector.banner} alt="" fill priority className="object-cover" aria-hidden />
             <div
               className="absolute inset-0"
-              style={{ background: 'linear-gradient(180deg, rgba(1,82,49,0.75) 0%, rgba(1,82,49,0.92) 100%)' }}
+              style={{ background: 'linear-gradient(180deg, rgba(1,82,49,0.85) 0%, rgba(1,82,49,0.95) 100%)' }}
               aria-hidden
             />
           </>
         )}
         <div className="container-max relative z-10">
-          <Link href={`/${locale}/business-segments`} className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6 transition-colors">
+          <Link href={`/${locale}/business-segments`} className="inline-flex items-center gap-2 text-sm text-[#defbbc] hover:text-white mb-6 transition-colors">
             <ArrowLeft size={14} /> {t('backToList')}
           </Link>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>{name}</h1>
-          <p className="text-gray-300 mt-4 max-w-xl">{summary}</p>
+          <p className="mt-4 max-w-xl" style={{ color: '#defbbc' }}>{summary}</p>
         </div>
       </section>
 

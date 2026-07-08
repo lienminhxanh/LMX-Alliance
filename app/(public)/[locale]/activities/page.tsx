@@ -177,13 +177,13 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                         className="w-14 h-14 flex items-center justify-center mb-5 relative z-10"
                         style={{ background: 'rgba(168,204,40,0.25)', borderRadius: '12px' }}
                       >
-                        <Icon size={28} color="#78d750" strokeWidth={1.5} />
+                        <Icon size={28} color={idx % 3 === 1 ? '#013d27' : '#78d750'} strokeWidth={1.5} />
                       </div>
-                      <h2 className="text-xl font-semibold text-white mb-3 relative z-10">{title}</h2>
+                      <h2 className="text-xl font-semibold mb-3 relative z-10" style={{ color: idx % 3 === 1 ? '#013d27' : '#fff' }}>{title}</h2>
                       <ul className="space-y-2 relative z-10">
                         {achList.map((item) => (
-                          <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#defbbc' }}>
-                            <CheckCircle2 size={14} style={{ color: '#78d750', flexShrink: 0 }} />
+                          <li key={item} className="flex items-center gap-2 text-sm" style={{ color: idx % 3 === 1 ? '#013d27' : '#defbbc' }}>
+                            <CheckCircle2 size={14} style={{ color: idx % 3 === 1 ? '#013d27' : '#78d750', flexShrink: 0 }} />
                             {item}
                           </li>
                         ))}
@@ -195,16 +195,16 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                       className={`flex flex-col justify-center p-10 bg-white ${isEven ? 'md:order-2' : 'md:order-1'}`}
                     >
                       <span
-                        className="inline-block text-xs font-bold uppercase tracking-widest mb-4 px-3 py-1"
-                        style={{ background: '#f8fbf2', color: '#8ec63f', borderRadius: '4px' }}
+                        className="inline-block text-xs font-bold uppercase tracking-widest mb-4 px-3 py-1 text-white"
+                        style={{ background: '#015231', borderRadius: '4px' }}
                       >
                         {String(idx + 1).padStart(2, '0')}
                       </span>
                       <p className="text-base leading-relaxed mb-6" style={{ color: '#374151' }}>{desc}</p>
                       <Link
                         href={`/${locale}/business-segments`}
-                        className="inline-flex items-center gap-2 text-sm font-medium link-underline"
-                        style={{ color: '#8ec63f' }}
+                        className="inline-flex items-center gap-2 text-sm font-semibold transition-all hover:gap-3"
+                        style={{ color: '#015231' }}
                       >
                         {locale === 'vi' ? 'Xem lĩnh vực hoạt động' : locale === 'en' ? 'View business segments' : '查看业务领域'}
                         <ArrowRight size={14} />
@@ -223,7 +223,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
         <LeafDecor variant="leaf" count={6} color="#8ec63f" />
         <div className="container-max relative z-10">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
+            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#015231' }}>
               {locale === 'vi' ? 'Hành trình phát triển' : locale === 'en' ? 'Our journey' : '发展历程'}
             </p>
             <h2 className="mb-12" style={{ color: '#015231' }}>

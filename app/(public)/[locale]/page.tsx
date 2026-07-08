@@ -100,7 +100,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(1,61,39,0.45) 0%, rgba(1,82,49,0.25) 35%, rgba(1,82,49,0.6) 65%, rgba(1,82,49,0.92) 100%)' }}
+          style={{ background: 'linear-gradient(180deg, rgba(1,61,39,0.82) 0%, rgba(1,82,49,0.78) 35%, rgba(1,82,49,0.85) 65%, rgba(1,82,49,0.93) 100%)' }}
           aria-hidden
         />
         <LeafDecor variant="mixed" count={14} color="#78d750" />
@@ -109,7 +109,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div className="max-w-xl">
               <AnimateIn>
-                <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
+                <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#defbbc' }}>
                   LMX Alliance
                 </p>
               </AnimateIn>
@@ -129,7 +129,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <Link
                   href={`/${locale}/business-segments`}
                   className="inline-flex items-center gap-2 px-7 py-3 text-sm font-medium transition-all hover:gap-3"
-                  style={{ background: '#8ec63f', color: '#fff', borderRadius: '4px' }}
+                  style={{ background: '#8ec63f', color: '#013d27', borderRadius: '4px' }}
                 >
                   {t('hero.cta')} <ArrowRight size={16} />
                 </Link>
@@ -340,7 +340,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         <Link
                           href={`/${locale}/news/${slug}`}
                           className="text-sm font-medium inline-flex items-center gap-1 link-underline"
-                          style={{ color: '#8ec63f' }}
+                          style={{ color: '#015231' }}
                           aria-label={`${locale === 'vi' ? 'Đọc thêm' : locale === 'en' ? 'Read more' : '阅读更多'}: ${title}`}
                         >
                           {locale === 'vi' ? 'Đọc thêm' : locale === 'en' ? 'Read more' : '阅读更多'} <ArrowRight size={12} />

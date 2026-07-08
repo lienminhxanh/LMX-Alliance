@@ -66,7 +66,7 @@ export function Header() {
                   'px-3 py-5 text-sm transition-colors border-b-2',
                   active
                     ? 'border-[#8ec63f] text-[#015231] font-semibold'
-                    : 'border-transparent text-[#374151] hover:text-[#8ec63f]'
+                    : 'border-transparent text-[#374151] hover:text-[#015231]'
                 )}
               >
                 {link.label}
@@ -98,7 +98,7 @@ export function Header() {
                     onClick={() => switchLocale(l)}
                     className="w-full text-left px-3 py-2 text-sm transition-colors first:rounded-t-lg last:rounded-b-lg"
                     style={{
-                      color: l === locale ? '#8ec63f' : '#6B7280',
+                      color: l === locale ? '#015231' : '#6B7280',
                       fontWeight: l === locale ? 600 : 400,
                       background: l === locale ? '#f8fbf2' : 'transparent'
                     }}
@@ -112,10 +112,10 @@ export function Header() {
 
           <Link
             href={`/${locale}/contact`}
-            className="hidden sm:inline-flex items-center px-5 py-2 text-sm font-medium text-white transition-all"
-            style={{ background: '#8ec63f', borderRadius: '4px' }}
-            onMouseEnter={e => (e.currentTarget.style.background = '#015231')}
-            onMouseLeave={e => (e.currentTarget.style.background = '#8ec63f')}
+            className="hidden sm:inline-flex items-center px-5 py-2 text-sm font-medium transition-all"
+            style={{ background: '#8ec63f', color: '#013d27', borderRadius: '4px' }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#015231'; e.currentTarget.style.color = '#fff'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#8ec63f'; e.currentTarget.style.color = '#013d27'; }}
           >
             {t('contact')}
           </Link>
@@ -150,7 +150,7 @@ export function Header() {
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center px-6 py-3.5 text-sm transition-colors"
                 style={{
-                  color: active ? '#8ec63f' : '#374151',
+                  color: active ? '#015231' : '#374151',
                   fontWeight: active ? 600 : 400,
                   borderBottom: '1px solid #f8fbf2',
                   borderLeft: active ? '3px solid #8ec63f' : '3px solid transparent',

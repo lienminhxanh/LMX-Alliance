@@ -58,7 +58,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         />
         <div className="container-max relative w-full">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">
+            <p className="text-xs uppercase tracking-widest text-[#defbbc] mb-3">
               {locale === 'vi' ? 'Chúng tôi luôn sẵn sàng lắng nghe' : locale === 'en' ? 'We are always ready to listen' : '我们随时准备倾听'}
             </p>
             <h1 className="text-white" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)' }}>

@@ -78,7 +78,7 @@ export default async function NewsPage({ params, searchParams }: {
                 style={{
                   borderRadius: 0,
                   background: !category ? '#8ec63f' : 'transparent',
-                  color: !category ? '#fff' : '#6B7280',
+                  color: !category ? '#013d27' : '#6B7280',
                   borderColor: !category ? '#8ec63f' : '#defbbc',
                 }}
               >
@@ -92,7 +92,7 @@ export default async function NewsPage({ params, searchParams }: {
                   style={{
                     borderRadius: 0,
                     background: category === cat ? '#8ec63f' : 'transparent',
-                    color: category === cat ? '#fff' : '#6B7280',
+                    color: category === cat ? '#013d27' : '#6B7280',
                     borderColor: category === cat ? '#8ec63f' : '#defbbc',
                   }}
                 >
@@ -113,14 +113,14 @@ export default async function NewsPage({ params, searchParams }: {
                     </div>
                   ) : (
                     <div className="w-full h-full min-h-60 flex items-center justify-center">
-                      <span style={{ color: '#defbbc', fontSize: '4rem', fontFamily: 'var(--font-mono)' }}>01</span>
+                      <span style={{ color: '#6B7280', fontSize: '4rem', fontFamily: 'var(--font-mono)' }}>01</span>
                     </div>
                   )}
                 </div>
                 <div className="md:col-span-2 p-8 flex flex-col justify-center">
                   <span
                     className="inline-block text-xs font-medium px-2 py-1 mb-4 w-fit"
-                    style={{ background: '#f8fbf2', color: '#8ec63f', borderRadius: '2px' }}
+                    style={{ background: '#f8fbf2', color: '#015231', borderRadius: '2px' }}
                   >
                     {locale === 'vi' ? 'Nổi bật' : locale === 'en' ? 'Featured' : '精选'}
                   </span>
@@ -136,7 +136,7 @@ export default async function NewsPage({ params, searchParams }: {
                   <Link
                     href={`/${locale}/news/${(articles[0] as any)[`slug${L}`]}`}
                     className="inline-flex items-center gap-2 text-sm font-medium link-underline"
-                    style={{ color: '#8ec63f' }}
+                    style={{ color: '#015231' }}
                     aria-label={`${t('readMore')}: ${(articles[0] as any)[`title${L}`]}`}
                   >
                     {t('readMore')} <ArrowRight size={14} />
@@ -175,7 +175,7 @@ export default async function NewsPage({ params, searchParams }: {
                     <Link
                       href={`/${locale}/news/${(article as any)[`slug${L}`]}`}
                       className="text-sm font-medium inline-flex items-center gap-1 link-underline"
-                      style={{ color: '#8ec63f' }}
+                      style={{ color: '#015231' }}
                       aria-label={`${t('readMore')}: ${(article as any)[`title${L}`]}`}
                     >
                       {t('readMore')} <ArrowRight size={12} />
@@ -197,7 +197,7 @@ export default async function NewsPage({ params, searchParams }: {
                   style={{
                     borderRadius: 0,
                     background: parseInt(page) === p ? '#8ec63f' : 'transparent',
-                    color: parseInt(page) === p ? '#fff' : '#6B7280',
+                    color: parseInt(page) === p ? '#013d27' : '#6B7280',
                     borderColor: parseInt(page) === p ? '#8ec63f' : '#defbbc',
                   }}
                 >

@@ -194,7 +194,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimateIn>
-              <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#8ec63f' }}>
+              <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#015231' }}>
                 {locale === 'vi' ? 'Văn hóa doanh nghiệp' : locale === 'en' ? 'Company Culture' : '企业文化'}
               </p>
               <h2 className="mb-4" style={{ color: '#015231' }}>
@@ -229,9 +229,9 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 ].map((s) => {
                   const label = locale === 'vi' ? s.labelVI : locale === 'en' ? s.labelEN : s.labelZH;
                   return (
-                    <div key={s.value} className="p-6 text-center" style={{ background: '#fff', borderRadius: '4px', border: '1px solid #defbbc' }}>
-                      <p className="text-3xl font-bold mb-1" style={{ color: '#8ec63f' }}>{s.value}</p>
-                      <p className="text-xs" style={{ color: '#6B7280' }}>{label}</p>
+                    <div key={s.value} className="p-6 text-center card-lift border flex flex-col justify-center items-center" style={{ background: '#013d27', borderRadius: '8px', borderColor: 'rgba(255,255,255,0.05)', boxShadow: '0 4px 12px rgba(1, 82, 49, 0.08)' }}>
+                      <p className="text-3xl font-extrabold mb-1" style={{ color: '#8ec63f', fontFamily: 'var(--font-display)' }}>{s.value}</p>
+                      <p className="text-xs font-medium text-gray-300 leading-snug">{label}</p>
                     </div>
                   );
                 })}
@@ -262,8 +262,8 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                   <div className="p-6 border h-full" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
                     <div className="flex items-center gap-3 mb-4">
                       <span
-                        className="w-9 h-9 flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-                        style={{ background: '#8ec63f', borderRadius: '4px' }}
+                        className="w-9 h-9 flex items-center justify-center text-sm font-bold flex-shrink-0"
+                        style={{ background: '#8ec63f', color: '#013d27', borderRadius: '4px' }}
                       >
                         {s.step}
                       </span>
@@ -283,7 +283,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
         <LeafDecor variant="branch" count={8} color="#8ec63f" />
         <div className="container-max text-center relative z-10">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#8ec63f' }}>
+            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#015231' }}>
               {locale === 'vi' ? 'Bắt đầu hành trình của bạn' : locale === 'en' ? 'Start Your Journey' : '开始您的旅程'}
             </p>
             <h2 className="mb-4" style={{ fontSize: 'clamp(1.5rem,3vw,2.25rem)', color: '#015231' }}>
@@ -308,7 +308,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
               </a>
             ) : null}
             {recruitmentEmail && (
-              <p className="mt-4 text-xs" style={{ color: '#8ec63f' }}>
+              <p className="mt-4 text-xs" style={{ color: '#015231' }}>
                 {recruitmentEmail}
               </p>
             )}

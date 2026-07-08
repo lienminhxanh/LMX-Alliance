@@ -183,7 +183,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <AnimateIn from="left">
-              <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
+              <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#015231' }}>
                 {locale === 'vi' ? 'Thư ngỏ' : locale === 'en' ? 'Open Letter' : '致辞'}
               </p>
               <h2 className="mb-6" style={{ color: '#015231' }}>
@@ -222,7 +222,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   const desc  = (s as any)[`desc${L}`];
                   return (
                     <div key={s.no} className="flex gap-4 p-4 border" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
-                      <span className="text-sm font-bold flex-shrink-0 mt-0.5" style={{ color: '#8ec63f' }}>{s.no}</span>
+                      <span className="text-sm font-bold flex-shrink-0 mt-0.5" style={{ color: '#015231' }}>{s.no}</span>
                       <div>
                         <p className="font-semibold text-sm mb-0.5" style={{ color: '#015231' }}>{title}</p>
                         <p className="text-xs leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
@@ -342,7 +342,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="section-padding" style={{ background: '#f8fbf2' }}>
         <div className="container-max">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
+            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#015231' }}>
               {locale === 'vi' ? 'Pháp lý' : locale === 'en' ? 'Legal' : '法律'}
             </p>
             <h2 className="mb-10" style={{ color: '#015231' }}>
@@ -421,7 +421,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   href="/docs/giay-phep-dkdn.pdf"
                   download
                   className="mt-5 inline-flex items-center gap-2 text-sm font-medium transition-colors"
-                  style={{ color: '#8ec63f' }}
+                  style={{ color: '#015231' }}
                 >
                   <FileText size={14} />
                   {locale === 'vi' ? 'Tải xuống PDF' : locale === 'en' ? 'Download PDF' : '下载PDF'}
@@ -449,7 +449,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 {/* Hover overlay */}
                 <div
                   className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                  style={{ background: 'rgba(6,78,59,0.55)' }}
+                  style={{ background: 'rgba(6,78,59,0.85)' }}
                 >
                   <div className="text-center text-white">
                     <FileText size={32} className="mx-auto mb-2" strokeWidth={1.5} />
@@ -469,7 +469,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="section-padding">
         <div className="container-max">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
+            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#015231' }}>
               {locale === 'vi' ? 'Đối tác chiến lược' : locale === 'en' ? 'Strategic Partner' : '战略合作伙伴'}
             </p>
             <h2 className="mb-10" style={{ color: '#015231' }}>
@@ -581,7 +581,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <section className="section-padding">
           <div className="container-max">
             <AnimateIn>
-              <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#8ec63f' }}>
+              <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#015231' }}>
                 {locale === 'vi' ? 'Thông tin liên hệ' : locale === 'en' ? 'Contact Info' : '联系信息'}
               </p>
               <h2 className="mb-10" style={{ color: '#015231' }}>
@@ -592,7 +592,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   <p className="leading-relaxed mb-6" style={{ color: '#6B7280' }}>{settings.description}</p>
                   <div
                     className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium"
-                    style={{ background: '#f8fbf2', color: '#8ec63f', border: '1px solid #defbbc', borderRadius: '2px' }}
+                    style={{ background: '#f8fbf2', color: '#015231', border: '1px solid #defbbc', borderRadius: '2px' }}
                   >
                     <span className="w-2 h-2 rounded-full inline-block" style={{ background: '#8ec63f' }} />
                     {locale === 'vi' ? 'Đang hoạt động' : locale === 'en' ? 'Active' : '运营中'}
@@ -607,7 +607,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                       { label: 'Website', value: settings.website },
                     ].map(({ label, value }) => value ? (
                       <div key={label} className="flex gap-4">
-                        <span className="text-xs font-bold uppercase tracking-wider flex-shrink-0 pt-0.5" style={{ color: '#8ec63f', width: '5rem' }}>
+                        <span className="text-xs font-bold uppercase tracking-wider flex-shrink-0 pt-0.5" style={{ color: '#015231', width: '5rem' }}>
                           {label}
                         </span>
                         <span className="text-sm" style={{ color: '#374151' }}>{value}</span>
