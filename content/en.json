@@ -21,7 +21,12 @@
     "projects": {
       "eyebrow": "PROJECTS",
       "title": "Featured Projects",
-      "subtitle": "Notable projects and developments delivered by LMX Alliance"
+      "subtitle": "Notable projects and developments delivered by LMX Alliance",
+      "status": {
+        "ongoing": "Ongoing",
+        "completed": "Completed",
+        "archived": "Archived"
+      }
     },
     "stats": {
       "title": "Key Figures"

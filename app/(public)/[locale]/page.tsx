@@ -218,7 +218,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <ProjectCard
                     key={project.id}
                     image={images.length > 0 ? images[0] : null}
-                    status={project.status}
+                    statusLabel={t(`projects.status.${project.status.toLowerCase()}`)}
                     name={name}
                     scale={project.scale ?? undefined}
                     location={project.location ?? undefined}

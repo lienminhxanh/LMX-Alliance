@@ -5,7 +5,7 @@ import { AnimateIn } from '@/components/ui/AnimateIn';
 
 interface ProjectCardProps {
   image?: string | null;
-  status: 'ONGOING' | 'COMPLETED' | 'ARCHIVED';
+  statusLabel: string;
   name: string;
   scale?: string;
   location?: string;
@@ -14,13 +14,7 @@ interface ProjectCardProps {
   className?: string;
 }
 
-const statusLabel: Record<ProjectCardProps['status'], string> = {
-  ONGOING: 'Đang triển khai',
-  COMPLETED: 'Hoàn thành',
-  ARCHIVED: 'Lưu trữ',
-};
-
-export function ProjectCard({ image, status, name, scale, location, href, delay = 0, className }: ProjectCardProps) {
+export function ProjectCard({ image, statusLabel, name, scale, location, href, delay = 0, className }: ProjectCardProps) {
   const hasMeta = Boolean(scale || location);
 
   return (
@@ -47,7 +41,7 @@ export function ProjectCard({ image, status, name, scale, location, href, delay 
             className="inline-flex self-start items-center px-2 py-0.5 text-xs font-medium mb-3"
             style={{ background: 'var(--color-lime-pale)', color: 'var(--color-primary-dark)', borderRadius: '4px' }}
           >
-            {statusLabel[status]}
+            {statusLabel}
           </span>
           <h3 className="text-base font-semibold mb-3" style={{ fontFamily: 'var(--font-display)' }}>
             {name}

@@ -21,7 +21,12 @@
     "projects": {
       "eyebrow": "DỰ ÁN",
       "title": "Dự án nổi bật",
-      "subtitle": "Những công trình và dự án tiêu biểu do LMX Alliance triển khai"
+      "subtitle": "Những công trình và dự án tiêu biểu do LMX Alliance triển khai",
+      "status": {
+        "ongoing": "Đang triển khai",
+        "completed": "Hoàn thành",
+        "archived": "Lưu trữ"
+      }
     },
     "stats": {
       "title": "Số liệu nổi bật"
