@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 
+// Not yet wired into any page — intentionally deferred past Phase 3 (see docs/superpowers/plans/2026-07-06-phase3-featured-projects.md, "Deferred scope"), not dead by oversight.
 interface DomainCardProps {
   icon: LucideIcon;
   image?: string | null;
