@@ -203,7 +203,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                       <p className="text-base leading-relaxed mb-6" style={{ color: '#374151' }}>{desc}</p>
                       <Link
                         href={`/${locale}/business-segments`}
-                        className="inline-flex items-center gap-2 text-sm font-semibold transition-all hover:gap-3"
+                        className="inline-flex items-center gap-2 text-sm font-medium link-underline"
                         style={{ color: '#015231' }}
                       >
                         {locale === 'vi' ? 'Xem lĩnh vực hoạt động' : locale === 'en' ? 'View business segments' : '查看业务领域'}

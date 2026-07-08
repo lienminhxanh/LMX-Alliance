@@ -160,7 +160,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* ── Achievements strip ───────────────────── */}
-      <section style={{ background: '#8ec63f' }}>
+      <section style={{ background: '#013d27' }}>
         <div className="container-max">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {achievements.map((a, idx) => {

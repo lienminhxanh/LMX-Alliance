@@ -229,9 +229,9 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 ].map((s) => {
                   const label = locale === 'vi' ? s.labelVI : locale === 'en' ? s.labelEN : s.labelZH;
                   return (
-                    <div key={s.value} className="p-6 text-center card-lift border flex flex-col justify-center items-center" style={{ background: '#013d27', borderRadius: '8px', borderColor: 'rgba(255,255,255,0.05)', boxShadow: '0 4px 12px rgba(1, 82, 49, 0.08)' }}>
-                      <p className="text-3xl font-extrabold mb-1" style={{ color: '#8ec63f', fontFamily: 'var(--font-display)' }}>{s.value}</p>
-                      <p className="text-xs font-medium text-gray-300 leading-snug">{label}</p>
+                    <div key={s.value} className="p-6 text-center" style={{ background: '#013d27', borderRadius: '4px', border: '1px solid #defbbc' }}>
+                      <p className="text-3xl font-bold mb-1" style={{ color: '#8ec63f' }}>{s.value}</p>
+                      <p className="text-xs" style={{ color: '#D1D5DB' }}>{label}</p>
                     </div>
                   );
                 })}
