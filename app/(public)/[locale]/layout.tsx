@@ -4,6 +4,7 @@ import { routing } from '@/lib/i18n';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/public/Header';
 import { Footer } from '@/components/public/Footer';
+import { PartnerMarquee } from '@/components/public/PartnerMarquee';
 import { FloatingContact } from '@/components/public/FloatingContact';
 import { getCachedCompanySettings } from '@/lib/cached';
 import type { Metadata } from 'next';
@@ -52,6 +53,7 @@ export default async function PublicLayout({
     <NextIntlClientProvider messages={messages} locale={locale}>
       <Header />
       <main className="flex-1">{children}</main>
+      <PartnerMarquee />
       <Footer />
       <FloatingContact phone={settings?.phone} zaloUrl={settings?.zaloUrl} messengerUrl={settings?.messengerUrl} />
     </NextIntlClientProvider>

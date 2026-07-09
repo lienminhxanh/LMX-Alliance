@@ -10,12 +10,42 @@ import { cn } from '@/lib/utils';
 const localeLabels: Record<string, string> = { vi: 'VI', en: 'EN', zh: '中' };
 const locales = ['vi', 'en', 'zh'];
 
+const flags: Record<string, React.ReactNode> = {
+  vi: (
+    <svg viewBox="0 0 30 20" className="w-5 h-3.5 shadow-sm border border-gray-200 rounded-sm">
+      <rect width="30" height="20" fill="#da251d" />
+      <polygon points="15,4 16.2,8.5 21,8.5 17.1,11.3 18.6,16 15,13 11.4,16 12.9,11.3 9,8.5 13.8,8.5" fill="#ffff00" />
+    </svg>
+  ),
+  en: (
+    <svg viewBox="0 0 60 30" className="w-5 h-3.5 shadow-sm border border-gray-200 rounded-sm">
+      <clipPath id="s">
+        <path d="M0,0 v30 h60 v-30 z" />
+      </clipPath>
+      <rect width="60" height="30" fill="#012169" />
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" strokeWidth="4" clipPath="url(#s)" />
+      <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10" />
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6" />
+    </svg>
+  ),
+  zh: (
+    <svg viewBox="0 0 30 20" className="w-5 h-3.5 shadow-sm border border-gray-200 rounded-sm">
+      <rect width="30" height="20" fill="#ee1c25" />
+      <polygon points="5,5 5.6,3.2 6.2,5 7.8,5 6.5,6 7,7.8 5.6,6.7 4.2,7.8 4.7,6 3.4,5" fill="#ffde00" />
+      <polygon points="10,2 10.2,1.3 10.4,2 11,2 10.5,2.4 10.7,3 10.2,2.6 9.7,3 9.9,2.4 9.4,2" fill="#ffde00" />
+      <polygon points="12,4 12.2,3.3 12.4,4 13,4 12.5,4.4 12.7,5 12.2,4.6 11.7,5 11.9,4.4 11.4,4" fill="#ffde00" />
+      <polygon points="12,7 12.2,6.3 12.4,7 13,7 12.5,7.4 12.7,8 12.2,7.6 11.7,8 11.9,7.4 11.4,7" fill="#ffde00" />
+      <polygon points="10,9 10.2,8.3 10.4,9 11,9 10.5,9.4 10.7,10 10.2,9.6 9.7,10 9.9,9.4 9.4,9" fill="#ffde00" />
+    </svg>
+  ),
+};
+
 export function Header() {
   const t = useTranslations('nav');
   const locale = useLocale();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
 
   const navLinks = [
     { href: `/${locale}`, label: t('home') },
@@ -31,7 +61,6 @@ export function Header() {
     const segments = pathname.split('/');
     segments[1] = newLocale;
     window.location.href = segments.join('/');
-    setLangOpen(false);
   };
 
   return (
@@ -65,8 +94,8 @@ export function Header() {
                 className={cn(
                   'px-3 py-5 text-sm transition-colors border-b-2',
                   active
-                    ? 'border-[#8ec63f] text-[#015231] font-semibold'
-                    : 'border-transparent text-[#374151] hover:text-[#015231]'
+                    ? 'border-[#8ec63f] text-[var(--color-primary-dark)] font-semibold'
+                    : 'border-transparent text-[#374151] hover:text-[var(--color-primary-dark)]'
                 )}
               >
                 {link.label}
@@ -77,53 +106,43 @@ export function Header() {
 
         {/* Right side */}
         <div className="flex items-center gap-3">
-          {/* Language switcher */}
-          <div className="relative">
-            <button
-              onClick={() => { setLangOpen(!langOpen); if (menuOpen) setMenuOpen(false); }}
-              className="flex items-center gap-1.5 px-2 py-1.5 text-sm transition-colors rounded"
-              style={{ color: '#6B7280' }}
-            >
-              <Globe size={14} />
-              <span>{localeLabels[locale]}</span>
-            </button>
-            {langOpen && (
-              <div
-                className="absolute right-0 top-full mt-1 bg-white w-20 z-50"
-                style={{ border: '1px solid #defbbc', borderRadius: '8px', boxShadow: '0 4px 16px rgba(1,82,49,0.1)' }}
+          {/* Language flags switcher side-by-side */}
+          <div className="flex items-center gap-2">
+            {locales.map((l) => (
+              <button
+                key={l}
+                onClick={() => switchLocale(l)}
+                className={cn(
+                  "p-1 transition-all rounded hover:scale-110",
+                  l === locale 
+                    ? "border bg-[#f8fbf2] scale-105" 
+                    : "border border-transparent opacity-60 hover:opacity-100"
+                )}
+                style={{
+                  borderColor: l === locale ? '#8ec63f' : 'transparent'
+                }}
+                title={localeLabels[l]}
+                aria-label={`Switch language to ${localeLabels[l]}`}
               >
-                {locales.map((l) => (
-                  <button
-                    key={l}
-                    onClick={() => switchLocale(l)}
-                    className="w-full text-left px-3 py-2 text-sm transition-colors first:rounded-t-lg last:rounded-b-lg"
-                    style={{
-                      color: l === locale ? '#015231' : '#6B7280',
-                      fontWeight: l === locale ? 600 : 400,
-                      background: l === locale ? '#f8fbf2' : 'transparent'
-                    }}
-                  >
-                    {localeLabels[l]}
-                  </button>
-                ))}
-              </div>
-            )}
+                {flags[l]}
+              </button>
+            ))}
           </div>
 
           <Link
             href={`/${locale}/contact`}
             className="hidden sm:inline-flex items-center px-5 py-2 text-sm font-medium transition-all"
-            style={{ background: '#8ec63f', color: '#013d27', borderRadius: '4px' }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#015231'; e.currentTarget.style.color = '#fff'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#8ec63f'; e.currentTarget.style.color = '#013d27'; }}
+            style={{ background: '#8ec63f', color: 'var(--color-primary-mid)', borderRadius: '4px' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-primary-dark)'; e.currentTarget.style.color = '#fff'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#8ec63f'; e.currentTarget.style.color = 'var(--color-primary-mid)'; }}
           >
             {t('contact')}
           </Link>
 
           <button
             className="lg:hidden p-2 transition-colors"
-            style={{ color: '#015231' }}
-            onClick={() => { setMenuOpen(!menuOpen); if (langOpen) setLangOpen(false); }}
+            style={{ color: 'var(--color-primary-dark)' }}
+            onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Đóng menu' : 'Mở menu'}
             aria-expanded={menuOpen}
           >
@@ -150,7 +169,7 @@ export function Header() {
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center px-6 py-3.5 text-sm transition-colors"
                 style={{
-                  color: active ? '#015231' : '#374151',
+                  color: active ? 'var(--color-primary-dark)' : '#374151',
                   fontWeight: active ? 600 : 400,
                   borderBottom: '1px solid #f8fbf2',
                   borderLeft: active ? '3px solid #8ec63f' : '3px solid transparent',

@@ -75,13 +75,13 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
 
   return (
     <>
-      <section className="relative overflow-hidden text-white py-20" style={{ background: '#015231' }}>
+      <section className="relative overflow-hidden text-white py-20" style={{ background: 'var(--color-primary-dark)' }}>
         {sector.banner && (
           <>
             <Image src={sector.banner} alt="" fill priority className="object-cover" aria-hidden />
             <div
               className="absolute inset-0"
-              style={{ background: 'linear-gradient(180deg, rgba(1,82,49,0.85) 0%, rgba(1,82,49,0.95) 100%)' }}
+              style={{ background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.5) 100%)' }}
               aria-hidden
             />
           </>
@@ -107,7 +107,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {gallery.map((img, i) => (
-                      <div key={i} className="relative aspect-video overflow-hidden border border-[#defbbc]" style={{ borderRadius: '4px' }}>
+                      <div key={i} className="relative aspect-video overflow-hidden" style={{ borderRadius: '4px', boxShadow: '0 4px 12px rgba(1,82,49,0.05)' }}>
                         <Image
                           src={img}
                           alt={`${name} — hình ảnh ${i + 1}`}
@@ -122,8 +122,8 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
               )}
             </div>
             <div className="lg:col-span-1">
-              <div className="p-6 border border-[#defbbc] sticky top-20" style={{ borderRadius: '4px' }}>
-                <h4 className="font-semibold text-[#015231] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+              <div className="p-8 sticky top-20" style={{ borderRadius: '4px', background: '#FAFAFA', boxShadow: '0 4px 24px rgba(1,82,49,0.06)' }}>
+                <h4 className="font-semibold text-[var(--color-primary-dark)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                   {locale === 'vi' ? 'Liên hệ tư vấn' : locale === 'en' ? 'Contact Us' : '联系我们'}
                 </h4>
                 <p className="text-sm text-[#6B7280] mb-5">
@@ -131,7 +131,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ l
                 </p>
                 <Link
                   href={`/${locale}/contact`}
-                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-[#015231] text-white text-sm hover:bg-[#013d27] transition-colors"
+                  className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-[var(--color-primary-dark)] text-white text-sm hover:bg-[var(--color-primary-mid)] transition-colors"
                   style={{ borderRadius: 0 }}
                 >
                   {locale === 'vi' ? 'Liên hệ ngay' : locale === 'en' ? 'Contact Now' : '立即联系'} <ArrowRight size={14} />

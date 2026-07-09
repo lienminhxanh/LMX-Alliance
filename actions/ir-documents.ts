@@ -6,6 +6,8 @@ import { revalidatePath } from 'next/cache';
 import { DocumentCategory } from '@prisma/client';
 import { z } from 'zod';
 
+import { deleteFromCloudinary } from '@/lib/cloudinary';
+
 const IRMessageSchema = z.object({
   type: z.enum(['CEO_MESSAGE', 'CHAIRMAN_MESSAGE']),
   titleVI: z.string().min(1), titleEN: z.string().min(1), titleZH: z.string().min(1),
@@ -49,7 +51,20 @@ export async function createIRDocument(data: unknown) {
 
 export async function deleteIRDocument(id: string) {
   const user = await requireAuth();
-  await prisma.investorDocument.delete({ where: { id } });
+  const doc = await prisma.investorDocument.findUnique({ where: { id } });
+  if (doc) {
+    await prisma.investorDocument.delete({ where: { id } });
+    try {
+      const media = await prisma.mediaFile.findFirst({ where: { fileUrl: doc.fileUrl } });
+      if (media) {
+        const resourceType = media.fileType.toLowerCase() === 'pdf' ? 'image' : 'raw';
+        await deleteFromCloudinary(media.storageName, resourceType);
+        await prisma.mediaFile.delete({ where: { id: media.id } });
+      }
+    } catch (e) {
+      console.error('Error removing file from storage:', e);
+    }
+  }
   await logAudit({ userId: user.id!, action: 'DELETE', entity: 'InvestorDocument', entityId: id, details: {} });
   revalidatePath('/admin/shareholder-relations/documents');
 }

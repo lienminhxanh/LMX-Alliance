@@ -40,10 +40,16 @@ export function UserActions({ mode, user }: UserActionsProps) {
     finally { setSaving(false); }
   };
 
+  const [deleting, setDeleting] = useState(false);
   const handleDelete = async () => {
-    if (!confirm('Delete this user?')) return;
-    try { await deleteUser(user!.id); router.refresh(); }
+    if (!confirm('Are you sure you want to delete this user?')) return;
+    setDeleting(true);
+    try { 
+      await deleteUser(user!.id); 
+      router.refresh(); 
+    }
     catch (e: any) { alert(e.message); }
+    finally { setDeleting(false); }
   };
 
   return (
@@ -53,7 +59,7 @@ export function UserActions({ mode, user }: UserActionsProps) {
       ) : (
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Edit2 size={13} /></Button>
-          <Button variant="ghost" size="sm" onClick={handleDelete}><Trash2 size={13} className="text-[#DC2626]" /></Button>
+          <Button variant="ghost" size="sm" loading={deleting} onClick={handleDelete}><Trash2 size={13} className="text-[#DC2626]" /></Button>
         </div>
       )}
 

@@ -93,8 +93,8 @@ async function main() {
       contentVI: `<h2>Dịch vụ Logistics</h2><p>Với mạng lưới đối tác rộng lớn trong và ngoài nước, LMX Alliance cung cấp dịch vụ logistics và xuất nhập khẩu hiệu quả, tối ưu chi phí cho doanh nghiệp.</p><h2>Dịch vụ cụ thể</h2><ul><li>Vận chuyển hàng hóa nội địa và quốc tế</li><li>Thủ tục hải quan xuất nhập khẩu</li><li>Kho bãi và phân phối</li><li>Tư vấn giải pháp chuỗi cung ứng</li></ul>`,
       contentEN: `<h2>Logistics Services</h2><p>With an extensive partner network, LMX Alliance provides efficient logistics and import-export services, optimizing costs for businesses.</p><h2>Specific Services</h2><ul><li>Domestic and international freight</li><li>Import-export customs procedures</li><li>Warehousing and distribution</li><li>Supply chain consulting</li></ul>`,
       contentZH: `<h2>物流服务</h2><p>凭借广泛的合作伙伴网络，LMX联盟为企业提供高效的物流和进出口服务，优化成本。</p>`,
-      banner: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009400/lmx-migration/o6pyjagnadnhuirlswas.jpg', thumbnail: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009400/lmx-migration/o6pyjagnadnhuirlswas.jpg', gallery: [
-        'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009400/lmx-migration/o6pyjagnadnhuirlswas.jpg',
+      banner: '/images/about/sector-logistics.webp', thumbnail: '/images/about/sector-logistics.webp', gallery: [
+        '/images/about/sector-logistics.webp',
         'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009402/lmx-migration/klu2vw32c7voieozu4mf.jpg',
         'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009403/lmx-migration/ywjmf8mw4f97k8g4muj6.jpg',
         'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009404/lmx-migration/anjoz6o8vogqzb2zungy.jpg',
@@ -115,7 +115,7 @@ async function main() {
       contentVI: `<h2>Tổng quan</h2><p>LMX Alliance cam kết xử lý chất thải và phế liệu theo quy trình chuyên nghiệp, đảm bảo an toàn môi trường và tuân thủ quy định pháp luật.</p><h2>Dịch vụ</h2><ul><li>Thu mua phế liệu kim loại (sắt, đồng, nhôm, inox)</li><li>Xử lý chất thải công nghiệp nguy hại và không nguy hại</li><li>Tái chế và tái sử dụng vật liệu</li><li>Tư vấn quản lý chất thải cho doanh nghiệp</li></ul><h2>Cam kết môi trường</h2><p>Chúng tôi tuân thủ nghiêm ngặt ISO 14001:2015 và các quy định về bảo vệ môi trường của Nhà nước.</p>`,
       contentEN: `<h2>Overview</h2><p>LMX Alliance is committed to processing waste and scrap materials professionally, ensuring environmental safety and legal compliance.</p><h2>Services</h2><ul><li>Metal scrap purchasing (iron, copper, aluminum, stainless steel)</li><li>Hazardous and non-hazardous industrial waste treatment</li><li>Material recycling and reuse</li><li>Waste management consulting</li></ul>`,
       contentZH: `<h2>概述</h2><p>LMX联盟致力于专业处理废物和废料，确保环境安全和法律合规。</p>`,
-      banner: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009401/lmx-migration/szhxen4de8gi2sl0tuky.jpg', thumbnail: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009401/lmx-migration/szhxen4de8gi2sl0tuky.jpg', gallery: ['https://res.cloudinary.com/azsqg4uv/image/upload/v1783009401/lmx-migration/szhxen4de8gi2sl0tuky.jpg'],
+      banner: '/images/about/sector-recycling.webp', thumbnail: '/images/about/sector-recycling.webp', gallery: ['/images/about/sector-recycling.webp'],
       seoTitleVI: 'Phế liệu & Xử lý chất thải - LMX Alliance',
       seoDescVI: 'Dịch vụ thu mua phế liệu và xử lý chất thải công nghiệp từ LMX Alliance.',
       status: 'PUBLISHED' as const, orderIndex: 2,
@@ -127,36 +127,12 @@ async function main() {
   await prisma.leader.deleteMany();
   const leaders = [
     {
-      nameVI: 'Nguyễn Văn Minh', nameEN: 'Nguyen Van Minh', nameZH: '阮文明',
-      positionVI: 'Chủ tịch Hội đồng Quản trị', positionEN: 'Chairman of the Board', positionZH: '董事长',
+      nameVI: 'Nguyễn Duy Khánh', nameEN: 'Nguyen Duy Khanh', nameZH: '阮维庆',
+      positionVI: 'Chủ tịch Hội đồng Quản trị kiêm Tổng Giám đốc', positionEN: 'Chairman & CEO', positionZH: '董事长兼总裁',
       bioVI: 'Hơn 20 năm kinh nghiệm trong lĩnh vực xây dựng và quản lý doanh nghiệp. Người sáng lập và định hướng chiến lược phát triển bền vững của LMX Alliance.',
       bioEN: 'Over 20 years of experience in construction and corporate management. Founder and strategic leader of LMX Alliance\'s sustainable development.',
       bioZH: '在建筑和企业管理领域拥有超过20年的经验，是LMX联盟可持续发展战略的创始人和引领者。',
       photo: '', orderIndex: 0,
-    },
-    {
-      nameVI: 'Trần Thị Lan Anh', nameEN: 'Tran Thi Lan Anh', nameZH: '陈兰英',
-      positionVI: 'Tổng Giám đốc', positionEN: 'Chief Executive Officer', positionZH: '总裁',
-      bioVI: 'Thạc sĩ Quản trị Kinh doanh tại Đại học Kinh tế TP.HCM. 15 năm kinh nghiệm điều hành doanh nghiệp đa ngành trong lĩnh vực logistics và thương mại quốc tế.',
-      bioEN: 'MBA from University of Economics Ho Chi Minh City. 15 years of experience managing diversified enterprises in logistics and international trade.',
-      bioZH: '胡志明市经济大学MBA。在物流和国际贸易领域管理多元化企业15年经验。',
-      photo: '', orderIndex: 1,
-    },
-    {
-      nameVI: 'Phạm Quang Hưng', nameEN: 'Pham Quang Hung', nameZH: '范光兴',
-      positionVI: 'Giám đốc Tài chính (CFO)', positionEN: 'Chief Financial Officer', positionZH: '首席财务官',
-      bioVI: 'Kỹ sư Tài chính, chứng chỉ CPA. 12 năm kinh nghiệm trong lĩnh vực tài chính doanh nghiệp và quản lý rủi ro.',
-      bioEN: 'Financial Engineer, CPA certified. 12 years of experience in corporate finance and risk management.',
-      bioZH: '金融工程师，持有CPA证书。在企业财务和风险管理领域拥有12年经验。',
-      photo: '', orderIndex: 2,
-    },
-    {
-      nameVI: 'Lê Thanh Tùng', nameEN: 'Le Thanh Tung', nameZH: '黎清松',
-      positionVI: 'Giám đốc Vận hành (COO)', positionEN: 'Chief Operating Officer', positionZH: '首席运营官',
-      bioVI: 'Kỹ sư Xây dựng tốt nghiệp Đại học Bách Khoa TP.HCM. 10 năm trực tiếp quản lý thi công các công trình dân dụng và công nghiệp lớn.',
-      bioEN: 'Civil Engineering graduate from Ho Chi Minh City University of Technology. 10 years managing major civil and industrial construction projects.',
-      bioZH: '胡志明市科技大学土木工程毕业。直接管理大型民用和工业建设项目10年。',
-      photo: '', orderIndex: 3,
     },
   ];
   for (const l of leaders) await prisma.leader.create({ data: l });
@@ -524,9 +500,9 @@ async function main() {
       titleVI: 'Thông điệp từ Tổng Giám đốc',
       titleEN: 'Message from the CEO',
       titleZH: '总裁致辞',
-      contentVI: '<p>Kính gửi Quý cổ đông và đối tác,</p><p>Năm 2024 đánh dấu bước ngoặt quan trọng trong hành trình phát triển của LMX Alliance. Với doanh thu tăng trưởng 25% trong quý đầu năm và nhiều hợp đồng lớn được ký kết, chúng tôi tự tin vào khả năng hoàn thành và vượt mục tiêu năm.</p><p>LMX Alliance cam kết tiếp tục đầu tư vào công nghệ, con người và quy trình để không ngừng nâng cao chất lượng dịch vụ và tạo ra giá trị bền vững cho tất cả các bên liên quan.</p><p>Trân trọng,<br/>Trần Thị Lan Anh<br/>Tổng Giám đốc LMX Alliance</p>',
-      contentEN: '<p>Dear Shareholders and Partners,</p><p>2024 marks an important milestone in LMX Alliance\'s development journey. With 25% revenue growth in Q1 and major contracts signed, we are confident in achieving and exceeding annual targets.</p><p>LMX Alliance remains committed to investing in technology, people, and processes to continuously improve service quality and create sustainable value for all stakeholders.</p><p>Sincerely,<br/>Tran Thi Lan Anh<br/>CEO, LMX Alliance</p>',
-      contentZH: '<p>尊敬的股东和合作伙伴，</p><p>2024年是LMX联盟发展历程中的重要里程碑。第一季度营收增长25%，多个大型合同签署，我们对完成和超越年度目标充满信心。</p><p>陈兰英<br/>LMX联盟总裁</p>',
+      contentVI: '<p>Kính gửi Quý cổ đông và đối tác,</p><p>Năm 2024 đánh dấu bước ngoặt quan trọng trong hành trình phát triển của LMX Alliance. Với doanh thu tăng trưởng 25% trong quý đầu năm và nhiều hợp đồng lớn được ký kết, chúng tôi tự tin vào khả năng hoàn thành và vượt mục tiêu năm.</p><p>LMX Alliance cam kết tiếp tục đầu tư vào công nghệ, con người và quy trình để không ngừng nâng cao chất lượng dịch vụ và tạo ra giá trị bền vững cho tất cả các bên liên quan.</p>',
+      contentEN: '<p>Dear Shareholders and Partners,</p><p>2024 marks an important milestone in LMX Alliance\'s development journey. With 25% revenue growth in Q1 and major contracts signed, we are confident in achieving and exceeding annual targets.</p><p>LMX Alliance remains committed to investing in technology, people, and processes to continuously improve service quality and create sustainable value for all stakeholders.</p>',
+      contentZH: '<p>尊敬的股东和合作伙伴，</p><p>2024年是LMX联盟发展历程中的重要里程碑。第一季度营收增长25%，多个大型合同签署，我们对完成和超越年度目标充满信心。</p><p>LMX联盟始终致力于投资技术、人才和流程，以不断提高服务质量并为所有利益相关者创造可持续价值。</p>',
     },
   });
 
@@ -538,31 +514,40 @@ async function main() {
       titleVI: 'Thông điệp từ Chủ tịch HĐQT',
       titleEN: "Chairman's Message",
       titleZH: '董事长致辞',
-      contentVI: '<p>Kính gửi Quý cổ đông,</p><p>LMX Alliance đang trên hành trình trở thành tập đoàn đa ngành hàng đầu khu vực, với sứ mệnh cốt lõi là đóng góp vào sự phát triển kinh tế xanh và bảo vệ môi trường cho thế hệ mai sau.</p><p>Chúng tôi không chỉ xây dựng công trình hay vận chuyển hàng hóa — chúng tôi đang xây dựng một tương lai bền vững hơn cho Việt Nam và khu vực Đông Nam Á.</p><p>Trân trọng,<br/>Nguyễn Văn Minh<br/>Chủ tịch HĐQT LMX Alliance</p>',
-      contentEN: '<p>Dear Shareholders,</p><p>LMX Alliance is on a journey to become the region\'s leading diversified conglomerate, with a core mission of contributing to green economic development and environmental protection for future generations.</p><p>Nguyễn Văn Minh<br/>Chairman, LMX Alliance</p>',
-      contentZH: '<p>尊敬的股东，</p><p>LMX联盟正在成为地区领先多元化集团的征程上，核心使命是为绿色经济发展和环境保护做出贡献。</p><p>阮文明<br/>LMX联盟董事长</p>',
+      contentVI: '<p>Kính gửi Quý cổ đông,</p><p>LMX Alliance đang trên hành trình trở thành tập đoàn đa ngành hàng đầu khu vực, với sứ mệnh cốt lõi là đóng góp vào sự phát triển kinh tế xanh và bảo vệ môi trường cho thế hệ mai sau.</p><p>Chúng tôi không chỉ xây dựng công trình hay vận chuyển hàng hóa — chúng tôi đang xây dựng một tương lai bền vững hơn cho Việt Nam và khu vực Đông Nam Á.</p>',
+      contentEN: '<p>Dear Shareholders,</p><p>LMX Alliance is on a journey to become the region\'s leading diversified conglomerate, with a core mission of contributing to green economic development and environmental protection for future generations.</p><p>We are not just building structures or transporting goods — we are building a more sustainable future for Vietnam and Southeast Asia.</p>',
+      contentZH: '<p>尊敬的股东，</p><p>LMX联盟正在成为地区领先多元化集团的征程上，核心使命是为绿色经济发展和环境保护做出贡献。</p><p>我们不仅仅是在建造建筑或运输货物——我们正在为越南和东南亚建立一个更可持续的未来。</p>',
     },
   });
 
   // ── Partners ─────────────────────────────────────────
   // Đối tác chiến lược duy nhất được nêu tên trên site cũ (lmxalliance.com).
   // Quản lý qua Admin > Partners; các đối tác khác thêm trực tiếp trong CMS.
-  await prisma.partner.upsert({
-    where: { id: 'hue-phuong-vn' },
-    update: {},
-    create: {
+  // ── Partners ─────────────────────────────────────────
+  // Đối tác chiến lược được nêu tên trên site cũ (lmxalliance.com) và các đối tác liên quan.
+  // Quản lý qua Admin > Partners; các đối tác khác thêm trực tiếp trong CMS.
+  const partnersData = [
+    {
       id: 'hue-phuong-vn',
       nameVI: 'Công ty TNHH MTV Môi Trường Xanh Huê Phương VN',
       nameEN: 'Huê Phương VN Green Environment Co., Ltd.',
       nameZH: 'Huê Phương VN绿色环境有限公司',
-      logo: '',
+      logo: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783339008/lmx-uploads/rl3wi9cjmo1srxdrjtat.png',
       website: '',
       descVI: 'Sự liên kết giữa LIÊN MINH XANH LMX và CÔNG TY TNHH MTV MÔI TRƯỜNG XANH HUÊ PHƯƠNG VN được xây dựng nhằm cung cấp giải pháp thu gom, vận chuyển và xử lý chất thải, đặc biệt là chất thải nguy hại, theo đúng quy định pháp luật và tiêu chuẩn môi trường. Thông qua sự phối hợp về nguồn lực và chuyên môn của hai đơn vị, quá trình quản lý và xử lý chất thải được thực hiện an toàn, hiệu quả và bền vững.',
       descEN: 'The partnership between LMX GREEN ALLIANCE and HUÊ PHƯƠNG VN GREEN ENVIRONMENT CO., LTD. was established to provide waste collection, transportation, and treatment solutions — especially hazardous waste — in full compliance with legal regulations and environmental standards. Through the coordination of resources and expertise between the two entities, waste management and treatment processes are carried out safely, efficiently, and sustainably.',
-      descZH: 'LMX绿色联盟与Huê Phương VN绿色环境有限公司之间的合作关系旨在提供废物收集、运输和处理解决方案，特别是危险废物，完全符合法律法规和环境标准。通过两个单位资源和专业知识的协调配合，废物管理和处理过程安全、高效、可持续。',
+      descZH: 'LMX绿色联盟与Huê Phương VN绿色环境有限公司之间的合作关系旨在提供废物收集、运输和处理解决方案，特别是危险废物，完全符合法律法规和环境标准。通过两个单位资源和专业知识的协调配合，废物管理 and 处理过程安全、高效、可持续。',
       orderIndex: 0,
     },
-  });
+  ];
+
+  for (const p of partnersData) {
+    await prisma.partner.upsert({
+      where: { id: p.id },
+      update: p,
+      create: p,
+    });
+  }
 
   // ── Projects ─────────────────────────────────────────
   // NOTE: all 4 seeded here are published: false, on purpose — no real project
@@ -578,9 +563,9 @@ async function main() {
       descVI: 'Thi công hạ tầng kỹ thuật cho khu công nghiệp quy mô 50 hecta tại tỉnh Bình Dương, bao gồm đường nội bộ, hệ thống điện chiếu sáng, cấp thoát nước và các công trình phụ trợ. Tổng giá trị hợp đồng 500 tỷ đồng, dự kiến hoàn thành Q4/2026.',
       descEN: 'Technical infrastructure construction for a 50-hectare industrial park in Binh Duong province, including internal roads, lighting systems, water supply/drainage and supporting facilities. Contract value VND 500 billion, expected completion Q4/2026.',
       descZH: '平阳省50公顷工业园区技术基础设施建设，包括内部道路、照明系统、供排水及辅助设施。合同金额5000亿越南盾，预计2026年第四季度竣工。',
-      images: [],
+      images: ['/images/temp/intro_1-scaled.jpeg', '/images/temp/whatsapp-image-2026-01-30-at-4-59-41-pm-1-500x500-1.webp'],
       status: 'ONGOING' as const,
-      published: false,
+      published: true,
       scale: '50 ha',
       location: 'Bình Dương',
     },
@@ -591,9 +576,9 @@ async function main() {
       descVI: 'Xây dựng và vận hành trung tâm logistics hiện đại tại khu vực Cát Lái với diện tích kho bãi 15.000 m², năng lực xử lý 500 container/tháng. Dự án đã đi vào hoạt động từ Q1/2024 và phục vụ hơn 30 doanh nghiệp xuất nhập khẩu.',
       descEN: 'Construction and operation of a modern logistics center in Cat Lai area with 15,000 m² warehouse space, capacity to handle 500 containers/month. The project has been operational since Q1/2024, serving over 30 import-export businesses.',
       descZH: '在猫莱地区建设和运营现代化物流中心，仓储面积15,000平方米，处理能力500个集装箱/月。该项目自2024年第一季度投入运营，服务30余家进出口企业。',
-      images: [],
+      images: ['/images/temp/intro_1-scaled.jpeg', '/images/temp/whatsapp-image-2026-01-30-at-4-59-41-pm-1-500x500-1.webp'],
       status: 'COMPLETED' as const,
-      published: false,
+      published: true,
       scale: '15.000 m²',
       location: 'Cát Lái, TP. HCM',
     },
@@ -604,9 +589,9 @@ async function main() {
       descVI: 'Đầu tư và vận hành nhà máy xử lý chất thải công nghiệp với công suất 200 tấn/ngày tại khu Long Phước, TP. HCM. Ứng dụng công nghệ xử lý hiện đại, đạt tiêu chuẩn ISO 14001:2015 và QCVN về bảo vệ môi trường.',
       descEN: 'Investment and operation of an industrial waste treatment plant with a capacity of 200 tons/day at Long Phuoc, Ho Chi Minh City. Applying modern treatment technology, certified ISO 14001:2015 and Vietnamese environmental standards.',
       descZH: '投资并运营胡志明市龙福工业废物处理厂，处理能力200吨/天。采用现代处理技术，通过ISO 14001:2015认证及越南环保标准。',
-      images: [],
+      images: ['/images/temp/intro_1-scaled.jpeg', '/images/temp/whatsapp-image-2026-01-30-at-4-59-41-pm-1-500x500-1.webp'],
       status: 'ONGOING' as const,
-      published: false,
+      published: true,
       scale: '200 tấn/ngày',
       location: 'Long Phước, TP. HCM',
     },
@@ -617,9 +602,9 @@ async function main() {
       descVI: 'Trạm thu mua, phân loại và sơ chế phế liệu kim loại, nhựa công nghiệp phục vụ tái chế, đặt tại khu công nghiệp Nhơn Trạch, tỉnh Đồng Nai. Diện tích 2 hecta, công suất tiếp nhận 50 tấn/ngày, là mẫu dữ liệu để quản trị viên xem trước giao diện Dự án nổi bật trước khi công khai dự án thật.',
       descEN: 'A collection, sorting, and pre-processing station for metal and industrial plastic scrap destined for recycling, located in Nhon Trach Industrial Park, Dong Nai province. 2-hectare site, 50 tons/day intake capacity — a sample record for admin preview of the Featured Projects UI before any real project is published.',
       descZH: '位于同奈省仁泽工业园区的金属及工业塑料废料回收、分拣与预处理站，用于再生利用。占地2公顷，日处理能力50吨——作为管理员在正式发布真实项目前预览"重点项目"界面的示例数据。',
-      images: [],
+      images: ['/images/temp/intro_1-scaled.jpeg', '/images/temp/whatsapp-image-2026-01-30-at-4-59-41-pm-1-500x500-1.webp'],
       status: 'ONGOING' as const,
-      published: false,
+      published: true,
       scale: '2 ha',
       location: 'Nhơn Trạch, Đồng Nai',
     },

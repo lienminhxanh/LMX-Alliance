@@ -1,9 +1,8 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { prisma } from '@/lib/prisma';
 import Image from 'next/image';
-import { Download, FileText } from 'lucide-react';
+import Link from 'next/link';
 import { AnimateIn } from '@/components/ui/AnimateIn';
-import { formatFileSize, formatDate } from '@/lib/utils';
+import { LeafDecor } from '@/components/ui/LeafDecor';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
@@ -36,123 +35,130 @@ export async function generateMetadata(
   });
 }
 
-const CATEGORIES = ['ANNUAL_REPORTS', 'FINANCIAL_REPORTS', 'DISCLOSURES', 'SHAREHOLDER_MEETINGS', 'GOVERNANCE'] as const;
-
 export default async function InvestorPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'investor' });
 
-  const [messages, documents] = await Promise.all([
-    prisma.investorMessage.findMany(),
-    prisma.investorDocument.findMany({ orderBy: [{ year: 'desc' }, { uploadedAt: 'desc' }] }),
-  ]);
+  // Translations helpers
+  const textDict = {
+    govDesc: {
+      vi: 'Điều lệ Công ty Cổ phần Liên Minh Xanh LMX (LMX Alliance) được thông qua bởi Đại hội đồng cổ đông, quy định các nguyên tắc quản trị và điều hành doanh nghiệp.',
+      en: 'The Charter of LMX Alliance Joint Stock Company approved by the General Meeting of Shareholders, defining governance and operational principles.',
+      zh: '经股东大会批准的LMX绿色联盟股份公司章程，定义了治理和经营原则。'
+    },
+    finDesc: {
+      vi: 'LMX Alliance công bố đầy đủ và minh bạch Báo cáo tài chính định kỳ theo quý, năm đã được kiểm toán bởi các tổ chức kiểm toán hàng đầu.',
+      en: 'LMX Alliance publishes periodic quarterly and annual financial statements audited by top independent audit firms.',
+      zh: 'LMX联盟定期、透明地公布由顶级独立审计事务所审计的季度和年度财务报表。'
+    },
+    annDesc: {
+      vi: 'Báo cáo thường niên cung cấp bức tranh toàn cảnh về hoạt động kinh doanh, chiến lược phát triển và kết quả tăng trưởng của LMX Alliance.',
+      en: 'The annual report provides a comprehensive overview of business operations, development strategy, and growth results of LMX Alliance.',
+      zh: '年度报告全面概述了LMX联盟的业务运营、发展战略和增长成果。'
+    },
+    seeMore: {
+      vi: 'Xem thêm',
+      en: 'See more',
+      zh: '查看更多'
+    }
+  };
 
-  const ceoMsg = messages.find((m) => m.type === 'CEO_MESSAGE');
-  const chairMsg = messages.find((m) => m.type === 'CHAIRMAN_MESSAGE');
-  const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
+  const localizedText = (key: keyof typeof textDict) => {
+    const dict = textDict[key] as Record<string, string>;
+    return dict[locale] ?? dict.vi;
+  };
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#015231] text-white py-24 flex items-center" style={{ minHeight: '380px' }}>
+      <section className="relative overflow-hidden bg-[var(--color-primary-dark)] text-white py-24 flex items-center" style={{ minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783160253/lmx-migration/h2sptyzylqoc3ezjjgdf.jpg"
           alt=""
           fill
           priority
-          className="object-cover hero-zoom"
+          className="object-cover hero-zoom opacity-30"
           style={{ objectPosition: '50% 22%' }}
           aria-hidden
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          style={{ background: 'linear-gradient(90deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.5) 60%, rgba(15, 23, 42, 0.2) 100%)' }}
           aria-hidden
         />
-        <div className="container-max relative w-full">
+        <LeafDecor variant="eco" count={8} color="#78d750" />
+        <div className="container-max relative w-full z-10">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest text-[#defbbc] mb-3">LMX Alliance</p>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.5rem)', color: '#fff' }}>
+            <p className="text-xs uppercase tracking-widest text-[#78d750] mb-3 font-medium">LMX Alliance</p>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', color: '#fff', fontWeight: 700 }}>
               {t('title')}
             </h1>
-            <p className="mt-3 text-sm max-w-xl" style={{ color: '#defbbc' }}>{t('subtitle')}</p>
+            <p className="mt-3 text-base max-w-xl text-emerald-100">{t('subtitle')}</p>
           </AnimateIn>
         </div>
       </section>
 
-      {/* Messages */}
-      <section className="section-padding">
-        <div className="container-max">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[{ msg: ceoMsg, label: t('ceoMessage') }, { msg: chairMsg, label: t('chairmanMessage') }].map(({ msg, label }, idx) => {
-              if (!msg) return null;
-              const title = (msg as any)[`title${L}`];
-              const content = (msg as any)[`content${L}`];
-              return (
-                <AnimateIn key={msg.id} delay={idx * 0.1} from={idx === 0 ? 'left' : 'right'}>
-                  <div className="p-8 border border-[#defbbc] card-lift bg-white h-full" style={{ borderRadius: '4px' }}>
-                    <p className="text-xs uppercase tracking-widest text-[#6B7280] mb-3">{label}</p>
-                    <h3 className="text-xl font-semibold text-[#015231] mb-5" style={{ fontFamily: 'var(--font-display)' }}>{title}</h3>
-                    <div className="prose text-[#6B7280]" dangerouslySetInnerHTML={{ __html: content }} />
-                  </div>
-                </AnimateIn>
-              );
-            })}
+      {/* Main Categories Section */}
+      <section className="section-padding bg-white relative">
+        <LeafDecor variant="leaf" count={5} color="#8ec63f" />
+        <div className="container-max relative z-10">
+          <div className="space-y-20">
+            
+            {/* 1. Điều lệ công ty */}
+            <div className="max-w-4xl mx-auto text-center py-6">
+              <AnimateIn>
+                <h2 className="mb-4 text-[var(--color-primary-dark)]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem,3vw,2rem)', fontWeight: 600 }}>
+                  {t('documents.governance').toUpperCase()}
+                </h2>
+                <p className="max-w-3xl mx-auto text-[#6B7280] leading-relaxed mb-6 text-sm md:text-base">
+                  {localizedText('govDesc')}
+                </p>
+                <Link
+                  href={`/${locale}/shareholder-relations/governance`}
+                  className="inline-flex items-center text-sm font-semibold text-[#8ec63f] hover:text-[var(--color-primary-dark)] transition-colors"
+                >
+                  <span>{localizedText('seeMore')}</span>
+                </Link>
+              </AnimateIn>
+            </div>
+
+            {/* 2. Báo cáo tài chính */}
+            <div className="max-w-4xl mx-auto text-center py-6">
+              <AnimateIn>
+                <h2 className="mb-4 text-[var(--color-primary-dark)]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem,3vw,2rem)', fontWeight: 600 }}>
+                  {t('documents.financialReports').toUpperCase()}
+                </h2>
+                <p className="max-w-3xl mx-auto text-[#6B7280] leading-relaxed mb-6 text-sm md:text-base">
+                  {localizedText('finDesc')}
+                </p>
+                <Link
+                  href={`/${locale}/shareholder-relations/financial-reports`}
+                  className="inline-flex items-center text-sm font-semibold text-[#8ec63f] hover:text-[var(--color-primary-dark)] transition-colors"
+                >
+                  <span>{localizedText('seeMore')}</span>
+                </Link>
+              </AnimateIn>
+            </div>
+
+            {/* 3. Báo cáo thường niên */}
+            <div className="max-w-4xl mx-auto text-center py-6">
+              <AnimateIn>
+                <h2 className="mb-4 text-[var(--color-primary-dark)]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem,3vw,2rem)', fontWeight: 600 }}>
+                  {t('documents.annualReports').toUpperCase()}
+                </h2>
+                <p className="max-w-3xl mx-auto text-[#6B7280] leading-relaxed mb-6 text-sm md:text-base">
+                  {localizedText('annDesc')}
+                </p>
+                <Link
+                  href={`/${locale}/shareholder-relations/annual-reports`}
+                  className="inline-flex items-center text-sm font-semibold text-[#8ec63f] hover:text-[var(--color-primary-dark)] transition-colors"
+                >
+                  <span>{localizedText('seeMore')}</span>
+                </Link>
+              </AnimateIn>
+            </div>
+
           </div>
-        </div>
-      </section>
-
-      {/* Documents */}
-      <section className="section-padding bg-[#f8fbf2]">
-        <div className="container-max">
-          <AnimateIn>
-            <h2 className="mb-8" style={{ fontFamily: 'var(--font-display)' }}>{t('documents.title')}</h2>
-          </AnimateIn>
-          {CATEGORIES.map((cat) => {
-            const catDocs = documents.filter((d) => d.category === cat);
-            if (catDocs.length === 0) return null;
-            const catLabel = (t as any)(`documents.${cat.toLowerCase().replace(/_/g, '')}`) || cat;
-            return (
-              <div key={cat} className="mb-10">
-                <h3 className="text-base font-semibold text-[#015231] mb-4 pb-2 border-b border-[#defbbc]" style={{ fontFamily: 'var(--font-display)' }}>
-                  {cat === 'ANNUAL_REPORTS' ? t('documents.annualReports')
-                    : cat === 'FINANCIAL_REPORTS' ? t('documents.financialReports')
-                    : cat === 'DISCLOSURES' ? t('documents.disclosures')
-                    : cat === 'SHAREHOLDER_MEETINGS' ? t('documents.meetings')
-                    : t('documents.governance')}
-                </h3>
-                <div className="space-y-2">
-                  {catDocs.map((doc) => {
-                    const name = (doc as any)[`name${L}`];
-                    return (
-                      <div key={doc.id} className="flex items-center justify-between bg-white p-4 border border-[#defbbc]" style={{ borderRadius: '2px' }}>
-                        <div className="flex items-center gap-3">
-                          <FileText size={16} className="text-[#6B7280] flex-shrink-0" />
-                          <div>
-                            <p className="text-sm font-medium text-[#015231]">{name}</p>
-                            <p className="text-xs text-[#6B7280]">{doc.year} · {doc.fileType.toUpperCase()} · {formatFileSize(doc.fileSize)}</p>
-                          </div>
-                        </div>
-                        <a
-                          href={doc.fileUrl}
-                          download
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#015231] border border-[#defbbc] hover:bg-[#f8fbf2] transition-colors"
-                          style={{ borderRadius: 0 }}
-                        >
-                          <Download size={12} /> {t('documents.download')}
-                        </a>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-          {documents.length === 0 && (
-            <p className="text-[#6B7280] text-sm">
-              {locale === 'vi' ? 'Chưa có tài liệu cổ đông.' : locale === 'en' ? 'No shareholder documents available.' : '暂无股东文件。'}
-            </p>
-          )}
         </div>
       </section>
     </>

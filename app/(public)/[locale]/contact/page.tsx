@@ -42,7 +42,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#015231] text-white py-24 flex items-center" style={{ minHeight: '380px' }}>
+      <section className="relative overflow-hidden bg-[var(--color-primary-dark)] text-white py-24 flex items-center" style={{ minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157485/lmx-migration/fyyjevsnrbnxdqbbzton.jpg"
           alt=""
@@ -53,7 +53,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          style={{ background: 'linear-gradient(90deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.5) 60%, rgba(15, 23, 42, 0.2) 100%)' }}
           aria-hidden
         />
         <div className="container-max relative w-full">
@@ -78,18 +78,18 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           {/* Info */}
           <AnimateIn from="right" delay={0.1} className="lg:col-span-2">
             <div className="bg-[#f8fbf2] p-8 h-full" style={{ borderRadius: '4px' }}>
-              <h3 className="font-semibold text-[#015231] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+              <h3 className="font-semibold text-[var(--color-primary-dark)] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
                 {locale === 'vi' ? 'Thông tin liên hệ' : locale === 'en' ? 'Contact Information' : '联系方式'}
               </h3>
               <ul className="space-y-5">
                 {contactInfo.map(({ icon: Icon, label, value }) => (
                   <li key={value} className="flex gap-3">
-                    <div className="w-8 h-8 bg-[#015231] flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-[var(--color-primary-dark)] flex items-center justify-center flex-shrink-0">
                       <Icon size={14} className="text-white" />
                     </div>
                     <div>
                       <p className="text-xs text-[#6B7280] mb-0.5">{label[L]}</p>
-                      <p className="text-sm text-[#015231]">{value}</p>
+                      <p className="text-sm text-[var(--color-primary-dark)]">{value}</p>
                     </div>
                   </li>
                 ))}

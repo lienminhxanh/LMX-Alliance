@@ -154,7 +154,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
       {/* Hero */}
-      <section className="bg-[#015231] text-white py-16">
+      <section className="relative overflow-hidden text-white py-16" style={{ background: 'linear-gradient(135deg, #0f172a 0%, var(--color-primary-dark) 100%)' }}>
         <div className="container-max">
           <Link
             href={`/${locale}/news`}
@@ -230,7 +230,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                       <User size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#6B7280' }} />
                       <div>
                         <p className="text-xs text-[#6B7280]">{locale === 'vi' ? 'Tác giả' : locale === 'en' ? 'Author' : '作者'}</p>
-                        <p className="font-medium" style={{ color: '#015231' }}>{article.author}</p>
+                        <p className="font-medium" style={{ color: 'var(--color-primary-dark)' }}>{article.author}</p>
                       </div>
                     </div>
                     {article.publishedAt && (
@@ -238,7 +238,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                         <Calendar size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#6B7280' }} />
                         <div>
                           <p className="text-xs text-[#6B7280]">{locale === 'vi' ? 'Ngày đăng' : locale === 'en' ? 'Published' : '发布日期'}</p>
-                          <p className="font-medium" style={{ color: '#015231' }}>{formatDate(article.publishedAt)}</p>
+                          <p className="font-medium" style={{ color: 'var(--color-primary-dark)' }}>{formatDate(article.publishedAt)}</p>
                         </div>
                       </div>
                     )}
@@ -246,7 +246,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
                       <Tag size={14} className="mt-0.5 flex-shrink-0" style={{ color: '#6B7280' }} />
                       <div>
                         <p className="text-xs text-[#6B7280]">{locale === 'vi' ? 'Chuyên mục' : locale === 'en' ? 'Category' : '分类'}</p>
-                        <p className="font-medium" style={{ color: '#015231' }}>{catLabel}</p>
+                        <p className="font-medium" style={{ color: 'var(--color-primary-dark)' }}>{catLabel}</p>
                       </div>
                     </div>
                   </div>

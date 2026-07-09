@@ -86,7 +86,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
   return (
     <>
       {/* ── Hero ─────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
+      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: 'var(--color-primary-dark)', minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157484/lmx-migration/cowrcqhaqvj6jkruhpfj.jpg"
           alt=""
@@ -97,7 +97,7 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          style={{ background: 'linear-gradient(90deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.5) 60%, rgba(15, 23, 42, 0.2) 100%)' }}
           aria-hidden
         />
         <LeafDecor variant="branch" count={8} color="#78d750" />
@@ -131,123 +131,71 @@ export default async function SectorsPage({ params }: { params: Promise<{ locale
       {/* ── Sector cards ─────────────────────────── */}
       <section className="section-padding">
         <div className="container-max">
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-16 lg:gap-8">
             {sectors.map((sector, idx) => {
               const name    = (sector as any)[`name${L}`];
               const summary = (sector as any)[`summary${L}`];
               const Icon = SECTOR_ICONS[sector.slug] ?? Leaf;
-              const accentBg = SECTOR_COLORS[sector.slug] ?? '#015231';
-              const accentIsLight = accentBg === '#8ec63f';
-              const lightBg  = SECTOR_BG[sector.slug] ?? '#f8fbf2';
               const tags = highlights[sector.slug] ?? [];
               const isEven = idx % 2 === 0;
+              const localBanners: Record<string, string> = {
+                'logistics-xuat-nhap-khau': '/images/about/sector-logistics.webp',
+                'phe-lieu-xu-ly-chat-thai': '/images/about/sector-recycling.webp',
+              };
+              const bannerSrc = localBanners[sector.slug] || sector.banner;
 
               return (
-                <AnimateIn key={sector.id} delay={idx * 0.08} from={isEven ? 'left' : 'right'}>
-                  <div
-                    className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden relative"
-                    style={{ borderRadius: '14px', boxShadow: '0 4px 24px rgba(1,82,49,0.10)' }}
-                  >
-                    {/* ── Accent panel (alternates side) ── */}
-                    <div
-                      className={`relative flex flex-col justify-between p-8 lg:p-10 overflow-hidden ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
-                      style={{ background: accentBg, minHeight: '280px' }}
-                    >
-                      {sector.banner && (
-                        <>
-                          <Image
-                            src={sector.banner}
-                            alt={name}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 1024px) 100vw, 50vw"
-                          />
-                          <div
-                            className="absolute inset-0"
-                            style={{ background: `linear-gradient(180deg, ${accentBg}cc 0%, ${accentBg}e6 100%)` }}
-                            aria-hidden
-                          />
-                        </>
+                <AnimateIn key={sector.id} delay={0.1} from={isEven ? 'left' : 'right'}>
+                  <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-10 lg:gap-16`}>
+                    {/* Image Side */}
+                    <div className="w-full lg:w-1/2 relative aspect-[4/3] overflow-hidden" style={{ borderRadius: '4px', boxShadow: '0 10px 40px rgba(1, 82, 49, 0.08)' }}>
+                      {bannerSrc && (
+                        <Image
+                          src={bannerSrc}
+                          alt={name}
+                          fill
+                          className="object-cover transition-transform duration-700 hover:scale-105"
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                        />
                       )}
-
-                      {/* Big watermark number */}
-                      <span
-                        className="absolute right-4 bottom-2 font-bold select-none pointer-events-none"
-                        style={{ fontSize: '8rem', lineHeight: 1, color: 'rgba(255,255,255,0.06)' }}
-                      >
-                        {String(idx + 1).padStart(2, '0')}
-                      </span>
-
-                      {/* Eco icon box */}
-                      <div className="relative z-10">
-                        <div
-                          className="w-14 h-14 rounded-xl flex items-center justify-center mb-5"
-                          style={{ background: 'rgba(120,215,80,0.2)' }}
-                        >
-                          <Icon size={28} color={accentIsLight ? '#013d27' : '#78d750'} strokeWidth={1.5} />
+                    </div>
+                    
+                    {/* Text Side */}
+                    <div className="w-full lg:w-1/2">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 rounded-[4px] flex items-center justify-center bg-[#f8fbf2]">
+                          <Icon size={24} style={{ color: '#8ec63f' }} />
                         </div>
-                        <h2 className="text-xl lg:text-2xl font-semibold leading-tight mb-3" style={{ color: accentIsLight ? '#013d27' : '#fff' }}>
-                          {name}
-                        </h2>
+                        <span className="text-sm font-bold px-4 py-1.5 rounded-full" style={{ color: '#015231', background: '#defbbc' }}>
+                          0{idx + 1}
+                        </span>
                       </div>
-
-                      {/* Highlight tags */}
-                      <div className="flex flex-wrap gap-2 mt-2 relative z-10">
+                      
+                      <h2 className="text-2xl lg:text-3xl font-extrabold mb-5" style={{ color: '#015231', fontFamily: 'var(--font-display)' }}>
+                        {name}
+                      </h2>
+                      
+                      <p className="text-base leading-relaxed mb-8" style={{ color: '#4B5563' }}>
+                        {summary}
+                      </p>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                         {tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full font-medium"
-                            style={{ background: 'rgba(255,255,255,0.12)', color: accentIsLight ? '#013d27' : '#defbbc' }}
-                          >
-                            <CheckCircle2 size={10} style={{ color: accentIsLight ? '#013d27' : '#78d750', flexShrink: 0 }} />
+                          <div key={tag} className="flex items-center gap-2 text-sm font-medium" style={{ color: '#374151' }}>
+                            <CheckCircle2 size={16} style={{ color: '#8ec63f', flexShrink: 0 }} />
                             {tag}
-                          </span>
+                          </div>
                         ))}
                       </div>
-                    </div>
-
-                    {/* ── Content panel ────────────────── */}
-                    <div
-                      className={`flex flex-col justify-between p-8 lg:p-10 bg-white ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
-                    >
-                      {/* Step badge */}
-                      <div>
-                        <div className="flex items-center gap-3 mb-5">
-                          <span
-                            className="text-xs font-bold px-3 py-1 rounded-full"
-                            style={{ background: '#f8fbf2', color: '#015231', border: '1px solid #defbbc' }}
-                          >
-                            Lĩnh vực {String(idx + 1).padStart(2, '0')}
-                          </span>
-                          {/* Small leaf decor */}
-                          <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
-                            <path d="M16 2 C10 5, 4 11, 5 18 C6 24, 10 28, 16 30 C22 28, 26 24, 27 18 C28 11, 22 5, 16 2Z" fill="#defbbc"/>
-                          </svg>
-                        </div>
-
-                        <p className="text-base leading-relaxed mb-6" style={{ color: '#374151' }}>
-                          {summary}
-                        </p>
-                      </div>
-
-                      {/* CTA row */}
-                      <div className="flex items-center gap-4 pt-4" style={{ borderTop: '1px solid #f8fbf2' }}>
-                        <Link
-                          href={`/${locale}/business-segments/${sector.slug}`}
-                          className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-[#013d27] hover:text-white transition-all bg-[#8ec63f] hover:bg-[#015231] rounded-full"
-                          aria-label={`${locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}: ${name}`}
-                        >
-                          {locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}
-                          <ArrowRight size={14} />
-                        </Link>
-                        <Link
-                          href={`/${locale}/contact`}
-                          className="text-sm font-medium link-underline"
-                          style={{ color: '#015231' }}
-                        >
-                          {locale === 'vi' ? 'Liên hệ tư vấn' : locale === 'en' ? 'Get a quote' : '获取报价'}
-                        </Link>
-                      </div>
+                      
+                      <Link
+                        href={`/${locale}/business-segments/${sector.slug}`}
+                        className="inline-flex items-center gap-2 px-7 py-3 text-sm font-medium text-white transition-all hover:gap-3"
+                        style={{ background: 'var(--color-primary-dark)', borderRadius: '4px' }}
+                      >
+                        {locale === 'vi' ? 'Xem chi tiết' : locale === 'en' ? 'View Details' : '查看详情'}
+                        <ArrowRight size={16} />
+                      </Link>
                     </div>
                   </div>
                 </AnimateIn>

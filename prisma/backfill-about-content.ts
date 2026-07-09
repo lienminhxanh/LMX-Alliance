@@ -2,10 +2,17 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// One-time backfill: seeds the new About-page CMS fields on CompanySettings
-// with the text that was previously hardcoded in about/page.tsx, so Section 1
-// (intro) and Section 2 (open letter) aren't empty right after migration.
-// Uses upsert so it's safe whether or not the singleton row already exists.
+// ⚠️ ONE-TIME BACKFILL — already executed 2026-07-09, do NOT re-run. ⚠️
+//
+// Purpose: seeded the new About-page CMS fields (aboutIntro*, aboutLetter*)
+// on the CompanySettings singleton with the text that was previously
+// hardcoded in about/page.tsx, so Section 1 (intro) and Section 2 (open
+// letter) weren't empty right after the schema migration.
+//
+// Re-running this script will OVERWRITE any About-page content edited since
+// via the admin form (Settings → Company → "About Page Content"). It is kept
+// in the repo only as a record of the original seed values — do not wire it
+// into `npm run` scripts or CI.
 async function main() {
   const aboutData = {
     aboutIntroVI:

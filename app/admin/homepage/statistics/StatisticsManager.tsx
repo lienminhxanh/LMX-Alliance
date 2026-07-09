@@ -27,11 +27,21 @@ export function StatisticsManager({ initialStats }: { initialStats: any[] }) {
     setSaving((s) => ({ ...s, [idx]: false }));
   };
 
+  const [deleting, setDeleting] = useState<Record<number, boolean>>({});
+
   const removeStat = async (stat: Stat, idx: number) => {
-    if (!confirm('Delete?')) return;
-    if (stat.id) await deleteStatistic(stat.id);
-    setStats((s) => s.filter((_, i) => i !== idx));
-    router.refresh();
+    if (!confirm('Are you sure you want to delete this statistic?')) return;
+    setDeleting((d) => ({ ...d, [idx]: true }));
+    try {
+      if (stat.id) await deleteStatistic(stat.id);
+      setStats((s) => s.filter((_, i) => i !== idx));
+      router.refresh();
+    } catch (e) {
+      console.error(e);
+      alert('Failed to delete statistic.');
+    } finally {
+      setDeleting((d) => ({ ...d, [idx]: false }));
+    }
   };
 
   return (
@@ -49,7 +59,7 @@ export function StatisticsManager({ initialStats }: { initialStats: any[] }) {
             <Input label="Label (ZH)" value={stat.labelZH} onChange={(e) => updateStat(idx, 'labelZH', e.target.value)} />
           </div>
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" size="sm" onClick={() => removeStat(stat, idx)}><Trash2 size={13} className="text-[#DC2626]" /></Button>
+            <Button variant="outline" size="sm" loading={deleting[idx]} onClick={() => removeStat(stat, idx)}><Trash2 size={13} className="text-[#DC2626]" /></Button>
             <Button size="sm" loading={saving[idx]} onClick={() => saveStat(stat, idx)}><Save size={13} /> Save</Button>
           </div>
         </Card>

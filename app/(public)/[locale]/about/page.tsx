@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
-import { Target, Eye, Shield, Users, TrendingUp, Leaf, Award, CheckCircle2, FileText, Link2 } from 'lucide-react';
+import { Target, Shield, Users, TrendingUp, Leaf, Award, CheckCircle2, FileText, Link2 } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
 import Image from 'next/image';
@@ -35,70 +35,35 @@ export async function generateMetadata(
 const coreValues = [
   {
     icon: Shield,
+    image: '/images/about/about-hero.webp',
     titleVI: 'Chính trực', titleEN: 'Integrity', titleZH: '诚信',
-    descVI: 'Trung thực và minh bạch trong mọi hoạt động kinh doanh, tuân thủ nghiêm ngặt quy định pháp luật.',
-    descEN: 'Honest and transparent in all business activities, strictly complying with legal regulations.',
-    descZH: '在所有商业活动中诚实透明，严格遵守法律规定。',
+    descVI: 'Trung thực, minh bạch trong mọi hoạt động và tuân thủ pháp luật.',
+    descEN: 'Honesty and transparency in all activities, complying with laws.',
+    descZH: '诚信透明，遵守法律。',
   },
   {
     icon: Users,
+    image: '/images/about/mission-card.webp',
     titleVI: 'Hợp tác', titleEN: 'Collaboration', titleZH: '合作',
-    descVI: 'Xây dựng quan hệ đối tác bền vững với khách hàng, đối tác và cộng đồng.',
-    descEN: 'Building sustainable partnerships with clients, partners and the community.',
-    descZH: '与客户、合作伙伴和社区建立可持续的合作关系。',
+    descVI: 'Xây dựng mối quan hệ hợp tác bền vững với mọi đối tác.',
+    descEN: 'Building sustainable partnerships with all stakeholders.',
+    descZH: '与所有合作伙伴建立长期可持续关系。',
   },
   {
     icon: TrendingUp,
+    image: '/images/about/vision-card.webp',
     titleVI: 'Hiệu quả', titleEN: 'Efficiency', titleZH: '高效',
-    descVI: 'Cung cấp giải pháp toàn diện, hiệu quả, tối ưu chi phí cho khách hàng và đối tác.',
-    descEN: 'Providing comprehensive, efficient and cost-effective solutions for clients and partners.',
-    descZH: '为客户和合作伙伴提供全面、高效、具有成本效益的解决方案。',
+    descVI: 'Giải pháp tối ưu, mang lại giá trị thiết thực và tiết kiệm chi phí.',
+    descEN: 'Optimal solutions, bringing real value and cost efficiency.',
+    descZH: '提供高效、优化成本的实用解决方案。',
   },
   {
     icon: Leaf,
+    image: '/images/about/core-values-bg.webp',
     titleVI: 'Bền vững', titleEN: 'Sustainability', titleZH: '可持续',
-    descVI: 'Phát triển kinh doanh gắn liền với bảo vệ môi trường và phát triển kinh tế xanh.',
-    descEN: 'Business development aligned with environmental protection and green economy development.',
-    descZH: '业务发展与环境保护和绿色经济发展相结合。',
-  },
-];
-
-const sectors = [
-  {
-    no: '01',
-    titleVI: 'Xuất nhập khẩu & Logistics',
-    titleEN: 'Import-Export & Logistics',
-    titleZH: '进出口与物流',
-    descVI: 'Giao nhận và vận tải hàng hóa xuất nhập khẩu, tối ưu chuỗi cung ứng.',
-    descEN: 'Freight forwarding and transport for import-export goods, supply chain optimization.',
-    descZH: '进出口货物货运代理和运输，供应链优化。',
-  },
-  {
-    no: '02',
-    titleVI: 'Xây dựng công nghiệp',
-    titleEN: 'Industrial Construction',
-    titleZH: '工业建设',
-    descVI: 'Thi công xây lắp công trình dân dụng và công nghiệp theo tiêu chuẩn kỹ thuật cao.',
-    descEN: 'Construction of civil and industrial works to high technical standards.',
-    descZH: '按照高技术标准建造民用和工业建筑。',
-  },
-  {
-    no: '03',
-    titleVI: 'Thu mua phế liệu',
-    titleEN: 'Scrap Procurement',
-    titleZH: '废料采购',
-    descVI: 'Thu mua và kinh doanh phế liệu, tái chế vật liệu góp phần kinh tế tuần hoàn.',
-    descEN: 'Purchasing and trading scrap materials, recycling to contribute to the circular economy.',
-    descZH: '采购和销售废料，回收材料以促进循环经济。',
-  },
-  {
-    no: '04',
-    titleVI: 'Xử lý chất thải nguy hại',
-    titleEN: 'Hazardous Waste Management',
-    titleZH: '危险废物处理',
-    descVI: 'Liên kết với Huê Phương VN xử lý chất thải nguy hại đúng quy định pháp luật và tiêu chuẩn môi trường.',
-    descEN: 'Partnering with Huê Phương VN to manage hazardous waste in compliance with legal and environmental standards.',
-    descZH: '与Huê Phương VN合作，按照法律和环境标准处理危险废物。',
+    descVI: 'Đồng hành cùng bảo vệ môi trường và kinh tế tuần hoàn.',
+    descEN: 'Committed to environmental protection and circular economy.',
+    descZH: '致力于环境保护和循环经济发展。',
   },
 ];
 
@@ -115,7 +80,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const t = await getTranslations({ locale, namespace: 'about' });
 
   const [leaders, settings, huePhuongPartner] = await Promise.all([
-    prisma.leader.findMany({ orderBy: { orderIndex: 'asc' }, take: 4 }),
+    prisma.leader.findMany({ orderBy: { orderIndex: 'asc' } }),
     prisma.companySettings.findFirst(),
     prisma.partner.findUnique({ where: { id: 'hue-phuong-vn' } }),
   ]);
@@ -125,7 +90,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   return (
     <>
       {/* ── Hero ─────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24" style={{ background: '#015231' }}>
+      <section className="relative overflow-hidden py-24" style={{ background: 'var(--color-primary-dark)' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg"
           alt=""
@@ -134,7 +99,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           className="object-cover hero-zoom"
           aria-hidden
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.75) 60%, rgba(1,82,49,0.55) 100%)' }} aria-hidden />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.5) 60%, rgba(15, 23, 42, 0.2) 100%)' }} aria-hidden />
         <LeafDecor variant="branch" count={8} color="#78d750" />
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-8" style={{ background: '#78d750' }} />
@@ -148,13 +113,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 : locale === 'en' ? 'LMX Green Alliance Joint Stock Company'
                 : 'LMX绿色联盟股份公司'}
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed" style={{ color: '#defbbc' }}>
-              {locale === 'vi'
-                ? 'Trân trọng cảm ơn Quý Khách hàng và Quý Đối tác đã tin tưởng và đồng hành cùng Công ty. Sự hợp tác của Quý vị là nền tảng để LMX không ngừng nâng cao chất lượng dịch vụ và phát triển các giải pháp an toàn, hiệu quả và bền vững.'
-                : locale === 'en'
-                ? 'We sincerely thank our clients and partners for their trust and companionship. Your cooperation is the foundation for LMX to continuously improve service quality and develop safe, effective, and sustainable solutions.'
-                : '衷心感谢贵客户和合作伙伴的信任与陪伴。您的合作是LMX不断提升服务质量、发展安全、高效、可持续解决方案的基础。'}
-            </p>
+            {settings?.tagline && (
+              <p className="max-w-2xl text-base leading-relaxed" style={{ color: '#defbbc' }}>
+                {settings.tagline}
+              </p>
+            )}
           </AnimateIn>
         </div>
       </section>
@@ -178,138 +141,101 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
+      {/* ── Giới thiệu công ty ────────────────────── */}
+      {settings && (
+        <section className="section-padding">
+          <div className="container-max">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <AnimateIn from="left">
+                <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#015231' }}>
+                  {locale === 'vi' ? 'Giới thiệu' : locale === 'en' ? 'Introduction' : '简介'}
+                </p>
+                <h2 className="mb-6" style={{ color: '#015231' }}>
+                  {locale === 'vi' ? 'Giới thiệu công ty' : locale === 'en' ? 'Company Introduction' : '公司简介'}
+                </h2>
+                <div className="space-y-4 text-base leading-relaxed" style={{ color: '#374151' }}>
+                  {((settings as any)[`aboutIntro${L}`] as string)
+                    .split('\n\n')
+                    .filter(Boolean)
+                    .map((para, idx) => <p key={idx}>{para}</p>)}
+                </div>
+              </AnimateIn>
+
+              <AnimateIn delay={0.1} from="right">
+                <div className="relative h-[320px] md:h-[420px] w-full" style={{ borderRadius: '4px', overflow: 'hidden', boxShadow: '0 8px 24px rgba(1, 82, 49, 0.06)' }}>
+                  <Image
+                    src="/images/about/about-hero.webp"
+                    alt={locale === 'vi' ? 'Trụ sở và hoạt động của Công ty Cổ phần Liên Minh Xanh LMX'
+                      : locale === 'en' ? 'LMX Green Alliance JSC headquarters and operations'
+                      : 'LMX绿色联盟股份公司总部及运营'}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+              </AnimateIn>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Thư ngỏ ──────────────────────────────── */}
-      <section className="section-padding">
-        <div className="container-max">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <AnimateIn from="left">
-              <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#015231' }}>
-                {locale === 'vi' ? 'Thư ngỏ' : locale === 'en' ? 'Open Letter' : '致辞'}
-              </p>
-              <h2 className="mb-6" style={{ color: '#015231' }}>
-                {locale === 'vi' ? 'Kính gửi Quý Khách hàng & Đối tác'
-                  : locale === 'en' ? 'Dear Clients & Partners'
-                  : '尊敬的客户与合作伙伴'}
-              </h2>
-              <div className="space-y-4 text-base leading-relaxed" style={{ color: '#374151' }}>
-                <p>
-                  {locale === 'vi'
-                    ? 'Trong bối cảnh yêu cầu về quản lý môi trường, an toàn chất thải và phát triển kinh tế xanh ngày càng được chú trọng, Công ty Cổ phần Liên Minh Xanh (LMX) được thành lập với định hướng trở thành doanh nghiệp đa lĩnh vực, cung cấp giải pháp toàn diện – hiệu quả – minh bạch, tuân thủ nghiêm ngặt các quy định pháp luật, góp phần bảo vệ môi trường và tạo giá trị bền vững cho cộng đồng.'
-                    : locale === 'en'
-                    ? 'In the context of increasing demands for environmental management, waste safety, and green economic development, LMX Green Alliance Joint Stock Company was founded with the mission of becoming a multi-sector enterprise providing comprehensive, efficient, and transparent solutions — strictly complying with legal regulations, contributing to environmental protection and creating sustainable value for the community.'
-                    : '在环境管理、废物安全和绿色经济发展要求日益受到重视的背景下，LMX绿色联盟股份公司成立，旨在成为多元化企业，提供全面、高效、透明的解决方案，严格遵守法律法规，为环境保护和社区可持续发展做出贡献。'}
-                </p>
-                <p>
-                  {locale === 'vi'
-                    ? 'Với định hướng phát triển bền vững, LMX cam kết mang đến giải pháp dịch vụ đồng bộ, an toàn và hiệu quả, đáp ứng tối đa nhu cầu của khách hàng và đối tác, đồng thời đóng góp tích cực vào mục tiêu phát triển kinh tế xanh và bảo vệ môi trường.'
-                    : locale === 'en'
-                    ? 'With a sustainable development orientation, LMX is committed to delivering synchronous, safe and effective service solutions, maximally meeting the needs of clients and partners, while positively contributing to the green economic development and environmental protection goals.'
-                    : '秉持可持续发展方向，LMX致力于提供同步、安全、高效的服务解决方案，最大程度满足客户和合作伙伴的需求，同时积极为绿色经济发展和环境保护目标做出贡献。'}
-                </p>
-              </div>
-            </AnimateIn>
+      {settings && (
+        <section className="section-padding" style={{ background: '#f8fbf2' }}>
+          <div className="container-max">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <AnimateIn from="left">
+                <div className="relative h-[320px] md:h-[420px] w-full" style={{ borderRadius: '4px', overflow: 'hidden', boxShadow: '0 8px 24px rgba(1, 82, 49, 0.06)' }}>
+                  <Image
+                    src="/images/about/about-letter-v2.webp"
+                    alt={locale === 'vi' ? 'Nhà máy và cơ sở hạ tầng công nghiệp, minh họa định hướng phát triển bền vững của LMX'
+                      : locale === 'en' ? 'Industrial plant and infrastructure, illustrating LMX’s sustainable development orientation'
+                      : '工业厂房与基础设施，展现LMX的可持续发展方向'}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+              </AnimateIn>
 
-            {/* Business sectors */}
-            <AnimateIn delay={0.1} from="right">
-              <p className="text-xs uppercase tracking-widest mb-4 font-medium" style={{ color: '#6B7280' }}>
-                {locale === 'vi' ? 'Lĩnh vực hoạt động chính'
-                  : locale === 'en' ? 'Core Business Sectors'
-                  : '主要业务领域'}
-              </p>
-              <div className="space-y-3">
-                {sectors.map((s) => {
-                  const title = (s as any)[`title${L}`];
-                  const desc  = (s as any)[`desc${L}`];
-                  return (
-                    <div key={s.no} className="flex gap-4 p-4 border" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
-                      <span className="text-sm font-bold flex-shrink-0 mt-0.5" style={{ color: '#015231' }}>{s.no}</span>
-                      <div>
-                        <p className="font-semibold text-sm mb-0.5" style={{ color: '#015231' }}>{title}</p>
-                        <p className="text-xs leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </AnimateIn>
+              <AnimateIn delay={0.1} from="right">
+                <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#015231' }}>
+                  {locale === 'vi' ? 'Thư ngỏ' : locale === 'en' ? 'Open Letter' : '致辞'}
+                </p>
+                <h2 className="mb-6" style={{ color: '#015231' }}>
+                  {(settings as any)[`aboutLetterTitle${L}`]}
+                </h2>
+                <div className="space-y-4 text-base leading-relaxed" style={{ color: '#374151' }}>
+                  {((settings as any)[`aboutLetter${L}`] as string)
+                    .split('\n\n')
+                    .filter(Boolean)
+                    .map((block, idx) => {
+                      const lines = block.split('\n').filter(Boolean);
+                      const listStart = lines.findIndex((line) => line.startsWith('- '));
+                      if (listStart === -1) {
+                        return <p key={idx}>{block}</p>;
+                      }
+                      const intro = lines.slice(0, listStart).join(' ');
+                      const items = lines.slice(listStart).map((line) => line.replace(/^- /, ''));
+                      return (
+                        <div key={idx}>
+                          {intro && <p className="mb-2">{intro}</p>}
+                          <ul className="space-y-1.5 list-disc list-inside">
+                            {items.map((item, i) => <li key={i}>{item}</li>)}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                </div>
+                <div className="mt-8 pt-6 border-t inline-block" style={{ borderColor: '#defbbc' }}>
+                  <p className="font-semibold" style={{ color: '#015231' }}>{settings.name}</p>
+                  <p className="text-sm" style={{ color: '#6B7280' }}>{(settings as any)[`aboutLetterSigner${L}`]}</p>
+                </div>
+              </AnimateIn>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── Mission & Vision ─────────────────────── */}
-      <section className="section-padding" style={{ background: '#f8fbf2' }}>
-        <div className="container-max">
-          <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>
-              {locale === 'vi' ? 'Định hướng phát triển' : locale === 'en' ? 'Our Direction' : '发展方向'}
-            </p>
-            <h2 className="mb-10">{t('mission.title')} &amp; {t('vision.title')}</h2>
-          </AnimateIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <AnimateIn delay={0.05} scale>
-              <div className="p-8 border h-full group card-lift bg-white" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
-                <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
-                  <Target size={22} style={{ color: '#8ec63f' }} />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">{t('mission.title')}</h3>
-                <p className="leading-relaxed" style={{ color: '#6B7280' }}>
-                  {locale === 'vi'
-                    ? 'Cung cấp giải pháp toàn diện – hiệu quả – minh bạch trong các lĩnh vực logistics, xây dựng, thu mua phế liệu và xử lý chất thải, tuân thủ nghiêm ngặt các quy định pháp luật, góp phần bảo vệ môi trường và tạo giá trị bền vững cho cộng đồng.'
-                    : locale === 'en'
-                    ? 'Providing comprehensive, efficient and transparent solutions in logistics, construction, scrap procurement, and waste management — strictly complying with regulations, protecting the environment and creating sustainable value for the community.'
-                    : '在物流、建设、废料采购和废物处理领域提供全面、高效、透明的解决方案，严格遵守法规，保护环境，为社区创造可持续价值。'}
-                </p>
-                <div className="mt-6 pt-5" style={{ borderTop: '1px solid #defbbc' }}>
-                  <ul className="space-y-2">
-                    {(locale === 'vi'
-                      ? ['Phát triển doanh nghiệp bền vững', 'Tạo việc làm chất lượng cao', 'Bảo vệ môi trường']
-                      : locale === 'en'
-                      ? ['Sustainable business growth', 'Creating quality employment', 'Environmental protection']
-                      : ['可持续业务发展', '创造优质就业', '环境保护']
-                    ).map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#6B7280' }}>
-                        <CheckCircle2 size={14} style={{ color: '#8ec63f', flexShrink: 0 }} />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </AnimateIn>
-
-            <AnimateIn delay={0.1} scale>
-              <div className="p-8 h-full text-white" style={{ background: '#015231', borderRadius: '4px' }}>
-                <div className="w-12 h-12 flex items-center justify-center mb-5" style={{ background: 'rgba(255,255,255,0.12)', borderRadius: '4px' }}>
-                  <Eye size={22} className="text-white" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3" style={{ color: '#fff' }}>{t('vision.title')}</h3>
-                <p className="leading-relaxed" style={{ color: '#defbbc' }}>
-                  {locale === 'vi'
-                    ? 'Trở thành doanh nghiệp đa lĩnh vực hàng đầu, dẫn đầu về kinh tế xanh tại Việt Nam — đồng thời là đối tác tin cậy về giải pháp môi trường bền vững trong khu vực Đông Nam Á.'
-                    : locale === 'en'
-                    ? 'Becoming a leading multi-sector enterprise at the forefront of green economy in Vietnam — and a trusted partner for sustainable environmental solutions in the Southeast Asian region.'
-                    : '成为越南绿色经济领域领先的多元化企业，同时成为东南亚地区可持续环境解决方案的可信赖合作伙伴。'}
-                </p>
-                <div className="mt-6 pt-5" style={{ borderTop: '1px solid #013d27' }}>
-                  <ul className="space-y-2">
-                    {(locale === 'vi'
-                      ? ['Dẫn đầu về kinh tế xanh tại Việt Nam', 'Mở rộng dịch vụ ra khu vực Đông Nam Á', 'Phát triển bền vững và bảo vệ môi trường']
-                      : locale === 'en'
-                      ? ['Lead green economy in Vietnam', 'Expand services across Southeast Asia', 'Sustainable development & environment']
-                      : ['引领越南绿色经济', '在东南亚拓展服务', '可持续发展与环境保护']
-                    ).map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#78d750' }}>
-                        <CheckCircle2 size={14} style={{ color: '#78d750', flexShrink: 0 }} />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </AnimateIn>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── Core Values ──────────────────────────── */}
       <section className="section-padding">
@@ -317,19 +243,57 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <AnimateIn>
             <h2 className="mb-10">{t('values.title')}</h2>
           </AnimateIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="flex flex-col md:flex-row gap-4 w-full h-[450px]">
             {coreValues.map((v, idx) => {
               const Icon = v.icon;
               const title = (v as any)[`title${L}`];
               const desc  = (v as any)[`desc${L}`];
+              const image = v.image;
               return (
-                <AnimateIn key={title} delay={idx * 0.07}>
-                  <div className="card-lift bg-white p-6 border h-full" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
-                    <div className="w-10 h-10 flex items-center justify-center mb-4" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
-                      <Icon size={20} strokeWidth={1.5} style={{ color: '#8ec63f' }} />
+                <AnimateIn
+                  key={title}
+                  delay={idx * 0.07}
+                  className="expanding-card h-[220px] md:h-full"
+                >
+                  <div
+                    className="relative w-full h-full overflow-hidden group"
+                    style={{ borderRadius: '4px', boxShadow: '0 8px 24px rgba(1, 82, 49, 0.06)' }}
+                  >
+                    {/* Background Image */}
+                    <Image
+                      src={image}
+                      alt={title}
+                      fill
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                    />
+
+                    {/* Dark Gradient Overlay (no solid color block, just subtle shading for text contrast) */}
+                    <div
+                      className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-90"
+                      style={{
+                        background: 'linear-gradient(to bottom, rgba(1, 82, 49, 0) 0%, rgba(1, 82, 49, 0.3) 50%, rgba(1, 44, 26, 0.9) 100%)',
+                        zIndex: 1
+                      }}
+                      aria-hidden
+                    />
+
+                    {/* Content */}
+                    <div className="absolute inset-0 p-5 z-10 flex flex-col justify-end">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-9 h-9 flex items-center justify-center bg-white/20 backdrop-blur-md" style={{ borderRadius: '4px' }}>
+                          <Icon size={18} className="text-[#8ec63f]" />
+                        </div>
+                        <h3 className="text-sm md:text-base font-bold text-white uppercase tracking-wider" style={{ fontFamily: 'var(--font-display)' }}>
+                          {title}
+                        </h3>
+                      </div>
+
+                      {/* Description - expanded on hover */}
+                      <p className="text-xs text-white/90 leading-relaxed max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
+                        {desc}
+                      </p>
                     </div>
-                    <h3 className="font-semibold mb-2" style={{ fontSize: '1rem' }}>{title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
                   </div>
                 </AnimateIn>
               );
@@ -535,46 +499,112 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       )}
 
       {/* ── Leadership ───────────────────────────── */}
-      {leaders.length > 0 && (
-        <section className="section-padding" style={{ background: '#f8fbf2' }}>
-          <div className="container-max">
-            <AnimateIn>
-              <h2 className="mb-10">{t('leadership.title')}</h2>
-            </AnimateIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {leaders.map((leader, idx) => {
-                const name     = (leader as any)[`name${L}`];
-                const position = (leader as any)[`position${L}`];
-                return (
-                  <AnimateIn key={leader.id} delay={idx * 0.08}>
-                    <div className="card-lift border bg-white overflow-hidden group" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
-                      <div className="aspect-[3/4] overflow-hidden" style={{ background: '#f8fbf2', position: 'relative' }}>
-                        {leader.photo ? (
-                          <Image
-                            src={leader.photo}
-                            alt={name}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 300px"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <Users size={48} strokeWidth={1} style={{ color: '#defbbc' }} />
+      {leaders.length > 0 && (() => {
+        const isTier1 = (l: typeof leaders[0]) => {
+          const posVI = (l.positionVI || '').toLowerCase();
+          const posEN = (l.positionEN || '').toLowerCase();
+          
+          if (posVI.includes('phó') || posEN.includes('vice') || posEN.includes('deputy')) {
+            return false;
+          }
+          
+          return (
+            posVI.includes('chủ tịch') ||
+            posVI.includes('tổng giám đốc') ||
+            posEN.includes('chairman') ||
+            posEN.includes('ceo') ||
+            posEN.includes('general director') ||
+            posEN.includes('managing director')
+          );
+        };
+
+        const tier1Leaders = leaders.filter(isTier1);
+        const tier2Leaders = leaders.filter(l => !isTier1(l));
+
+        return (
+          <section className="section-padding" style={{ background: '#f8fbf2' }}>
+            <div className="container-max">
+              <AnimateIn>
+                <h2 className="mb-12 text-center text-[#015231]" style={{ fontFamily: 'var(--font-display)', fontWeight: 600 }}>
+                  {t('leadership.title')}
+                </h2>
+              </AnimateIn>
+
+              <div className="space-y-12">
+                {/* Chairman & CEO Row */}
+                {tier1Leaders.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-6">
+                    {tier1Leaders.map((leader, idx) => {
+                      const name     = (leader as any)[`name${L}`];
+                      const position = (leader as any)[`position${L}`];
+                      return (
+                        <AnimateIn key={leader.id} delay={idx * 0.08} className="w-full sm:w-[220px] flex-shrink-0">
+                          <div className="card-lift border bg-white overflow-hidden group" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
+                            <div className="aspect-[3/4] overflow-hidden" style={{ background: '#f8fbf2', position: 'relative' }}>
+                              {leader.photo ? (
+                                <Image
+                                  src={leader.photo}
+                                  alt={name}
+                                  fill
+                                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                  sizes="(max-width: 640px) 100vw, 220px"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                  <Users size={48} strokeWidth={1} style={{ color: '#defbbc' }} />
+                                </div>
+                              )}
+                            </div>
+                            <div className="p-4 text-center" style={{ borderTop: '3px solid #8ec63f' }}>
+                              <p className="font-semibold text-center text-sm">{name}</p>
+                              <p className="text-xs text-center mt-1" style={{ color: '#6B7280' }}>{position}</p>
+                            </div>
                           </div>
-                        )}
-                      </div>
-                      <div className="p-4" style={{ borderTop: '3px solid #8ec63f' }}>
-                        <p className="font-semibold">{name}</p>
-                        <p className="text-sm mt-0.5" style={{ color: '#6B7280' }}>{position}</p>
-                      </div>
-                    </div>
-                  </AnimateIn>
-                );
-              })}
+                        </AnimateIn>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Other Leaders Row */}
+                {tier2Leaders.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-6">
+                    {tier2Leaders.map((leader, idx) => {
+                      const name     = (leader as any)[`name${L}`];
+                      const position = (leader as any)[`position${L}`];
+                      return (
+                        <AnimateIn key={leader.id} delay={idx * 0.08} className="w-full sm:w-[220px] flex-shrink-0">
+                          <div className="card-lift border bg-white overflow-hidden group" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
+                            <div className="aspect-[3/4] overflow-hidden" style={{ background: '#f8fbf2', position: 'relative' }}>
+                              {leader.photo ? (
+                                <Image
+                                  src={leader.photo}
+                                  alt={name}
+                                  fill
+                                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                  sizes="(max-width: 640px) 100vw, 220px"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                  <Users size={48} strokeWidth={1} style={{ color: '#defbbc' }} />
+                                </div>
+                              )}
+                            </div>
+                            <div className="p-4 text-center" style={{ borderTop: '3px solid #8ec63f' }}>
+                              <p className="font-semibold text-center text-sm">{name}</p>
+                              <p className="text-xs text-center mt-1" style={{ color: '#6B7280' }}>{position}</p>
+                            </div>
+                          </div>
+                        </AnimateIn>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        );
+      })()}
 
       {/* ── Company Info ─────────────────────────── */}
       {settings && (
@@ -589,7 +619,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
                 <div>
-                  <p className="leading-relaxed mb-6" style={{ color: '#6B7280' }}>{settings.description}</p>
                   <div
                     className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium"
                     style={{ background: '#f8fbf2', color: '#015231', border: '1px solid #defbbc', borderRadius: '2px' }}

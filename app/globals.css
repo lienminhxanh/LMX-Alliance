@@ -3,8 +3,8 @@
 :root {
   /* === LMX Alliance Brand Palette — Xanh Tái Chế === */
   --color-primary: #8ec63f;        /* primary green — buttons, active, links */
-  --color-primary-dark: #015231;   /* deep forest green — hero / footer bg; also canonical badge/tag TEXT color for Phase 2 components */
-  --color-primary-mid: #013d27;    /* mid dark green — secondary dark sections */
+  --color-primary-dark: #016B3E;   /* bright forest green — fresh look */
+  --color-primary-mid: #015231;    /* mid forest green — secondary dark sections */
   --color-accent: #78d750;         /* vivid accent green — icons, highlights */
   --color-lime: #78d750;           /* vivid green — decorative elements */
   --color-lime-pale: #defbbc;      /* light mint — subtle text on dark bg; also canonical badge/tag BACKGROUND for Phase 2 components */
@@ -13,7 +13,7 @@
   --color-neutral-bg: #f0f7e6;     /* near-white green — card hover bg */
   --color-neutral-dark: #6B7280;
   --color-border: #defbbc;         /* soft mint border */
-  --color-text-heading: #015231;
+  --color-text-heading: var(--color-primary-dark);
   --color-text-body: #374151;
   --color-text-secondary: #6B7280;
   --color-error: #DC2626;
@@ -58,7 +58,7 @@
   /* Layout */
   --header-height: 64px;
   --sidebar-width: 240px;
-  --container-max: 1200px;
+  --container-max: 1280px;
 
   --background: #ffffff;
   --foreground: #374151;
@@ -330,3 +330,16 @@
 ::-webkit-scrollbar-track { background: var(--color-neutral-light); }
 ::-webkit-scrollbar-thumb { background: var(--color-lime-pale); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+/* Expanding Cards for Core Values */
+.expanding-card {
+  flex: 1;
+  transition: flex 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 768px) {
+  .expanding-card:hover {
+    flex: 2.8;
+  }
+}
+

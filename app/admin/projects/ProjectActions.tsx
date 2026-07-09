@@ -21,6 +21,7 @@ interface Project { id: string; nameVI: string; nameEN: string; nameZH: string; 
 export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; project?: Project }) {
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [form, setForm] = useState({ nameVI: project?.nameVI ?? '', nameEN: project?.nameEN ?? '', nameZH: project?.nameZH ?? '', descVI: project?.descVI ?? '', descEN: project?.descEN ?? '', descZH: project?.descZH ?? '', images: (project?.images as string[]) ?? [], status: project?.status ?? 'ONGOING' as ProjectStatus, published: project?.published ?? false, scale: project?.scale ?? '', location: project?.location ?? '' });
   const router = useRouter();
 
@@ -35,6 +36,20 @@ export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; pro
     } finally { setSaving(false); }
   };
 
+  const handleDelete = async () => {
+    if (!confirm('Are you sure you want to delete this project?')) return;
+    setDeleting(true);
+    try {
+      await deleteProject(project!.id); 
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      alert('Failed to delete. It may be linked to other records.');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <>
       {mode === 'create' ? (
@@ -42,7 +57,7 @@ export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; pro
       ) : (
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Edit2 size={13} /></Button>
-          <Button variant="ghost" size="sm" onClick={async () => { if (!confirm('Delete?')) return; await deleteProject(project!.id); router.refresh(); }}><Trash2 size={13} className="text-[#DC2626]" /></Button>
+          <Button variant="ghost" size="sm" loading={deleting} onClick={handleDelete}><Trash2 size={13} className="text-[#DC2626]" /></Button>
         </div>
       )}
       <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Project' : 'Edit Project'} size="lg">
@@ -62,6 +77,12 @@ export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; pro
             <Input label="Scale" placeholder="e.g. 50 ha" value={form.scale} onChange={(e) => set('scale', e.target.value)} />
             <Input label="Location" placeholder="e.g. Long An" value={form.location} onChange={(e) => set('location', e.target.value)} />
           </div>
+          <Textarea 
+            label="Images (URLs, one per line)" 
+            rows={2} 
+            value={form.images.join('\n')} 
+            onChange={(e) => set('images', e.target.value.split('\n').filter(s => s.trim() !== ''))} 
+          />
           <Tabs defaultValue="vi">
             <TabsList><TabsTrigger value="vi">VI</TabsTrigger><TabsTrigger value="en">EN</TabsTrigger><TabsTrigger value="zh">ZH</TabsTrigger></TabsList>
             {(['vi', 'en', 'zh'] as const).map((lang) => {

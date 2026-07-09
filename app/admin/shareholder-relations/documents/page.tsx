@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { formatFileSize, formatDate } from '@/lib/utils';
 import { IRDocumentUpload } from './IRDocumentUpload';
+import { DeleteDocumentButton } from './DeleteDocumentButton';
 
 export default async function IRDocumentsPage() {
   const session = await auth();
@@ -27,6 +28,7 @@ export default async function IRDocumentsPage() {
               <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Year</th>
               <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Size</th>
               <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Uploaded</th>
+              <th className="px-4 py-3 text-right text-xs font-semibold text-[#6B7280] uppercase">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -39,9 +41,12 @@ export default async function IRDocumentsPage() {
                 <td className="px-4 py-3 text-[#6B7280]">{d.year}</td>
                 <td className="px-4 py-3 text-[#6B7280]">{formatFileSize(d.fileSize)}</td>
                 <td className="px-4 py-3 text-[#6B7280]">{formatDate(d.uploadedAt)}</td>
+                <td className="px-4 py-3 text-right">
+                  <DeleteDocumentButton id={d.id} />
+                </td>
               </tr>
             ))}
-            {docs.length === 0 && <tr><td colSpan={5} className="px-4 py-8 text-center text-[#6B7280]">No documents yet</td></tr>}
+            {docs.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-[#6B7280]">No documents yet</td></tr>}
           </tbody>
         </table>
       </Card>

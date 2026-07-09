@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPin, Ruler } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 
 interface ProjectCardProps {
@@ -9,60 +8,73 @@ interface ProjectCardProps {
   name: string;
   scale?: string;
   location?: string;
+  scaleLabel?: string;
+  locationLabel?: string;
   href: string;
   delay?: number;
   className?: string;
 }
 
-export function ProjectCard({ image, statusLabel, name, scale, location, href, delay = 0, className }: ProjectCardProps) {
+export function ProjectCard({ 
+  image, 
+  statusLabel, 
+  name, 
+  scale, 
+  location, 
+  scaleLabel = 'Quy mô:', 
+  locationLabel = 'Vị trí:', 
+  href, 
+  delay = 0, 
+  className 
+}: ProjectCardProps) {
   const hasMeta = Boolean(scale || location);
 
   return (
     <AnimateIn delay={delay} className={className}>
       <Link
         href={href}
-        className="card-lift bg-white h-full flex flex-col group cursor-pointer border block"
-        style={{ borderColor: 'var(--color-lime-pale)', borderRadius: '4px', overflow: 'hidden' }}
+        className="flex flex-col md:flex-row gap-6 md:gap-8 group cursor-pointer items-start"
         aria-label={name}
       >
-        {image && (
-          <div className="relative w-full aspect-[4/3] overflow-hidden">
-            <Image
-              src={image}
-              alt={name}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
-          </div>
-        )}
-        <div className="p-6 flex-1 flex flex-col">
-          <span
-            className="inline-flex self-start items-center px-2 py-0.5 text-xs font-medium mb-3"
-            style={{ background: 'var(--color-lime-pale)', color: 'var(--color-primary-dark)', borderRadius: '4px' }}
-          >
+        {/* Left Side: Content */}
+        <div className="flex-1 flex flex-col order-2 md:order-1 mt-2 md:mt-0">
+          <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-2">
             {statusLabel}
           </span>
-          <h3 className="text-base font-semibold mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+          <h3 className="text-[14px] font-bold uppercase mb-3 leading-snug group-hover:opacity-80 transition-opacity" style={{ color: 'var(--color-primary)', fontFamily: 'var(--font-display)' }}>
             {name}
           </h3>
+          
           {hasMeta && (
-            <div className="mt-auto pt-3 flex flex-col gap-1.5 text-sm" style={{ color: 'var(--color-neutral-dark)' }}>
+            <div className="flex flex-col gap-2 text-[12px] text-gray-800">
               {scale && (
-                <span className="inline-flex items-center gap-1.5">
-                  <Ruler size={14} style={{ color: 'var(--color-primary)' }} />
-                  {scale}
-                </span>
+                <div className="flex items-start gap-3">
+                  <span className="font-bold min-w-[60px]">{scaleLabel}</span>
+                  <span className="flex-1">{scale}</span>
+                </div>
               )}
               {location && (
-                <span className="inline-flex items-center gap-1.5">
-                  <MapPin size={14} style={{ color: 'var(--color-primary)' }} />
-                  {location}
-                </span>
+                <div className="flex items-start gap-3">
+                  <span className="font-bold min-w-[60px]">{locationLabel}</span>
+                  <span className="flex-1">{location}</span>
+                </div>
               )}
             </div>
           )}
         </div>
+
+        {/* Right Side: Image */}
+        {image && (
+          <div className="w-full md:w-[50%] aspect-[4/3] relative overflow-hidden rounded-md order-1 md:order-2 flex-shrink-0" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+            <Image
+              src={image}
+              alt={name}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+        )}
       </Link>
     </AnimateIn>
   );

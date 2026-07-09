@@ -18,12 +18,24 @@ export default async function PartnersAdminPage() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {partners.map((p) => (
-          <Card key={p.id}>
-            <div className="flex items-center gap-3 mb-3">
-              {p.logo && <img src={p.logo} alt={p.nameVI} className="w-10 h-10 object-contain" />}
-              <div>
-                <p className="font-semibold text-[#1F2937]">{p.nameVI}</p>
-                <p className="text-xs text-[#6B7280]">{p.website}</p>
+          <Card key={p.id} className="transition-all duration-300 hover:shadow-md hover:border-[#defbbc]">
+            <div className="flex items-center gap-3 mb-4">
+              {p.logo ? (
+                <img src={p.logo} alt={p.nameVI} className="w-12 h-12 object-contain rounded border border-[#E8E9ED] bg-[#FAFAFA] p-1 flex-shrink-0" />
+              ) : (
+                <div 
+                  className="w-12 h-12 rounded flex items-center justify-center font-bold text-xs flex-shrink-0 text-white"
+                  style={{ 
+                    background: 'linear-gradient(135deg, #015231 0%, #8ec63f 100%)', 
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}
+                >
+                  {p.nameVI.split(/\s+/).filter(w => w.length > 0).map(w => w.charAt(0)).slice(0, 2).join('').toUpperCase()}
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-[#1F2937] truncate text-sm" title={p.nameVI}>{p.nameVI}</p>
+                <p className="text-xs text-[#6B7280] truncate">{p.website || 'No website'}</p>
               </div>
             </div>
             <PartnerActions mode="edit" partner={p} />

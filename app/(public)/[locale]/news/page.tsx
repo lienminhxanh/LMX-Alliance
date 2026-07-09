@@ -45,7 +45,7 @@ export default async function NewsPage({ params, searchParams }: {
 
   return (
     <>
-      <section className="py-24 relative overflow-hidden flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
+      <section className="py-24 relative overflow-hidden flex items-center" style={{ background: 'var(--color-primary-dark)', minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157487/lmx-migration/vf1nerboxp4phtvsp0yu.jpg"
           alt=""
@@ -56,7 +56,7 @@ export default async function NewsPage({ params, searchParams }: {
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          style={{ background: 'linear-gradient(90deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.5) 60%, rgba(15, 23, 42, 0.2) 100%)' }}
           aria-hidden
         />
         <div className="container-max relative w-full">
@@ -78,7 +78,7 @@ export default async function NewsPage({ params, searchParams }: {
                 style={{
                   borderRadius: 0,
                   background: !category ? '#8ec63f' : 'transparent',
-                  color: !category ? '#013d27' : '#6B7280',
+                  color: !category ? 'var(--color-primary-mid)' : '#6B7280',
                   borderColor: !category ? '#8ec63f' : '#defbbc',
                 }}
               >
@@ -92,7 +92,7 @@ export default async function NewsPage({ params, searchParams }: {
                   style={{
                     borderRadius: 0,
                     background: category === cat ? '#8ec63f' : 'transparent',
-                    color: category === cat ? '#013d27' : '#6B7280',
+                    color: category === cat ? 'var(--color-primary-mid)' : '#6B7280',
                     borderColor: category === cat ? '#8ec63f' : '#defbbc',
                   }}
                 >
@@ -120,7 +120,7 @@ export default async function NewsPage({ params, searchParams }: {
                 <div className="md:col-span-2 p-8 flex flex-col justify-center">
                   <span
                     className="inline-block text-xs font-medium px-2 py-1 mb-4 w-fit"
-                    style={{ background: '#f8fbf2', color: '#015231', borderRadius: '2px' }}
+                    style={{ background: '#f8fbf2', color: 'var(--color-primary-dark)', borderRadius: '2px' }}
                   >
                     {locale === 'vi' ? 'Nổi bật' : locale === 'en' ? 'Featured' : '精选'}
                   </span>
@@ -136,7 +136,7 @@ export default async function NewsPage({ params, searchParams }: {
                   <Link
                     href={`/${locale}/news/${(articles[0] as any)[`slug${L}`]}`}
                     className="inline-flex items-center gap-2 text-sm font-medium link-underline"
-                    style={{ color: '#015231' }}
+                    style={{ color: 'var(--color-primary-dark)' }}
                     aria-label={`${t('readMore')}: ${(articles[0] as any)[`title${L}`]}`}
                   >
                     {t('readMore')} <ArrowRight size={14} />
@@ -175,7 +175,7 @@ export default async function NewsPage({ params, searchParams }: {
                     <Link
                       href={`/${locale}/news/${(article as any)[`slug${L}`]}`}
                       className="text-sm font-medium inline-flex items-center gap-1 link-underline"
-                      style={{ color: '#015231' }}
+                      style={{ color: 'var(--color-primary-dark)' }}
                       aria-label={`${t('readMore')}: ${(article as any)[`title${L}`]}`}
                     >
                       {t('readMore')} <ArrowRight size={12} />
@@ -197,7 +197,7 @@ export default async function NewsPage({ params, searchParams }: {
                   style={{
                     borderRadius: 0,
                     background: parseInt(page) === p ? '#8ec63f' : 'transparent',
-                    color: parseInt(page) === p ? '#013d27' : '#6B7280',
+                    color: parseInt(page) === p ? 'var(--color-primary-mid)' : '#6B7280',
                     borderColor: parseInt(page) === p ? '#8ec63f' : '#defbbc',
                   }}
                 >

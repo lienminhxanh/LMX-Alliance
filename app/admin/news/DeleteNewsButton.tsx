@@ -9,11 +9,17 @@ export function DeleteNewsButton({ id }: { id: string }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handle = async () => {
-    if (!confirm('Delete this article?')) return;
+    if (!confirm('Are you sure you want to delete this article?')) return;
     setLoading(true);
-    await deleteArticle(id);
-    router.refresh();
-    setLoading(false);
+    try {
+      await deleteArticle(id);
+      router.refresh();
+    } catch (e) {
+      console.error(e);
+      alert('Failed to delete. It may be linked to other records.');
+    } finally {
+      setLoading(false);
+    }
   };
   return <Button variant="ghost" size="sm" loading={loading} onClick={handle}><Trash2 size={13} className="text-[#DC2626]" /></Button>;
 }

@@ -10,11 +10,17 @@ export function DeleteSectorButton({ id }: { id: string }) {
   const router = useRouter();
 
   const handleDelete = async () => {
-    if (!confirm('Delete this sector?')) return;
+    if (!confirm('Are you sure you want to delete this sector?')) return;
     setLoading(true);
-    await deleteSector(id);
-    router.refresh();
-    setLoading(false);
+    try {
+      await deleteSector(id);
+      router.refresh();
+    } catch (e) {
+      console.error(e);
+      alert('Failed to delete. It may be linked to other records.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
