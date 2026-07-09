@@ -3,9 +3,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { buildMeta } from '@/lib/seo';
 import { AnimateIn } from '@/components/ui/AnimateIn';
 import { LeafDecor } from '@/components/ui/LeafDecor';
-import { Truck, Building2, Recycle, Leaf, Award, CheckCircle2, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
 import Image from 'next/image';
+import ActivitiesClient from './ActivitiesClient';
 
 export const revalidate = 3600;
 
@@ -21,7 +20,7 @@ export async function generateMetadata(
   const descs: Record<string, string> = {
     vi: 'Tổng quan các hoạt động kinh doanh của LMX Alliance — logistics, xây dựng, phế liệu và phát triển bền vững.',
     en: 'Overview of LMX Alliance business activities — logistics, construction, scrap and sustainable development.',
-    zh: 'LMX Alliance业务活动概览 — 物流、建筑、废料和可持续发展。',
+    zh: 'LMX Alliance业务活动概览 — 物流、建筑、废料 and 可持续 phát triển.',
   };
   return buildMeta({
     locale,
@@ -36,73 +35,203 @@ export async function generateMetadata(
   });
 }
 
-const activities = [
-  {
-    icon: Truck,
-    titleVI: 'Logistics & Xuất nhập khẩu',
-    titleEN: 'Logistics & Import-Export',
-    titleZH: '物流与进出口',
-    descVI: 'Cung cấp dịch vụ giao nhận, vận tải, thông quan hàng hóa xuất nhập khẩu. Đội ngũ xe tải đa dạng từ 2–35 tấn, phủ sóng toàn quốc.',
-    descEN: 'Freight forwarding, transportation, and customs clearance for import-export goods. Diverse fleet of 2–35 ton trucks covering the whole country.',
-    descZH: '提供进出口货物的货运代理、运输和清关服务。多样化的2-35吨卡车车队，覆盖全国。',
-    achievements: {
-      vi: ['Đội xe đa dạng', 'Phủ sóng toàn quốc', 'Thông quan 24/7'],
-      en: ['Diverse vehicle fleet', 'Nationwide coverage', '24/7 customs clearance'],
-      zh: ['多样化车队', '覆盖全国', '24/7清关服务'],
+const internalActivities = {
+  VI: [
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg',
+      title: 'BLĐ cùng CBNV LMX Alliance tại miền Nam dự lễ cầu an cuối năm',
+      desc: 'Sáng ngày 16/1, Ban lãnh đạo và toàn thể cán bộ nhân viên LMX Alliance đã tề tựu đông đủ thực hiện nghi lễ cầu an, cầu chúc một năm mới vạn sự hanh thông và cát tường.',
     },
-  },
-  {
-    icon: Building2,
-    titleVI: 'Thi công xây dựng',
-    titleEN: 'Construction Works',
-    titleZH: '建筑施工',
-    descVI: 'Thi công xây lắp công trình dân dụng và công nghiệp — nhà kho, nhà xưởng, tòa nhà văn phòng theo tiêu chuẩn kỹ thuật cao nhất.',
-    descEN: 'Civil and industrial construction — warehouses, factories, office buildings to the highest technical standards.',
-    descZH: '民用和工业建筑施工 — 仓库、厂房、办公楼，达到最高技术标准。',
-    achievements: {
-      vi: ['Nhiều công trình đã bàn giao', 'Đội ngũ kỹ sư chuyên nghiệp', 'Tuân thủ tiêu chuẩn kỹ thuật TCVN'],
-      en: ['Multiple projects delivered', 'Professional engineering team', 'TCVN technical standards'],
-      zh: ['多个项目已交付', '专业工程师团队', '符合TCVN技术标准'],
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg',
+      title: 'Đại hội cổ đông thường niên LMX Alliance định hướng kinh tế xanh',
+      desc: 'Đại hội thông qua các chỉ tiêu kế hoạch kinh doanh, định hướng phát triển chuỗi logistics xanh và các mục tiêu phát triển bền vững trong giai đoạn mới.',
     },
-  },
-  {
-    icon: Recycle,
-    titleVI: 'Thu mua & Kinh doanh phế liệu',
-    titleEN: 'Scrap Procurement & Trading',
-    titleZH: '废料采购与贸易',
-    descVI: 'Thu mua và kinh doanh các loại phế liệu kim loại, nhựa, giấy. Quy trình 4 bước chuẩn mực, giá cạnh tranh, thanh toán nhanh chóng.',
-    descEN: 'Purchasing and trading metal, plastic, paper scrap. 4-step standard process, competitive prices, fast payment.',
-    descZH: '采购和销售金属、塑料、纸张废料。4步标准流程，具有竞争力的价格，快速付款。',
-    achievements: {
-      vi: ['Phế liệu kim loại & nhựa & giấy', 'Giá cạnh tranh — thanh toán ngay', 'Đội xe chuyên dụng thu gom'],
-      en: ['Metal & plastic & paper scrap', 'Competitive price — instant payment', 'Specialized collection fleet'],
-      zh: ['金属、塑料和纸张废料', '竞争价格 — 即时付款', '专业收集车队'],
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: 'Phát động chương trình thi đua nội bộ: Sáng kiến xanh LMX',
+      desc: 'Chương trình nhằm khuyến khích toàn thể cán bộ nhân viên đề xuất các giải pháp sáng tạo nhằm tiết kiệm tài nguyên, tối ưu hóa quy trình vận hành xanh.',
     },
-  },
-  {
-    icon: Leaf,
-    titleVI: 'Xử lý chất thải nguy hại',
-    titleEN: 'Hazardous Waste Management',
-    titleZH: '危险废物处理',
-    descVI: 'Phối hợp Huê Phương VN xử lý và tái chế chất thải công nghiệp nguy hại theo giấy phép Bộ Nông nghiệp và Môi trường.',
-    descEN: 'Partnering with Huê Phương VN to process and recycle industrial hazardous waste under permits from the Ministry of Agriculture and Environment.',
-    descZH: '与Huê Phương VN合作，根据农业和环境部许可证处理和回收工业危险废物。',
-    achievements: {
-      vi: ['Giấy phép xử lý chất thải nguy hại', 'Phối hợp Huê Phương VN', 'Tuân thủ quy định môi trường'],
-      en: ['Licensed hazardous waste handler', 'Partnership with Huê Phương VN', 'Environmental compliance'],
-      zh: ['持危险废物处理许可证', '与Huê Phương VN合作', '符合环保法规'],
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg',
+      title: 'Lễ vinh danh cá nhân và tập thể xuất sắc quý 4 năm 2025',
+      desc: 'Ban lãnh đạo đã tổ chức trao thưởng cho các cá nhân và tập thể có đóng góp vượt bậc vào kết quả kinh doanh và các phong trào thi đua của liên minh.',
     },
-  },
-];
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009403/lmx-migration/ywjmf8mw4f97k8g4muj6.jpg',
+      title: 'Chương trình đào tạo an toàn lao động nâng cao tại LMX',
+      desc: 'Khóa học định kỳ nhằm cập nhật các kiến thức an toàn lao động và bảo vệ môi trường tại công trường thi công dành cho đội ngũ kỹ sư và công nhân.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009404/lmx-migration/anjoz6o8vogqzb2zungy.jpg',
+      title: 'Hội thao nội bộ LMX Alliance – Gắn kết sức mạnh tập thể',
+      desc: 'Sự kiện thường niên thu hút hơn 150 CBNV tham gia tranh tài ở nhiều môn thể thao, góp phần xây dựng văn hóa doanh nghiệp gắn kết và lành mạnh.',
+    },
+  ],
+  EN: [
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg',
+      title: 'LMX Alliance Board & Staff in the South attend year-end blessing ceremony',
+      desc: 'On Jan 16, LMX Alliance Board of Directors and all staff gathered to perform the year-end blessing ceremony, praying for a successful and auspicious new year.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg',
+      title: 'LMX Alliance Annual General Meeting focusing on green economy',
+      desc: 'The AGM approved business plan targets, directions for developing green logistics chains, and sustainable development goals in the new era.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: 'Launching internal competition: LMX Green Initiative',
+      desc: 'The program aims to encourage all employees to propose innovative solutions for resource saving and green process optimization.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg',
+      title: 'Honoring excellent individuals and teams in Q4 2025',
+      desc: 'The board of directors awarded individuals and teams with outstanding contributions to the business results and internal activities of the alliance.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009403/ywjmf8mw4f97k8g4muj6.jpg',
+      title: 'Advanced occupational safety training program at LMX',
+      desc: 'Periodic training course to update knowledge of occupational safety and environment protection at site for engineers and construction staff.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009404/lmx-migration/anjoz6o8vogqzb2zungy.jpg',
+      title: 'LMX Alliance internal sports event – Strengthening team cohesion',
+      desc: 'Annual sports event attracting over 150 employees to compete, building a strong, healthy and cohesive corporate culture.',
+    },
+  ],
+  ZH: [
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg',
+      title: 'LMX联盟南部董事会及员工参加年终祈福仪式',
+      desc: '1月16日上午，LMX联盟董事会及全体员工齐聚一堂，举行年终祈福仪式，祈求新的一年顺利吉祥。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg',
+      title: 'LMX联盟年度股东大会聚焦绿色经济',
+      desc: '大会批准了业务计划目标、绿色物流链发展方向以及新时期的可持续发展目标。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: '启动内部竞赛：LMX绿色倡议',
+      desc: '该计划旨在鼓励全体员工提出资源节约和绿色流程优化的创新解决方案。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg',
+      title: '表彰2025年第四季度优秀个人和团队',
+      desc: '董事会表彰了对联盟业绩和内部竞赛活动做出杰出贡献的个人和团队。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009403/ywjmf8mw4f97k8g4muj6.jpg',
+      title: 'LMX先进职业安全培训项目',
+      desc: '定期培训课程，为工程师和施工人员更新施工现场职业安全和环境保护知识。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009404/anjoz6o8vogqzb2zungy.jpg',
+      title: 'LMX联盟内部体育活动——增强团队凝聚力',
+      desc: '年度体育赛事吸引了150多名员工参与竞争，构建了强大、健康、有凝聚力的企业文化。',
+    },
+  ],
+};
 
-const milestones = [
-  { year: '2015', vi: 'Thành lập công ty', en: 'Company founded', zh: '公司成立' },
-  { year: '2017', vi: 'Mở rộng sang logistics xuất nhập khẩu', en: 'Expand into import-export logistics', zh: '扩展到进出口物流' },
-  { year: '2019', vi: 'Ra mắt mảng xây dựng công nghiệp', en: 'Launch industrial construction division', zh: '推出工业建筑部门' },
-  { year: '2021', vi: 'Hợp tác chiến lược với Huê Phương VN', en: 'Strategic partnership with Huê Phương VN', zh: '与Huê Phương VN战略合作' },
-  { year: '2023', vi: 'Mở rộng quy mô dự án và đối tác', en: 'Scale up projects and partnerships', zh: '扩大项目与合作规模' },
-  { year: '2025', vi: 'Thành lập CTCP Liên Minh Xanh LMX', en: 'Establish LMX Green Alliance JSC', zh: '成立LMX绿色联盟股份公司' },
-];
+const socialActivities = {
+  VI: [
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: 'LMX Alliance mang Tết ấm áp đến 100 gia dịch khó khăn tại Long An',
+      desc: 'Chương trình thiện nguyện thường niên trao tặng các phần quà nhu yếu phẩm và hỗ trợ tài chính cho các hộ gia đình nghèo nhân dịp Xuân về.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009402/lmx-migration/klu2vw32c7voieozu4mf.jpg',
+      title: 'Chiến dịch trồng cây bảo vệ môi trường "Vì một Việt Nam xanh"',
+      desc: 'LMX Alliance phối hợp cùng chính quyền địa phương trồng hơn 2.000 cây xanh tại khu vực rừng phòng hộ ven biển nhằm chung tay bảo vệ hệ sinh thái.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg',
+      title: 'Tài trợ trang thiết bị học tập cho học sinh vùng sâu vùng xa',
+      desc: 'LMX Alliance đồng hành trao tặng xe đạp, sách vở và học bổng cho các em học sinh có hoàn cảnh khó khăn nỗ lực vươn lên đạt thành tích học tập tốt.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg',
+      title: 'Tặng bồn nước sạch và hệ thống lọc cho người dân bị hạn mặn',
+      desc: 'Chương trình mang nguồn nước sạch sinh hoạt ổn định đến cho bà con tại vùng bị ảnh hưởng nghiêm trọng bởi xâm nhập mặn ở đồng bằng sông Cửu Long.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: 'Hiến máu nhân đạo thường niên: Giọt hồng LMX Alliance',
+      desc: 'Hơn 100 cán bộ nhân viên cùng ban lãnh đạo LMX Alliance đã tham gia hiến máu cứu người, lan tỏa thông điệp nhân văn sẻ chia vì cộng đồng.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg',
+      title: 'Tài trợ xây dựng Nhà tình nghĩa cho hộ nghèo tại Hóc Môn',
+      desc: 'LMX Alliance đã tài trợ xây dựng và bàn giao ngôi nhà khang trang, kiên cố giúp gia đình vượt khó ổn định cuộc sống lâu dài.',
+    },
+  ],
+  EN: [
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: 'LMX Alliance brings warm Tet to 100 disadvantaged families in Long An',
+      desc: 'Annual charity program presenting essential gift packages and financial support to poor households on the occasion of Lunar New Year.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009402/lmx-migration/klu2vw32c7voieozu4mf.jpg',
+      title: 'Tree planting campaign for environmental protection "For a Green Vietnam"',
+      desc: 'LMX Alliance cooperated with local authorities to plant over 2,000 trees in coastal protection forests to protect the ecosystem.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg',
+      title: 'Sponsoring school supplies for students in remote areas',
+      desc: 'LMX Alliance donated bicycles, textbooks, and scholarships to underprivileged students who strive for academic achievements.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg',
+      title: 'Donating clean water tanks and filtration systems for saltwater intrusion areas',
+      desc: 'Providing stable safe drinking water source to people in saline-intruded areas in the Mekong Delta.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: 'Annual humanitarian blood donation: LMX Alliance Red Drops',
+      desc: 'Over 100 staff and LMX Alliance board members joined blood donation, spreading the message of humanitarian sharing for the community.',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg',
+      title: 'Sponsoring charity house construction for poor households in Hoc Mon',
+      desc: 'LMX Alliance sponsored construction and handed over a solid house to help a needy family stabilize their life.',
+    },
+  ],
+  ZH: [
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: 'LMX联盟为隆安省100户困难家庭送去温暖春节',
+      desc: '年度慈善项目，在农历新年期间向贫困家庭赠送生活必需品并提供资金支持。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009402/lmx-migration/klu2vw32c7voieozu4mf.jpg',
+      title: '植树护绿环保行动"为了绿色的越南"',
+      desc: 'LMX联盟与地方政府合作，在沿海防护林种植了2000多棵树木，共同保护生态系统。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009405/lmx-migration/srk5npo12lzepuvdxys1.jpg',
+      title: '为偏远地区学生赞助学习用品',
+      desc: 'LMX联盟为努力学习的贫困学生赠送了自行车、课本和奖学金。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783009399/lmx-migration/ts0zqvp3bfv3ygbeam9w.jpg',
+      title: '为遭受盐渍化灾害的地区捐赠净水箱及过滤系统',
+      desc: '为湄公河三角洲受盐渍化严重影响地区的居民提供稳定的安全饮用水源。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg',
+      title: '年度人道主义献血：LMX联盟红色水滴',
+      desc: 'LMX联盟100多名员工及董事会成员参与献血，传递人道主义关爱与社区分享信息。',
+    },
+    {
+      image: 'https://res.cloudinary.com/azsqg4uv/image/upload/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg',
+      title: '赞助霍门县贫困户建设慈善爱心房',
+      desc: 'LMX联盟赞助并交付了一套结实的房屋，帮助有困难的家庭稳定生活。',
+    },
+  ],
+};
 
 export default async function ActivitiesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -111,188 +240,57 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
 
   const title = { vi: 'Hoạt động doanh nghiệp', en: 'Business Activities', zh: '企业活动' };
   const subtitle = {
-    vi: 'Hành trình phát triển bền vững',
-    en: 'Our sustainable development journey',
-    zh: '可持续发展历程',
+    vi: 'Các hoạt động nổi bật gắn kết nội bộ và đóng góp phát triển xã hội bền vững.',
+    en: 'Key highlights of internal cohesion and contribution to sustainable social development.',
+    zh: '内部凝聚力及对可持续社会发展贡献的主要亮点。',
   };
+
+  const internalTitle = { vi: 'Hoạt động nội bộ', en: 'Internal Activities', zh: '内部活动' };
+  const socialTitle = { vi: 'Hoạt động xã hội', en: 'Social Activities', zh: '社会活动' };
 
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
+      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: 'var(--color-primary-dark)', minHeight: '380px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/kro4tpb4ppebpuf8j5d7.jpg"
           alt=""
           fill
           priority
-          className="object-cover hero-zoom"
+          className="object-cover hero-zoom opacity-30"
           aria-hidden
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
+          style={{ background: 'linear-gradient(90deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.5) 60%, rgba(15, 23, 42, 0.2) 100%)' }}
           aria-hidden
         />
         <LeafDecor variant="eco" count={8} color="#78d750" />
         <div className="container-max relative z-10 w-full">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#78d750' }}>
-              {locale === 'vi' ? 'LMX Alliance' : locale === 'en' ? 'LMX Alliance' : 'LMX Alliance'}
+              LMX Alliance
             </p>
-            <h1 className="mb-4" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', fontWeight: 700, color: '#fff' }}>
+            <h1 className="mb-4 text-white" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', fontWeight: 700 }}>
               {title[locale as keyof typeof title] ?? title.vi}
             </h1>
-            <p className="max-w-xl text-base leading-relaxed" style={{ color: '#defbbc' }}>
+            <p className="max-w-xl text-base leading-relaxed text-emerald-100">
               {subtitle[locale as keyof typeof subtitle] ?? subtitle.vi}
             </p>
           </AnimateIn>
         </div>
       </section>
 
-      {/* Activities grid */}
-      <section className="section-padding">
+      {/* Main Activities Section containing sliders */}
+      <section className="section-padding bg-white">
         <div className="container-max">
-          <div className="grid grid-cols-1 gap-10">
-            {activities.map((act, idx) => {
-              const Icon = act.icon;
-              const title = (act as any)[`title${L}`];
-              const desc  = (act as any)[`desc${L}`];
-              const achList: string[] = (act.achievements as any)[locale] ?? act.achievements.vi;
-              const isEven = idx % 2 === 0;
-              return (
-                <AnimateIn key={idx} delay={idx * 0.08} from={isEven ? 'left' : 'right'}>
-                  <div
-                    className={`grid grid-cols-1 md:grid-cols-2 gap-0 border overflow-hidden ${isEven ? '' : 'md:flex-row-reverse'}`}
-                    style={{ borderColor: '#defbbc', borderRadius: '12px' }}
-                  >
-                    {/* Color panel */}
-                    <div
-                      className={`flex flex-col justify-center p-10 relative overflow-hidden ${isEven ? 'md:order-1' : 'md:order-2'}`}
-                      style={{ background: idx % 3 === 0 ? '#015231' : idx % 3 === 1 ? '#8ec63f' : '#013d27', minHeight: '280px' }}
-                    >
-                      <div className="absolute top-4 right-4 opacity-10">
-                        <Icon size={80} color="#fff" strokeWidth={1} />
-                      </div>
-                      <div
-                        className="w-14 h-14 flex items-center justify-center mb-5 relative z-10"
-                        style={{ background: 'rgba(168,204,40,0.25)', borderRadius: '12px' }}
-                      >
-                        <Icon size={28} color="#78d750" strokeWidth={1.5} />
-                      </div>
-                      <h2 className="text-xl font-semibold text-white mb-3 relative z-10">{title}</h2>
-                      <ul className="space-y-2 relative z-10">
-                        {achList.map((item) => (
-                          <li key={item} className="flex items-center gap-2 text-sm" style={{ color: '#defbbc' }}>
-                            <CheckCircle2 size={14} style={{ color: '#78d750', flexShrink: 0 }} />
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Content panel */}
-                    <div
-                      className={`flex flex-col justify-center p-10 bg-white ${isEven ? 'md:order-2' : 'md:order-1'}`}
-                    >
-                      <span
-                        className="inline-block text-xs font-bold uppercase tracking-widest mb-4 px-3 py-1"
-                        style={{ background: '#f8fbf2', color: '#8ec63f', borderRadius: '9999px' }}
-                      >
-                        {String(idx + 1).padStart(2, '0')}
-                      </span>
-                      <p className="text-base leading-relaxed mb-6" style={{ color: '#374151' }}>{desc}</p>
-                      <Link
-                        href={`/${locale}/business-segments`}
-                        className="inline-flex items-center gap-2 text-sm font-medium link-underline"
-                        style={{ color: '#8ec63f' }}
-                      >
-                        {locale === 'vi' ? 'Xem lĩnh vực hoạt động' : locale === 'en' ? 'View business segments' : '查看业务领域'}
-                        <ArrowRight size={14} />
-                      </Link>
-                    </div>
-                  </div>
-                </AnimateIn>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline / milestones */}
-      <section className="section-padding relative overflow-hidden" style={{ background: '#f8fbf2' }}>
-        <LeafDecor variant="leaf" count={6} color="#8ec63f" />
-        <div className="container-max relative z-10">
-          <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#8ec63f' }}>
-              {locale === 'vi' ? 'Hành trình phát triển' : locale === 'en' ? 'Our journey' : '发展历程'}
-            </p>
-            <h2 className="mb-12" style={{ color: '#015231' }}>
-              {locale === 'vi' ? 'Các mốc nổi bật' : locale === 'en' ? 'Key milestones' : '重要里程碑'}
-            </h2>
-          </AnimateIn>
-          <div className="relative">
-            {/* Vertical line */}
-            <div
-              className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 -translate-x-px"
-              style={{ background: '#defbbc' }}
-            />
-            <div className="space-y-8">
-              {milestones.map((m, idx) => {
-                const label = (m as any)[locale] ?? m.vi;
-                const isLeft = idx % 2 === 0;
-                return (
-                  <AnimateIn key={m.year} delay={idx * 0.1} from={isLeft ? 'left' : 'right'}>
-                    <div className={`flex items-center gap-6 md:gap-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                      <div className={`hidden md:block w-1/2 ${isLeft ? 'text-right pr-12' : 'pl-12'}`}>
-                        <p className="font-semibold text-sm" style={{ color: '#374151' }}>{label}</p>
-                      </div>
-                      {/* Dot */}
-                      <div
-                        className="relative flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center z-10 ml-0 md:ml-0"
-                        style={{ background: '#015231', border: '3px solid #78d750' }}
-                      >
-                        <span className="text-sm font-bold text-white">{m.year.slice(2)}</span>
-                      </div>
-                      <div className="flex-1 md:hidden pl-0">
-                        <p className="font-semibold text-sm" style={{ color: '#374151' }}>{label}</p>
-                      </div>
-                      <div className={`hidden md:block w-1/2 ${isLeft ? 'pl-12' : 'text-right pr-12'}`} />
-                    </div>
-                  </AnimateIn>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="section-padding relative overflow-hidden" style={{ background: '#f8fbf2', borderTop: '3px solid #8ec63f' }}>
-        <LeafDecor variant="mixed" count={8} color="#8ec63f" />
-        <div className="container-max text-center relative z-10">
-          <AnimateIn>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: '#015231' }}>
-              <Award size={32} style={{ color: '#78d750' }} strokeWidth={1.5} />
-            </div>
-            <h2 className="mb-4" style={{ color: '#015231' }}>
-              {locale === 'vi' ? 'Hợp tác cùng LMX Alliance' : locale === 'en' ? 'Partner with LMX Alliance' : '与LMX Alliance合作'}
-            </h2>
-            <p className="mb-8 max-w-lg mx-auto" style={{ color: '#374151' }}>
-              {locale === 'vi'
-                ? 'Chúng tôi sẵn sàng tư vấn và đồng hành cùng doanh nghiệp của bạn.'
-                : locale === 'en'
-                ? 'We are ready to advise and accompany your business.'
-                : '我们随时准备为您的业务提供咨询和陪伴。'}
-            </p>
-            <Link
-              href={`/${locale}/contact`}
-              className="btn-primary"
-              style={{ display: 'inline-flex' }}
-            >
-              {locale === 'vi' ? 'Liên hệ ngay' : locale === 'en' ? 'Contact us' : '立即联系'}
-              <ArrowRight size={16} />
-            </Link>
-          </AnimateIn>
+          <ActivitiesClient
+            locale={locale}
+            internalTitle={internalTitle[locale as keyof typeof internalTitle] ?? internalTitle.vi}
+            socialTitle={socialTitle[locale as keyof typeof socialTitle] ?? socialTitle.vi}
+            internalItems={internalActivities[L as keyof typeof internalActivities] ?? internalActivities.VI}
+            socialItems={socialActivities[L as keyof typeof socialActivities] ?? socialActivities.VI}
+          />
         </div>
       </section>
     </>

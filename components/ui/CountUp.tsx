@@ -25,12 +25,18 @@ export function CountUp({ value, label }: { value: string; label: string }) {
     return () => clearInterval(timer);
   }, [isInView, value]);
 
+  // Split numeric and non-numeric suffix
+  const match = displayed.match(/^([\d,.]+)(.*)$/);
+  const numPart = match ? match[1] : displayed;
+  const suffixPart = match ? match[2] : '';
+
   return (
-    <div ref={ref}>
-      <div className="text-4xl font-bold mb-1 text-white" style={{ fontFamily: 'var(--font-mono)' }}>
-        {displayed}
+    <div ref={ref} className="text-center">
+      <div className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-2 text-white" style={{ fontFamily: 'var(--font-display)' }}>
+        <span>{numPart}</span>
+        {suffixPart && <span className="text-[#8ec63f] ml-1">{suffixPart}</span>}
       </div>
-      <div className="text-sm" style={{ color: '#a7f3d0' }}>{label}</div>
+      <div className="text-xs md:text-sm uppercase tracking-wider text-gray-300 font-medium">{label}</div>
     </div>
   );
 }

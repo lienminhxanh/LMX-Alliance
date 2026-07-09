@@ -2,7 +2,6 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Upload, X, FileText } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
 import { formatFileSize } from '@/lib/utils';
 
 async function uploadFile(file: File, resourceType: 'image' | 'raw' = 'image') {
@@ -25,7 +24,7 @@ export function ImageField({
   onChange: (url: string) => void;
 }) {
   const [uploading, setUploading] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputId = useRef(`file-input-${Math.random().toString(36).substr(2, 9)}`);
 
   const handleFile = async (files: FileList | null) => {
     const file = files?.[0];
@@ -34,6 +33,9 @@ export function ImageField({
     try {
       const { url } = await uploadFile(file);
       onChange(url);
+    } catch (err) {
+      console.error(err);
+      alert('Upload failed: ' + (err instanceof Error ? err.message : String(err)));
     } finally {
       setUploading(false);
     }
@@ -55,11 +57,36 @@ export function ImageField({
           </button>
         </div>
       ) : (
-        <Button type="button" variant="outline" size="sm" loading={uploading} onClick={() => inputRef.current?.click()}>
-          <Upload size={14} /> Upload
-        </Button>
+        <div>
+          <label
+            htmlFor={inputId.current}
+            className="inline-flex items-center justify-center font-medium transition-colors border border-[#1F2937] text-[#1F2937] hover:bg-[#1F2937] hover:text-white px-3 py-1.5 text-sm gap-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ borderRadius: 0 }}
+          >
+            {uploading ? (
+              <>
+                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Upload size={14} /> Upload
+              </>
+            )}
+          </label>
+          <input
+            id={inputId.current}
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={(e) => handleFile(e.target.files)}
+            disabled={uploading}
+          />
+        </div>
       )}
-      <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFile(e.target.files)} />
     </div>
   );
 }
@@ -74,7 +101,7 @@ export function ImageGalleryField({
   onChange: (urls: string[]) => void;
 }) {
   const [uploading, setUploading] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputId = useRef(`gallery-input-${Math.random().toString(36).substr(2, 9)}`);
 
   const handleFiles = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -82,6 +109,9 @@ export function ImageGalleryField({
     try {
       const results = await Promise.all(Array.from(files).map((f) => uploadFile(f)));
       onChange([...value, ...results.map((r) => r.url)]);
+    } catch (err) {
+      console.error(err);
+      alert('Upload failed: ' + (err instanceof Error ? err.message : String(err)));
     } finally {
       setUploading(false);
     }
@@ -92,7 +122,7 @@ export function ImageGalleryField({
   return (
     <div className="flex flex-col gap-2">
       <label className="text-sm font-medium text-[#1F2937]">{label}</label>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 items-end">
         {value.map((url, idx) => (
           <div key={idx} className="relative w-28 h-20 border border-gray-200 overflow-hidden" style={{ borderRadius: 4 }}>
             <Image src={url} alt={`${label} ${idx + 1}`} fill className="object-cover" />
@@ -106,11 +136,37 @@ export function ImageGalleryField({
             </button>
           </div>
         ))}
-        <Button type="button" variant="outline" size="sm" loading={uploading} onClick={() => inputRef.current?.click()}>
-          <Upload size={14} /> Add
-        </Button>
+        <div>
+          <label
+            htmlFor={inputId.current}
+            className="inline-flex items-center justify-center font-medium transition-colors border border-[#1F2937] text-[#1F2937] hover:bg-[#1F2937] hover:text-white px-3 py-1.5 text-sm gap-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ borderRadius: 0 }}
+          >
+            {uploading ? (
+              <>
+                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Upload size={14} /> Add
+              </>
+            )}
+          </label>
+          <input
+            id={inputId.current}
+            type="file"
+            accept="image/*"
+            multiple
+            style={{ display: 'none' }}
+            onChange={(e) => handleFiles(e.target.files)}
+            disabled={uploading}
+          />
+        </div>
       </div>
-      <input ref={inputRef} type="file" accept="image/*" multiple className="hidden" onChange={(e) => handleFiles(e.target.files)} />
     </div>
   );
 }
@@ -131,15 +187,19 @@ export function FileField({
   accept?: string;
 }) {
   const [uploading, setUploading] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputId = useRef(`file-doc-input-${Math.random().toString(36).substr(2, 9)}`);
 
   const handleFile = async (files: FileList | null) => {
     const file = files?.[0];
     if (!file) return;
     setUploading(true);
     try {
-      const result = await uploadFile(file, 'raw');
+      const resourceType = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf') ? 'image' : 'raw';
+      const result = await uploadFile(file, resourceType);
       onChange(result);
+    } catch (err) {
+      console.error(err);
+      alert('Upload failed: ' + (err instanceof Error ? err.message : String(err)));
     } finally {
       setUploading(false);
     }
@@ -164,11 +224,36 @@ export function FileField({
           </button>
         </div>
       ) : (
-        <Button type="button" variant="outline" size="sm" loading={uploading} onClick={() => inputRef.current?.click()}>
-          <Upload size={14} /> Chọn file từ máy
-        </Button>
+        <div>
+          <label
+            htmlFor={inputId.current}
+            className="inline-flex items-center justify-center font-medium transition-colors border border-[#1F2937] text-[#1F2937] hover:bg-[#1F2937] hover:text-white px-3 py-1.5 text-sm gap-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ borderRadius: 0 }}
+          >
+            {uploading ? (
+              <>
+                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Upload size={14} /> Chọn file từ máy
+              </>
+            )}
+          </label>
+          <input
+            id={inputId.current}
+            type="file"
+            accept={accept}
+            style={{ display: 'none' }}
+            onChange={(e) => handleFile(e.target.files)}
+            disabled={uploading}
+          />
+        </div>
       )}
-      <input ref={inputRef} type="file" accept={accept} className="hidden" onChange={(e) => handleFile(e.target.files)} />
     </div>
   );
 }

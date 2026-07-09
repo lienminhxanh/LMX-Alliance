@@ -59,3 +59,8 @@ AGENTS.md
 !public/**/*.png
 !public/**/*.jpg
 !public/**/*.jpeg
+
+# Reference-only files, not part of the shipped project
+/docs/lmx-DESIGN.md
+/SaigonTel-image-sample-ui/
+/saigontel.vn/

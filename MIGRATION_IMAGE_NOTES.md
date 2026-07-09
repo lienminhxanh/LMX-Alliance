@@ -39,3 +39,22 @@ Copy từ `D:\lmx-media\lmx-old\lmxalliance.com\wp-content\uploads\2026\05\` và
 Đây là ảnh thật (xe đầu kéo, cẩu/thiết bị nâng), độ phân giải trung bình, **chỉ nên dùng tạm** — khuyến nghị thay bằng ảnh chụp mới, độ phân giải cao hơn, đúng bố cục web (crop theo tỉ lệ card) khi có điều kiện.
 
 Ảnh bị bỏ qua hoàn toàn (không dùng): logo cũ (`1-1.png`, `2026-05-04-1.png`), `favicon.png` — site mới đã có logo/favicon riêng.
+
+## Cập nhật tích hợp ảnh mới (08/07/2026)
+
+Các ảnh sau đã được tối ưu hóa thành định dạng `.webp` (nén ~80% quality) tại `public/images/about/` và tích hợp vào giao diện:
+1. `core-values-bg.webp`: Làm nền cho section "Giá trị cốt lõi" với lớp overlay xanh lá cây `bg-[#015231]/85`.
+2. `mission-card.webp`: Làm nền cho card "Sứ mệnh" với lớp overlay `bg-[#015231]/80`.
+3. `vision-card.webp`: Làm nền cho card "Tầm nhìn" với lớp overlay `bg-[#015231]/80`.
+4. `sector-logistics.webp`: Dùng cho card lĩnh vực "Logistics & Xuất nhập khẩu" trên trang chủ và trang lĩnh vực hoạt động.
+5. `sector-recycling.webp`: Dùng cho card lĩnh vực "Phế liệu & Xử lý chất thải" trên trang chủ và trang lĩnh vực hoạt động.
+6. `about-hero.webp`: Lưu tại `public/images/about/about-hero.webp` làm dự phòng (backup) cho hero banner của trang Giới thiệu.
+
+## Cập nhật ảnh Section "Thư ngỏ" (09/07/2026)
+
+7. `about-letter.webp`: khách hàng cung cấp file `about-letter.jpg` (540×463, ~43KB), đã convert sang `.webp` (nén ~80% quality, còn ~30KB) tại `public/images/about/about-letter.webp`. Dùng làm ảnh cột trái của section "Thư ngỏ" trên trang Giới thiệu (`app/(public)/[locale]/about/page.tsx`).
+
+## Cập nhật ảnh Section "Thư ngỏ" — thay ảnh lần 2 (09/07/2026)
+
+8. `about-letter.webp` (ghi đè): khách hàng cung cấp ảnh mới `public/images/slider.jpg` (1920×1168, ~639KB, ảnh nhà máy/cơ sở hạ tầng công nghiệp), đã convert sang `.webp` (resize width 1400, nén quality 75, còn 1400×852 ~153KB) và ghi đè `public/images/about/about-letter.webp`, thay thế ảnh tàu container trước đó. File nguồn `slider.jpg` đã xóa sau khi convert.
+

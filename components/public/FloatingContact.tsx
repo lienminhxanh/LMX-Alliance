@@ -23,7 +23,7 @@ export function FloatingContact({
     firstPhone && {
       key: 'phone',
       href: `tel:${firstPhone.replace(/[^\d+]/g, '')}`,
-      bg: '#3fbf5f',
+      bg: '#297c3e',
       icon: <Phone size={22} color="#fff" fill="#fff" strokeWidth={1.5} />,
       label: 'Gọi điện',
     },
@@ -37,7 +37,7 @@ export function FloatingContact({
     messengerUrl && {
       key: 'messenger',
       href: messengerUrl,
-      bg: 'linear-gradient(135deg,#00b2ff,#006aff)',
+      bg: 'linear-gradient(135deg,#0074a6,#006aff)',
       icon: <MessageCircle size={22} color="#fff" fill="#fff" strokeWidth={1.5} />,
       label: 'Messenger',
     },

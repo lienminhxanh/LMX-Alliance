@@ -20,7 +20,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="mt-auto text-white relative overflow-hidden" style={{ background: '#015231' }}>
+    <footer className="mt-auto text-white relative overflow-hidden" style={{ background: 'var(--color-primary-dark)' }}>
       {/* subtle leaf bg decoration */}
       <div className="absolute inset-0 pointer-events-none select-none" aria-hidden>
         <svg width="220" height="220" viewBox="0 0 32 32" fill="none" style={{ position: 'absolute', right: '-60px', bottom: '-60px', opacity: 0.06 }}>

@@ -17,6 +17,8 @@ export function PartnerActions({ mode, partner }: { mode: 'create' | 'edit'; par
   const [form, setForm] = useState({ nameVI: partner?.nameVI ?? '', nameEN: partner?.nameEN ?? '', nameZH: partner?.nameZH ?? '', descVI: partner?.descVI ?? '', descEN: partner?.descEN ?? '', descZH: partner?.descZH ?? '', logo: partner?.logo ?? '', website: partner?.website ?? '', orderIndex: partner?.orderIndex ?? 0 });
   const router = useRouter();
 
+  const [deleting, setDeleting] = useState(false);
+
   const set = (k: string, v: any) => setForm((f) => ({ ...f, [k]: v }));
 
   const save = async () => {
@@ -28,6 +30,21 @@ export function PartnerActions({ mode, partner }: { mode: 'create' | 'edit'; par
     } finally { setSaving(false); }
   };
 
+  const handleDelete = async () => {
+    if (!partner?.id) return;
+    if (!confirm('Delete this partner?')) return;
+    setDeleting(true);
+    try {
+      await deletePartner(partner.id);
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to delete partner.');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <>
       {mode === 'create' ? (
@@ -35,7 +52,9 @@ export function PartnerActions({ mode, partner }: { mode: 'create' | 'edit'; par
       ) : (
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Edit2 size={13} /></Button>
-          <Button variant="ghost" size="sm" onClick={async () => { if (!confirm('Delete?')) return; await deletePartner(partner!.id); router.refresh(); }}><Trash2 size={13} className="text-[#DC2626]" /></Button>
+          <Button variant="ghost" size="sm" loading={deleting} onClick={handleDelete}>
+            <Trash2 size={13} className="text-[#DC2626]" />
+          </Button>
         </div>
       )}
       <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Partner' : 'Edit Partner'} size="lg">

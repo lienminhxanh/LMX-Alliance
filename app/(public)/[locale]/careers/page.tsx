@@ -1,9 +1,9 @@
 import { getCachedCompanySettings } from '@/lib/cached';
+import { prisma } from '@/lib/prisma';
 import { setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
-import { Mail, Shield, TrendingUp, Users, Briefcase, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
-import { LeafDecor } from '@/components/ui/LeafDecor';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
@@ -28,88 +28,124 @@ export async function generateMetadata(
   });
 }
 
-const benefits = [
-  {
-    icon: Shield,
-    titleVI: 'Môi trường chuyên nghiệp', titleEN: 'Professional Environment', titleZH: '专业环境',
-    descVI: 'Làm việc trong môi trường năng động, chuyên nghiệp và không ngừng sáng tạo.',
-    descEN: 'Work in a dynamic, professional and creative environment.',
-    descZH: '在充满活力、专业且富有创意的环境中工作。',
-  },
-  {
-    icon: TrendingUp,
-    titleVI: 'Cơ hội thăng tiến', titleEN: 'Career Growth', titleZH: '晋升机会',
-    descVI: 'Lộ trình phát triển rõ ràng, cơ hội thăng tiến không giới hạn cho người tài.',
-    descEN: 'Clear development path and unlimited career advancement for talented individuals.',
-    descZH: '清晰的发展路径，为有才能的人提供无限的职业晋升机会。',
-  },
-  {
-    icon: Users,
-    titleVI: 'Đội ngũ gắn kết', titleEN: 'Cohesive Team', titleZH: '团结的团队',
-    descVI: 'Đồng nghiệp thân thiện, hỗ trợ lẫn nhau và cùng nhau phát triển bền vững.',
-    descEN: 'Friendly, supportive colleagues growing together sustainably.',
-    descZH: '友好、互相支持、共同可持续发展的同事。',
-  },
-  {
-    icon: Briefcase,
-    titleVI: 'Đãi ngộ cạnh tranh', titleEN: 'Competitive Package', titleZH: '竞争性待遇',
-    descVI: 'Lương thưởng hấp dẫn, BHYT & BHXH đầy đủ, thưởng dự án và phúc lợi mở rộng.',
-    descEN: 'Attractive salary, full health & social insurance, project bonuses and extended benefits.',
-    descZH: '有吸引力的薪资，完整的医疗和社会保险，项目奖金及扩展福利。',
-  },
-];
+const mockJobs = {
+  VI: [
+    {
+      title: '[TP. HCM] Tuyển gấp_Chuyên viên Logistics',
+      salary: 'Thỏa thuận theo năng lực',
+      dept: 'Bộ phận Logistics & Xuất nhập khẩu',
+      expiry: '30/09/2026',
+    },
+    {
+      title: '[TP. HCM] Tuyển gấp_Nhân viên Kỹ Thuật Xây Dựng',
+      salary: 'Thỏa thuận theo năng lực',
+      dept: 'Bộ phận Xây dựng công trình',
+      expiry: '15/10/2026',
+    },
+    {
+      title: '[Đồng Nai] Tuyển gấp_Nhân viên Giám sát Môi trường',
+      salary: '10.000.000đ - 15.000.000đ',
+      dept: 'Bộ phận Môi trường & Xử lý chất thải',
+      expiry: '31/10/2026',
+    },
+    {
+      title: '[TP. HCM] Tuyển gấp_Nhân viên Thu mua Phế liệu',
+      salary: '8.000.000đ - 15.000.000đ',
+      dept: 'Bộ phận Thu mua',
+      expiry: '15/11/2026',
+    },
+    {
+      title: '[Bình Dương] Tuyển gấp_Nhân viên Lái xe Nâng',
+      salary: '9.000.000đ - 12.000.000đ',
+      dept: 'Bộ phận Kho vận & Logistics',
+      expiry: '30/11/2026',
+    },
+    {
+      title: '[TP. HCM] Tuyển gấp_Nhân viên Hành chính Nhân sự',
+      salary: 'Thỏa thuận',
+      dept: 'Bộ phận Nhân sự',
+      expiry: '15/12/2026',
+    },
+  ],
+  EN: [
+    {
+      title: '[HCMC] Urgent_Logistics Specialist',
+      salary: 'Negotiable based on capacity',
+      dept: 'Logistics & Import-Export Department',
+      expiry: '30/09/2026',
+    },
+    {
+      title: '[HCMC] Urgent_Construction Technical Staff',
+      salary: 'Negotiable based on capacity',
+      dept: 'Construction Department',
+      expiry: '15/10/2026',
+    },
+    {
+      title: '[Dong Nai] Urgent_Environmental Supervision Officer',
+      salary: 'VND 10,000,000 - 15,000,000',
+      dept: 'Environment & Waste Management Dept',
+      expiry: '31/10/2026',
+    },
+    {
+      title: '[HCMC] Urgent_Scrap Procurement Officer',
+      salary: 'VND 8,000,000 - 15,000,000',
+      dept: 'Procurement Department',
+      expiry: '15/11/2026',
+    },
+    {
+      title: '[Binh Duong] Urgent_Forklift Driver',
+      salary: 'VND 9,000,000 - 12,000,000',
+      dept: 'Warehousing & Logistics Department',
+      expiry: '30/11/2026',
+    },
+    {
+      title: '[HCMC] Urgent_HR & Admin Staff',
+      salary: 'Negotiable',
+      dept: 'Human Resources Department',
+      expiry: '15/12/2026',
+    },
+  ],
+  ZH: [
+    {
+      title: '[胡志明市] 急招_物流专员',
+      salary: '薪资面议',
+      dept: '物流与进出口部',
+      expiry: '30/09/2026',
+    },
+    {
+      title: '[胡志明市] 急招_建筑技术人员',
+      salary: '薪资面议',
+      dept: '工程建筑部',
+      expiry: '15/10/2026',
+    },
+    {
+      title: '[同奈] 急招_环境监察专员',
+      salary: '10,000,000 - 15,000,000 越南盾',
+      dept: '环境与废物处理部',
+      expiry: '31/10/2026',
+    },
+    {
+      title: '[胡志明市] 急招_废料采购专员',
+      salary: '8,000,000 - 15,000,000 越南盾',
+      dept: '采购部',
+      expiry: '15/11/2026',
+    },
+    {
+      title: '[平阳] 急招_叉车司机',
+      salary: '9,000,000 - 12,000,000 越南盾',
+      dept: '仓储与物流部',
+      expiry: '30/11/2026',
+    },
+    {
+      title: '[胡志明市] 急招_人事行政专员',
+      salary: '面议',
+      dept: '人事部',
+      expiry: '15/12/2026',
+    },
+  ]
+};
 
-const steps = [
-  {
-    step: '01',
-    titleVI: 'Nộp hồ sơ', titleEN: 'Submit Application', titleZH: '提交申请',
-    descVI: 'Gửi CV và thư xin việc qua email tuyển dụng. Hồ sơ gồm: CV tiếng Việt hoặc tiếng Anh, thư xin việc, bằng cấp liên quan.',
-    descEN: 'Send your CV and cover letter via the recruitment email. Include: CV in Vietnamese or English, cover letter, relevant certificates.',
-    descZH: '通过招聘邮件发送您的简历和求职信，包括：中文或英文简历、求职信及相关证书。',
-  },
-  {
-    step: '02',
-    titleVI: 'Xem xét hồ sơ', titleEN: 'Application Review', titleZH: '简历筛选',
-    descVI: 'Bộ phận Nhân sự xem xét và đánh giá hồ sơ trong vòng 5–7 ngày làm việc.',
-    descEN: 'HR reviews and evaluates applications within 5–7 working days.',
-    descZH: '人事部门在5-7个工作日内审核并评估申请。',
-  },
-  {
-    step: '03',
-    titleVI: 'Phỏng vấn vòng 1', titleEN: 'First Interview', titleZH: '第一轮面试',
-    descVI: 'Phỏng vấn qua điện thoại hoặc video call (30 phút) với chuyên viên Nhân sự.',
-    descEN: 'Phone or video call interview (30 minutes) with HR specialist.',
-    descZH: '与人事专员进行30分钟电话或视频面试。',
-  },
-  {
-    step: '04',
-    titleVI: 'Phỏng vấn vòng 2', titleEN: 'Second Interview', titleZH: '第二轮面试',
-    descVI: 'Phỏng vấn trực tiếp với quản lý bộ phận tuyển dụng tại văn phòng LMX Alliance.',
-    descEN: 'In-person interview with the hiring department manager at LMX Alliance office.',
-    descZH: '在LMX联盟办公室与招聘部门经理进行面对面面试。',
-  },
-  {
-    step: '05',
-    titleVI: 'Thông báo kết quả', titleEN: 'Result Notification', titleZH: '结果通知',
-    descVI: 'Thông báo kết quả trong vòng 3 ngày làm việc sau buổi phỏng vấn cuối.',
-    descEN: 'Results notified within 3 working days after the final interview.',
-    descZH: '最后一轮面试后3个工作日内通知结果。',
-  },
-  {
-    step: '06',
-    titleVI: 'Ký hợp đồng & Onboarding', titleEN: 'Contract & Onboarding', titleZH: '签约与入职',
-    descVI: 'Hoàn tất thủ tục hành chính, ký hợp đồng lao động và bắt đầu hành trình cùng LMX Alliance.',
-    descEN: 'Complete administrative procedures, sign the employment contract and begin your journey with LMX Alliance.',
-    descZH: '完成行政手续、签订劳动合同，开启您与LMX联盟的旅程。',
-  },
-];
-
-const culturePoints = [
-  { vi: 'Tôn trọng sự đa dạng và bình đẳng cơ hội', en: 'Respect diversity and equal opportunity', zh: '尊重多样性和平等机会' },
-  { vi: 'Khuyến khích sáng tạo và cải tiến liên tục', en: 'Encourage creativity and continuous improvement', zh: '鼓励创新和持续改进' },
-  { vi: 'Cam kết phát triển bền vững và bảo vệ môi trường', en: 'Committed to sustainable development and environmental protection', zh: '致力于可持续发展和环境保护' },
-  { vi: 'Xây dựng văn hóa trách nhiệm và minh bạch', en: 'Building a culture of accountability and transparency', zh: '建立责任和透明的文化' },
-];
+import { JobPosting } from '@prisma/client';
 
 export default async function CareersPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -117,202 +153,165 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
   const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
 
   const settings = await getCachedCompanySettings();
-  // Fallback to general company email if recruitment email not yet configured
-  const recruitmentEmail = settings?.recruitmentEmail || settings?.email || '';
+  const recruitmentEmail = settings?.recruitmentEmail || settings?.email || 'Ops@lmxalliance.com';
+  const phoneOnly = settings?.phone?.split('/')?.[0]?.trim() || '0931.824.025';
 
-  const heroTitle = locale === 'vi' ? 'Cơ hội nghề nghiệp' : locale === 'en' ? 'Career Opportunities' : '职业机会';
-  const heroSub = locale === 'vi'
-    ? 'Gia nhập đội ngũ LMX Alliance — cùng chúng tôi xây dựng tương lai bền vững và tạo ra giá trị lâu dài.'
-    : locale === 'en'
-    ? 'Join the LMX Alliance team — together we build a sustainable future and create long-term value.'
-    : '加入LMX联盟团队——与我们共同建设可持续未来，创造长远价值。';
+  let dbJobs: JobPosting[] = [];
+  try {
+    dbJobs = await prisma.jobPosting.findMany({
+      where: { status: 'OPEN' },
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch (error) {
+    console.error('Failed to fetch job postings from database:', error);
+  }
+
+  const stripHtml = (text: string) => (text || '').replace(/<\/?[^>]+(>|$)/g, "").trim();
+
+  const jobs = dbJobs.length > 0 ? dbJobs.map((j) => {
+    const rawTitle = locale === 'vi' ? j.titleVI : locale === 'en' ? j.titleEN : j.titleZH;
+    const rawDept = locale === 'vi' ? j.descVI : locale === 'en' ? j.descEN : j.descZH;
+    const title = `[${stripHtml(j.location)}] ${stripHtml(rawTitle)}`;
+    const dept = stripHtml(rawDept);
+    const salary = stripHtml(j.salaryRange);
+    const expiry = new Date(j.createdAt.getTime() + 60 * 24 * 60 * 60 * 1000).toLocaleDateString('vi-VN');
+    return { title, salary, dept, expiry };
+  }) : mockJobs[L];
 
   return (
     <>
-      {/* ── Hero ────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24 flex items-center" style={{ background: '#015231', minHeight: '380px' }}>
+      <section className="relative overflow-hidden py-16 flex items-center" style={{ background: '#0f172a', minHeight: '220px' }}>
         <Image
           src="https://res.cloudinary.com/azsqg4uv/image/upload/f_auto,q_auto/v1783157488/lmx-migration/amlwrqfvdiq8osgpoerq.jpg"
           alt=""
           fill
           priority
-          className="object-cover hero-zoom"
+          className="object-cover hero-zoom opacity-30"
           aria-hidden
         />
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(90deg, rgba(1,82,49,0.92) 0%, rgba(1,82,49,0.72) 60%, rgba(1,82,49,0.5) 100%)' }}
-          aria-hidden
-        />
-        <div className="container-max relative w-full">
+        <div className="container-max relative w-full z-10">
           <AnimateIn>
-            <p className="text-xs uppercase tracking-widest font-medium mb-3" style={{ color: '#78d750' }}>LMX Alliance</p>
-            <h1 className="mb-4 text-white" style={{ fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 700 }}>
-              {heroTitle}
+            <p className="text-xs uppercase tracking-widest font-medium mb-2 text-[#8ec63f]">LMX Alliance</p>
+            <h1 className="text-white font-extrabold" style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)', fontFamily: 'var(--font-display)' }}>
+              {locale === 'vi' ? 'Tuyển dụng' : locale === 'en' ? 'Careers' : '招聘'}
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed" style={{ color: '#defbbc' }}>
-              {heroSub}
-            </p>
           </AnimateIn>
         </div>
       </section>
 
-      {/* ── Why LMX ─────────────────────────────── */}
-      <section className="section-padding">
+      {/* ── Main content (Job Grid) ─────────────── */}
+      <section className="section-padding bg-white">
         <div className="container-max">
-          <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>
-              {locale === 'vi' ? 'Phúc lợi & Đãi ngộ' : locale === 'en' ? 'Benefits & Perks' : '福利与待遇'}
-            </p>
-            <h2 className="mb-10" style={{ color: '#015231' }}>
-              {locale === 'vi' ? 'Tại sao chọn LMX Alliance?' : locale === 'en' ? 'Why Choose LMX Alliance?' : '为何选择LMX联盟？'}
-            </h2>
-          </AnimateIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((b, idx) => {
-              const Icon = b.icon;
-              const title = (b as any)[`title${L}`];
-              const desc = (b as any)[`desc${L}`];
-              return (
-                <AnimateIn key={title} delay={idx * 0.07}>
-                  <div className="card-lift p-6 border h-full" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
-                    <div className="w-10 h-10 flex items-center justify-center mb-4" style={{ background: '#f8fbf2', borderRadius: '4px' }}>
-                      <Icon size={20} strokeWidth={1.5} style={{ color: '#8ec63f' }} />
-                    </div>
-                    <h4 className="font-semibold mb-2 text-base" style={{ color: '#015231' }}>{title}</h4>
-                    <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
-                  </div>
-                </AnimateIn>
-              );
-            })}
+          {/* Breadcrumb */}
+          <div className="mb-8 text-xs text-gray-500">
+            <span>{locale === 'vi' ? 'Trang chủ' : locale === 'en' ? 'Home' : '首页'}</span>
+            <span className="mx-2">/</span>
+            <span className="text-[var(--color-primary-dark)] font-semibold">{locale === 'vi' ? 'Tuyển dụng' : locale === 'en' ? 'Careers' : '招聘'}</span>
           </div>
-        </div>
-      </section>
 
-      {/* ── Company Culture ──────────────────────── */}
-      <section className="section-padding" style={{ background: '#f8fbf2' }}>
-        <div className="container-max">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <AnimateIn>
-              <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#8ec63f' }}>
-                {locale === 'vi' ? 'Văn hóa doanh nghiệp' : locale === 'en' ? 'Company Culture' : '企业文化'}
+          {/* Heading intro strip */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between border-b pb-6 mb-10" style={{ borderColor: '#defbbc' }}>
+            <div>
+              <p className="text-xs uppercase tracking-widest mb-1.5 font-medium text-[#8ec63f]">
+                {locale === 'vi' ? 'Cơ hội phát triển' : locale === 'en' ? 'Development Opportunities' : '发展机会'}
               </p>
-              <h2 className="mb-4" style={{ color: '#015231' }}>
-                {locale === 'vi' ? 'Nơi bạn phát triển cùng chúng tôi'
-                  : locale === 'en' ? 'Where You Grow With Us'
-                  : '与我们共同成长'}
+              <h2 className="text-2xl md:text-3xl font-extrabold text-[#015231]" style={{ fontFamily: 'var(--font-display)' }}>
+                {locale === 'vi' ? 'CƠ HỘI NGHỀ NGHIỆP' : locale === 'en' ? 'CAREER OPPORTUNITIES' : '职业机会'}
               </h2>
-              <p className="leading-relaxed mb-6" style={{ color: '#6B7280' }}>
-                {locale === 'vi'
-                  ? 'LMX Alliance không chỉ là nơi làm việc — đây là môi trường để mỗi cá nhân khẳng định giá trị bản thân, đóng góp cho cộng đồng và cùng nhau hướng tới mục tiêu phát triển kinh tế xanh, bền vững.'
-                  : locale === 'en'
-                  ? 'LMX Alliance is more than a workplace — it is an environment where every individual can assert their value, contribute to the community, and collectively work toward green and sustainable economic development.'
-                  : 'LMX联盟不仅仅是一个工作场所——这是一个让每个人都能实现自身价值、为社区做出贡献、共同致力于绿色可持续经济发展的环境。'}
-              </p>
-              <ul className="space-y-3">
-                {culturePoints.map((p, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm" style={{ color: '#374151' }}>
-                    <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: '#8ec63f' }} />
-                    <span>{locale === 'vi' ? p.vi : locale === 'en' ? p.en : p.zh}</span>
-                  </li>
-                ))}
-              </ul>
-            </AnimateIn>
-
-            <AnimateIn delay={0.1}>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { value: '10+', labelVI: 'Năm kinh nghiệm', labelEN: 'Years of experience', labelZH: '年经验' },
-                  { value: '200+', labelVI: 'Nhân sự chuyên nghiệp', labelEN: 'Professional staff', labelZH: '专业员工' },
-                  { value: 'Đa dạng', labelVI: 'Dự án đã triển khai', labelEN: 'Projects delivered', labelZH: '多样项目' },
-                  { value: '50+', labelVI: 'Đối tác chiến lược', labelEN: 'Strategic partners', labelZH: '战略合作伙伴' },
-                ].map((s) => {
-                  const label = locale === 'vi' ? s.labelVI : locale === 'en' ? s.labelEN : s.labelZH;
-                  return (
-                    <div key={s.value} className="p-6 text-center" style={{ background: '#fff', borderRadius: '4px', border: '1px solid #defbbc' }}>
-                      <p className="text-3xl font-bold mb-1" style={{ color: '#8ec63f' }}>{s.value}</p>
-                      <p className="text-xs" style={{ color: '#6B7280' }}>{label}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </AnimateIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Recruitment Process ──────────────────── */}
-      <section className="section-padding">
-        <div className="container-max">
-          <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6B7280' }}>
-              {locale === 'vi' ? 'Minh bạch & Chuyên nghiệp' : locale === 'en' ? 'Transparent & Professional' : '透明与专业'}
-            </p>
-            <h2 className="mb-12" style={{ color: '#015231' }}>
-              {locale === 'vi' ? 'Quy trình tuyển dụng' : locale === 'en' ? 'Recruitment Process' : '招聘流程'}
-            </h2>
-          </AnimateIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {steps.map((s, idx) => {
-              const title = (s as any)[`title${L}`];
-              const desc = (s as any)[`desc${L}`];
-              return (
-                <AnimateIn key={s.step} delay={idx * 0.07}>
-                  <div className="p-6 border h-full" style={{ borderColor: '#defbbc', borderRadius: '4px' }}>
-                    <div className="flex items-center gap-3 mb-4">
-                      <span
-                        className="w-9 h-9 flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-                        style={{ background: '#8ec63f', borderRadius: '4px' }}
-                      >
-                        {s.step}
-                      </span>
-                      <h4 className="font-semibold" style={{ color: '#015231' }}>{title}</h4>
-                    </div>
-                    <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>{desc}</p>
-                  </div>
-                </AnimateIn>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ─────────────────────────────────── */}
-      <section className="section-padding relative overflow-hidden" style={{ background: '#f8fbf2', borderTop: '3px solid #8ec63f' }}>
-        <LeafDecor variant="branch" count={8} color="#8ec63f" />
-        <div className="container-max text-center relative z-10">
-          <AnimateIn>
-            <p className="text-xs uppercase tracking-widest mb-3 font-medium" style={{ color: '#8ec63f' }}>
-              {locale === 'vi' ? 'Bắt đầu hành trình của bạn' : locale === 'en' ? 'Start Your Journey' : '开始您的旅程'}
-            </p>
-            <h2 className="mb-4" style={{ fontSize: 'clamp(1.5rem,3vw,2.25rem)', color: '#015231' }}>
-              {locale === 'vi' ? 'Gia nhập LMX Alliance hôm nay'
-                : locale === 'en' ? 'Join LMX Alliance Today'
-                : '今天加入LMX联盟'}
-            </h2>
-            <p className="mb-8 max-w-xl mx-auto text-sm leading-relaxed" style={{ color: '#374151' }}>
+            </div>
+            <p className="max-w-md text-xs md:text-sm text-gray-600 mt-4 md:mt-0 leading-relaxed">
               {locale === 'vi'
-                ? 'Gửi CV và thư xin việc trực tiếp đến bộ phận Nhân sự của chúng tôi. Chúng tôi sẽ phản hồi trong vòng 5–7 ngày làm việc.'
+                ? 'Gia nhập Liên Minh Xanh để đồng hành cùng sự phát triển bền vững, kinh tế tuần hoàn và môi trường làm việc chuyên nghiệp.'
                 : locale === 'en'
-                ? 'Send your CV and cover letter directly to our HR department. We will respond within 5–7 working days.'
-                : '将您的简历和求职信直接发送给我们的人事部门。我们将在5-7个工作日内回复。'}
+                ? 'Join LMX Alliance to accompany sustainable development, circular economy and professional work environment.'
+                : '加入LMX联盟，共同致力于可持续发展、循环经济与专业工作环境。'}
             </p>
-            {recruitmentEmail ? (
-              <a
-                href={`mailto:${recruitmentEmail}?subject=${encodeURIComponent(locale === 'vi' ? 'Hồ sơ ứng tuyển - LMX Alliance' : locale === 'en' ? 'Job Application - LMX Alliance' : '求职申请 - LMX联盟')}`}
-                className="btn-primary inline-flex items-center gap-2.5 px-8 py-3.5 text-sm font-semibold"
-              >
-                <Mail size={16} />
-                {locale === 'vi' ? 'Gửi hồ sơ ứng tuyển' : locale === 'en' ? 'Send Your Application' : '发送申请'}
-              </a>
-            ) : null}
-            {recruitmentEmail && (
-              <p className="mt-4 text-xs" style={{ color: '#8ec63f' }}>
-                {recruitmentEmail}
-              </p>
-            )}
-          </AnimateIn>
+          </div>
+
+          {/* Job grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {jobs.map((job, idx) => (
+              <AnimateIn key={idx} delay={idx * 0.05} scale>
+                <div
+                  className="bg-white p-6 border flex flex-col justify-between transition-all hover:shadow-md h-full group"
+                  style={{ borderColor: '#e5e7eb', borderRadius: '4px' }}
+                >
+                  <div>
+                    {/* Card logo branding */}
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-[10px] font-bold tracking-widest text-[#015231]/80 uppercase">
+                        LMX Alliance
+                      </span>
+                      <span className="text-[9px] font-bold bg-[#8ec63f]/15 text-[#015231] px-2 py-0.5" style={{ borderRadius: '2px' }}>
+                        NEW
+                      </span>
+                    </div>
+
+                    {/* Job Title */}
+                    <h3 className="text-sm md:text-base font-bold text-[#015231] mb-4 line-clamp-2" style={{ fontFamily: 'var(--font-display)' }}>
+                      {job.title}
+                    </h3>
+
+                    {/* Job Info details */}
+                    <div className="space-y-2 text-xs text-gray-600 mb-6">
+                      <div className="flex gap-1.5">
+                        <span className="font-semibold text-gray-800 flex-shrink-0">
+                          {locale === 'vi' ? 'Mức lương:' : locale === 'en' ? 'Salary:' : '薪资:'}
+                        </span>
+                        <span>{job.salary}</span>
+                      </div>
+                      <div className="flex gap-1.5">
+                        <span className="font-semibold text-gray-800 flex-shrink-0">
+                          {locale === 'vi' ? 'Đơn vị/ Bộ phận:' : locale === 'en' ? 'Department:' : '部门:'}
+                        </span>
+                        <span>{job.dept}</span>
+                      </div>
+                      <div className="flex gap-1.5">
+                        <span className="font-semibold text-gray-800 flex-shrink-0">
+                          {locale === 'vi' ? 'Ngày hết hạn:' : locale === 'en' ? 'Expiry date:' : '截止日期:'}
+                        </span>
+                        <span>{job.expiry}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Button row */}
+                  <div className="flex justify-end pt-3 border-t border-gray-100">
+                    <a
+                      href={`tel:${phoneOnly}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-white bg-[#015231] hover:bg-[#013d27] transition-colors"
+                      style={{ borderRadius: '4px' }}
+                    >
+                      <Phone size={12} />
+                      <span>{phoneOnly}</span>
+                    </a>
+                  </div>
+                </div>
+              </AnimateIn>
+            ))}
+          </div>
+
+          {/* Bottom general app submission */}
+          <div className="bg-[#f8fbf2] p-8 md:p-10 text-center" style={{ borderRadius: '4px', border: '1px solid #defbbc' }}>
+            <h3 className="text-lg font-bold text-[#015231] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+              {locale === 'vi' ? 'Bạn chưa tìm thấy vị trí phù hợp?' : locale === 'en' ? 'Did not find a suitable position?' : '没有找到合适职位？'}
+            </h3>
+            <p className="text-sm text-gray-600 mb-6 max-w-xl mx-auto leading-relaxed">
+              {locale === 'vi'
+                ? 'Đừng ngần ngại gửi CV cho chúng tôi. LMX Alliance luôn chào đón những nhân tài đồng hành cùng sứ mệnh phát triển bền vững.'
+                : locale === 'en'
+                ? 'Do not hesitate to send us your CV. LMX Alliance always welcomes talents to join our sustainable development mission.'
+                : '请随时将您的简历发送给我们。LMX联盟随时欢迎优秀人才加入我们的可持续发展使命。'}
+            </p>
+            <a
+              href={`mailto:${recruitmentEmail}`}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#015231] hover:bg-[#013d27] text-white text-sm font-semibold transition-colors"
+              style={{ borderRadius: '4px' }}
+            >
+              <Mail size={16} />
+              <span>{locale === 'vi' ? 'Gửi CV ứng tuyển tự do' : locale === 'en' ? 'Submit General CV' : '发送自愿求职简历'}</span>
+            </a>
+          </div>
         </div>
       </section>
     </>

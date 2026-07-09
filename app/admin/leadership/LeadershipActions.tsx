@@ -14,6 +14,7 @@ interface Leader { id: string; nameVI: string; nameEN: string; nameZH: string; p
 export function LeadershipActions({ mode, leader }: { mode: 'create' | 'edit'; leader?: Leader }) {
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [form, setForm] = useState({ nameVI: leader?.nameVI ?? '', nameEN: leader?.nameEN ?? '', nameZH: leader?.nameZH ?? '', positionVI: leader?.positionVI ?? '', positionEN: leader?.positionEN ?? '', positionZH: leader?.positionZH ?? '', bioVI: leader?.bioVI ?? '', bioEN: leader?.bioEN ?? '', bioZH: leader?.bioZH ?? '', photo: leader?.photo ?? '', orderIndex: leader?.orderIndex ?? 0 });
   const router = useRouter();
 
@@ -29,8 +30,17 @@ export function LeadershipActions({ mode, leader }: { mode: 'create' | 'edit'; l
   };
 
   const handleDelete = async () => {
-    if (!confirm('Delete?')) return;
-    await deleteLeader(leader!.id); router.refresh();
+    if (!confirm('Are you sure you want to delete this leader?')) return;
+    setDeleting(true);
+    try {
+      await deleteLeader(leader!.id); 
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      alert('Failed to delete. It may be linked to other records.');
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -40,7 +50,7 @@ export function LeadershipActions({ mode, leader }: { mode: 'create' | 'edit'; l
       ) : (
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Edit2 size={13} /></Button>
-          <Button variant="ghost" size="sm" onClick={handleDelete}><Trash2 size={13} className="text-[#DC2626]" /></Button>
+          <Button variant="ghost" size="sm" loading={deleting} onClick={handleDelete}><Trash2 size={13} className="text-[#DC2626]" /></Button>
         </div>
       )}
       <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Leader' : 'Edit Leader'} size="lg">

@@ -48,6 +48,18 @@ model CompanySettings {
   zaloUrl          String?
   messengerUrl     String?
   recruitmentEmail String   @default("")
+  aboutIntroVI         String   @db.Text @default("")
+  aboutIntroEN         String   @db.Text @default("")
+  aboutIntroZH         String   @db.Text @default("")
+  aboutLetterTitleVI   String   @default("")
+  aboutLetterTitleEN   String   @default("")
+  aboutLetterTitleZH   String   @default("")
+  aboutLetterVI        String   @db.Text @default("")
+  aboutLetterEN        String   @db.Text @default("")
+  aboutLetterZH        String   @db.Text @default("")
+  aboutLetterSignerVI  String   @default("")
+  aboutLetterSignerEN  String   @default("")
+  aboutLetterSignerZH  String   @default("")
   updatedAt        DateTime @updatedAt
 }
 
@@ -278,6 +290,9 @@ model Project {
   descZH    String        @db.Text
   images    Json
   status    ProjectStatus
+  published Boolean       @default(false)
+  scale     String?
+  location  String?
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 }

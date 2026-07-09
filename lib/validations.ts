@@ -52,6 +52,9 @@ export const ProjectSchema = z.object({
   descVI: z.string().default(''), descEN: z.string().default(''), descZH: z.string().default(''),
   images: z.array(z.string()).default([]),
   status: z.enum(['ONGOING', 'COMPLETED', 'ARCHIVED']),
+  published: z.boolean().default(false),
+  scale: z.string().optional(),
+  location: z.string().optional(),
 });
 
 export const CompanySettingsSchema = z.object({
@@ -68,6 +71,18 @@ export const CompanySettingsSchema = z.object({
   zaloUrl: z.string().optional().nullable(),
   messengerUrl: z.string().optional().nullable(),
   recruitmentEmail: z.string().email().or(z.literal('')).default(''),
+  aboutIntroVI: z.string().default(''),
+  aboutIntroEN: z.string().default(''),
+  aboutIntroZH: z.string().default(''),
+  aboutLetterTitleVI: z.string().default(''),
+  aboutLetterTitleEN: z.string().default(''),
+  aboutLetterTitleZH: z.string().default(''),
+  aboutLetterVI: z.string().default(''),
+  aboutLetterEN: z.string().default(''),
+  aboutLetterZH: z.string().default(''),
+  aboutLetterSignerVI: z.string().default(''),
+  aboutLetterSignerEN: z.string().default(''),
+  aboutLetterSignerZH: z.string().default(''),
 });
 
 export const ContactFormSchema = z.object({

@@ -253,4 +253,33 @@
 - Lighthouse chưa chạy (cần Chrome DevTools thủ công trên production) — target ≥ 85
 - OG image `/og-default.png` chưa tạo — og:image sẽ 404 cho pages không có thumbnail; không ảnh hưởng SEO score
 
+---
+
+## 06/07/2026 (Thứ Hai) — Hoàn tất tối ưu SEO & next/image
+
+**Người thực hiện:** Hoang Son
+
+### Hoàn thành
+
+- **[feat] Cấu hình Metadata mặc định ở Public Layout**
+  - Bổ sung `generateMetadata` ở `app/(public)/[locale]/layout.tsx` để cung cấp thẻ meta SEO mặc định (Title, Description, Alternates Hreflang) cho toàn bộ các route con thuộc nhóm public.
+
+- **[refactor] Tách trang Liên hệ thành Server & Client Component**
+  - Chuyển logic form động sang `ContactForm.tsx` (`'use client'`).
+  - Chuyển `app/(public)/[locale]/contact/page.tsx` thành Server Component, giúp export được hàm `generateMetadata` cho trang Liên hệ mà không vi phạm quy tắc App Router.
+
+- **[perf] Tối ưu hóa toàn bộ ảnh tin tức với next/image**
+  - Homepage: Chuyển ảnh thumbnail bài viết sang `next/image`.
+  - News list: Chuyển ảnh tiêu điểm và ảnh grid tin tức sang `next/image` cùng thuộc tính `sizes` và `fill` chuẩn chỉnh.
+  - News detail: Chuyển ảnh cover chính (`priority` load) và ảnh bài viết liên quan ở sidebar sang `next/image`.
+
+- **[test] Kiểm tra và Biên dịch**
+  - Chạy `npm run build` thành công rực rỡ với Exit Code 0, không có bất kỳ lỗi TypeScript hay warning biên dịch nào.
+  - Sử dụng browser test để kiểm duyệt tính năng gửi form của trang Contact, mọi chức năng hoạt động chính xác, trạng thái success hiển thị mượt mà.
+
+### Ghi chú
+- Mọi trang công khai trên LMX Alliance giờ đây đã có metadata SEO đầy đủ cùng cấu trúc i18n chuẩn.
+- Các ảnh chính đều đã được thay thế bằng Next.js Image Component giúp giảm thiểu tối đa CLS (Cumulative Layout Shift) và cải thiện LCP (Largest Contentful Paint), sẵn sàng đạt điểm Lighthouse xuất sắc (Performance ≥ 85).
+
+
 <!-- ENTRIES MỚI ĐƯỢC THÊM VÀO ĐÂY BỞI /log-work -->
