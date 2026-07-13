@@ -3,9 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
-import { useState } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { NAV_CONFIG, filterVisibleNav, type NavItem } from '@/lib/nav-config';
+import { NavDropdown, type ResolvedNavChild } from './NavDropdown';
 
 const localeLabels: Record<string, string> = { vi: 'VI', en: 'EN', zh: '中' };
 const locales = ['vi', 'en', 'zh'];
@@ -41,26 +43,85 @@ const flags: Record<string, React.ReactNode> = {
   ),
 };
 
-export function Header() {
+interface BusinessSectorLite {
+  slug: string;
+  nameVI: string;
+  nameEN: string;
+  nameZH: string;
+}
+
+interface HeaderProps {
+  hiddenKeys: string[];
+  businessSectors: BusinessSectorLite[];
+}
+
+export function Header({ hiddenKeys, businessSectors }: HeaderProps) {
   const t = useTranslations('nav');
+  const tAboutSections = useTranslations('nav.aboutSections');
+  const tActivitiesSections = useTranslations('nav.activitiesSections');
+  const tInvestorDocuments = useTranslations('investor.documents');
   const locale = useLocale();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [expandedMobile, setExpandedMobile] = useState<Set<string>>(new Set());
 
-  const navLinks = [
-    { href: `/${locale}`, label: t('home') },
-    { href: `/${locale}/about`, label: t('about') },
-    { href: `/${locale}/business-segments`, label: t('business') },
-    { href: `/${locale}/shareholder-relations`, label: t('investor') },
-    { href: `/${locale}/news`, label: t('news') },
-    { href: `/${locale}/careers`, label: t('careers') },
-    { href: `/${locale}/activities`, label: t('activities') },
-  ];
+  const hiddenSet = useMemo(() => new Set(hiddenKeys), [hiddenKeys]);
+  const visibleNav = useMemo(() => filterVisibleNav(NAV_CONFIG, hiddenSet), [hiddenSet]);
+
+  const childLabel = (parentKey: string, labelKey: string): string => {
+    if (parentKey === 'about') return tAboutSections(labelKey);
+    if (parentKey === 'activities') return tActivitiesSections(labelKey);
+    if (parentKey === 'shareholder-relations') return tInvestorDocuments(labelKey);
+    return labelKey;
+  };
+
+  const resolveChildren = (item: NavItem): ResolvedNavChild[] => {
+    if (item.dynamicChildren === 'business-sectors') {
+      const L = locale.toUpperCase() as 'VI' | 'EN' | 'ZH';
+      return businessSectors.map((s) => ({
+        key: `business-segments.${s.slug}`,
+        label: (s as any)[`name${L}`] ?? s.nameVI,
+        type: 'route' as const,
+        target: `/${locale}/business-segments/${s.slug}`,
+      }));
+    }
+    if (!item.children) return [];
+    return item.children.map((c) => ({
+      key: c.key,
+      label: childLabel(item.key, c.labelKey),
+      type: c.type,
+      target: c.type === 'route' ? `/${locale}${c.target}` : c.target,
+    }));
+  };
+
+  const itemHref = (item: NavItem) => (item.href === '/' ? `/${locale}` : `/${locale}${item.href}`);
+
+  const isActive = (href: string) => {
+    const isHome = href === `/${locale}`;
+    return isHome ? pathname === href : pathname === href || pathname.startsWith(href + '/');
+  };
+
+  const handleAnchorClick = (parentHref: string) => (target: string) => {
+    const onThisPage = pathname === parentHref || pathname.startsWith(parentHref + '/');
+    if (onThisPage) {
+      document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.location.href = `${parentHref}#${target}`;
+    }
+  };
 
   const switchLocale = (newLocale: string) => {
     const segments = pathname.split('/');
     segments[1] = newLocale;
     window.location.href = segments.join('/');
+  };
+
+  const toggleMobileExpand = (key: string) => {
+    setExpandedMobile((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key); else next.add(key);
+      return next;
+    });
   };
 
   return (
@@ -82,15 +143,28 @@ export function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center">
-          {navLinks.map((link) => {
-            const isHome = link.href === `/${locale}`;
-            const active = isHome
-              ? pathname === link.href
-              : pathname === link.href || pathname.startsWith(link.href + '/');
+          {visibleNav.map((item) => {
+            const href = itemHref(item);
+            const active = isActive(href);
+            const children = resolveChildren(item);
+
+            if (children.length > 0) {
+              return (
+                <NavDropdown
+                  key={item.key}
+                  href={href}
+                  label={t(item.labelKey)}
+                  active={active}
+                  children={children}
+                  onAnchorClick={handleAnchorClick(href)}
+                />
+              );
+            }
+
             return (
               <Link
-                key={link.href}
-                href={link.href}
+                key={item.key}
+                href={href}
                 className={cn(
                   'px-3 py-5 text-sm transition-colors border-b-2',
                   active
@@ -98,7 +172,7 @@ export function Header() {
                     : 'border-transparent text-[#374151] hover:text-[var(--color-primary-dark)]'
                 )}
               >
-                {link.label}
+                {t(item.labelKey)}
               </Link>
             );
           })}
@@ -114,8 +188,8 @@ export function Header() {
                 onClick={() => switchLocale(l)}
                 className={cn(
                   "p-1 transition-all rounded hover:scale-110",
-                  l === locale 
-                    ? "border bg-[#f8fbf2] scale-105" 
+                  l === locale
+                    ? "border bg-[#f8fbf2] scale-105"
                     : "border border-transparent opacity-60 hover:opacity-100"
                 )}
                 style={{
@@ -154,32 +228,82 @@ export function Header() {
       {/* Mobile drawer */}
       {menuOpen && (
         <div
-          className="lg:hidden absolute left-0 right-0 bg-white z-50"
+          className="lg:hidden absolute left-0 right-0 bg-white z-50 max-h-[calc(100vh-64px)] overflow-y-auto"
           style={{ top: '64px', borderBottom: '1px solid #defbbc', boxShadow: '0 8px 24px rgba(1,82,49,0.1)' }}
         >
-          {[...navLinks, { href: `/${locale}/contact`, label: t('contact') }].map((link) => {
-            const isHome = link.href === `/${locale}`;
-            const active = isHome
-              ? pathname === link.href
-              : pathname === link.href || pathname.startsWith(link.href + '/');
+          {visibleNav.map((item) => {
+            const href = itemHref(item);
+            const active = isActive(href);
+            const children = resolveChildren(item);
+            const expanded = expandedMobile.has(item.key);
+
             return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="flex items-center px-6 py-3.5 text-sm transition-colors"
-                style={{
-                  color: active ? 'var(--color-primary-dark)' : '#374151',
-                  fontWeight: active ? 600 : 400,
-                  borderBottom: '1px solid #f8fbf2',
-                  borderLeft: active ? '3px solid #8ec63f' : '3px solid transparent',
-                  background: active ? '#f8fbf2' : 'transparent',
-                }}
-              >
-                {link.label}
-              </Link>
+              <div key={item.key} style={{ borderBottom: '1px solid #f8fbf2' }}>
+                <div className="flex items-center">
+                  <Link
+                    href={href}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex-1 flex items-center px-6 py-3.5 text-sm transition-colors"
+                    style={{
+                      color: active ? 'var(--color-primary-dark)' : '#374151',
+                      fontWeight: active ? 600 : 400,
+                      borderLeft: active ? '3px solid #8ec63f' : '3px solid transparent',
+                      background: active ? '#f8fbf2' : 'transparent',
+                    }}
+                  >
+                    {t(item.labelKey)}
+                  </Link>
+                  {children.length > 0 && (
+                    <button
+                      onClick={() => toggleMobileExpand(item.key)}
+                      className="px-4 py-3.5 text-[#374151]"
+                      aria-label={expanded ? 'Collapse' : 'Expand'}
+                      aria-expanded={expanded}
+                    >
+                      <ChevronDown size={16} className={cn('transition-transform', expanded && 'rotate-180')} />
+                    </button>
+                  )}
+                </div>
+                {children.length > 0 && expanded && (
+                  <div className="pb-2">
+                    {children.map((child) =>
+                      child.type === 'anchor' ? (
+                        <button
+                          key={child.key}
+                          onClick={() => { setMenuOpen(false); handleAnchorClick(href)(child.target); }}
+                          className="block w-full text-left pl-10 pr-6 py-2.5 text-sm text-[#374151]"
+                        >
+                          {child.label}
+                        </button>
+                      ) : (
+                        <Link
+                          key={child.key}
+                          href={child.target}
+                          onClick={() => setMenuOpen(false)}
+                          className="block pl-10 pr-6 py-2.5 text-sm text-[#374151]"
+                        >
+                          {child.label}
+                        </Link>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
             );
           })}
+          <Link
+            href={`/${locale}/contact`}
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center px-6 py-3.5 text-sm transition-colors"
+            style={{
+              color: pathname === `/${locale}/contact` ? 'var(--color-primary-dark)' : '#374151',
+              fontWeight: pathname === `/${locale}/contact` ? 600 : 400,
+              borderLeft: pathname === `/${locale}/contact` ? '3px solid #8ec63f' : '3px solid transparent',
+              background: pathname === `/${locale}/contact` ? '#f8fbf2' : 'transparent',
+            }}
+          >
+            {t('contact')}
+          </Link>
         </div>
       )}
     </header>
