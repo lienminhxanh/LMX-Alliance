@@ -6,6 +6,7 @@ import { LeafDecor } from '@/components/ui/LeafDecor';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
+import { HashScrollHandler } from '@/components/public/HashScrollHandler';
 
 export const revalidate = 3600;
 
@@ -89,6 +90,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <>
+      <HashScrollHandler />
       {/* ── Hero ─────────────────────────────────── */}
       <section className="relative overflow-hidden py-24" style={{ background: 'var(--color-primary-dark)' }}>
         <Image
@@ -143,7 +145,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       {/* ── Giới thiệu công ty ────────────────────── */}
       {settings && (
-        <section className="section-padding">
+        <section className="section-padding" id="intro">
           <div className="container-max">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <AnimateIn from="left">
@@ -181,7 +183,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       {/* ── Thư ngỏ ──────────────────────────────── */}
       {settings && (
-        <section className="section-padding" style={{ background: '#f8fbf2' }}>
+        <section className="section-padding" id="open-letter" style={{ background: '#f8fbf2' }}>
           <div className="container-max">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <AnimateIn from="left">
@@ -238,7 +240,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       )}
 
       {/* ── Core Values ──────────────────────────── */}
-      <section className="section-padding">
+      <section className="section-padding" id="values">
         <div className="container-max">
           <AnimateIn>
             <h2 className="mb-10">{t('values.title')}</h2>
@@ -303,7 +305,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* ── Pháp lý công ty ──────────────────────── */}
-      <section className="section-padding" style={{ background: '#f8fbf2' }}>
+      <section className="section-padding" id="legal-documents" style={{ background: '#f8fbf2' }}>
         <div className="container-max">
           <AnimateIn>
             <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: '#015231' }}>
@@ -522,7 +524,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         const tier2Leaders = leaders.filter(l => !isTier1(l));
 
         return (
-          <section className="section-padding" style={{ background: '#f8fbf2' }}>
+          <section className="section-padding" id="leadership" style={{ background: '#f8fbf2' }}>
             <div className="container-max">
               <AnimateIn>
                 <h2 className="mb-12 text-center text-[#015231]" style={{ fontFamily: 'var(--font-display)', fontWeight: 600 }}>
