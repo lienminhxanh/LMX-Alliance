@@ -363,3 +363,10 @@ model PageView {
   @@index([page])
   @@index([viewedAt])
 }
+
+model MenuItemVisibility {
+  key         String   @id
+  isVisible   Boolean  @default(true)
+  updatedAt   DateTime @updatedAt
+  updatedById String?
+}
