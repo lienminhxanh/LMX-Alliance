@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import {
   LayoutDashboard, Settings, Home, Layers, Newspaper,
   Briefcase, TrendingUp, Users2, Handshake, FolderOpen,
-  Image, MessageSquare, Users, FileText, LogOut, ChevronRight
+  Image, MessageSquare, Users, FileText, LogOut, ChevronRight, Menu
 } from 'lucide-react';
 
 const navItems = [
@@ -22,6 +22,7 @@ const navItems = [
   { href: '/admin/media', label: 'Media Library', icon: Image },
   { href: '/admin/contacts', label: 'Contacts', icon: MessageSquare },
   { href: '/admin/users', label: 'Users', icon: Users },
+  { href: '/admin/menus', label: 'Menus', icon: Menu },
   { href: '/admin/settings/company', label: 'Settings', icon: Settings },
   { href: '/admin/audit-logs', label: 'Audit Logs', icon: FileText },
 ];
