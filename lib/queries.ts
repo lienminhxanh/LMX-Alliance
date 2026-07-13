@@ -49,3 +49,12 @@ export const getOpenJobPostings = unstable_cache(
   ['job-postings'],
   { revalidate: 1800, tags: ['jobs'] }
 );
+
+export const getHiddenMenuKeys = unstable_cache(
+  async () => {
+    const rows = await prisma.menuItemVisibility.findMany({ where: { isVisible: false }, select: { key: true } });
+    return rows.map((r) => r.key);
+  },
+  ['hidden-menu-keys'],
+  { revalidate: 3600, tags: ['menu-visibility'] }
+);
