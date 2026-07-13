@@ -2,7 +2,7 @@
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/lib/auth';
 import { logAudit } from '@/lib/audit-log';
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath, updateTag } from 'next/cache';
 
 async function requireSuperAdmin() {
   const session = await auth();
@@ -20,5 +20,5 @@ export async function toggleMenuItemVisibility(key: string, isVisible: boolean) 
   });
   await logAudit({ userId: user.id!, action: 'UPDATE', entity: 'MenuItemVisibility', entityId: key, details: { isVisible } });
   revalidatePath('/admin/menus');
-  revalidateTag('menu-visibility', 'max');
+  updateTag('menu-visibility');
 }
