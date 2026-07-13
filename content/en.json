@@ -7,7 +7,18 @@
     "news": "News",
     "careers": "Careers",
     "activities": "Activities",
-    "contact": "Contact"
+    "contact": "Contact",
+    "aboutSections": {
+      "intro": "Company Introduction",
+      "openLetter": "Open Letter",
+      "values": "Core Values",
+      "legal": "Legal Documents",
+      "leadership": "Leadership Team"
+    },
+    "activitiesSections": {
+      "internal": "Internal Activities",
+      "social": "Social Activities"
+    }
   },
   "home": {
     "hero": {

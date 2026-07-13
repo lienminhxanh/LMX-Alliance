@@ -7,7 +7,18 @@
     "news": "新闻",
     "careers": "招聘",
     "activities": "企业活动",
-    "contact": "联系我们"
+    "contact": "联系我们",
+    "aboutSections": {
+      "intro": "公司简介",
+      "openLetter": "致辞",
+      "values": "核心价值",
+      "legal": "公司法律文件",
+      "leadership": "领导团队"
+    },
+    "activitiesSections": {
+      "internal": "内部活动",
+      "social": "社会活动"
+    }
   },
   "home": {
     "hero": {
