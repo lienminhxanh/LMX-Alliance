@@ -30,14 +30,14 @@ export function LeadershipActions({ mode, leader }: { mode: 'create' | 'edit'; l
   };
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this leader?')) return;
+    if (!confirm('Bạn có chắc muốn xóa lãnh đạo này?')) return;
     setDeleting(true);
     try {
-      await deleteLeader(leader!.id); 
+      await deleteLeader(leader!.id);
       router.refresh();
     } catch (error) {
       console.error(error);
-      alert('Failed to delete. It may be linked to other records.');
+      alert('Xóa thất bại. Có thể đang liên kết với dữ liệu khác.');
     } finally {
       setDeleting(false);
     }
@@ -46,17 +46,17 @@ export function LeadershipActions({ mode, leader }: { mode: 'create' | 'edit'; l
   return (
     <>
       {mode === 'create' ? (
-        <Button size="sm" onClick={() => setOpen(true)}><Plus size={14} /> Add Leader</Button>
+        <Button size="sm" onClick={() => setOpen(true)}><Plus size={14} /> Thêm lãnh đạo</Button>
       ) : (
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Edit2 size={13} /></Button>
           <Button variant="ghost" size="sm" loading={deleting} onClick={handleDelete}><Trash2 size={13} className="text-[#DC2626]" /></Button>
         </div>
       )}
-      <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Leader' : 'Edit Leader'} size="lg">
+      <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Thêm lãnh đạo' : 'Sửa lãnh đạo'} size="lg">
         <div className="space-y-4">
-          <ImageField label="Photo" value={form.photo} onChange={(url) => set('photo', url)} />
-          <Input label="Order Index" type="number" value={form.orderIndex} onChange={(e) => set('orderIndex', parseInt(e.target.value))} />
+          <ImageField label="Ảnh đại diện" value={form.photo} onChange={(url) => set('photo', url)} />
+          <Input label="Thứ tự hiển thị" type="number" value={form.orderIndex} onChange={(e) => set('orderIndex', parseInt(e.target.value))} />
           <Tabs defaultValue="vi">
             <TabsList><TabsTrigger value="vi">VI</TabsTrigger><TabsTrigger value="en">EN</TabsTrigger><TabsTrigger value="zh">ZH</TabsTrigger></TabsList>
             {(['vi', 'en', 'zh'] as const).map((lang) => {
@@ -64,17 +64,17 @@ export function LeadershipActions({ mode, leader }: { mode: 'create' | 'edit'; l
               return (
                 <TabsContent key={lang} value={lang}>
                   <div className="space-y-3 pt-2">
-                    <Input label={`Name (${L})`} value={(form as any)[`name${L}`]} onChange={(e) => set(`name${L}`, e.target.value)} />
-                    <Input label={`Position (${L})`} value={(form as any)[`position${L}`]} onChange={(e) => set(`position${L}`, e.target.value)} />
-                    <Textarea label={`Bio (${L})`} rows={4} value={(form as any)[`bio${L}`]} onChange={(e) => set(`bio${L}`, e.target.value)} />
+                    <Input label={`Họ tên (${L})`} value={(form as any)[`name${L}`]} onChange={(e) => set(`name${L}`, e.target.value)} />
+                    <Input label={`Chức vụ (${L})`} value={(form as any)[`position${L}`]} onChange={(e) => set(`position${L}`, e.target.value)} />
+                    <Textarea label={`Tiểu sử (${L})`} rows={4} value={(form as any)[`bio${L}`]} onChange={(e) => set(`bio${L}`, e.target.value)} />
                   </div>
                 </TabsContent>
               );
             })}
           </Tabs>
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button loading={saving} onClick={save}>Save</Button>
+            <Button variant="outline" onClick={() => setOpen(false)}>Hủy</Button>
+            <Button loading={saving} onClick={save}>Lưu</Button>
           </div>
         </div>
       </Modal>

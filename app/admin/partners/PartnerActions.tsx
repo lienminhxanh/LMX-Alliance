@@ -32,14 +32,14 @@ export function PartnerActions({ mode, partner }: { mode: 'create' | 'edit'; par
 
   const handleDelete = async () => {
     if (!partner?.id) return;
-    if (!confirm('Delete this partner?')) return;
+    if (!confirm('Bạn có chắc muốn xóa đối tác này?')) return;
     setDeleting(true);
     try {
       await deletePartner(partner.id);
       router.refresh();
     } catch (err) {
       console.error(err);
-      alert('Failed to delete partner.');
+      alert('Xóa đối tác thất bại.');
     } finally {
       setDeleting(false);
     }
@@ -48,7 +48,7 @@ export function PartnerActions({ mode, partner }: { mode: 'create' | 'edit'; par
   return (
     <>
       {mode === 'create' ? (
-        <Button size="sm" onClick={() => setOpen(true)}><Plus size={14} /> Add Partner</Button>
+        <Button size="sm" onClick={() => setOpen(true)}><Plus size={14} /> Thêm đối tác</Button>
       ) : (
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Edit2 size={13} /></Button>
@@ -57,7 +57,7 @@ export function PartnerActions({ mode, partner }: { mode: 'create' | 'edit'; par
           </Button>
         </div>
       )}
-      <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Partner' : 'Edit Partner'} size="lg">
+      <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Thêm đối tác' : 'Sửa đối tác'} size="lg">
         <div className="space-y-4">
           <ImageField label="Logo" value={form.logo} onChange={(url) => set('logo', url)} />
           <Input label="Website" value={form.website} onChange={(e) => set('website', e.target.value)} />
@@ -68,16 +68,16 @@ export function PartnerActions({ mode, partner }: { mode: 'create' | 'edit'; par
               return (
                 <TabsContent key={lang} value={lang}>
                   <div className="space-y-3 pt-2">
-                    <Input label={`Name (${L})`} value={(form as any)[`name${L}`]} onChange={(e) => set(`name${L}`, e.target.value)} />
-                    <Input label={`Description (${L})`} value={(form as any)[`desc${L}`]} onChange={(e) => set(`desc${L}`, e.target.value)} />
+                    <Input label={`Tên (${L})`} value={(form as any)[`name${L}`]} onChange={(e) => set(`name${L}`, e.target.value)} />
+                    <Input label={`Mô tả (${L})`} value={(form as any)[`desc${L}`]} onChange={(e) => set(`desc${L}`, e.target.value)} />
                   </div>
                 </TabsContent>
               );
             })}
           </Tabs>
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button loading={saving} onClick={save}>Save</Button>
+            <Button variant="outline" onClick={() => setOpen(false)}>Hủy</Button>
+            <Button loading={saving} onClick={save}>Lưu</Button>
           </div>
         </div>
       </Modal>

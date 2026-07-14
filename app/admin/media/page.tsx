@@ -13,13 +13,13 @@ export default async function MediaLibraryPage() {
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Media Library</h1>
+        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Thư viện media</h1>
         <MediaUpload />
       </div>
 
       {files.length === 0 ? (
         <div className="border-2 border-dashed border-[#E8E9ED] rounded p-16 text-center text-[#6B7280]">
-          No files uploaded yet. Use the upload button to add files.
+          Chưa có tệp nào. Dùng nút tải lên để thêm tệp.
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">

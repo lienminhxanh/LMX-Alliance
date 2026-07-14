@@ -21,9 +21,9 @@ interface SectorFormProps {
 }
 
 const statusOptions = [
-  { value: 'DRAFT', label: 'Draft' },
-  { value: 'PUBLISHED', label: 'Published' },
-  { value: 'ARCHIVED', label: 'Archived' },
+  { value: 'DRAFT', label: 'Nháp' },
+  { value: 'PUBLISHED', label: 'Đã đăng' },
+  { value: 'ARCHIVED', label: 'Lưu trữ' },
 ];
 
 export function SectorForm({ initialData }: SectorFormProps) {
@@ -60,26 +60,26 @@ export function SectorForm({ initialData }: SectorFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} className="p-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>
-          {initialData?.id ? 'Edit Sector' : 'New Sector'}
+          {initialData?.id ? 'Sửa lĩnh vực' : 'Lĩnh vực mới'}
         </h1>
         <div className="flex gap-2">
-          <Button type="button" variant="outline" onClick={() => router.push('/admin/sectors')}>Cancel</Button>
-          <Button type="submit" loading={saving}>Save</Button>
+          <Button type="button" variant="outline" onClick={() => router.push('/admin/sectors')}>Hủy</Button>
+          <Button type="submit" loading={saving}>Lưu</Button>
         </div>
       </div>
 
-      <div className="max-w-4xl space-y-6">
+      <div className="max-w-4xl space-y-6 mx-auto">
         {/* Slug */}
         <div className="grid grid-cols-2 gap-4">
           <Input
             label="Slug (URL)"
             {...register('slug')}
-            placeholder="auto-generated-from-name"
+            placeholder="tu-dong-tao-tu-ten"
             error={errors.slug?.message}
           />
           <div className="flex items-end">
             <Button type="button" variant="outline" size="sm" onClick={() => setValue('slug', slugify(nameVI))}>
-              Generate from VI name
+              Tạo từ tên (VI)
             </Button>
           </div>
         </div>
@@ -97,10 +97,10 @@ export function SectorForm({ initialData }: SectorFormProps) {
             return (
               <TabsContent key={lang} value={lang}>
                 <div className="space-y-4">
-                  <Input label={`Name (${L})`} {...register(`name${L}`)} error={errors[`name${L}`]?.message} />
-                  <Textarea label={`Summary (${L})`} rows={3} {...register(`summary${L}`)} error={errors[`summary${L}`]?.message} />
+                  <Input label={`Tên (${L})`} {...register(`name${L}`)} error={errors[`name${L}`]?.message} />
+                  <Textarea label={`Tóm tắt (${L})`} rows={3} {...register(`summary${L}`)} error={errors[`summary${L}`]?.message} />
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-[#1F2937]">Content ({L})</label>
+                    <label className="text-sm font-medium text-[#1F2937]">Nội dung ({L})</label>
                     <RichTextEditor
                       value={watch(contentKey)}
                       onChange={(v) => setValue(contentKey, v)}
@@ -108,8 +108,8 @@ export function SectorForm({ initialData }: SectorFormProps) {
                   </div>
                   {lang === 'vi' && (
                     <>
-                      <Input label="SEO Title (VI)" {...register('seoTitleVI')} />
-                      <Textarea label="SEO Description (VI)" rows={2} {...register('seoDescVI')} />
+                      <Input label="Tiêu đề SEO (VI)" {...register('seoTitleVI')} />
+                      <Textarea label="Mô tả SEO (VI)" rows={2} {...register('seoDescVI')} />
                     </>
                   )}
                 </div>
@@ -120,18 +120,18 @@ export function SectorForm({ initialData }: SectorFormProps) {
 
         {/* Images */}
         <div className="space-y-4 p-4 border border-gray-200" style={{ borderRadius: 4 }}>
-          <h3 className="text-sm font-semibold text-[#1F2937]">Images</h3>
+          <h3 className="text-sm font-semibold text-[#1F2937]">Hình ảnh</h3>
           <div className="flex flex-wrap gap-8">
             <ImageField label="Banner" value={watch('banner') ?? ''} onChange={(url) => setValue('banner', url)} />
-            <ImageField label="Thumbnail" value={watch('thumbnail') ?? ''} onChange={(url) => setValue('thumbnail', url)} />
+            <ImageField label="Ảnh thu nhỏ" value={watch('thumbnail') ?? ''} onChange={(url) => setValue('thumbnail', url)} />
           </div>
-          <ImageGalleryField label="Gallery" value={watch('gallery') ?? []} onChange={(urls) => setValue('gallery', urls)} />
+          <ImageGalleryField label="Thư viện ảnh" value={watch('gallery') ?? []} onChange={(urls) => setValue('gallery', urls)} />
         </div>
 
         {/* Settings */}
         <div className="grid grid-cols-2 gap-4">
-          <Select label="Status" options={statusOptions} {...register('status')} />
-          <Input label="Order Index" type="number" {...register('orderIndex')} />
+          <Select label="Trạng thái" options={statusOptions} {...register('status')} />
+          <Input label="Thứ tự hiển thị" type="number" {...register('orderIndex')} />
         </div>
       </div>
     </form>

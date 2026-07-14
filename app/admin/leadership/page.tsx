@@ -14,7 +14,7 @@ export default async function LeadershipAdminPage() {
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Leadership</h1>
+        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Ban lãnh đạo</h1>
         <LeadershipActions mode="create" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -29,7 +29,7 @@ export default async function LeadershipAdminPage() {
           </Card>
         ))}
         {leaders.length === 0 && (
-          <div className="col-span-4 text-center py-12 text-[#6B7280]">No leaders yet</div>
+          <div className="col-span-4 text-center py-12 text-[#6B7280]">Chưa có lãnh đạo nào</div>
         )}
       </div>
     </div>

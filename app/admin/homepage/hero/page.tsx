@@ -11,7 +11,7 @@ export default async function HeroAdminPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Homepage Hero</h1>
+      <h1 className="text-2xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Banner trang chủ</h1>
       <HeroForm initialData={homePage ?? undefined} />
     </div>
   );

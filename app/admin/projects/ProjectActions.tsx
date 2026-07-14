@@ -11,9 +11,9 @@ import { Plus, Edit2, Trash2 } from 'lucide-react';
 import { ProjectStatus } from '@prisma/client';
 
 const statusOptions = [
-  { value: 'ONGOING', label: 'Ongoing' },
-  { value: 'COMPLETED', label: 'Completed' },
-  { value: 'ARCHIVED', label: 'Archived' },
+  { value: 'ONGOING', label: 'Đang triển khai' },
+  { value: 'COMPLETED', label: 'Hoàn thành' },
+  { value: 'ARCHIVED', label: 'Lưu trữ' },
 ];
 
 interface Project { id: string; nameVI: string; nameEN: string; nameZH: string; descVI: string; descEN: string; descZH: string; images: any; status: ProjectStatus; published: boolean; scale: string | null; location: string | null }
@@ -37,14 +37,14 @@ export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; pro
   };
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this project?')) return;
+    if (!confirm('Bạn có chắc muốn xóa dự án này?')) return;
     setDeleting(true);
     try {
-      await deleteProject(project!.id); 
+      await deleteProject(project!.id);
       router.refresh();
     } catch (error) {
       console.error(error);
-      alert('Failed to delete. It may be linked to other records.');
+      alert('Xóa thất bại. Có thể đang liên kết với dữ liệu khác.');
     } finally {
       setDeleting(false);
     }
@@ -53,16 +53,16 @@ export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; pro
   return (
     <>
       {mode === 'create' ? (
-        <Button size="sm" onClick={() => setOpen(true)}><Plus size={14} /> Add Project</Button>
+        <Button size="sm" onClick={() => setOpen(true)}><Plus size={14} /> Thêm dự án</Button>
       ) : (
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Edit2 size={13} /></Button>
           <Button variant="ghost" size="sm" loading={deleting} onClick={handleDelete}><Trash2 size={13} className="text-[#DC2626]" /></Button>
         </div>
       )}
-      <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Add Project' : 'Edit Project'} size="lg">
+      <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Thêm dự án' : 'Sửa dự án'} size="lg">
         <div className="space-y-4">
-          <Select label="Status" options={statusOptions} value={form.status} onChange={(e) => set('status', e.target.value)} />
+          <Select label="Trạng thái" options={statusOptions} value={form.status} onChange={(e) => set('status', e.target.value)} />
           <label className="flex items-center gap-2 text-sm text-[#1F2937]">
             <input
               type="checkbox"
@@ -71,17 +71,17 @@ export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; pro
               className="h-4 w-4 border-[#D1D5DB] text-[#1F2937] focus:ring-[#1F2937]"
               style={{ borderRadius: 0 }}
             />
-            Published (visible on public homepage)
+            Hiển thị công khai (trên trang chủ)
           </label>
           <div className="grid grid-cols-2 gap-3">
-            <Input label="Scale" placeholder="e.g. 50 ha" value={form.scale} onChange={(e) => set('scale', e.target.value)} />
-            <Input label="Location" placeholder="e.g. Long An" value={form.location} onChange={(e) => set('location', e.target.value)} />
+            <Input label="Quy mô" placeholder="VD: 50 ha" value={form.scale} onChange={(e) => set('scale', e.target.value)} />
+            <Input label="Địa điểm" placeholder="VD: Long An" value={form.location} onChange={(e) => set('location', e.target.value)} />
           </div>
-          <Textarea 
-            label="Images (URLs, one per line)" 
-            rows={2} 
-            value={form.images.join('\n')} 
-            onChange={(e) => set('images', e.target.value.split('\n').filter(s => s.trim() !== ''))} 
+          <Textarea
+            label="Hình ảnh (mỗi URL một dòng)"
+            rows={2}
+            value={form.images.join('\n')}
+            onChange={(e) => set('images', e.target.value.split('\n').filter(s => s.trim() !== ''))}
           />
           <Tabs defaultValue="vi">
             <TabsList><TabsTrigger value="vi">VI</TabsTrigger><TabsTrigger value="en">EN</TabsTrigger><TabsTrigger value="zh">ZH</TabsTrigger></TabsList>
@@ -90,16 +90,16 @@ export function ProjectActions({ mode, project }: { mode: 'create' | 'edit'; pro
               return (
                 <TabsContent key={lang} value={lang}>
                   <div className="space-y-3 pt-2">
-                    <Input label={`Name (${L})`} value={(form as any)[`name${L}`]} onChange={(e) => set(`name${L}`, e.target.value)} />
-                    <Textarea label={`Description (${L})`} rows={4} value={(form as any)[`desc${L}`]} onChange={(e) => set(`desc${L}`, e.target.value)} />
+                    <Input label={`Tên (${L})`} value={(form as any)[`name${L}`]} onChange={(e) => set(`name${L}`, e.target.value)} />
+                    <Textarea label={`Mô tả (${L})`} rows={4} value={(form as any)[`desc${L}`]} onChange={(e) => set(`desc${L}`, e.target.value)} />
                   </div>
                 </TabsContent>
               );
             })}
           </Tabs>
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button loading={saving} onClick={save}>Save</Button>
+            <Button variant="outline" onClick={() => setOpen(false)}>Hủy</Button>
+            <Button loading={saving} onClick={save}>Lưu</Button>
           </div>
         </div>
       </Modal>

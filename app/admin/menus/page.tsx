@@ -36,17 +36,17 @@ export default async function MenusAdminPage() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Menus</h1>
+        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Menu</h1>
         <p className="text-sm text-[#6B7280] mt-1">
-          Show or hide items in the public site header. Hiding a page removes it from the nav only — direct links keep working.
+          Ẩn/hiện mục trên thanh điều hướng trang công khai. Ẩn một trang chỉ gỡ khỏi menu — link truy cập trực tiếp vẫn hoạt động.
         </p>
       </div>
       <Card padding={false}>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[#E8E9ED]">
-              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Item</th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-[#6B7280] uppercase">Visible</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Mục</th>
+              <th className="px-4 py-3 text-right text-xs font-semibold text-[#6B7280] uppercase">Hiển thị</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +61,7 @@ export default async function MenusAdminPage() {
                 {item.dynamicChildren && (
                   <tr className="border-b border-[#F5F6F8]">
                     <td colSpan={2} className="px-4 py-2 pl-8 text-xs text-[#6B7280]">
-                      Sub-items are managed via Business Sectors, not here.
+                      Mục con được quản lý qua Lĩnh vực hoạt động, không phải ở đây.
                     </td>
                   </tr>
                 )}

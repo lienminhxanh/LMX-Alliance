@@ -30,7 +30,7 @@ export function StatisticsManager({ initialStats }: { initialStats: any[] }) {
   const [deleting, setDeleting] = useState<Record<number, boolean>>({});
 
   const removeStat = async (stat: Stat, idx: number) => {
-    if (!confirm('Are you sure you want to delete this statistic?')) return;
+    if (!confirm('Bạn có chắc muốn xóa số liệu này?')) return;
     setDeleting((d) => ({ ...d, [idx]: true }));
     try {
       if (stat.id) await deleteStatistic(stat.id);
@@ -38,33 +38,33 @@ export function StatisticsManager({ initialStats }: { initialStats: any[] }) {
       router.refresh();
     } catch (e) {
       console.error(e);
-      alert('Failed to delete statistic.');
+      alert('Xóa thất bại.');
     } finally {
       setDeleting((d) => ({ ...d, [idx]: false }));
     }
   };
 
   return (
-    <div className="max-w-3xl space-y-4">
+    <div className="max-w-3xl space-y-4 mx-auto">
       {stats.map((stat, idx) => (
         <Card key={idx}>
           <div className="grid grid-cols-3 gap-3 mb-3">
-            <Input label="Value (VI)" value={stat.valueVI} onChange={(e) => updateStat(idx, 'valueVI', e.target.value)} />
-            <Input label="Value (EN)" value={stat.valueEN} onChange={(e) => updateStat(idx, 'valueEN', e.target.value)} />
-            <Input label="Value (ZH)" value={stat.valueZH} onChange={(e) => updateStat(idx, 'valueZH', e.target.value)} />
+            <Input label="Giá trị (VI)" value={stat.valueVI} onChange={(e) => updateStat(idx, 'valueVI', e.target.value)} />
+            <Input label="Giá trị (EN)" value={stat.valueEN} onChange={(e) => updateStat(idx, 'valueEN', e.target.value)} />
+            <Input label="Giá trị (ZH)" value={stat.valueZH} onChange={(e) => updateStat(idx, 'valueZH', e.target.value)} />
           </div>
           <div className="grid grid-cols-3 gap-3 mb-4">
-            <Input label="Label (VI)" value={stat.labelVI} onChange={(e) => updateStat(idx, 'labelVI', e.target.value)} />
-            <Input label="Label (EN)" value={stat.labelEN} onChange={(e) => updateStat(idx, 'labelEN', e.target.value)} />
-            <Input label="Label (ZH)" value={stat.labelZH} onChange={(e) => updateStat(idx, 'labelZH', e.target.value)} />
+            <Input label="Nhãn (VI)" value={stat.labelVI} onChange={(e) => updateStat(idx, 'labelVI', e.target.value)} />
+            <Input label="Nhãn (EN)" value={stat.labelEN} onChange={(e) => updateStat(idx, 'labelEN', e.target.value)} />
+            <Input label="Nhãn (ZH)" value={stat.labelZH} onChange={(e) => updateStat(idx, 'labelZH', e.target.value)} />
           </div>
           <div className="flex gap-2 justify-end">
             <Button variant="outline" size="sm" loading={deleting[idx]} onClick={() => removeStat(stat, idx)}><Trash2 size={13} className="text-[#DC2626]" /></Button>
-            <Button size="sm" loading={saving[idx]} onClick={() => saveStat(stat, idx)}><Save size={13} /> Save</Button>
+            <Button size="sm" loading={saving[idx]} onClick={() => saveStat(stat, idx)}><Save size={13} /> Lưu</Button>
           </div>
         </Card>
       ))}
-      <Button variant="outline" onClick={addNew}><Plus size={14} /> Add Statistic</Button>
+      <Button variant="outline" onClick={addNew}><Plus size={14} /> Thêm số liệu</Button>
     </div>
   );
 }

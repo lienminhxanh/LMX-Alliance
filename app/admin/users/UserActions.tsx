@@ -10,10 +10,10 @@ import { Plus, Edit2, Trash2 } from 'lucide-react';
 import { UserRole } from '@prisma/client';
 
 const roleOptions = [
-  { value: 'SUPER_ADMIN', label: 'Super Admin' },
-  { value: 'CONTENT_MANAGER', label: 'Content Manager' },
-  { value: 'IR_MANAGER', label: 'IR Manager' },
-  { value: 'VIEWER', label: 'Viewer' },
+  { value: 'SUPER_ADMIN', label: 'Quản trị viên' },
+  { value: 'CONTENT_MANAGER', label: 'Quản lý nội dung' },
+  { value: 'IR_MANAGER', label: 'Quản lý QHCĐ' },
+  { value: 'VIEWER', label: 'Chỉ xem' },
 ];
 
 interface UserActionsProps {
@@ -42,11 +42,11 @@ export function UserActions({ mode, user }: UserActionsProps) {
 
   const [deleting, setDeleting] = useState(false);
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this user?')) return;
+    if (!confirm('Bạn có chắc muốn xóa người dùng này?')) return;
     setDeleting(true);
-    try { 
-      await deleteUser(user!.id); 
-      router.refresh(); 
+    try {
+      await deleteUser(user!.id);
+      router.refresh();
     }
     catch (e: any) { alert(e.message); }
     finally { setDeleting(false); }
@@ -55,7 +55,7 @@ export function UserActions({ mode, user }: UserActionsProps) {
   return (
     <>
       {mode === 'create' ? (
-        <Button size="sm" onClick={() => setOpen(true)}><Plus size={14} /> New User</Button>
+        <Button size="sm" onClick={() => setOpen(true)}><Plus size={14} /> Người dùng mới</Button>
       ) : (
         <div className="flex gap-1">
           <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Edit2 size={13} /></Button>
@@ -63,15 +63,15 @@ export function UserActions({ mode, user }: UserActionsProps) {
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'New User' : 'Edit User'}>
+      <Modal open={open} onClose={() => setOpen(false)} title={mode === 'create' ? 'Người dùng mới' : 'Sửa người dùng'}>
         <div className="space-y-4">
-          <Input label="Name" value={form.name} onChange={(e) => set('name', e.target.value)} />
+          <Input label="Họ tên" value={form.name} onChange={(e) => set('name', e.target.value)} />
           <Input label="Email" type="email" value={form.email} onChange={(e) => set('email', e.target.value)} />
-          <Input label={mode === 'create' ? 'Password' : 'New Password (leave blank to keep)'} type="password" value={form.password} onChange={(e) => set('password', e.target.value)} />
-          <Select label="Role" options={roleOptions} value={form.role} onChange={(e) => set('role', e.target.value)} />
+          <Input label={mode === 'create' ? 'Mật khẩu' : 'Mật khẩu mới (để trống nếu giữ nguyên)'} type="password" value={form.password} onChange={(e) => set('password', e.target.value)} />
+          <Select label="Vai trò" options={roleOptions} value={form.role} onChange={(e) => set('role', e.target.value)} />
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button loading={saving} onClick={save}>Save</Button>
+            <Button variant="outline" onClick={() => setOpen(false)}>Hủy</Button>
+            <Button loading={saving} onClick={save}>Lưu</Button>
           </div>
         </div>
       </Modal>

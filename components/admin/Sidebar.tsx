@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import NextImage from 'next/image';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
@@ -10,21 +11,21 @@ import {
 } from 'lucide-react';
 
 const navItems = [
-  { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/homepage/hero', label: 'Homepage Builder', icon: Home },
-  { href: '/admin/sectors', label: 'Business Sectors', icon: Layers },
-  { href: '/admin/news', label: 'News', icon: Newspaper },
-  { href: '/admin/jobs', label: 'Jobs', icon: Briefcase },
-  { href: '/admin/shareholder-relations/messages', label: 'Shareholder Relations', icon: TrendingUp },
-  { href: '/admin/leadership', label: 'Leadership', icon: Users2 },
-  { href: '/admin/partners', label: 'Partners', icon: Handshake },
-  { href: '/admin/projects', label: 'Projects', icon: FolderOpen },
-  { href: '/admin/media', label: 'Media Library', icon: Image },
-  { href: '/admin/contacts', label: 'Contacts', icon: MessageSquare },
-  { href: '/admin/users', label: 'Users', icon: Users },
-  { href: '/admin/menus', label: 'Menus', icon: Menu },
-  { href: '/admin/settings/company', label: 'Settings', icon: Settings },
-  { href: '/admin/audit-logs', label: 'Audit Logs', icon: FileText },
+  { href: '/admin/dashboard', label: 'Bảng điều khiển', icon: LayoutDashboard },
+  { href: '/admin/homepage/hero', label: 'Trang chủ', icon: Home },
+  { href: '/admin/sectors', label: 'Lĩnh vực hoạt động', icon: Layers },
+  { href: '/admin/news', label: 'Tin tức', icon: Newspaper },
+  { href: '/admin/jobs', label: 'Tuyển dụng', icon: Briefcase },
+  { href: '/admin/shareholder-relations/messages', label: 'Quan hệ cổ đông', icon: TrendingUp },
+  { href: '/admin/leadership', label: 'Ban lãnh đạo', icon: Users2 },
+  { href: '/admin/partners', label: 'Đối tác', icon: Handshake },
+  { href: '/admin/projects', label: 'Dự án', icon: FolderOpen },
+  { href: '/admin/media', label: 'Thư viện media', icon: Image },
+  { href: '/admin/contacts', label: 'Liên hệ', icon: MessageSquare },
+  { href: '/admin/users', label: 'Người dùng', icon: Users },
+  { href: '/admin/menus', label: 'Menu', icon: Menu },
+  { href: '/admin/settings/company', label: 'Cài đặt', icon: Settings },
+  { href: '/admin/audit-logs', label: 'Nhật ký hệ thống', icon: FileText },
 ];
 
 export function Sidebar() {
@@ -34,12 +35,10 @@ export function Sidebar() {
     <aside className="w-60 bg-[#1F2937] flex flex-col h-screen sticky top-0 overflow-y-auto flex-shrink-0">
       {/* Logo */}
       <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-700">
-        <div className="w-7 h-7 bg-white flex items-center justify-center">
-          <span className="text-[#1F2937] text-xs font-bold">LMX</span>
-        </div>
+        <NextImage src="/logo-white.png" alt="Logo LMX Alliance" width={28} height={28} className="w-7 h-7 object-contain flex-shrink-0" />
         <div>
           <p className="text-white text-sm font-semibold leading-none">LMX Alliance</p>
-          <p className="text-gray-400 text-xs mt-0.5">Admin Panel</p>
+          <p className="text-gray-400 text-xs mt-0.5">Trang quản trị</p>
         </div>
       </div>
 
@@ -73,7 +72,7 @@ export function Sidebar() {
           className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-400 hover:text-white w-full transition-colors"
         >
           <LogOut size={15} />
-          <span>Sign Out</span>
+          <span>Đăng xuất</span>
         </button>
       </div>
     </aside>

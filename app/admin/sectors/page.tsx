@@ -14,13 +14,14 @@ export default async function SectorsAdminPage() {
   if (!session) redirect('/admin/login');
 
   const sectors = await prisma.businessSector.findMany({ orderBy: { orderIndex: 'asc' } });
+  const statusLabels: Record<string, string> = { DRAFT: 'Nháp', PUBLISHED: 'Đã đăng', ARCHIVED: 'Lưu trữ' };
 
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Business Sectors</h1>
+        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Lĩnh vực hoạt động</h1>
         <Link href="/admin/sectors/new">
-          <Button size="sm"><Plus size={14} /> New Sector</Button>
+          <Button size="sm"><Plus size={14} /> Lĩnh vực mới</Button>
         </Link>
       </div>
 
@@ -28,10 +29,10 @@ export default async function SectorsAdminPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[#E8E9ED]">
-              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Name (VI)</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Status</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Updated</th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-[#6B7280] uppercase">Actions</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Tên (VI)</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Trạng thái</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Cập nhật</th>
+              <th className="px-4 py-3 text-right text-xs font-semibold text-[#6B7280] uppercase">Thao tác</th>
             </tr>
           </thead>
           <tbody>
@@ -39,7 +40,7 @@ export default async function SectorsAdminPage() {
               <tr key={s.id} className="border-b border-[#F5F6F8] hover:bg-[#F5F6F8]">
                 <td className="px-4 py-3 font-medium text-[#1F2937]">{s.nameVI}</td>
                 <td className="px-4 py-3">
-                  <Badge variant={s.status === 'PUBLISHED' ? 'success' : s.status === 'DRAFT' ? 'default' : 'warning'}>{s.status}</Badge>
+                  <Badge variant={s.status === 'PUBLISHED' ? 'success' : s.status === 'DRAFT' ? 'default' : 'warning'}>{statusLabels[s.status] ?? s.status}</Badge>
                 </td>
                 <td className="px-4 py-3 text-[#6B7280]">{formatDate(s.updatedAt)}</td>
                 <td className="px-4 py-3">
@@ -53,7 +54,7 @@ export default async function SectorsAdminPage() {
               </tr>
             ))}
             {sectors.length === 0 && (
-              <tr><td colSpan={4} className="px-4 py-8 text-center text-[#6B7280]">No sectors yet</td></tr>
+              <tr><td colSpan={4} className="px-4 py-8 text-center text-[#6B7280]">Chưa có lĩnh vực nào</td></tr>
             )}
           </tbody>
         </table>

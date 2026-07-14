@@ -26,7 +26,7 @@ function MessageEditor({ type, initialData, label }: { type: 'CEO_MESSAGE' | 'CH
     <div className="border border-[#E8E9ED] p-6 mb-6" style={{ borderRadius: '4px' }}>
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>{label}</h3>
-        <Button size="sm" onClick={save} loading={saving}>{saved ? '✓ Saved' : 'Save'}</Button>
+        <Button size="sm" onClick={save} loading={saving}>{saved ? '✓ Đã lưu' : 'Lưu'}</Button>
       </div>
       <Tabs defaultValue="vi">
         <TabsList>
@@ -41,9 +41,9 @@ function MessageEditor({ type, initialData, label }: { type: 'CEO_MESSAGE' | 'CH
           return (
             <TabsContent key={lang} value={lang}>
               <div className="space-y-4 pt-2">
-                <Input label={`Title (${L})`} value={data[titleKey] as string} onChange={(e) => setData((d) => ({ ...d, [titleKey]: e.target.value }))} />
+                <Input label={`Tiêu đề (${L})`} value={data[titleKey] as string} onChange={(e) => setData((d) => ({ ...d, [titleKey]: e.target.value }))} />
                 <div className="flex flex-col gap-1">
-                  <label className="text-sm font-medium text-[#1F2937]">Content ({L})</label>
+                  <label className="text-sm font-medium text-[#1F2937]">Nội dung ({L})</label>
                   <RichTextEditor value={data[contentKey] as string} onChange={(v) => setData((d) => ({ ...d, [contentKey]: v }))} />
                 </div>
               </div>
@@ -57,9 +57,9 @@ function MessageEditor({ type, initialData, label }: { type: 'CEO_MESSAGE' | 'CH
 
 export function IRMessagesForm({ ceoMessage, chairmanMessage }: { ceoMessage?: any; chairmanMessage?: any }) {
   return (
-    <div className="max-w-3xl">
-      <MessageEditor type="CEO_MESSAGE" initialData={ceoMessage} label="CEO Message" />
-      <MessageEditor type="CHAIRMAN_MESSAGE" initialData={chairmanMessage} label="Chairman's Message" />
+    <div className="max-w-3xl mx-auto">
+      <MessageEditor type="CEO_MESSAGE" initialData={ceoMessage} label="Thông điệp Tổng Giám đốc" />
+      <MessageEditor type="CHAIRMAN_MESSAGE" initialData={chairmanMessage} label="Thông điệp Chủ tịch" />
     </div>
   );
 }

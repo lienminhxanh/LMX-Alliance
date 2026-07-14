@@ -9,10 +9,10 @@ import { Eye } from 'lucide-react';
 import { ContactStatus } from '@prisma/client';
 
 const statusOptions = [
-  { value: 'NEW', label: 'New' },
-  { value: 'PROCESSING', label: 'Processing' },
-  { value: 'RESPONDED', label: 'Responded' },
-  { value: 'CLOSED', label: 'Closed' },
+  { value: 'NEW', label: 'Mới' },
+  { value: 'PROCESSING', label: 'Đang xử lý' },
+  { value: 'RESPONDED', label: 'Đã phản hồi' },
+  { value: 'CLOSED', label: 'Đã đóng' },
 ];
 
 export function ContactActions({ id, currentStatus, message }: { id: string; currentStatus: ContactStatus; message: string }) {
@@ -32,18 +32,18 @@ export function ContactActions({ id, currentStatus, message }: { id: string; cur
   return (
     <>
       <Button variant="ghost" size="sm" onClick={() => setOpen(true)}><Eye size={13} /></Button>
-      <Modal open={open} onClose={() => setOpen(false)} title="Contact Message" size="md">
+      <Modal open={open} onClose={() => setOpen(false)} title="Tin nhắn liên hệ" size="md">
         <div className="space-y-4">
           <p className="text-sm text-[#6B7280] bg-[#F5F6F8] p-4" style={{ borderRadius: '2px' }}>{message}</p>
           <Select
-            label="Status"
+            label="Trạng thái"
             options={statusOptions}
             value={status}
             onChange={(e) => setStatus(e.target.value as ContactStatus)}
           />
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button loading={saving} onClick={save}>Save</Button>
+            <Button variant="outline" onClick={() => setOpen(false)}>Hủy</Button>
+            <Button loading={saving} onClick={save}>Lưu</Button>
           </div>
         </div>
       </Modal>
