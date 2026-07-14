@@ -7,6 +7,7 @@ import { Footer } from '@/components/public/Footer';
 import { PartnerMarquee } from '@/components/public/PartnerMarquee';
 import { FloatingContact } from '@/components/public/FloatingContact';
 import { getCachedCompanySettings } from '@/lib/cached';
+import { getHiddenMenuKeys, getActiveBusinessSectors } from '@/lib/queries';
 import type { Metadata } from 'next';
 import { buildMeta } from '@/lib/seo';
 
@@ -47,11 +48,15 @@ export default async function PublicLayout({
   if (!routing.locales.includes(locale as any)) notFound();
   setRequestLocale(locale);
   const messages = await getMessages();
-  const settings = await getCachedCompanySettings();
+  const [settings, hiddenKeys, businessSectors] = await Promise.all([
+    getCachedCompanySettings(),
+    getHiddenMenuKeys(),
+    getActiveBusinessSectors(),
+  ]);
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
-      <Header />
+      <Header hiddenKeys={hiddenKeys} businessSectors={businessSectors} />
       <main className="flex-1">{children}</main>
       <PartnerMarquee />
       <Footer />

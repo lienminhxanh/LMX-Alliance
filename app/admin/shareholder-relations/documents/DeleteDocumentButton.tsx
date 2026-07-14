@@ -10,14 +10,14 @@ export function DeleteDocumentButton({ id }: { id: string }) {
   const router = useRouter();
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this document?')) return;
+    if (!confirm('Bạn có chắc muốn xóa tài liệu này?')) return;
     setLoading(true);
     try {
       await deleteIRDocument(id);
       router.refresh();
     } catch (e) {
       console.error(e);
-      alert('Failed to delete.');
+      alert('Xóa thất bại.');
     } finally {
       setLoading(false);
     }

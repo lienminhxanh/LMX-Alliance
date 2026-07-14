@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/AnimateIn';
+import { HashScrollHandler } from '@/components/public/HashScrollHandler';
 
 interface ActivityItem {
   image: string;
@@ -15,9 +16,10 @@ interface ActivitySliderProps {
   title: string;
   items: ActivityItem[];
   locale: string;
+  id?: string;
 }
 
-function ActivitySlider({ title, items, locale }: ActivitySliderProps) {
+function ActivitySlider({ title, items, locale, id }: ActivitySliderProps) {
   const [page, setPage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const totalPages = Math.ceil(items.length / 3);
@@ -39,7 +41,8 @@ function ActivitySlider({ title, items, locale }: ActivitySliderProps) {
   };
 
   return (
-    <div 
+    <div
+      id={id}
       className="relative group py-8"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -146,14 +149,15 @@ export default function ActivitiesClient({
 }: ActivitiesClientProps) {
   return (
     <div className="space-y-16">
+      <HashScrollHandler />
       {/* Internal Activities Slider */}
       <AnimateIn>
-        <ActivitySlider title={internalTitle} items={internalItems} locale={locale} />
+        <ActivitySlider title={internalTitle} items={internalItems} locale={locale} id="internal-activities" />
       </AnimateIn>
 
       {/* Social Activities Slider */}
       <AnimateIn delay={0.1}>
-        <ActivitySlider title={socialTitle} items={socialItems} locale={locale} />
+        <ActivitySlider title={socialTitle} items={socialItems} locale={locale} id="social-activities" />
       </AnimateIn>
     </div>
   );

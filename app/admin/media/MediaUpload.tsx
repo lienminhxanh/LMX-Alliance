@@ -24,7 +24,7 @@ export function MediaUpload() {
   return (
     <>
       <Button size="sm" loading={uploading} onClick={() => inputRef.current?.click()}>
-        <Upload size={14} /> Upload Files
+        <Upload size={14} /> Tải tệp lên
       </Button>
       <input ref={inputRef} type="file" multiple className="hidden" onChange={(e) => handleUpload(e.target.files)} />
     </>

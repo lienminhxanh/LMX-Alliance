@@ -11,7 +11,7 @@ export default async function StatisticsAdminPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Homepage Statistics</h1>
+      <h1 className="text-2xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Số liệu thống kê trang chủ</h1>
       <StatisticsManager initialStats={stats} />
     </div>
   );

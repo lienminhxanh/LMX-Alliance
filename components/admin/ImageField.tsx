@@ -35,7 +35,7 @@ export function ImageField({
       onChange(url);
     } catch (err) {
       console.error(err);
-      alert('Upload failed: ' + (err instanceof Error ? err.message : String(err)));
+      alert('Tải lên thất bại: ' + (err instanceof Error ? err.message : String(err)));
     } finally {
       setUploading(false);
     }
@@ -69,11 +69,11 @@ export function ImageField({
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                Uploading...
+                Đang tải lên...
               </>
             ) : (
               <>
-                <Upload size={14} /> Upload
+                <Upload size={14} /> Tải lên
               </>
             )}
           </label>
@@ -111,7 +111,7 @@ export function ImageGalleryField({
       onChange([...value, ...results.map((r) => r.url)]);
     } catch (err) {
       console.error(err);
-      alert('Upload failed: ' + (err instanceof Error ? err.message : String(err)));
+      alert('Tải lên thất bại: ' + (err instanceof Error ? err.message : String(err)));
     } finally {
       setUploading(false);
     }
@@ -148,11 +148,11 @@ export function ImageGalleryField({
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                Uploading...
+                Đang tải lên...
               </>
             ) : (
               <>
-                <Upload size={14} /> Add
+                <Upload size={14} /> Thêm ảnh
               </>
             )}
           </label>
@@ -199,7 +199,7 @@ export function FileField({
       onChange(result);
     } catch (err) {
       console.error(err);
-      alert('Upload failed: ' + (err instanceof Error ? err.message : String(err)));
+      alert('Tải lên thất bại: ' + (err instanceof Error ? err.message : String(err)));
     } finally {
       setUploading(false);
     }
@@ -212,7 +212,7 @@ export function FileField({
         <div className="flex items-center justify-between gap-3 p-3 border border-gray-200" style={{ borderRadius: 4 }}>
           <div className="flex items-center gap-2 min-w-0">
             <FileText size={16} className="text-[#6B7280] flex-shrink-0" />
-            <span className="text-sm text-[#1F2937] truncate">{fileName || 'Uploaded file'}</span>
+            <span className="text-sm text-[#1F2937] truncate">{fileName || 'Tệp đã tải lên'}</span>
             {!!fileSize && <span className="text-xs text-[#6B7280] flex-shrink-0">{formatFileSize(fileSize)}</span>}
           </div>
           <button
@@ -236,7 +236,7 @@ export function FileField({
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                Uploading...
+                Đang tải lên...
               </>
             ) : (
               <>

@@ -7,7 +7,18 @@
     "news": "Tin tức",
     "careers": "Tuyển dụng",
     "activities": "Hoạt động",
-    "contact": "Liên hệ"
+    "contact": "Liên hệ",
+    "aboutSections": {
+      "intro": "Giới thiệu chung",
+      "openLetter": "Thư ngỏ",
+      "values": "Giá trị cốt lõi",
+      "legal": "Pháp lý công ty",
+      "leadership": "Ban lãnh đạo"
+    },
+    "activitiesSections": {
+      "internal": "Hoạt động nội bộ",
+      "social": "Hoạt động xã hội"
+    }
   },
   "home": {
     "hero": {

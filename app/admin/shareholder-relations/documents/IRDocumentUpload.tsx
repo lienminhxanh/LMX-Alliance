@@ -10,11 +10,11 @@ import { useRouter } from 'next/navigation';
 import { Upload } from 'lucide-react';
 
 const categoryOptions = [
-  { value: 'ANNUAL_REPORTS', label: 'Annual Reports' },
-  { value: 'FINANCIAL_REPORTS', label: 'Financial Reports' },
-  { value: 'DISCLOSURES', label: 'Disclosures' },
-  { value: 'SHAREHOLDER_MEETINGS', label: 'Shareholder Meetings' },
-  { value: 'GOVERNANCE', label: 'Corporate Governance' },
+  { value: 'ANNUAL_REPORTS', label: 'Báo cáo thường niên' },
+  { value: 'FINANCIAL_REPORTS', label: 'Báo cáo tài chính' },
+  { value: 'DISCLOSURES', label: 'Công bố thông tin' },
+  { value: 'SHAREHOLDER_MEETINGS', label: 'Đại hội cổ đông' },
+  { value: 'GOVERNANCE', label: 'Quản trị công ty' },
 ];
 
 export function IRDocumentUpload() {
@@ -36,17 +36,17 @@ export function IRDocumentUpload() {
 
   return (
     <>
-      <Button size="sm" onClick={() => setOpen(true)}><Upload size={14} /> Add Document</Button>
-      <Modal open={open} onClose={() => setOpen(false)} title="Add IR Document" size="md">
+      <Button size="sm" onClick={() => setOpen(true)}><Upload size={14} /> Thêm tài liệu</Button>
+      <Modal open={open} onClose={() => setOpen(false)} title="Thêm tài liệu cổ đông" size="md">
         <div className="space-y-4">
           <div className="grid grid-cols-3 gap-3">
-            <Input label="Name (VI)" value={form.nameVI} onChange={(e) => set('nameVI', e.target.value)} />
-            <Input label="Name (EN)" value={form.nameEN} onChange={(e) => set('nameEN', e.target.value)} />
-            <Input label="Name (ZH)" value={form.nameZH} onChange={(e) => set('nameZH', e.target.value)} />
+            <Input label="Tên (VI)" value={form.nameVI} onChange={(e) => set('nameVI', e.target.value)} />
+            <Input label="Tên (EN)" value={form.nameEN} onChange={(e) => set('nameEN', e.target.value)} />
+            <Input label="Tên (ZH)" value={form.nameZH} onChange={(e) => set('nameZH', e.target.value)} />
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <Select label="Category" options={categoryOptions} value={form.category} onChange={(e) => set('category', e.target.value)} />
-            <Input label="Year" type="number" value={form.year} onChange={(e) => set('year', e.target.value)} />
+            <Select label="Danh mục" options={categoryOptions} value={form.category} onChange={(e) => set('category', e.target.value)} />
+            <Input label="Năm" type="number" value={form.year} onChange={(e) => set('year', e.target.value)} />
           </div>
           <FileField
             label="Tệp tài liệu (PDF)"
@@ -57,8 +57,8 @@ export function IRDocumentUpload() {
             onChange={(file) => setForm((f) => ({ ...f, fileUrl: file.url, fileName: file.name, fileType: file.type, fileSize: file.size }))}
           />
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button loading={saving} disabled={!form.fileUrl} onClick={save}>Save</Button>
+            <Button variant="outline" onClick={() => setOpen(false)}>Hủy</Button>
+            <Button loading={saving} disabled={!form.fileUrl} onClick={save}>Lưu</Button>
           </div>
         </div>
       </Modal>

@@ -10,14 +10,14 @@ export function DeleteSectorButton({ id }: { id: string }) {
   const router = useRouter();
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this sector?')) return;
+    if (!confirm('Bạn có chắc muốn xóa lĩnh vực này?')) return;
     setLoading(true);
     try {
       await deleteSector(id);
       router.refresh();
     } catch (e) {
       console.error(e);
-      alert('Failed to delete. It may be linked to other records.');
+      alert('Xóa thất bại. Lĩnh vực có thể đang liên kết với dữ liệu khác.');
     } finally {
       setLoading(false);
     }

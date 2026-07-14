@@ -42,37 +42,43 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-2xl">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
       <Card>
-        <h3 className="font-semibold text-[#1F2937] mb-4">Basic Info</h3>
+        <h3 className="font-semibold text-[#1F2937] mb-4">Thông tin cơ bản</h3>
         <div className="space-y-4">
-          <Input label="Company Name" {...register('name')} error={errors.name?.message} />
-          <Input label="Tagline" {...register('tagline')} />
-          <Textarea label="Description" rows={4} {...register('description')} />
-          <Input label="Address" {...register('address')} />
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Phone" {...register('phone')} />
+            <Input label="Tên công ty" {...register('name')} error={errors.name?.message} />
+            <Input label="Khẩu hiệu" {...register('tagline')} />
+          </div>
+          <Textarea label="Mô tả" rows={4} {...register('description')} />
+          <Input label="Địa chỉ" {...register('address')} />
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Điện thoại" {...register('phone')} />
             <Input label="Email" type="email" {...register('email')} error={errors.email?.message} />
           </div>
-          <Input label="Website" {...register('website')} />
-          <Input label="Recruitment Email" type="email" placeholder="tuyendung@lmxalliance.com" {...register('recruitmentEmail')} />
-          <Textarea label="Google Maps Embed (iframe src)" rows={2} {...register('googleMapEmbed')} />
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Website" {...register('website')} />
+            <Input label="Email tuyển dụng" type="email" placeholder="tuyendung@lmxalliance.com" {...register('recruitmentEmail')} />
+          </div>
+          <Textarea label="Nhúng Google Maps (iframe src)" rows={2} {...register('googleMapEmbed')} />
         </div>
       </Card>
 
       <Card>
         <h3 className="font-semibold text-[#1F2937] mb-4">SEO</h3>
         <div className="space-y-4">
-          <Input label="Meta Title" {...register('seoMetaTitle')} />
-          <Textarea label="Meta Description" rows={3} {...register('seoMetaDesc')} />
-          <ImageField label="OG Image" value={watch('seoOgImage') ?? ''} onChange={(url) => setValue('seoOgImage', url)} />
-          <Input label="Keywords" {...register('seoKeywords')} />
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Tiêu đề Meta" {...register('seoMetaTitle')} />
+            <Input label="Từ khóa" {...register('seoKeywords')} />
+          </div>
+          <Textarea label="Mô tả Meta" rows={3} {...register('seoMetaDesc')} />
+          <ImageField label="Ảnh OG (chia sẻ mạng xã hội)" value={watch('seoOgImage') ?? ''} onChange={(url) => setValue('seoOgImage', url)} />
         </div>
       </Card>
 
       <Card>
-        <h3 className="font-semibold text-[#1F2937] mb-4">Social Links</h3>
-        <div className="space-y-4">
+        <h3 className="font-semibold text-[#1F2937] mb-4">Liên kết mạng xã hội</h3>
+        <div className="grid grid-cols-2 gap-4">
           <Input label="Facebook URL" {...register('facebookUrl')} />
           <Input label="LinkedIn URL" {...register('linkedinUrl')} />
           <Input label="YouTube URL" {...register('youtubeUrl')} />
@@ -81,43 +87,49 @@ export function CompanySettingsForm({ initialData }: { initialData?: Partial<For
       </Card>
 
       <Card>
-        <h3 className="font-semibold text-[#1F2937] mb-4">Quick Contact (floating buttons)</h3>
+        <h3 className="font-semibold text-[#1F2937] mb-4">Liên hệ nhanh (nút nổi)</h3>
         <div className="space-y-4">
-          <Input label="Zalo URL" placeholder="https://zalo.me/0931824025" {...register('zaloUrl')} />
-          <Input label="Messenger URL" placeholder="https://m.me/lienminhxanh" {...register('messengerUrl')} />
-          <p className="text-xs text-[#6B7280]">Số điện thoại lấy từ trường Phone ở trên. Để trống nếu không muốn hiển thị nút tương ứng.</p>
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Zalo URL" placeholder="https://zalo.me/0931824025" {...register('zaloUrl')} />
+            <Input label="Messenger URL" placeholder="https://m.me/lienminhxanh" {...register('messengerUrl')} />
+          </div>
+          <p className="text-xs text-[#6B7280]">Số điện thoại lấy từ trường Điện thoại ở trên. Để trống nếu không muốn hiển thị nút tương ứng.</p>
         </div>
       </Card>
 
       <Card>
-        <h3 className="font-semibold text-[#1F2937] mb-4">About Page Content</h3>
+        <h3 className="font-semibold text-[#1F2937] mb-4">Nội dung trang Giới thiệu</h3>
         <div className="space-y-6">
           <div>
-            <p className="text-sm font-medium text-[#1F2937] mb-2">Section 1 — Giới thiệu công ty (Intro)</p>
+            <p className="text-sm font-medium text-[#1F2937] mb-2">Phần 1 — Giới thiệu công ty (Intro)</p>
             <div className="space-y-3">
-              <Textarea label="Intro (VI)" rows={5} {...register('aboutIntroVI')} />
-              <Textarea label="Intro (EN)" rows={5} {...register('aboutIntroEN')} />
-              <Textarea label="Intro (ZH)" rows={5} {...register('aboutIntroZH')} />
+              <Textarea label="Giới thiệu (VI)" rows={5} {...register('aboutIntroVI')} />
+              <Textarea label="Giới thiệu (EN)" rows={5} {...register('aboutIntroEN')} />
+              <Textarea label="Giới thiệu (ZH)" rows={5} {...register('aboutIntroZH')} />
             </div>
           </div>
           <div>
-            <p className="text-sm font-medium text-[#1F2937] mb-2">Section 2 — Thư ngỏ (Open Letter)</p>
+            <p className="text-sm font-medium text-[#1F2937] mb-2">Phần 2 — Thư ngỏ (Open Letter)</p>
             <div className="space-y-3">
-              <Input label="Letter Title (VI)" {...register('aboutLetterTitleVI')} />
-              <Input label="Letter Title (EN)" {...register('aboutLetterTitleEN')} />
-              <Input label="Letter Title (ZH)" {...register('aboutLetterTitleZH')} />
-              <Textarea label="Letter Content (VI)" rows={4} {...register('aboutLetterVI')} />
-              <Textarea label="Letter Content (EN)" rows={4} {...register('aboutLetterEN')} />
-              <Textarea label="Letter Content (ZH)" rows={4} {...register('aboutLetterZH')} />
-              <Input label="Signer (VI)" {...register('aboutLetterSignerVI')} />
-              <Input label="Signer (EN)" {...register('aboutLetterSignerEN')} />
-              <Input label="Signer (ZH)" {...register('aboutLetterSignerZH')} />
+              <div className="grid grid-cols-3 gap-4">
+                <Input label="Tiêu đề thư (VI)" {...register('aboutLetterTitleVI')} />
+                <Input label="Tiêu đề thư (EN)" {...register('aboutLetterTitleEN')} />
+                <Input label="Tiêu đề thư (ZH)" {...register('aboutLetterTitleZH')} />
+              </div>
+              <Textarea label="Nội dung thư (VI)" rows={4} {...register('aboutLetterVI')} />
+              <Textarea label="Nội dung thư (EN)" rows={4} {...register('aboutLetterEN')} />
+              <Textarea label="Nội dung thư (ZH)" rows={4} {...register('aboutLetterZH')} />
+              <div className="grid grid-cols-3 gap-4">
+                <Input label="Người ký (VI)" {...register('aboutLetterSignerVI')} />
+                <Input label="Người ký (EN)" {...register('aboutLetterSignerEN')} />
+                <Input label="Người ký (ZH)" {...register('aboutLetterSignerZH')} />
+              </div>
             </div>
           </div>
         </div>
       </Card>
 
-      <Button type="submit" loading={saving}>{saved ? '✓ Saved' : 'Save Settings'}</Button>
+      <Button type="submit" loading={saving}>{saved ? '✓ Đã lưu' : 'Lưu cài đặt'}</Button>
     </form>
   );
 }

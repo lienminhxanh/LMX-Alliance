@@ -13,7 +13,7 @@ export default async function IRMessagesPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Shareholder Messages</h1>
+      <h1 className="text-2xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Thông điệp gửi cổ đông</h1>
       <IRMessagesForm ceoMessage={ceo} chairmanMessage={chair} />
     </div>
   );

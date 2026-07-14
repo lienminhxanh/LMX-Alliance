@@ -17,16 +17,16 @@ import type { z } from 'zod';
 type FormData = z.infer<typeof NewsSchema>;
 
 const categoryOptions = [
-  { value: 'COMPANY_NEWS', label: 'Company News' },
-  { value: 'INVESTOR_RELATIONS', label: 'Investor Relations' },
-  { value: 'SUSTAINABILITY', label: 'Sustainability' },
-  { value: 'RECRUITMENT', label: 'Recruitment' },
+  { value: 'COMPANY_NEWS', label: 'Tin công ty' },
+  { value: 'INVESTOR_RELATIONS', label: 'Quan hệ cổ đông' },
+  { value: 'SUSTAINABILITY', label: 'Phát triển bền vững' },
+  { value: 'RECRUITMENT', label: 'Tuyển dụng' },
 ];
 const statusOptions = [
-  { value: 'DRAFT', label: 'Draft' },
-  { value: 'PUBLISHED', label: 'Published' },
-  { value: 'SCHEDULED', label: 'Scheduled' },
-  { value: 'ARCHIVED', label: 'Archived' },
+  { value: 'DRAFT', label: 'Nháp' },
+  { value: 'PUBLISHED', label: 'Đã đăng' },
+  { value: 'SCHEDULED', label: 'Lên lịch' },
+  { value: 'ARCHIVED', label: 'Lưu trữ' },
 ];
 
 export function NewsForm({ initialData }: { initialData?: Partial<FormData> & { id?: string } }) {
@@ -61,25 +61,25 @@ export function NewsForm({ initialData }: { initialData?: Partial<FormData> & { 
     <form onSubmit={handleSubmit(onSubmit)} className="p-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>
-          {initialData?.id ? 'Edit Article' : 'New Article'}
+          {initialData?.id ? 'Sửa bài viết' : 'Bài viết mới'}
         </h1>
         <div className="flex gap-2">
-          <Button type="button" variant="outline" onClick={() => router.push('/admin/news')}>Cancel</Button>
-          <Button type="submit" loading={saving}>Save</Button>
+          <Button type="button" variant="outline" onClick={() => router.push('/admin/news')}>Hủy</Button>
+          <Button type="submit" loading={saving}>Lưu</Button>
         </div>
       </div>
 
-      <div className="max-w-4xl space-y-6">
+      <div className="max-w-4xl space-y-6 mx-auto">
         {/* Meta */}
         <div className="grid grid-cols-2 gap-4">
-          <Input label="Author" {...register('author')} error={errors.author?.message} />
-          <Select label="Category" options={categoryOptions} {...register('category')} />
+          <Input label="Tác giả" {...register('author')} error={errors.author?.message} />
+          <Select label="Danh mục" options={categoryOptions} {...register('category')} />
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <Select label="Status" options={statusOptions} {...register('status')} />
-          <Input label="Published At" type="datetime-local" {...register('publishedAt')} />
+          <Select label="Trạng thái" options={statusOptions} {...register('status')} />
+          <Input label="Ngày đăng" type="datetime-local" {...register('publishedAt')} />
         </div>
-        <ImageField label="Thumbnail" value={watch('thumbnail') ?? ''} onChange={(url) => setValue('thumbnail', url)} />
+        <ImageField label="Ảnh đại diện" value={watch('thumbnail') ?? ''} onChange={(url) => setValue('thumbnail', url)} />
 
         {/* Language tabs */}
         <Tabs defaultValue="vi">
@@ -97,18 +97,18 @@ export function NewsForm({ initialData }: { initialData?: Partial<FormData> & { 
             return (
               <TabsContent key={lang} value={lang}>
                 <div className="space-y-4">
-                  <Input label={`Title (${L})`} {...register(titleKey)} error={(errors as any)[titleKey]?.message} />
+                  <Input label={`Tiêu đề (${L})`} {...register(titleKey)} error={(errors as any)[titleKey]?.message} />
                   <div className="flex gap-2">
                     <div className="flex-1"><Input label={`Slug (${L})`} {...register(slugKey)} error={(errors as any)[slugKey]?.message} /></div>
                     <div className="flex items-end">
                       <Button type="button" variant="outline" size="sm" onClick={() => setValue(slugKey, slugify(watch(titleKey)))}>
-                        Generate
+                        Tạo tự động
                       </Button>
                     </div>
                   </div>
-                  <Textarea label={`Summary (${L})`} rows={3} {...register(summaryKey)} error={(errors as any)[summaryKey]?.message} />
+                  <Textarea label={`Tóm tắt (${L})`} rows={3} {...register(summaryKey)} error={(errors as any)[summaryKey]?.message} />
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-[#1F2937]">Content ({L})</label>
+                    <label className="text-sm font-medium text-[#1F2937]">Nội dung ({L})</label>
                     <RichTextEditor value={watch(contentKey)} onChange={(v) => setValue(contentKey, v)} />
                   </div>
                 </div>

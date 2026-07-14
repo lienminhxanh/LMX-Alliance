@@ -15,9 +15,9 @@ import type { z } from 'zod';
 type FormData = z.infer<typeof JobSchema>;
 
 const statusOptions = [
-  { value: 'OPEN', label: 'Open' },
-  { value: 'CLOSED', label: 'Closed' },
-  { value: 'ARCHIVED', label: 'Archived' },
+  { value: 'OPEN', label: 'Đang tuyển' },
+  { value: 'CLOSED', label: 'Đã đóng' },
+  { value: 'ARCHIVED', label: 'Lưu trữ' },
 ];
 
 export function JobForm({ initialData }: { initialData?: Partial<FormData> & { id?: string } }) {
@@ -48,19 +48,19 @@ export function JobForm({ initialData }: { initialData?: Partial<FormData> & { i
     <form onSubmit={handleSubmit(onSubmit)} className="p-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>
-          {initialData?.id ? 'Edit Job' : 'New Job'}
+          {initialData?.id ? 'Sửa tin tuyển dụng' : 'Tin tuyển dụng mới'}
         </h1>
         <div className="flex gap-2">
-          <Button type="button" variant="outline" onClick={() => router.push('/admin/jobs')}>Cancel</Button>
-          <Button type="submit" loading={saving}>Save</Button>
+          <Button type="button" variant="outline" onClick={() => router.push('/admin/jobs')}>Hủy</Button>
+          <Button type="submit" loading={saving}>Lưu</Button>
         </div>
       </div>
 
-      <div className="max-w-4xl space-y-6">
+      <div className="max-w-4xl space-y-6 mx-auto">
         <div className="grid grid-cols-3 gap-4">
-          <Input label="Location" {...register('location')} error={errors.location?.message} />
-          <Input label="Salary Range" {...register('salaryRange')} error={errors.salaryRange?.message} />
-          <Select label="Status" options={statusOptions} {...register('status')} />
+          <Input label="Địa điểm" {...register('location')} error={errors.location?.message} />
+          <Input label="Mức lương" {...register('salaryRange')} error={errors.salaryRange?.message} />
+          <Select label="Trạng thái" options={statusOptions} {...register('status')} />
         </div>
 
         <Tabs defaultValue="vi">
@@ -76,9 +76,9 @@ export function JobForm({ initialData }: { initialData?: Partial<FormData> & { i
             return (
               <TabsContent key={lang} value={lang}>
                 <div className="space-y-4">
-                  <Input label={`Title (${L})`} {...register(titleKey)} />
+                  <Input label={`Tiêu đề (${L})`} {...register(titleKey)} />
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-[#1F2937]">Description ({L})</label>
+                    <label className="text-sm font-medium text-[#1F2937]">Mô tả ({L})</label>
                     <RichTextEditor value={watch(descKey)} onChange={(v) => setValue(descKey, v)} />
                   </div>
                 </div>
@@ -88,11 +88,11 @@ export function JobForm({ initialData }: { initialData?: Partial<FormData> & { i
         </Tabs>
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-[#1F2937]">Requirements</label>
+          <label className="text-sm font-medium text-[#1F2937]">Yêu cầu công việc</label>
           <RichTextEditor value={watch('requirements')} onChange={(v) => setValue('requirements', v)} />
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-[#1F2937]">Benefits</label>
+          <label className="text-sm font-medium text-[#1F2937]">Quyền lợi</label>
           <RichTextEditor value={watch('benefits')} onChange={(v) => setValue('benefits', v)} />
         </div>
       </div>

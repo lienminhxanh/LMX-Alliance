@@ -32,12 +32,12 @@ export default function LoginPage() {
           </div>
           <div>
             <p className="font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>LMX Alliance</p>
-            <p className="text-xs text-[#6B7280]">Admin Panel</p>
+            <p className="text-xs text-[#6B7280]">Trang quản trị</p>
           </div>
         </div>
 
         <div className="bg-white border border-[#E8E9ED] p-8" style={{ borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.08)' }}>
-          <h1 className="text-xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Sign In</h1>
+          <h1 className="text-xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Đăng nhập</h1>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
@@ -49,7 +49,7 @@ export default function LoginPage() {
               required
             />
             <Input
-              label="Password"
+              label="Mật khẩu"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -63,10 +63,10 @@ export default function LoginPage() {
               </div>
             )}
             <Button type="submit" loading={loading} className="w-full">
-              Sign In
+              Đăng nhập
             </Button>
           </form>
-          <p className="text-xs text-[#6B7280] mt-4">Default: admin@lmxalliance.com / Admin@123456</p>
+          <p className="text-xs text-[#6B7280] mt-4">Mặc định: admin@lmxalliance.com / Admin@123456</p>
         </div>
       </div>
     </div>

@@ -22,18 +22,18 @@ export default async function DashboardPage() {
   ]);
 
   const kpis = [
-    { label: 'Business Sectors', value: sectorsCount, icon: Layers, href: '/admin/sectors', color: 'bg-blue-50 text-blue-600' },
-    { label: 'Published News', value: newsCount, icon: Newspaper, href: '/admin/news', color: 'bg-green-50 text-[#059669]' },
-    { label: 'Open Jobs', value: openJobs, icon: Briefcase, href: '/admin/jobs', color: 'bg-amber-50 text-amber-600' },
-    { label: 'Shareholder Docs', value: irDocs, icon: TrendingUp, href: '/admin/shareholder-relations/documents', color: 'bg-purple-50 text-purple-600' },
-    { label: 'New Contacts', value: pendingContacts, icon: MessageSquare, href: '/admin/contacts', color: 'bg-red-50 text-[#DC2626]' },
+    { label: 'Lĩnh vực hoạt động', value: sectorsCount, icon: Layers, href: '/admin/sectors', color: 'bg-blue-50 text-blue-600' },
+    { label: 'Tin đã đăng', value: newsCount, icon: Newspaper, href: '/admin/news', color: 'bg-green-50 text-[#059669]' },
+    { label: 'Tin tuyển dụng đang mở', value: openJobs, icon: Briefcase, href: '/admin/jobs', color: 'bg-amber-50 text-amber-600' },
+    { label: 'Tài liệu cổ đông', value: irDocs, icon: TrendingUp, href: '/admin/shareholder-relations/documents', color: 'bg-purple-50 text-purple-600' },
+    { label: 'Liên hệ mới', value: pendingContacts, icon: MessageSquare, href: '/admin/contacts', color: 'bg-red-50 text-[#DC2626]' },
   ];
 
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Dashboard</h1>
-        <p className="text-sm text-[#6B7280] mt-1">Welcome back, {session.user?.name}</p>
+        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Tổng quan</h1>
+        <p className="text-sm text-[#6B7280] mt-1">Chào mừng trở lại, {session.user?.name}</p>
       </div>
 
       {/* KPI Cards */}
@@ -56,8 +56,8 @@ export default async function DashboardPage() {
         {/* Recent Contacts */}
         <Card padding={false}>
           <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E9ED]">
-            <h3 className="font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Recent Contacts</h3>
-            <Link href="/admin/contacts" className="text-xs text-[#6B7280] hover:text-[#1F2937]">View all →</Link>
+            <h3 className="font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Liên hệ gần đây</h3>
+            <Link href="/admin/contacts" className="text-xs text-[#6B7280] hover:text-[#1F2937]">Xem tất cả →</Link>
           </div>
           <div className="divide-y divide-[#F5F6F8]">
             {recentContacts.map((c) => (
@@ -67,12 +67,12 @@ export default async function DashboardPage() {
                   <p className="text-xs text-[#6B7280]">{c.subject}</p>
                 </div>
                 <Badge variant={c.status === 'NEW' ? 'danger' : c.status === 'PROCESSING' ? 'warning' : 'success'}>
-                  {c.status}
+                  {{ NEW: 'Mới', PROCESSING: 'Đang xử lý', RESPONDED: 'Đã phản hồi', CLOSED: 'Đã đóng' }[c.status] ?? c.status}
                 </Badge>
               </div>
             ))}
             {recentContacts.length === 0 && (
-              <p className="px-6 py-4 text-sm text-[#6B7280]">No contacts yet</p>
+              <p className="px-6 py-4 text-sm text-[#6B7280]">Chưa có liên hệ nào</p>
             )}
           </div>
         </Card>
@@ -80,8 +80,8 @@ export default async function DashboardPage() {
         {/* Recent News */}
         <Card padding={false}>
           <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E9ED]">
-            <h3 className="font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Recent News</h3>
-            <Link href="/admin/news" className="text-xs text-[#6B7280] hover:text-[#1F2937]">View all →</Link>
+            <h3 className="font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Tin tức gần đây</h3>
+            <Link href="/admin/news" className="text-xs text-[#6B7280] hover:text-[#1F2937]">Xem tất cả →</Link>
           </div>
           <div className="divide-y divide-[#F5F6F8]">
             {recentNews.map((a) => (
@@ -91,12 +91,12 @@ export default async function DashboardPage() {
                   <p className="text-xs text-[#6B7280]">{formatDate(a.createdAt)}</p>
                 </div>
                 <Badge variant={a.status === 'PUBLISHED' ? 'success' : a.status === 'DRAFT' ? 'default' : 'warning'}>
-                  {a.status}
+                  {{ PUBLISHED: 'Đã đăng', DRAFT: 'Nháp', SCHEDULED: 'Lên lịch', ARCHIVED: 'Lưu trữ' }[a.status] ?? a.status}
                 </Badge>
               </div>
             ))}
             {recentNews.length === 0 && (
-              <p className="px-6 py-4 text-sm text-[#6B7280]">No articles yet</p>
+              <p className="px-6 py-4 text-sm text-[#6B7280]">Chưa có bài viết nào</p>
             )}
           </div>
         </Card>

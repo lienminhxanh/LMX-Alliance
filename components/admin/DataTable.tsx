@@ -50,7 +50,7 @@ export function DataTable<T extends Record<string, any>>({ columns, data, search
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search..."
+            placeholder="Tìm kiếm..."
             className="pl-8 pr-3 py-2 text-sm border border-[#E8E9ED] w-full focus:outline-none focus:border-[#1F2937]"
             style={{ borderRadius: '2px' }}
           />
@@ -82,7 +82,7 @@ export function DataTable<T extends Record<string, any>>({ columns, data, search
           <tbody>
             {sorted.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="px-4 py-8 text-center text-[#6B7280]">No data</td>
+                <td colSpan={columns.length} className="px-4 py-8 text-center text-[#6B7280]">Không có dữ liệu</td>
               </tr>
             ) : (
               sorted.map((row, i) => (

@@ -24,20 +24,20 @@ export function HeroForm({ initialData }: { initialData?: any }) {
   };
 
   return (
-    <div className="max-w-2xl space-y-6">
+    <div className="max-w-2xl space-y-6 mx-auto">
       <div className="grid grid-cols-1 gap-4">
-        <Textarea label="Hero Title (VI)" rows={2} value={form.heroTitleVI} onChange={(e) => set('heroTitleVI', e.target.value)} />
-        <Textarea label="Hero Title (EN)" rows={2} value={form.heroTitleEN} onChange={(e) => set('heroTitleEN', e.target.value)} />
-        <Textarea label="Hero Title (ZH)" rows={2} value={form.heroTitleZH} onChange={(e) => set('heroTitleZH', e.target.value)} />
+        <Textarea label="Tiêu đề banner (VI)" rows={2} value={form.heroTitleVI} onChange={(e) => set('heroTitleVI', e.target.value)} />
+        <Textarea label="Tiêu đề banner (EN)" rows={2} value={form.heroTitleEN} onChange={(e) => set('heroTitleEN', e.target.value)} />
+        <Textarea label="Tiêu đề banner (ZH)" rows={2} value={form.heroTitleZH} onChange={(e) => set('heroTitleZH', e.target.value)} />
       </div>
       <div className="grid grid-cols-1 gap-4">
-        <Textarea label="Hero Description (VI)" rows={3} value={form.heroDescVI} onChange={(e) => set('heroDescVI', e.target.value)} />
-        <Textarea label="Hero Description (EN)" rows={3} value={form.heroDescEN} onChange={(e) => set('heroDescEN', e.target.value)} />
-        <Textarea label="Hero Description (ZH)" rows={3} value={form.heroDescZH} onChange={(e) => set('heroDescZH', e.target.value)} />
+        <Textarea label="Mô tả banner (VI)" rows={3} value={form.heroDescVI} onChange={(e) => set('heroDescVI', e.target.value)} />
+        <Textarea label="Mô tả banner (EN)" rows={3} value={form.heroDescEN} onChange={(e) => set('heroDescEN', e.target.value)} />
+        <Textarea label="Mô tả banner (ZH)" rows={3} value={form.heroDescZH} onChange={(e) => set('heroDescZH', e.target.value)} />
       </div>
-      <Input label="CTA Button Text" value={form.heroCTA} onChange={(e) => set('heroCTA', e.target.value)} />
-      <ImageField label="Hero Image" value={form.heroImage} onChange={(url) => set('heroImage', url)} />
-      <Button onClick={save} loading={saving}>{saved ? '✓ Saved' : 'Save Hero'}</Button>
+      <Input label="Nội dung nút CTA" value={form.heroCTA} onChange={(e) => set('heroCTA', e.target.value)} />
+      <ImageField label="Ảnh banner" value={form.heroImage} onChange={(url) => set('heroImage', url)} />
+      <Button onClick={save} loading={saving}>{saved ? '✓ Đã lưu' : 'Lưu banner'}</Button>
     </div>
   );
 }

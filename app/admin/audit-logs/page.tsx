@@ -20,16 +20,16 @@ export default async function AuditLogsPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Audit Logs</h1>
+      <h1 className="text-2xl font-semibold text-[#1F2937] mb-6" style={{ fontFamily: 'var(--font-display)' }}>Nhật ký hoạt động</h1>
       <Card padding={false}>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[#E8E9ED]">
-              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">User</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Action</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Entity</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Người dùng</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Hành động</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Đối tượng</th>
               <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">IP</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Time</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase">Thời gian</th>
             </tr>
           </thead>
           <tbody>
@@ -45,7 +45,7 @@ export default async function AuditLogsPage() {
                 <td className="px-4 py-3 text-[#6B7280]">{formatDate(log.createdAt)}</td>
               </tr>
             ))}
-            {logs.length === 0 && <tr><td colSpan={5} className="px-4 py-8 text-center text-[#6B7280]">No logs yet</td></tr>}
+            {logs.length === 0 && <tr><td colSpan={5} className="px-4 py-8 text-center text-[#6B7280]">Chưa có nhật ký nào</td></tr>}
           </tbody>
         </table>
       </Card>

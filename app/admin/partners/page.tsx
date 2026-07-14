@@ -13,7 +13,7 @@ export default async function PartnersAdminPage() {
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Partners</h1>
+        <h1 className="text-2xl font-semibold text-[#1F2937]" style={{ fontFamily: 'var(--font-display)' }}>Đối tác</h1>
         <PartnerActions mode="create" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -35,13 +35,13 @@ export default async function PartnersAdminPage() {
               )}
               <div className="min-w-0 flex-1">
                 <p className="font-semibold text-[#1F2937] truncate text-sm" title={p.nameVI}>{p.nameVI}</p>
-                <p className="text-xs text-[#6B7280] truncate">{p.website || 'No website'}</p>
+                <p className="text-xs text-[#6B7280] truncate">{p.website || 'Chưa có website'}</p>
               </div>
             </div>
             <PartnerActions mode="edit" partner={p} />
           </Card>
         ))}
-        {partners.length === 0 && <div className="col-span-3 text-center py-12 text-[#6B7280]">No partners yet</div>}
+        {partners.length === 0 && <div className="col-span-3 text-center py-12 text-[#6B7280]">Chưa có đối tác nào</div>}
       </div>
     </div>
   );

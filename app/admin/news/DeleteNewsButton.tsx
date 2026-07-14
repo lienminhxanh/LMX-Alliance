@@ -9,14 +9,14 @@ export function DeleteNewsButton({ id }: { id: string }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handle = async () => {
-    if (!confirm('Are you sure you want to delete this article?')) return;
+    if (!confirm('Bạn có chắc muốn xóa bài viết này?')) return;
     setLoading(true);
     try {
       await deleteArticle(id);
       router.refresh();
     } catch (e) {
       console.error(e);
-      alert('Failed to delete. It may be linked to other records.');
+      alert('Xóa thất bại. Bài viết có thể đang liên kết với dữ liệu khác.');
     } finally {
       setLoading(false);
     }

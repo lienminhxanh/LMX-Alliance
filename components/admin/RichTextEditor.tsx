@@ -62,7 +62,7 @@ export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorP
       const { url } = await res.json();
       editor.chain().focus().setImage({ src: url, alt: file.name }).run();
     } else {
-      alert('Image upload failed. Please try again.');
+      alert('Tải ảnh lên thất bại. Vui lòng thử lại.');
     }
   };
 
@@ -80,13 +80,13 @@ export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorP
         <button type="button" onClick={() => editor.chain().focus().toggleOrderedList().run()} className={btn(editor.isActive('orderedList'))}><ListOrdered size={14} /></button>
         <div className="w-px h-4 bg-[#E8E9ED] mx-1" />
         <button type="button" onClick={() => {
-          const url = window.prompt('URL:');
+          const url = window.prompt('Nhập URL:');
           if (url) editor.chain().focus().setLink({ href: url }).run();
         }} className={btn(editor.isActive('link'))}><Link2 size={14} /></button>
         {/* Image upload button */}
         <button
           type="button"
-          title="Insert image (upload file)"
+          title="Chèn ảnh (tải file lên)"
           disabled={uploading}
           onClick={() => imgInputRef.current?.click()}
           className={btn(false)}
